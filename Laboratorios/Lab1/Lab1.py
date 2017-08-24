@@ -63,20 +63,6 @@ def printinfile(methodToRun, *args):
 	methodToRun(*args)
 	after = time.clock()*1000000000
 	myFile.write('\n'+str(after - now))
-
-def uploadgit(direction, comment, *args):
-	"""
-	Uploads files to git
-	:param direction: the direction of the git to upload
-	:param comment: the comment of the upload
-	:param args: the files to upload
-	:return: nothing
-	"""
-	subprocess.call(["cd", "~/" + direction])
-	for arg in args:
-		subprocess.call(["git add", arg])
-		subprocess.call(["git commit", comment])
-		subprocess.call(["git push", ""])
 		
 def timesinmethods():
 	"""

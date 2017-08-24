@@ -9,7 +9,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Lab1</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/juanse/Documents/Lab1.py">/home/juanse/Documents/Lab1.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/juanse/Documents/JuanSePlazas/Laboratorios/Lab1/Lab1.py">/home/juanse/Documents/JuanSePlazas/Laboratorios/Lab1/Lab1.py</a></font></td></tr></table>
     <p></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -18,29 +18,35 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="random.html">random</a><br>
-</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numbers.html">numbers</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="random.html">random</a><br>
+</td><td width="25%" valign=top><a href="subprocess.html">subprocess</a><br>
+<a href="sys.html">sys</a><br>
 </td><td width="25%" valign=top><a href="time.html">time</a><br>
-</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#eeaa77">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-ArrayMax"><strong>ArrayMax</strong></a>(nums, n)</dt><dd><tt>:param&nbsp;nums:&nbsp;arrary&nbsp;with&nbsp;numbers<br>
+<td width="100%"><dl><dt><a name="-arraymax"><strong>arraymax</strong></a>(nums, n)</dt><dd><tt>:param&nbsp;nums:&nbsp;arrary&nbsp;with&nbsp;numbers<br>
 :param&nbsp;n:&nbsp;index&nbsp;in&nbsp;the&nbsp;array<br>
 :return:&nbsp;the&nbsp;biggest&nbsp;number&nbsp;of&nbsp;the&nbsp;array</tt></dd></dl>
- <dl><dt><a name="-ArraySum"><strong>ArraySum</strong></a>(nums, i)</dt><dd><tt>:param&nbsp;nums:&nbsp;arrary&nbsp;with&nbsp;numbers<br>
+ <dl><dt><a name="-arraysum"><strong>arraysum</strong></a>(nums, i)</dt><dd><tt>:param&nbsp;nums:&nbsp;arrary&nbsp;with&nbsp;numbers<br>
 :param&nbsp;i:&nbsp;index&nbsp;in&nbsp;the&nbsp;array<br>
 :return:&nbsp;the&nbsp;sum&nbsp;of&nbsp;all&nbsp;the&nbsp;numbers&nbsp;of&nbsp;the&nbsp;array</tt></dd></dl>
- <dl><dt><a name="-Fibonacci"><strong>Fibonacci</strong></a>(n)</dt><dd><tt>:param&nbsp;n:&nbsp;the&nbsp;wanted&nbsp;fibonacci&nbsp;number<br>
+ <dl><dt><a name="-fibonacci"><strong>fibonacci</strong></a>(n)</dt><dd><tt>:param&nbsp;n:&nbsp;the&nbsp;wanted&nbsp;fibonacci&nbsp;number<br>
 :return:&nbsp;the&nbsp;nth&nbsp;fibonacci&nbsp;number</tt></dd></dl>
- <dl><dt><a name="-RandomArray"><strong>RandomArray</strong></a>(n)</dt><dd><tt>:param&nbsp;n:&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;array<br>
-:return:&nbsp;a&nbsp;random&nbsp;array&nbsp;with&nbsp;size&nbsp;n</tt></dd></dl>
- <dl><dt><a name="-printInFile"><strong>printInFile</strong></a>(methodToRun, *args)</dt><dd><tt>Prints&nbsp;the&nbsp;time&nbsp;to&nbsp;run&nbsp;in&nbsp;a&nbsp;file<br>
+ <dl><dt><a name="-printinfile"><strong>printinfile</strong></a>(methodToRun, *args)</dt><dd><tt>Prints&nbsp;the&nbsp;time&nbsp;to&nbsp;run&nbsp;in&nbsp;a&nbsp;file<br>
 :param&nbsp;methodToRun:&nbsp;the&nbsp;method&nbsp;that&nbsp;you're&nbsp;going&nbsp;to&nbsp;test<br>
 :param&nbsp;args:&nbsp;the&nbsp;arguments&nbsp;that&nbsp;the&nbsp;method&nbsp;needs<br>
+:return:&nbsp;nothing</tt></dd></dl>
+ <dl><dt><a name="-randomarray"><strong>randomarray</strong></a>(n)</dt><dd><tt>:param&nbsp;n:&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;array<br>
+:return:&nbsp;a&nbsp;random&nbsp;array&nbsp;with&nbsp;size&nbsp;n</tt></dd></dl>
+ <dl><dt><a name="-timesinmethods"><strong>timesinmethods</strong></a>()</dt><dd><tt>Calculates&nbsp;the&nbsp;time&nbsp;of&nbsp;each&nbsp;method<br>
 :return:&nbsp;nothing</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -49,7 +55,7 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>i</strong> = 16<br>
-<strong>myFile</strong> = &lt;open file 'Tables.csv', mode 'w'&gt;<br>
-<strong>nameOfFile</strong> = 'Tables.csv'</td></tr></table>
+<td width="100%"><strong>myFile</strong> = &lt;closed file 'Tables.csv', mode 'w'&gt;<br>
+<strong>nameOfFile</strong> = 'Tables.csv'<br>
+<strong>names</strong> = ('ArraySum: <font color="#c040c0">\n</font>', 'ArrayMax: <font color="#c040c0">\n</font>', 'Fibonacci: <font color="#c040c0">\n</font>')</td></tr></table>
 </body></html>
