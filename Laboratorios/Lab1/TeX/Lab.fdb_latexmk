@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Lab"] 1503517793 "Lab.aux" "Lab.bbl" "Lab" 1503517794
+["bibtex Lab"] 1503610383 "Lab.aux" "Lab.bbl" "Lab" 1503610385
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lab.aux" 1503517794 1342 d97e7e048e9cc26d61097925e86e924b ""
-  "Lab.bib" 1503500488 517 05157676b6d8591a18c7d1374b96d03d ""
+  "Lab.aux" 1503610384 1634 de4a7a8f296db7d30054496a18c2d289 ""
+  "Lab.bib" 1503607525 517 05157676b6d8591a18c7d1374b96d03d ""
   (generated)
   "Lab.blg"
   "Lab.bbl"
-["pdflatex"] 1503517794 "Lab.tex" "Lab.pdf" "Lab" 1503517794
+["pdflatex"] 1503610383 "Lab.tex" "Lab.pdf" "Lab" 1503610385
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -60,9 +60,11 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/size12.clo" 1480098821 8303 1d67e16498f00f63da792fab169302fc ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.dfu" 1487721667 11255 9d97362866549d3d3c994b5f28d1b9b5 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/utf8.def" 1487721667 7784 325a2a09984cb5c4ff230f9867145ad3 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption3.sty" 1480098823 64866 1ea74c5f2d1685881497f021b8f186b2 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty" 1480098827 42666 6fa770e3485520a6a5f2ea7d259c8f8d ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1480098827 22494 ab2f238426db63334832f85a72ef1f3b ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty" 1480098827 45360 a0833d32f1b541964596b02870342d5a ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/floatrow/floatrow.sty" 1480098828 60013 31ae5968a4a3fc2e332dd6a87f8e924b ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty" 1480098829 40502 e003406220954b0716679d7928aedd8a ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1480098830 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1480098830 1224 978390e9c2234eab29404bc21b268d1e ""
@@ -71,6 +73,7 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty" 1492297155 14603 b288c52bd5d46d593af31dbc7e548236 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty" 1480098830 8125 557ab9f1bfa80d369fb45a914aa8a3b4 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty" 1480098830 2594 d18d5e19aa8239cf867fa670c556d2e9 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/rotating.sty" 1485129666 6969 f1843f5f0545182bf419df38f75e3930 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty" 1480098830 3980 0a268fbfda01e381fa95821ab13b6aee ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.def" 1489964469 51983 9a4f683a2a7b213874a28bc4008b84d9 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty" 1489964469 233808 b63d91422c362e723c6e8b1a2fffcba5 ""
@@ -92,13 +95,14 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "Lab.aux" 1503517794 1342 d97e7e048e9cc26d61097925e86e924b ""
-  "Lab.bbl" 1503517794 484 a997dc12b164b87df91b9c016c93a5be "bibtex Lab"
-  "Lab.out" 1503517794 261 d20b64998281c702851a5c24c94b75fb ""
-  "Lab.tex" 1503517782 14494 1f5f1827308ae035298f4e745588be7b ""
-  "logo.pdf" 1503434229 6917 5f078af3caefd2e1519d586d9fde82d9 ""
+  "ArrayMax.pdf" 1503609816 20341 aab1e7c8d9421afa36bdbd2f875972af ""
+  "Lab.aux" 1503610384 1634 de4a7a8f296db7d30054496a18c2d289 ""
+  "Lab.bbl" 1503610383 484 a997dc12b164b87df91b9c016c93a5be "bibtex Lab"
+  "Lab.out" 1503610384 304 b2226429a5d2d0225f1ac931ff6a279c ""
+  "Lab.tex" 1503610380 15180 1334d8f6d6ac8e70d51e61c1d6f99fcf ""
+  "logo.pdf" 1503607525 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.aux"
+  "Lab.log"
   "Lab.out"
   "Lab.pdf"
-  "Lab.log"
+  "Lab.aux"
