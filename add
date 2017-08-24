@@ -1,0 +1,6 @@
+#!/bin/bash
+read -p 'Insert the files name' file
+git add $file
+read -p 'Insert the comment for the update' comment
+git commit -m $comment
+git push
