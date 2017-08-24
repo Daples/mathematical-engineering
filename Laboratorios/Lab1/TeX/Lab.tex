@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{titlesec}
+\usepackage{floatrow}
 
 \definecolor{customGray}{RGB}{128,128,128}
 %\definecolor{Eblue}{RGB}{0,21,87}
@@ -258,16 +259,16 @@
           if (nums[i] == nums[start]) {                  // c7 * n
             sum += nums[start];                          // c8 * n
           } else {                                       // c9 * n
-            break;                                       // c10 * n
+            break;                                       // c10
           }
         }
         return groupSumClump(i, nums, target - sum)
-        || groupSumClump(i, nums, target);               // c12 + 2T(n-1)
+        || groupSumClump(i, nums, target);               // 2T(n-1)
       }
       \end{Verbatim}
       Can be writen as:
       \begin{equation*}
-        T\left(n\right)=\left\{\begin{array}{cc}c_{3}&n\leq \text{start}\\c_{1}+c_{2}+c_{4}+c_{5}+c_{12}+\left(c_{6}+c_{7}+c_{8}+c_{9}+c_{10}\right)n+2T\left(n-1\right) & n>start\end{array}\right.
+        T\left(n\right)=\left\{\begin{array}{cc}c_{3}&n\leq \text{start}\\c_{1}+c_{2}+c_{4}+c_{5}+\left(c_{6}+c_{7}+c_{8}\right)n+2T\left(n-1\right) & n>start\end{array}\right.
       \end{equation*}
       The solution to this recursive equation is:
       \begin{equation*}
@@ -326,7 +327,13 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     \end{enumerate}\cite{Wolfram}
 
     \section{ArrayMax}
-    
+    \begin{figure}[ht]
+      \begin{floatrow}
+        \ffigbox{
+
+        }
+      \end{floatrow}
+    \end{figure}[ht]
 
 
 
