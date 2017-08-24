@@ -327,11 +327,12 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
       \end{Verbatim}
     \end{enumerate}\cite{Wolfram}
 
+    \newpage
     \section{ArrayMax}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.5]{ArrayMax.pdf}
+          \includegraphics[scale=0.4]{ArrayMax.pdf}
         }{
           \caption{Time vs. N for ArrayMax}
         }
@@ -350,6 +351,51 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
       \end{floatrow}
     \end{figure}
 
+    \section{ArraySum}
+    \begin{figure}[ht]
+      \begin{floatrow}
+        \ffigbox{
+          \includegraphics[scale=0.4]{ArraySum.pdf}
+        }{
+          \caption{Time vs. N for ArraySum}
+        }
+        \capbtabbox{
+          \begin{tabular}{cc}
+            \hline
+            \textbf{N} & \textbf{Time (ns)} \\ \hline
+            10         & 8000               \\
+            100        & 26000              \\
+            1000       & 463000             \\
+            10000      & 5227000            \\ \hline
+          \end{tabular}
+        }{
+          \caption{ArrayMax's data.}
+        }
+      \end{floatrow}
+    \end{figure}
+
+    \section{Fibonacci}
+    \begin{figure}[ht]
+      \begin{floatrow}
+        \ffigbox{
+          \includegraphics[scale=0.4]{Fibonacci.pdf}
+        }{
+          \caption{Time vs. N for Fibonacci}
+        }
+        \capbtabbox{
+          \begin{tabular}{cc}
+            \hline
+            \textbf{N} & \textbf{Time (ns)} \\ \hline
+            4         & 5000               \\
+            8        & 9000              \\
+            12       & 51000             \\
+            16      & 356000            \\ \hline
+          \end{tabular}
+        }{
+          \caption{ArrayMax's data.}
+        }
+      \end{floatrow}
+    \end{figure}
 
 
     \section{What did you learn about \texttt{Stack Overflow}?}
