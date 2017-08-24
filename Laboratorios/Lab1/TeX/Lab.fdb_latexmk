@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Lab"] 1503611370 "Lab.aux" "Lab.bbl" "Lab" 1503611372
+["bibtex Lab"] 1503612006 "Lab.aux" "Lab.bbl" "Lab" 1503612007
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lab.aux" 1503611371 2220 dac76a9a121048f41b7e20addba7c4e8 ""
+  "Lab.aux" 1503612007 2416 010eab054968b3a88d497b78bb599572 ""
   "Lab.bib" 1503607525 517 05157676b6d8591a18c7d1374b96d03d ""
   (generated)
   "Lab.bbl"
   "Lab.blg"
-["pdflatex"] 1503611370 "Lab.tex" "Lab.pdf" "Lab" 1503611372
+["pdflatex"] 1503612006 "Lab.tex" "Lab.pdf" "Lab" 1503612007
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -34,6 +34,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1480098733 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1480098733 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1480098733 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb" 1480098733 24457 5cbb7bdf209d5d1ce9892a9b80a307cc ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1480098733 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -98,13 +99,13 @@
   "ArrayMax.pdf" 1503609816 20341 aab1e7c8d9421afa36bdbd2f875972af ""
   "ArraySum.pdf" 1503609816 19572 3ed371eac7e96878a4dfe67a2395f491 ""
   "Fibonacci.pdf" 1503609816 16427 35329dd5dcc211ccd983e52e58d14f4f ""
-  "Lab.aux" 1503611371 2220 dac76a9a121048f41b7e20addba7c4e8 ""
-  "Lab.bbl" 1503611370 484 a997dc12b164b87df91b9c016c93a5be "bibtex Lab"
-  "Lab.out" 1503611371 391 c1ad873213fb4b457023b499b14147b5 ""
-  "Lab.tex" 1503611317 16472 340c94001d427526b94334be29cdfe4a ""
+  "Lab.aux" 1503612007 2416 010eab054968b3a88d497b78bb599572 ""
+  "Lab.bbl" 1503612006 484 a997dc12b164b87df91b9c016c93a5be "bibtex Lab"
+  "Lab.out" 1503612007 549 ebc56353ad3a07427309abadd69cd89f ""
+  "Lab.tex" 1503612005 17665 34650067cad98c9fa477878b6bd5610e ""
   "logo.pdf" 1503607525 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.log"
   "Lab.out"
-  "Lab.pdf"
   "Lab.aux"
+  "Lab.pdf"
+  "Lab.log"

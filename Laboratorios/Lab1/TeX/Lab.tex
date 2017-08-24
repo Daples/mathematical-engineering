@@ -404,8 +404,20 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
       condition.\cite{StackOverflow} Java Stack memory is used for execution of a thread.
       Whenever a method is invoked, a new block is created in the stack memory for the method to hold
       local primitive values and reference to other objects in the method.\cite{HeapStack}
+    \section{What's the biggest Fibonacci value you were able to compute? Why? Why are you not able to compute Fibonacci with 1 million?}
+    The maximum Fibonacci number we could calculate was the 51th number of the series on our computers on
+    a reasonable time; as a side note, we could calculate bigger values but the time of doing so isn't worth
+    it compared to the computational cost. We couldn't calculate bigger for two reasons:
 
+    - The time would be really big, as of lasting days or weeks to calculate.
+    - The ram of the computer has a limited space so, even if we set the stack size to a really big
+    number, the memory consumed will eventually occupied the whole ram memory.
 
+    The number of operations the computer has to do for big values is approximately in the order of
+    an exponential base 2. In this manner, to calculate the millionth term of the series it would need
+    around $2^{10^6}$, even if we had a 4 GHz computer processor the time it would take whould be
+    $2^{10^6-2}*10^{-9}$. Additionally, if we had infinite time to calculate this term we cannot solve the
+    problem that we do need finite memory to fill the stack memory for the recursion.
     \newpage
     \bibliographystyle{plain}
     \bibliography{Lab.bib}
