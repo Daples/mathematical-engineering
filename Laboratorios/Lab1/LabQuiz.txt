@@ -1,0 +1,6 @@
+1. start+1, nums, target
+2. a) T(n) = T(n/2) + C
+3. n-a,a,b,c
+   res, solucionar(n-b,a,b,c)+1
+   res, solucionar(n-c,a,b,c)+1
+4. e) La suma de los elementos de a y es O(n)
