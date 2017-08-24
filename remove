@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Insert the file to remove"
+read file
+git rm $file
+git commit -m 'Deleting $file'
+git push
