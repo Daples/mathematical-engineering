@@ -1,0 +1,5 @@
+We can conclude that when we use one recursion the complexity is n and, if we use two
+recursive calls has 2^n of complexity. In general terms, I thinks is safe to assume that
+for i recursion calls the complexity of the algorithm is:
+	if i <= 1: i
+	else:      i^n
