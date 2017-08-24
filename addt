@@ -1,6 +1,6 @@
 #!/bin/bash
 ./update
 git add .
-read -p 'Insert the comment for the update' comment
+read -p 'Insert the comment for the update ' comment
 git commit -m $comment
 git push
