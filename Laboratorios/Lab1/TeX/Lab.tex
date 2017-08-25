@@ -418,6 +418,13 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     around $2^{10^6}$, even if we had a 4 GHz computer processor the time it would take whould be
     $2^{10^6-2}*10^{-9}$. Additionally, if we had infinite time to calculate this term we cannot solve the
     problem that we do need finite memory to fill the stack memory for the recursion.
+
+    \section{What can you say about between the complexity of \texttt{Recursion I} and \texttt{Recursion II}}?
+    We can conclude that when we use one recursion the complexity is n and, if we use t$
+recursive calls has 2^n of complexity. In general terms, I thinks is safe to assume$
+for i recursion calls the complexity of the algorithm is:
+        if i <= 1: i
+        else:      i^n
     \newpage
     \bibliographystyle{plain}
     \bibliography{Lab.bib}
