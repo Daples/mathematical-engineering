@@ -179,18 +179,27 @@
       \end{equation*}
       Then $T(n)$ is $O(c_4n+k)$ and applying the product and sum rules, we obtain that $T(n)$ is $O(n)$.
       \item \begin{Verbatim}
-      public int strCount(String str, String sub) {
-        int a = str.length();
-        int b = sub.length();
-        if (a < b || b == 0){
-          return 0;
+      public int strCount(String str, String sub) {      // c0
+        int a = str.length();                            // c1
+        int b = sub.length();                            // c2
+        if (a < b || b == 0) {                           // c3
+          return 0;                                      // c4
         }
-        if (str.substring(a - b).equals(sub)) {
-          return 1 + strCount(str.substring(0,a - b),sub);
+        if (str.substring(a - b).equals(sub)) {          // c6
+          return 1 + strCount(str.substring(0,a-b),sub); // c7 + T(n-m,m)
         }
-        return strCount(str.substring(0,a - 1), sub);
+        return strCount(str.substring(0,a - 1), sub);    // T(n-1,m)
       }
       \end{Verbatim}
+      The complexity of \texttt{strCount} can be writen as:
+      \begin{equation*}
+        T\left( n,m \right)=\left\{\begin{array}{cc} c_{1}+c_{2}+c_{3}+c_{4} & n<m || m=0 \\ c_{6}+T\left( n-1,m \right) & n\geq m \&\& m\neq 0\end{array}\right.
+      \end{equation*}
+      Solving the recursive equation yields:
+      \begin{equation*}
+        T(n)=kn+c_6
+      \end{equation*}
+      Then $T(n)$ is $O(kn+c_6)$ and applying the product and sum rules, we obtain that $T(n)$ is $O(n)$.
     \end{enumerate}
 
     \subsection{Recursion II}
@@ -310,17 +319,21 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
         return split53Aux(nums, 0, 0, 0);
       }
       public boolean split53Aux(int [] nums, int start,
-        int first, int second) {
-        if (start == nums.length) {
-          return first == second;
-        } else {
+        int first, int second) {                       // c0
+        if (start == nums.length) {                    // c1
+          return first == second;                      // c2
+        } else {                                       //
           if (nums[start] % 5 == 0) {
-            return split53Aux(nums, start + 1, first + nums[start], second);
+            return split53Aux(nums, start + 1, first
+            + nums[start], second);
           } else if (nums[start] % 3 == 0) {
-            return split53Aux(nums, start + 1, first, second + nums[start]);
+            return split53Aux(nums, start + 1, first,
+            second + nums[start]);
           } else {
-            return split53Aux(nums, start + 1, first + nums[start], second)
-            || split53Aux(nums, start + 1, first, second + nums[start]);
+            return split53Aux(nums, start + 1, first
+            + nums[start], second)
+            || split53Aux(nums, start + 1, first,
+            second + nums[start]);
           }
         }
       }
@@ -426,19 +439,19 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     \section{How can you compute Fibonacci of big values?}
     We can use Dynamic Programming. Dynamic Programming is a method to solve recursive algorithms more efficently;
     the main idea is to use \textbf{memoization}, where we have to store the solution of the subprocesses that the
-    algorithm would have to repeat each time, in order not to solve them again. One approach to the solution using
-    \textbf{memoization} is showed below:
+    algorithm would have to repeat each time it is executed, in order not to solve them again. One approach to the
+    solution using \textbf{memoization} is showed below: \cite{SJ}
     \begin{Verbatim}
-      public int fibTopDown(int n) {
-		    if(n == 0) return 1;
-		    if(n == 1) return 1;
-		    if(fib[n] != 0) {
-		      return fib[n];
-		    } else {
-			     fib[n] = fibTopDown(n-1) + fibTopDown(n-2);
-			     return fib[n];
-		    }
-	   }
+    public int fibTopDown(int n) {
+     if(n == 0) return 1;
+     if(n == 1) return 1;
+     if(fib[n] != 0) {
+       return fib[n];
+     } else {
+      fib[n] = fibTopDown(n-1) + fibTopDown(n-2);
+  	  return fib[n];
+     }
+    }
     \end{Verbatim}
 
 
