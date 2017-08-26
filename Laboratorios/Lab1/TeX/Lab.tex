@@ -332,7 +332,7 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.4]{ArrayMax.pdf}
+          \includegraphics[scale=0.45]{ArrayMax.pdf}
         }{
           \caption{Time vs. N for ArrayMax}
         }
@@ -355,7 +355,7 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.4]{ArraySum.pdf}
+          \includegraphics[scale=0.45]{ArraySum.pdf}
         }{
           \caption{Time vs. N for ArraySum}
         }
@@ -378,7 +378,7 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.4]{Fibonacci.pdf}
+          \includegraphics[scale=0.45]{Fibonacci.pdf}
         }{
           \caption{Time vs. N for Fibonacci}
         }
@@ -423,12 +423,44 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     $2^{10^6-2}*10^{-9}$. Additionally, if we had infinite time to calculate this term we cannot solve the
     problem that we do need finite memory to fill the stack memory for the recursion.
 
-    \section{What can you say about between the complexity of \texttt{Recursion I} and \texttt{Recursion II}}?
-    We can conclude that when we use one recursion the complexity is n and, if we use t$
-recursive calls has 2^n of complexity. In general terms, I thinks is safe to assume$
-for i recursion calls the complexity of the algorithm is:
-        if i <= 1: i
-        else:      i^n
+    \section{How can you compute Fibonacci of big values?}
+    We can use Dynamic Programming. Dynamic Programming is a method to solve recursive algorithms more efficently;
+    the main idea is to use \textbf{memoization}, where we have to store the solution of the subprocesses that the
+    algorithm would have to repeat each time, in order not to solve them again. One approach to the solution using
+    \textbf{memoization} is showed below:
+    \begin{Verbatim}
+      public int fibTopDown(int n) {
+		    if(n == 0) return 1;
+		    if(n == 1) return 1;
+		    if(fib[n] != 0) {
+		      return fib[n];
+		    } else {
+			     fib[n] = fibTopDown(n-1) + fibTopDown(n-2);
+			     return fib[n];
+		    }
+	   }
+    \end{Verbatim}
+
+
+
+    \section{What can you say between the complexity of \texttt{Recursion I} and \texttt{Recursion II} from \texttt{CodingBat}?}
+    We can conclude that when we use one recursion, the complexity is n and, if we use two
+    recursive calls, it is $2^n$. In general terms, we think it is safe to assume that
+    for i recursion calls the complexity of the algorithm is $O(i^n)$.
+    In \texttt{Recursion I} the complexity of all algorithms are $O(n)$; while in \texttt{Recursion II}
+    the complexity of all the algorithms is $O(2^n)$
+
+    \section{SIMULACRO DE PARCIAL}
+    \begin{enumerate}
+      \item $\texttt{start}+1,\quad \texttt{nums},\quad \texttt{target}$
+      \item a) $T(n) = T(n/2) + C$
+      \item $n-a, a, b, c$\\
+      res, solucionar($n-b,a,b,c$)+1\\
+      res, solucionar($n-c,a,b,c$)+1
+      \item e) La suma de los elementos de a y es $O(n)$.
+    \end{enumerate}
+
+
     \newpage
     \bibliographystyle{plain}
     \bibliography{Lab.bib}
