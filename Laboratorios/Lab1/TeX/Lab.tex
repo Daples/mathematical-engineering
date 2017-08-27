@@ -326,10 +326,10 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
           if (nums[start] % 5 == 0) {                  // c4
             return split53Aux(nums, start + 1, first
             + nums[start], second);                    // T(n-1)
-          } else if (nums[start] % 3 == 0) {           // c6
+          } else if (nums[start] % 3 == 0) {           // c5
             return split53Aux(nums, start + 1, first,
             second + nums[start]);                     // T(n-1)
-          } else {                                     // c8
+          } else {                                     // c6
             return split53Aux(nums, start + 1, first
             + nums[start], second)
             || split53Aux(nums, start + 1, first,
@@ -338,9 +338,17 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
         }
       }
       \end{Verbatim}
-
+      The complexity of \texttt{split53} can be writen as:
+      \begin{equation*}
+        T\left( n \right)=\left\{\begin{array}{cc} c_{0}+c_{1}+c_{2} & n=0 \\ c_{3}+c_{4}+c_{5}+c_{6}+2T\left( n-1 \right) & n\neq 0\end{array}\right.
+      \end{equation*}
+      And solving the recursive equation yields:
+      \begin{equation*}
+        T(n)=(c_3+c_4+c_5+c_6)2^n+k2^n
+      \end{equation*}
+      Therefore, $T(n)$ is $O((c_3+c_4+c_5+c_6)2^n+k2^n)$ and applying the sum and product formulas $T(n)$ is $O(2^n)$.
     \end{enumerate}\cite{Wolfram}
-    
+
     \subsection{How does \texttt{GroupSum5} work?}
     This algorithm is similar to \texttt{groupSum}. First, it verifies whether the number at \texttt{start} is multiple of 5; in
 that case, it is chosen to substract from \texttt{target}. If the number at \texttt{start} is not multiple of 5, but it is a
