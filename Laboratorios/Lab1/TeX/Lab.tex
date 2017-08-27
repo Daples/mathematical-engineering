@@ -355,9 +355,8 @@ that case, it is chosen to substract from \texttt{target}. If the number at \tex
 1 and a multiple of 5 is immediatly before it, it proceeds not to choose it. Finally, in any other case, it
 takes the two options: to choose or not to choose the number at \texttt{start}.
 
-
-    \newpage
-    \section{ArrayMax}
+    \section{SIMULATION OF PROJECT PRESENTATION QUESTIONS}
+    \subsection{ArrayMax}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
@@ -380,7 +379,7 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
       \end{floatrow}
     \end{figure}
 
-    \section{ArraySum}
+    \subsection{ArraySum}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
@@ -403,7 +402,7 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
       \end{floatrow}
     \end{figure}
 
-    \section{Fibonacci}
+    \subsection{Fibonacci}
     \begin{figure}[ht]
       \begin{floatrow}
         \ffigbox{
@@ -426,18 +425,18 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
       \end{floatrow}
     \end{figure}
 
-    \section{What can you say between the experimental and theoretical results?}
+    \subsection{What can you say between the experimental and theoretical results?}
     The graphs obtained by measuring time to resolve of each algorithm match at a good scale
     the theoretical values. The differences can be explained because the big $O$ notation only takes
     consideration to values that tend to infinity and, actually, although the used values are
     considerably big there are other terms that may affect the behaviour of the curve.
-    \section{What did you learn about \texttt{Stack Overflow}?}
+    \subsection{What did you learn about \texttt{Stack Overflow}?}
       The Stack Overflow error is caused by a bad recursive call -for example you do not make
       the problem simpler every time you make a recursive call- or when you do not have a stopping
       condition.\cite{StackOverflow} Java Stack memory is used for execution of a thread.
       Whenever a method is invoked, a new block is created in the stack memory for the method to hold
       local primitive values and reference to other objects in the method.\cite{HeapStack}
-    \section{What's the biggest Fibonacci value you were able to compute? Why? Why are you not able to compute Fibonacci with 1 million?}
+    \subsection{What's the biggest Fibonacci value you were able to compute? Why? Why are you not able to compute Fibonacci with 1 million?}
     The maximum Fibonacci number we could calculate was the 51th number of the series on our computers on
     a reasonable time; as a side note, we could calculate bigger values but the time of doing so isn't worth
     it compared to the computational cost. We couldn't calculate bigger for two reasons:
@@ -452,7 +451,7 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
     $2^{10^6-2}*10^{-9}$. Additionally, if we had infinite time to calculate this term we cannot solve the
     problem that we do need finite memory to fill the stack memory for the recursion.
 
-    \section{How can you compute Fibonacci of big values?}
+    \subsection{How can you compute Fibonacci of big values?}
     We can use Dynamic Programming. Dynamic Programming is a method to solve recursive algorithms more efficently;
     the main idea is to use \textbf{memoization}, where we have to store the solution of the subprocesses that the
     algorithm would have to repeat each time it is executed, in order not to solve them again. One approach to the
@@ -470,16 +469,14 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
     }
     \end{Verbatim}
 
-
-
-    \section{What can you say between the complexity of \texttt{Recursion I} and \texttt{Recursion II} from \texttt{CodingBat}?}
+    \subsection{What can you say between the complexity of \texttt{Recursion I} and \texttt{Recursion II} from \texttt{CodingBat}?}
     We can conclude that when we use one recursion, the complexity is n and, if we use two
     recursive calls, it is $2^n$. In general terms, we think it is safe to assume that
     for i recursion calls the complexity of the algorithm is $O(i^n)$.
     In \texttt{Recursion I} the complexity of all algorithms are $O(n)$; while in \texttt{Recursion II}
     the complexity of all the algorithms is $O(2^n)$
 
-    \section{SIMULACRO DE PARCIAL}
+    \section{EXAM SIMULATION}
     \begin{enumerate}
       \item $\texttt{start}+1,\quad \texttt{nums},\quad \texttt{target}$
       \item a) $T(n) = T(n/2) + C$
