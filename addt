@@ -1,6 +1,10 @@
 #!/bin/bash
 ./update
-git add .
-read -p 'Insert the comment for the update ' comment
-git commit -m $comment
-git push
+a=$( git status | grep "Untracked" )
+if [ "$a" != "" ]
+then
+	git add .
+	read -p 'Insert the comment for the update ' comment
+	git commit -m $comment
+	git push
+fi
