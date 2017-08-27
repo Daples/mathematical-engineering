@@ -42,7 +42,7 @@
 \fancyfoot[C,CO,L,LO,R,RO]{}
 \fancyfoot[C]{
           \begin{centering}
-            \textcolor{customGray}{{\footnotesize {\sf Profoessor Mauricio Toro Bermudez\\
+            \textcolor{customGray}{{\footnotesize {\sf Professor Mauricio Toro Bermúdez\\
             Phone: $(+57) (4) 261 95 00$ Ext. $9473$. Office: $19 - 627$\\
             \vspace{-1mm}E-mail: mtorobe@eafit.edu.co}}}
         \end{centering}
@@ -148,7 +148,7 @@
       \end{Verbatim}
       The complexity of \texttt{countAbc} can be writen as:
       \begin{equation*}
-        T\left( n \right)=\left\{\begin{array}{cc} c_{0}+c_{1}+c_{2} & n\leq 2 \\ c_3 + c_ 4 + T\left( n-1 \right) & n>2\end{array}1\right.
+        T\left( n \right)=\left\{\begin{array}{cc} c_{0}+c_{1}+c_{2} & n\leq 2 \\ c_3 + c_ 4 + T\left( n-1 \right) & n>2\end{array}\right.
       \end{equation*}
       The solution to this recursive equation yields:
       \begin{equation*}
@@ -193,7 +193,7 @@
       \end{Verbatim}
       The complexity of \texttt{strCount} can be writen as:
       \begin{equation*}
-        T\left( n,m \right)=\left\{\begin{array}{cc} c_{1}+c_{2}+c_{3}+c_{4} & n<m || m=0 \\ c_{6}+T\left( n-1,m \right) & n\geq m \&\& m\neq 0\end{array}\right.
+        T\left( n,m \right)=\left\{\begin{array}{cc} c_{1}+c_{2}+c_{3}+c_{4} & n<m\quad ||\quad m=0 \\ c_{6}+T\left( n-1,m \right) & n\geq m \quad\&\&\quad m\neq 0\end{array}\right.
       \end{equation*}
       Solving the recursive equation yields:
       \begin{equation*}
@@ -322,23 +322,31 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
         int first, int second) {                       // c0
         if (start == nums.length) {                    // c1
           return first == second;                      // c2
-        } else {                                       //
-          if (nums[start] % 5 == 0) {
+        } else {                                       // c3
+          if (nums[start] % 5 == 0) {                  // c4
             return split53Aux(nums, start + 1, first
-            + nums[start], second);
-          } else if (nums[start] % 3 == 0) {
+            + nums[start], second);                    // T(n-1)
+          } else if (nums[start] % 3 == 0) {           // c6
             return split53Aux(nums, start + 1, first,
-            second + nums[start]);
-          } else {
+            second + nums[start]);                     // T(n-1)
+          } else {                                     // c8
             return split53Aux(nums, start + 1, first
             + nums[start], second)
             || split53Aux(nums, start + 1, first,
-            second + nums[start]);
+            second + nums[start]);                     // 2T(n-1)
           }
         }
       }
       \end{Verbatim}
+
     \end{enumerate}\cite{Wolfram}
+    
+    \subsection{How does \texttt{GroupSum5} work?}
+    This algorithm is similar to \texttt{groupSum}. First, it verifies whether the number at \texttt{start} is multiple of 5; in
+that case, it is chosen to substract from \texttt{target}. If the number at \texttt{start} is not multiple of 5, but it is a
+1 and a multiple of 5 is immediatly before it, it proceeds not to choose it. Finally, in any other case, it
+takes the two options: to choose or not to choose the number at \texttt{start}.
+
 
     \newpage
     \section{ArrayMax}
@@ -425,11 +433,11 @@ T\left( n \right)=\left( c_{1}+c_{3}+c_{4}+c_{6}+c_{8}+c_{9} \right)\left( 2^{n}
     The maximum Fibonacci number we could calculate was the 51th number of the series on our computers on
     a reasonable time; as a side note, we could calculate bigger values but the time of doing so isn't worth
     it compared to the computational cost. We couldn't calculate bigger for two reasons:
-
-    - The time would be really big, as of lasting days or weeks to calculate.
-    - The ram of the computer has a limited space so, even if we set the stack size to a really big
+    \begin{enumerate}
+    \item The time would be really big, as of lasting days or weeks to calculate.
+    \item The ram of the computer has a limited space so, even if we set the stack size to a really big
     number, the memory consumed will eventually occupied the whole ram memory.
-
+    \end{enumerate}
     The number of operations the computer has to do for big values is approximately in the order of
     an exponential base 2. In this manner, to calculate the millionth term of the series it would need
     around $2^{10^6}$, even if we had a 4 GHz computer processor the time it would take whould be

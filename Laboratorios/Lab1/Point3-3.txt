@@ -1,4 +1,0 @@
-The graphs obtained by measuring time to resolve of each algorithm  match at a good scale
-the theoric values. The differences can be explained because the big o notation only takes 
-consideration to values that tend to infinity and, actually, altough the used values are 
-considerably big there are other terms that may affect the behaviour of the curve.

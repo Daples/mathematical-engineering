@@ -100,12 +100,7 @@ public class CodingBat {
     return groupSumClump(i, nums, target - sum)
     || groupSumClump(i, nums, target);
   }
-
-Este metodo tiene un funcionamiento similar a groupSumClump. En primer lugar, verifica si el numero
-en el indice en el que esta start es multilplo de 5; en ese caso, se selecciona obligatoriamente para
-restar el target. En caso de que no sea multiplo de 5, pero es un 1 y anteriormente tiene un numero
-que es multiplo de 5, entonces procede a no seleccionarlo; al final, en cualquier otro caso, toma las 
-dos opciones de elegirlo o no elegirlo para ayudar a sumar al target.
+ 
   public boolean groupSum5(int start, int[] nums, int target) {
     if (start == nums.length) {
       return target == 0;
