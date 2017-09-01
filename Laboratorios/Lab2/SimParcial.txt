@@ -1,0 +1,5 @@
+1. c) O(n+m)
+2. b) O(n*m*sqrt(n))
+3. b) O(ancho)
+4. b) O(n³)
+5. d) O(n²) 
