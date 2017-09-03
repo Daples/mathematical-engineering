@@ -3,7 +3,7 @@
 a=$( git status | grep "Untracked" )
 b=$( git status | grep "Changes not staged" )
 c=$( git status | grep "Changes to be" )
-if [ "$a" != "" ] || [ "$b" != "" ] || [ "$c" != "" ]
+if [ "$a" != "" ] || [ "$b" != "" ] || [ "$c" != "" ]
 then
 	git add .
 	read -p 'Insert the comment for the update ' comment
