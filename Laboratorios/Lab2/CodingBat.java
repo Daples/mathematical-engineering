@@ -1,6 +1,6 @@
 public class CodingBat {
 
-  // Recursion I
+  // Array II
 
   public int[] zeroFront(int[] nums) {
     boolean [] used = new boolean [nums.length];
@@ -71,7 +71,7 @@ public class CodingBat {
     return mod;
   }
 
-  // Recursion II
+  // Array III
 
   public int[] seriesUp(int n) {
     int no = n*(n+1)/2;
