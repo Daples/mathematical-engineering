@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{HeapStack}
+Pankaj.
+\newblock Java heap space vs. stack – memory allocation in java.
+\newblock \url{http://www.journaldev.com/4098/java-heap-space-vs-stack-memory},
+  2017.
+
+\bibitem{StackOverflow}
+Sean.
+\newblock What is a stackoverflowerror?
+\newblock
+  \url{https://stackoverflow.com/questions/214741/what-is-a-stackoverflowerror},
+  2008.
+
+\bibitem{SJ}
+SJ.
+\newblock Introduction to dynamic programming: Fibonacci series.
+\newblock
+  \url{http://algorithms.tutorialhorizon.com/introduction-to-dynamic-programming-fibonacci-series/},
+  2015.
+
+\bibitem{Wolfram}
+WolframAlpha.
+\newblock \url{https://www.wolframalpha.com/}.
+
+\end{thebibliography}
