@@ -123,23 +123,24 @@
     public boolean tripleUp(int[] nums) {                // c0
       for (int i = 0; i < nums.length - 2; i++) {        // c1 + n-2
         if(nums[i] + 1 == nums[i+1] && nums[i]
-         + 2 == nums[i+2]) return true;                  // c3
+         + 2 == nums[i+2]) return true;                  // c2
       }
-      return false;                                      // c4
+      return false;                                      // c3
     }
     \end{Verbatim}
-    \texttt{tripleUp} is $O()$
+    \texttt{tripleUp} is $O(c_0+c_1+c_2+c_3+n-2)$. When we apply the product
+    and sum properties, \texttt{tripleUp} is $O(n)$.
 
     \item \begin{Verbatim}
-    public int[] tenRun(int[] nums) {
-      int tempMult = 0;
-      boolean used = false;
-      for(int i = 0; i < nums.length; i++) {
-        if (nums[i] % 10 == 0) {
-          used = true;
-          tempMult = nums[i];
-        }
-        if(used)
+    public int[] tenRun(int[] nums) {                   // c0
+      int tempMult = 0;                                 // c1
+      boolean used = false;                             // c2
+      for(int i = 0; i < nums.length; i++) {            // c3 + n
+        if (nums[i] % 10 == 0) {                        // c4 + n
+          used = true;                                  // c5 + n
+          tempMult = nums[i];                           // c6 + n
+        }                                               // c7 + n
+        if(used)                                        
           nums[i] = tempMult;
       }
       return nums;
