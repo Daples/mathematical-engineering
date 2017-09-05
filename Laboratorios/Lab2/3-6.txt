@@ -1,0 +1,19 @@
+Metodo:
+def maxspan(array):
+	arr = []
+	max = 0
+	for i in range(len(array)):
+		for j in range(i,len(array)):
+			if array[i] == array[j]:
+				c = j-i+1
+		arr.append(c)
+	for i in range(len(arr)):
+		if arr[i] > max:
+			max = arr[i]
+return max
+
+It works fairly easy. First for every data in the array of integers it moves
+through the same array to the same index through the end of the array
+searching for the number again. If it finds it again it sets the variable "c"
+to the numbers it has between them; it does this until the array ends.
+ 

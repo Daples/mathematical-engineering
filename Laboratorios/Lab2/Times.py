@@ -4,11 +4,6 @@ import time
 
 sys.setrecursionlimit(1000000)
 myFile = open('Tables.csv','w')
-#Title: Mergesort Python
-#Author:anumi and Jingjie Yang
-#Date: September 13, 2013
-#Code version: 1.0
-#Availability: https://stackoverflow.com/questions/18761766/mergesort-python
 def insertionsort(x):
 	"""
 	It orders the array x
@@ -46,6 +41,11 @@ def arraymax(nums,n):
 			max = temp
 	return max
 
+#Title: Mergesort Python
+#Author:anumi and Jingjie Yang
+#Date: September 13, 2013
+#Code version: 1.0
+#Availability: https://stackoverflow.com/questions/18761766/mergesort-python
 def mergesort(x):
 	"""
 	:param x: array with numbers

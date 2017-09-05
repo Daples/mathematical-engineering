@@ -1,0 +1,4 @@
+As we see in the graphics and the values, insertion sort has a asymptotical
+complexity of n². In this manner, we can see that if we use insertion sort for
+big numbers it will take a enourmous amount of time, so it will not be
+efficient in any shape or form.
