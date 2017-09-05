@@ -2,45 +2,47 @@ This is BibTeX, Version 0.99d (TeX Live 2017)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Lab.aux
 The style file: plain.bst
+I found no \citation commands---while reading file Lab.aux
 Database file #1: Lab.bib.bib
-You've used 4 entries,
+You've used 0 entries,
             2118 wiz_defined-function locations,
-            518 strings with 4496 characters,
-and the built_in function-call counts, 838 in all, are:
-= -- 77
-> -- 28
+            497 strings with 3986 characters,
+and the built_in function-call counts, 18 in all, are:
+= -- 0
+> -- 0
 < -- 0
-+ -- 12
-- -- 8
-* -- 25
-:= -- 146
-add.period$ -- 11
-call.type$ -- 4
-change.case$ -- 15
++ -- 0
+- -- 0
+* -- 2
+:= -- 7
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 28
-empty$ -- 89
-format.name$ -- 8
-if$ -- 182
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
 int.to.chr$ -- 0
-int.to.str$ -- 4
+int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 22
-num.names$ -- 8
-pop$ -- 33
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
 preamble$ -- 1
-purify$ -- 12
+purify$ -- 0
 quote$ -- 0
-skip$ -- 29
+skip$ -- 1
 stack$ -- 0
-substring$ -- 20
-swap$ -- 4
+substring$ -- 0
+swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
+type$ -- 0
 warning$ -- 0
-while$ -- 8
-width$ -- 5
-write$ -- 39
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There was 1 error message)

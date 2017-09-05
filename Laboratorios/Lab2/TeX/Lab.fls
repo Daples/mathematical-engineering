@@ -1,4 +1,4 @@
-PWD /Users/dsmac/Dropbox/DAVID-SAMUEL/_David_/EAFIT/2017-2/Estructuras de datos y algorítmos 1/2017-2/GIT/JuanSePlazas/Laboratorios/Lab1/TeX
+PWD /Users/dsmac/Dropbox/DAVID-SAMUEL/_David_/EAFIT/2017-2/Estructuras de datos y algorítmos 1/2017-2/GIT/JuanSePlazas/Laboratorios/Lab2/TeX
 INPUT /usr/local/texlive/2017/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -152,34 +152,11 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7
 INPUT /usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmitt10.tfm
 INPUT ArrayMax.pdf
 INPUT ./ArrayMax.pdf
 INPUT ./ArrayMax.pdf
 INPUT ArrayMax.pdf
 INPUT ./ArrayMax.pdf
-INPUT ArraySum.pdf
-INPUT ./ArraySum.pdf
-INPUT ./ArraySum.pdf
-INPUT ArraySum.pdf
-INPUT ./ArraySum.pdf
-INPUT Fibonacci.pdf
-INPUT ./Fibonacci.pdf
-INPUT ./Fibonacci.pdf
-INPUT Fibonacci.pdf
-INPUT ./Fibonacci.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
-INPUT logo.pdf
-INPUT ./logo.pdf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT logo.pdf
@@ -193,15 +170,10 @@ INPUT ./Lab.out
 INPUT ./Lab.out
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb

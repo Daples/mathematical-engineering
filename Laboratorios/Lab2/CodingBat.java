@@ -29,22 +29,11 @@ public class CodingBat {
     return nums;
   }
 
-  public int[] post4(int[] nums) {
-    int [] nArray = new int[0];
-    for(int i = nums.length-1; i >= 0; i--) {
-      if(nums[i] == 4) {
-        if (i == nums.length-1)
-          break;
-        else {
-          nArray = new int[nums.length - i - 1];
-          for (int j = 0; j < nArray.length; j++) {
-            nArray[j] = nums[i + j + 1];
-          }
-          break;
-        }
-      }
+  public boolean tripleUp(int[] nums) {
+    for (int i = 0; i < nums.length - 2; i++) {
+      if(nums[i] + 1 == nums[i+1] && nums[i] + 2 == nums[i+2]) return true;
     }
-    return nArray;
+    return false;
   }
 
   public int[] tenRun(int[] nums) {

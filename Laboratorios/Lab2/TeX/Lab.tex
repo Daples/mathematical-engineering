@@ -37,7 +37,7 @@
           \vspace{-0.75mm}Data Structures
           }\tabularnewline
           \hline
-          \end{tabular}%
+          \end{tabular}
 }
 \fancyfoot[C,CO,L,LO,R,RO]{}
 \fancyfoot[C]{
@@ -81,28 +81,163 @@
   \thispagestyle{fancy}
 
   \section{ONLINE EXERCISES (CODINGBAT)}
-  \subsection{Recursion I}
+  \subsection{Array II}
     \begin{enumerate}
       \item \begin{Verbatim}
-      public int countPairs(String str) {             // c0
-        if (str.length() <= 2) {                      // c1
-          return 0;                                   // c2
-        } else if (str.charAt(0) == str.charAt(2)) {  // c3
-          return 1 + countPairs(str.substring(1));    // c4 + T(n-1)
-        } else {                                      // c4
-          return countPairs(str.substring(1));        // T(n-1)
+        public int[] zeroFront(int[] nums) {             // c0
+            boolean [] used = new boolean [nums.length]; // c1
+            int cont = 0;                                // c2
+            for (int i = 0; i < nums.length; i++) {      // c3 + n
+              if(nums[i] == 0) {                         // c4 + n
+                if (i != cont) {                         // c5 + n
+                  nums[i] = nums[cont];                  // c6 + n
+                  nums[cont] = 0;                        // c7 + n
+                }
+                cont++;                                  // c8 + n
+              }
+            }
+            return nums;                                 // c9
+          }
+      \end{Verbatim}
+      Therefore, \texttt{zeroFront} is $O(c_0+c_1+c_2+c_3+c_4+c_5+c_6+c_7+c_8+c_9+6n)$.
+      Applying the sum and product properties, \texttt{zeroFont} is $O(n)$.
+
+      \item \begin{Verbatim}
+      public int[] notAlone(int[] nums, int val) {       // c0
+          for(int i = 1; i < nums.length-1; i++) {       // c1 + n
+            if(nums[i] == val && nums[i-1] != val
+              && nums[i+1] != val) {                     // c2 + n
+              if (nums[i-1] > nums[i+1])                 // c3 + n
+                nums[i] = nums[i-1];                     // c4 + n
+              else                                       // c5 + n
+                nums[i] = nums[i+1];                     // c6 + n
+            }
+          }
+          return nums;                                   // c7
         }
+    \end{Verbatim}
+    Therefore, \texttt{notAlone} is $O(c_1+c_2+c_3+c_4+c_5+c_6+c_7+6n)$.
+    Applying the sum and product properties, \texttt{notAlone} is $O(n)$.
+
+    \item \begin{Verbatim}
+    public boolean tripleUp(int[] nums) {                // c0
+      for (int i = 0; i < nums.length - 2; i++) {        // c1 + n-2
+        if(nums[i] + 1 == nums[i+1] && nums[i]
+         + 2 == nums[i+2]) return true;                  // c3
+      }
+      return false;                                      // c4
+    }
+    \end{Verbatim}
+    \texttt{tripleUp} is $O()$
+
+    \item \begin{Verbatim}
+    public int[] tenRun(int[] nums) {
+      int tempMult = 0;
+      boolean used = false;
+      for(int i = 0; i < nums.length; i++) {
+        if (nums[i] % 10 == 0) {
+          used = true;
+          tempMult = nums[i];
+        }
+        if(used)
+          nums[i] = tempMult;
+      }
+      return nums;
+    }
+    \end{Verbatim}
+
+    \item \begin{Verbatim}
+    public int[] shiftLeft(int[] nums) {
+      int [] mod = new int[nums.length];
+      if (nums.length==1) return nums;
+      for (int i=1; i<nums.length; i++) {
+        mod[nums.length-1]=nums[0];
+        mod[i-1]=nums[i];
+      }
+      return mod;
+    }
+    \end{Verbatim}
+    \end{enumerate}
+
+    \subsection{Array III}
+    \begin{enumerate}
+      \item \begin{Verbatim}
+      public int[] seriesUp(int n) {
+        int no = n*(n+1)/2;
+        int [] nums = new int [no];
+        int a = 0;
+        for (int i = 1; i <= n; i++) {
+          for (int j = 1; j <= i; j++) {
+            nums[a] = j;
+            a++;
+          }
+        }
+        return nums;
       }
       \end{Verbatim}
-      Complexity of \texttt{countPairs} can be writen as:
-      \begin{equation*}
-        T\left( n \right)=\left\{\begin{array}{cc} c_{0}+c_{1}+c_{2} & n\leq 2 \\ c_{3}+c_{4}+T\left( n-1 \right) & n>2\end{array}\right.
-      \end{equation*}
-      Solving the recursive equation yields:
-      \begin{equation*}
-        T\left( n \right)=(c_3+c_4)n+k
-      \end{equation*}
-      Therefore, $T(n)$ is $O(cn+k)$ and applying the sum and product rule $T(n)$ is $O(n)$.
+
+      \item\begin{Verbatim}
+      public int countClumps(int[] nums) {
+        int c = 0;
+        for (int i = 0; i < nums.length-1; i++) {
+          if (nums[i] == nums[i+1]) {
+            for (int j = i; j < nums.length; j++) {
+              if (nums[j] != nums[i]) {
+                i = j;
+                c++;
+              }
+              if (c == 0 && j == nums.length-1) {
+                c++;
+              }
+            }
+          }
+        }
+        return c;
+      }
+      \end{Verbatim}
+
+      \item \begin{Verbatim}
+      public boolean linearIn(int[] outer, int[] inner) {
+        int j = 0;
+        int c = 0;
+        if (inner.length == 0) {
+          return true;
+        }
+        for (int i = 0; i < outer.length; i++) {
+          if (inner[j] == outer[i]) {
+            j++;
+            if (j==inner.length) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+      \end{Verbatim}
+
+      \item \begin{Verbatim}
+      public int[] fix45(int[] nums) {
+        boolean [] arr = new boolean[nums.length];
+        for (int i = 0; i < nums.length-1; i++) {
+          if (nums[i] == 4 && nums[i+1] == 5) {
+            arr[i+1] = true;
+          } else  if (nums[i] == 4 && nums[i+1] != 5) {
+            for (int j = 0; j < nums.length; j++) {
+              if (nums[j] == 5 && arr[j] == false) {
+                nums[j] = nums[i+1];
+                nums[i+1] = 5;
+                arr[i+1] = true;
+                break;
+              }
+            }
+          }
+        }
+        return nums;
+      }
+      \end{Verbatim}
+    \end{enumerate}
+
+
 
 
     \section{SIMULATION OF PROJECT PRESENTATION QUESTIONS}
