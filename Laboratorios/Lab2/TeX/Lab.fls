@@ -152,6 +152,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7
 INPUT /usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT ArrayMax.pdf
 INPUT ./ArrayMax.pdf
 INPUT ./ArrayMax.pdf
@@ -159,6 +161,8 @@ INPUT ArrayMax.pdf
 INPUT ./ArrayMax.pdf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
+INPUT logo.pdf
+INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
 INPUT Lab.bbl

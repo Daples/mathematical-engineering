@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Lab"] 1504626066 "Lab.aux" "Lab.bbl" "Lab" 1504626068
+["bibtex Lab"] 1504629447 "Lab.aux" "Lab.bbl" "Lab" 1504629449
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lab.aux" 1504626067 1583 1625d413106728d22267c1f9f1da2d0f ""
+  "Lab.aux" 1504629448 1583 5d5f2587cade15bd502d0dab61c349bf ""
   "Lab.bib" 1503754497 740 53e20264b05006a99a4b61a28a114e57 ""
   (generated)
   "Lab.bbl"
   "Lab.blg"
-["pdflatex"] 1504626066 "Lab.tex" "Lab.pdf" "Lab" 1504626068
+["pdflatex"] 1504629448 "Lab.tex" "Lab.pdf" "Lab" 1504629449
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -91,14 +91,14 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "ArrayMax.pdf" 1503609816 20341 aab1e7c8d9421afa36bdbd2f875972af ""
-  "Lab.aux" 1504626067 1583 1625d413106728d22267c1f9f1da2d0f ""
-  "Lab.bbl" 1504626066 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
-  "Lab.out" 1504626067 366 1b5c41ea10735bcd915557b2d76efc55 ""
-  "Lab.tex" 1504626062 7217 c50a8bc2d4075175a9bfe48d6a413620 ""
+  "ArrayMax.pdf" 1504628172 23133 de3ee6ab94bebd38fa0b475e13ada6b6 ""
+  "Lab.aux" 1504629448 1583 5d5f2587cade15bd502d0dab61c349bf ""
+  "Lab.bbl" 1504629448 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
+  "Lab.out" 1504629448 366 1b5c41ea10735bcd915557b2d76efc55 ""
+  "Lab.tex" 1504629438 8912 eae6299fe084fdec489ade60608d374d ""
   "logo.pdf" 1503607525 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.pdf"
   "Lab.log"
-  "Lab.aux"
+  "Lab.pdf"
   "Lab.out"
+  "Lab.aux"
