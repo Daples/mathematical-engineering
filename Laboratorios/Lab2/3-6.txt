@@ -15,5 +15,6 @@ return max
 It works fairly easy. First for every data in the array of integers it moves
 through the same array to the same index through the end of the array
 searching for the number again. If it finds it again it sets the variable "c"
-to the numbers it has between them; it does this until the array ends.
+to the numbers it has between them; it does this until the array ends. Then,
+it searches the array to find the biggest span and returns that number.
  
