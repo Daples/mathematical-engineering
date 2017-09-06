@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{floatrow}
+\usepackage{float}
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
 
 \definecolor{customGray}{RGB}{128,128,128}
@@ -87,163 +88,195 @@
         public int[] zeroFront(int[] nums) {             // c0
             boolean [] used = new boolean [nums.length]; // c1
             int cont = 0;                                // c2
-            for (int i = 0; i < nums.length; i++) {      // c3 + n
-              if(nums[i] == 0) {                         // c4 + n
-                if (i != cont) {                         // c5 + n
-                  nums[i] = nums[cont];                  // c6 + n
-                  nums[cont] = 0;                        // c7 + n
+            for (int i = 0; i < nums.length; i++) {      // c3*n
+              if(nums[i] == 0) {                         // c4*n
+                if (i != cont) {                         // c5*n
+                  nums[i] = nums[cont];                  // c6+n
+                  nums[cont] = 0;                        // c7*n
                 }
-                cont++;                                  // c8 + n
+                cont++;                                  // c8*n
               }
             }
             return nums;                                 // c9
           }
       \end{Verbatim}
-      Therefore, \texttt{zeroFront} is $O(c_0+c_1+c_2+c_3+c_4+c_5+c_6+c_7+c_8+c_9+6n)$.
+      Therefore, \texttt{zeroFront} is $O(c_0+c_1+c_2+c_9+(c_3+c_4+c_5+c_6+c_7+c_8)n)$.
       Applying the sum and product properties, \texttt{zeroFont} is $O(n)$.
 
       \item \begin{Verbatim}
       public int[] notAlone(int[] nums, int val) {       // c0
-          for(int i = 1; i < nums.length-1; i++) {       // c1 + n
+          for(int i = 1; i < nums.length-1; i++) {       // c1*n
             if(nums[i] == val && nums[i-1] != val
-              && nums[i+1] != val) {                     // c2 + n
-              if (nums[i-1] > nums[i+1])                 // c3 + n
-                nums[i] = nums[i-1];                     // c4 + n
-              else                                       // c5 + n
-                nums[i] = nums[i+1];                     // c6 + n
+              && nums[i+1] != val) {                     // c2*n
+              if (nums[i-1] > nums[i+1])                 // c3*n
+                nums[i] = nums[i-1];                     // c4*n
+              else                                       // c5*n
+                nums[i] = nums[i+1];                     // c6*n
             }
           }
           return nums;                                   // c7
         }
     \end{Verbatim}
-    Therefore, \texttt{notAlone} is $O(c_1+c_2+c_3+c_4+c_5+c_6+c_7+6n)$.
+    Therefore, \texttt{notAlone} is $O(c_0+c_7+(c_1+c_2+c_3+c_4+c_5+c_6)n)$.
     Applying the sum and product properties, \texttt{notAlone} is $O(n)$.
 
     \item \begin{Verbatim}
     public boolean tripleUp(int[] nums) {                // c0
-      for (int i = 0; i < nums.length - 2; i++) {        // c1 + n-2
+      for (int i = 0; i < nums.length - 2; i++) {        // c1*(n-2)
         if(nums[i] + 1 == nums[i+1] && nums[i]
-         + 2 == nums[i+2]) return true;                  // c2
+         + 2 == nums[i+2]) return true;                  // c2*(n-2)
       }
       return false;                                      // c3
     }
     \end{Verbatim}
-    \texttt{tripleUp} is $O(c_0+c_1+c_2+c_3+n-2)$. When we apply the product
+    \texttt{tripleUp} is $O(c_0+c_3+(c_1+c_2)(n-2))$. When we apply the product
     and sum properties, \texttt{tripleUp} is $O(n)$.
 
     \item \begin{Verbatim}
     public int[] tenRun(int[] nums) {                   // c0
       int tempMult = 0;                                 // c1
       boolean used = false;                             // c2
-      for(int i = 0; i < nums.length; i++) {            // c3 + n
-        if (nums[i] % 10 == 0) {                        // c4 + n
-          used = true;                                  // c5 + n
-          tempMult = nums[i];                           // c6 + n
-        }                                               // c7 + n
-        if(used)
-          nums[i] = tempMult;
+      for(int i = 0; i < nums.length; i++) {            // c3*n
+        if (nums[i] % 10 == 0) {                        // c4*n
+          used = true;                                  // c5*n
+          tempMult = nums[i];                           // c6*n
+        }
+        if(used)                                        // c7*n
+          nums[i] = tempMult;                           // c8*n
       }
-      return nums;
+      return nums;                                      // c9
     }
     \end{Verbatim}
+    \texttt{tenRun} is $O(c_0+c_1+c_2+c_9+(c_3+c_4+c_5+c_6+c_7+c_8)n)$. When we apply
+    the product and sum properties of the $big-O$ notation, yields that
+    \texttt{tenRun} is $O(n)$.
 
     \item \begin{Verbatim}
-    public int[] shiftLeft(int[] nums) {
-      int [] mod = new int[nums.length];
-      if (nums.length==1) return nums;
-      for (int i=1; i<nums.length; i++) {
-        mod[nums.length-1]=nums[0];
-        mod[i-1]=nums[i];
+    public int[] shiftLeft(int[] nums) {                // c0
+      int [] mod = new int[nums.length];                // c1
+      if (nums.length==1) return nums;                  // c2
+      for (int i=1; i<nums.length; i++) {               // c3*n
+        mod[nums.length-1]=nums[0];                     // c4*n
+        mod[i-1]=nums[i];                               // c5*n
       }
-      return mod;
+      return mod;                                       // c6
     }
     \end{Verbatim}
+    \texttt{shiftleft} is $O(c_0+c_1+c_2+c_6+(c_3+c_4+c_5)n)$, which implies
+    that \texttt{shiftLeft} is $O(n)$.
     \end{enumerate}
 
     \subsection{Array III}
     \begin{enumerate}
       \item \begin{Verbatim}
-      public int[] seriesUp(int n) {
-        int no = n*(n+1)/2;
-        int [] nums = new int [no];
-        int a = 0;
-        for (int i = 1; i <= n; i++) {
-          for (int j = 1; j <= i; j++) {
-            nums[a] = j;
-            a++;
+      public int[] seriesUp(int n) {                    // c0
+        int no = n*(n+1)/2;                             // c2
+        int [] nums = new int [no];                     // c3
+        int a = 0;                                      // c4
+        for (int i = 1; i <= n; i++) {                  // c5*n
+          for (int j = 1; j <= i; j++) {                // c6*n*n
+            nums[a] = j;                                // c7*n*n
+            a++;                                        // c8*n*n
           }
         }
-        return nums;
+        return nums;                                    // c9
       }
       \end{Verbatim}
+      \texttt{seriesUp} is $O(c_0+c_1+c_2+c_3+c_4+c_9+c_5n+(c_6+c_7+c_8)n^2)$,
+      then \texttt{seriesUp} is $O(n^2)$.
 
       \item\begin{Verbatim}
-      public int countClumps(int[] nums) {
-        int c = 0;
-        for (int i = 0; i < nums.length-1; i++) {
-          if (nums[i] == nums[i+1]) {
-            for (int j = i; j < nums.length; j++) {
-              if (nums[j] != nums[i]) {
-                i = j;
-                c++;
+      public int countClumps(int[] nums) {              // c0
+        int c = 0;                                      // c1
+        for (int i = 0; i < nums.length-1; i++) {       // c2*n
+          if (nums[i] == nums[i+1]) {                   // c3*n
+            for (int j = i; j < nums.length; j++) {     // c4*n*n
+              if (nums[j] != nums[i]) {                 // c5*n*n
+                i = j;                                  // c6*n*n
+                c++;                                    // c7*n*n
               }
-              if (c == 0 && j == nums.length-1) {
-                c++;
+              if (c == 0 && j == nums.length-1) {       // c8*n*n
+                c++;                                    // c9*n*n
               }
             }
           }
         }
-        return c;
+        return c;                                       // c10
       }
       \end{Verbatim}
+      \texttt{countClumps} is $O(c_0+c_1+c_10+(c2+c_3)n+(c_4+c_5+c_6+c_7+c_8+c_9)n^2)$,
+      then \texttt{countClumps} is $O(n^2)$.
+      \item \begin{Verbatim}
+
+      public boolean linearIn(int[] outer,
+        int[] inner) {                                  // c1
+        int j = 0;                                      // c2
+        int c = 0;                                      // c3
+        if (inner.length == 0) return true;             // c4
+        for (int i = 0; i < outer.length; i++) {        // c5*n
+          if (inner[j] == outer[i]) {                   // c6*n
+            j++;                                        // c7*n
+            if (j==inner.length) {                      // c8*n
+              return true;                              // c9*n
+            }
+          }
+        }
+        return false;                                   // c10
+      }
+      \end{Verbatim}
+      \texttt{linearIn} is $O(c_1+c_2+c_3+c_4+c_10+(c_5+c_6+c_7+c_8+c_9)n)$,
+      this implies that \texttt{linearIn} is $O(n)$.
 
       \item \begin{Verbatim}
-      public boolean linearIn(int[] outer, int[] inner) {
-        int j = 0;
-        int c = 0;
-        if (inner.length == 0) {
-          return true;
-        }
-        for (int i = 0; i < outer.length; i++) {
-          if (inner[j] == outer[i]) {
-            j++;
-            if (j==inner.length) {
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-      \end{Verbatim}
-
-      \item \begin{Verbatim}
-      public int[] fix45(int[] nums) {
-        boolean [] arr = new boolean[nums.length];
-        for (int i = 0; i < nums.length-1; i++) {
-          if (nums[i] == 4 && nums[i+1] == 5) {
-            arr[i+1] = true;
-          } else  if (nums[i] == 4 && nums[i+1] != 5) {
-            for (int j = 0; j < nums.length; j++) {
-              if (nums[j] == 5 && arr[j] == false) {
-                nums[j] = nums[i+1];
-                nums[i+1] = 5;
-                arr[i+1] = true;
-                break;
+      public int[] fix45(int[] nums) {                  // c1
+        boolean [] arr = new boolean[nums.length];      // c2
+        for (int i = 0; i < nums.length-1; i++) {       // c3*n
+          if (nums[i] == 4 && nums[i+1] == 5) {         // c4*n
+            arr[i+1] = true;                            // c5*n
+          } else  if (nums[i] == 4 && nums[i+1] != 5) { // c6*n
+            for (int j = 0; j < nums.length; j++) {     // c7*n*n
+              if (nums[j] == 5 && arr[j] == false) {    // c8*n*n
+                nums[j] = nums[i+1];                    // c9*n*n
+                nums[i+1] = 5;                          // c10*n*n
+                arr[i+1] = true;                        // c11*n*n
+                break;                                  // c12*n*n
               }
             }
           }
         }
-        return nums;
+        return nums;                                    // c13
       }
       \end{Verbatim}
+      \texttt{fix45} is $O(c_1+c_2+c_13+(c_3+c_4+c_5+c_6)n+(c_7+c_8+c_9+c_10+c_11+c_12)n^2)$,
+      this implies that \texttt{fix45} is $O(n^2)$.
+      \item \begin{Verbatim}
+      public boolean canBalance(int[] nums) {           // c0
+        int sumRight;                                   // c1
+        int sumLeft;                                    // c2
+        for (int i = 1; i < nums.length; i++) {         // c3*n
+          sumLeft = 0;                                  // c4*n
+          sumRight = 0;                                 // c5*n
+          for (int j = 0; j < i; j++) {                 // c6*n*n
+            sumLeft += nums[j];                         // c7*n*n
+          }
+          for (int j = i; j < nums.length; j++) {       // c8*n*n
+            sumRight += nums[j];                        // c9*n*n
+          }
+          if (sumRight == sumLeft) {                    // c10*n
+            return true;                                // c11*n
+          }
+        }
+        return false;                                   // c12
+      }
+      \end{Verbatim}
+      \texttt{canBalance} is $O(c_0+c_1+c_2+(c_3+c_4+c_5+c_10+c_11)n+(c_6+c_7+c_8+c_9)n^2)$,
+      therefore \texttt{canBalance} is $O(n^2)$.
     \end{enumerate}
-
-
 
 
     \section{SIMULATION OF PROJECT PRESENTATION QUESTIONS}
     \subsection{ArrayMax}
-    \begin{figure}[ht]
+    \begin{figure}[H]
       \begin{floatrow}
         \ffigbox{
           \includegraphics[scale=0.45]{ArrayMax.pdf}
@@ -251,28 +284,96 @@
           \caption{Time vs. N for ArrayMax}
         }
         \capbtabbox{
-          \begin{tabular}{cc}
-            \hline
-            \textbf{N} & \textbf{Time (ns)} \\ \hline
-            10         & 6000               \\
-            100        & 27000              \\
-            1000       & 346000             \\
-            10000      & 6717000            \\ \hline
-          \end{tabular}
+        \begin{tabular}{cc}
+          \hline
+          \textbf{N} & \textbf{Time (ns)} \\ \hline
+          10         & 5000               \\
+          100        & 25000              \\
+          1000       & 450000             \\
+          10000      & 6250000            \\ \hline
+        \end{tabular}
         }{
           \caption{ArrayMax's data.}
         }
       \end{floatrow}
     \end{figure}
 
+    \subsection{ArraySum}
+    \begin{figure}[H]
+      \begin{floatrow}
+        \ffigbox{
+          \includegraphics[scale=0.45]{ArraySum.pdf}
+        }{
+          \caption{Time vs. N for ArraySum}
+        }
+        \capbtabbox{
+        \begin{tabular}{cc}
+          \hline
+          \textbf{N} & \textbf{Time (ns)} \\ \hline
+          10         & 6000             \\
+          100        & 22000            \\
+          1000       & 348000           \\
+          10000      & 6418000           \\ \hline
+        \end{tabular}
+        }{
+          \caption{ArraySum's data.}
+        }
+      \end{floatrow}
+    \end{figure}
+
+    \subsection{InsertionSort}
+    \begin{figure}[H]
+      \begin{floatrow}
+        \ffigbox{
+          \includegraphics[scale=0.45]{InsertionSort.pdf}
+        }{
+          \caption{Time vs. N for InsertionSort}
+        }
+        \capbtabbox{
+        \begin{tabular}{cc}
+          \hline
+          \textbf{N} & \textbf{Time (ns)} \\ \hline
+          10         & 31000              \\
+          100        & 291000             \\
+          1000       & 3734000            \\
+          10000      & 45673000           \\ \hline
+        \end{tabular}
+        }{
+          \caption{InsertionsSort's data.}
+        }
+      \end{floatrow}
+    \end{figure}
+
+    \subsection{MergeSort}
+    \begin{figure}[H]
+      \begin{floatrow}
+        \ffigbox{
+          \includegraphics[scale=0.45]{MergeSort.pdf}
+        }{
+          \caption{Time vs. N for MergeSort}
+        }
+        \capbtabbox{
+        \begin{tabular}{cc}
+          \hline
+          \textbf{N} & \textbf{Time (ns)} \\ \hline
+          10  & 10000 \\
+          100 & 445000 \\
+          1000	& 47573000 \\
+          10000	& 4655923000 \\ \hline
+        \end{tabular}
+        }{
+          \caption{MergeSort's data.}
+        }
+      \end{floatrow}
+    \end{figure}
+
     \section{EXAM SIMULATION}
     \begin{enumerate}
-      \item $\texttt{start}+1,\quad \texttt{nums},\quad \texttt{target}$
-      \item a) $T(n) = T(n/2) + C$
-      \item $n-a, a, b, c$\\
-      res, solucionar($n-b,a,b,c$)+1\\
-      res, solucionar($n-c,a,b,c$)+1
-      \item e) La suma de los elementos de a y es $O(n)$.
+      \item c) O(n+m)
+      \item d) O(n*m)
+      \item b) O(ancho)
+      \item b) O(n³)
+      \item d) O(n²) 
     \end{enumerate}
 
 

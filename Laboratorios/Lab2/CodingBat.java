@@ -93,17 +93,25 @@ public class CodingBat {
     return c;
   }
 
-  public int[] squareUp(int n) {
-    int [] nums = new int [n*n];
-    int var = n;
-    for (int i = n*n - 1; i >= 0; i -= n) {
-      for (int j = 0; j < var; j++) {
-        nums[i-j] = j + 1;
+  public boolean canBalance(int[] nums) {
+    int sumRight;
+    int sumLeft;
+    for (int i = 1; i < nums.length; i++) {
+      sumLeft = 0;
+      sumRight = 0;
+      for (int j = 0; j < i; j++) {
+        sumLeft += nums[j];
       }
-      var--;
+      for (int j = i; j < nums.length; j++) {
+        sumRight += nums[j];
+      }
+      if (sumRight == sumLeft) {
+        return true;
+      }
     }
-    return nums;
+    return false;
   }
+
 
   public boolean linearIn(int[] outer, int[] inner) {
     int j = 0;
