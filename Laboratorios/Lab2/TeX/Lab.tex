@@ -367,14 +367,41 @@
       \end{floatrow}
     \end{figure}
 
-    \section{EXAM SIMULATION}
-    \begin{enumerate}
-      \item c) O(n+m)
-      \item d) O(n*m)
-      \item b) O(ancho)
-      \item b) O(n³)
-      \item d) O(n²) 
-    \end{enumerate}
+    \subsection{}
+    As we see in the graphics and the values, insertion sort has a asymptotical
+complexity of $n^2$. In this manner, we can see that if we use insertion sort for
+big numbers it will take a enourmous amount of time, so it will not be
+efficient in any shape or form.
+
+  \subsection{How does \texttt{maxSpan} work?}
+  \begin{Verbatim}
+    def maxSpan(array):
+            arr = []
+            max = 0
+            for i in range(len(array)):
+                    for j in range(i,len(array)):
+                            if array[i] == array[j]:
+                                    c = j-i+1
+                    arr.append(c)
+            for i in range(len(arr)):
+                    if arr[i] > max:
+                            max = arr[i]
+            return max
+  \end{Verbatim}
+It works fairly easy. First for every data in the array of integers it moves
+through the same array to the same index through the end of the array
+searching for the number again. If it finds it again it sets the variable "c"
+to the numbers it has between them; it does this until the array ends. Then,
+it searches the array to find the biggest span and returns that number.
+
+  \section{EXAM SIMULATION}
+  \begin{enumerate}
+    \item c) $O(n+m)$
+    \item d) $O(n*m)$
+    \item b) $O(ancho)$
+    \item b) $O(n^3)$
+    \item d) $O(n^2)$
+  \end{enumerate}
 
 
     \newpage

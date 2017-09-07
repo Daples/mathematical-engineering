@@ -178,10 +178,9 @@ INPUT ./MergeSort.pdf
 INPUT ./MergeSort.pdf
 INPUT MergeSort.pdf
 INPUT ./MergeSort.pdf
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT logo.pdf
 INPUT ./logo.pdf
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmitt10.tfm
 INPUT logo.pdf
 INPUT ./logo.pdf
 INPUT Lab.bbl
@@ -193,6 +192,7 @@ INPUT ./Lab.out
 INPUT ./Lab.out
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
