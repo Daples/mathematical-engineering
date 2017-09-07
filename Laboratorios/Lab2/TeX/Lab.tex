@@ -14,6 +14,8 @@
 \usepackage{titlesec}
 \usepackage{floatrow}
 \usepackage{float}
+\usepackage{subcaption}
+\usepackage{caption}
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
 
 \definecolor{customGray}{RGB}{128,128,128}
@@ -81,7 +83,11 @@
   \maketitle
   \thispagestyle{fancy}
 
+  \section{CODE FOF \texttt{ARRAYSUM, ARRAYMAX, INSERTIONSORT, MERGESORT} WITH RANDOM ARRAYS}
+    The \texttt{.java} file can be found in the ''codigo'' folder.
   \section{ONLINE EXERCISES (CODINGBAT)}
+    The source code for all 10 exercises can be found in a \texttt{.java} file in ''ejercicioenlinea'' folder.
+
   \subsection{Array II}
     \begin{enumerate}
       \item \begin{Verbatim}
@@ -275,96 +281,48 @@
 
 
     \section{SIMULATION OF PROJECT PRESENTATION QUESTIONS}
-    \subsection{ArrayMax}
-    \begin{figure}[H]
-      \begin{floatrow}
-        \ffigbox{
-          \includegraphics[scale=0.45]{ArrayMax.pdf}
-        }{
-          \caption{Time vs. N for ArrayMax}
-        }
-        \capbtabbox{
-        \begin{tabular}{cc}
-          \hline
-          \textbf{N} & \textbf{Time (ns)} \\ \hline
-          10         & 5000               \\
-          100        & 25000              \\
-          1000       & 450000             \\
-          10000      & 6250000            \\ \hline
-        \end{tabular}
-        }{
-          \caption{ArrayMax's data.}
-        }
-      \end{floatrow}
+    \subsection{Time for algorithms}
+    \begin{table}[H]
+      \centering
+      \caption{My caption}
+      \label{my-label}
+      \begin{tabular}{ccccc}
+        \hline
+        \textbf{Input/Time(ns)} & \textbf{10} & \textbf{100} & \textbf{1000} & \textbf{100000} \\
+        \textbf{ArrayMax}       & 5000        & 25000        & 450000        & 6250000         \\
+        \textbf{ArraySum}       & 6000        & 22000        & 348000        & 6410000         \\
+        \textbf{MergeSort}      & 31000       & 291000       & 3734000       & 45673000        \\
+        \textbf{InsertionSort}  & 10000       & 445000       & 47573000      & 4655923000      \\ \hline
+      \end{tabular}
+    \end{table}
+
+    \subsection{Plots for execution time}
+    \begin{figure}[ht]
+        \begin{subfigure}[t]{0.444\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{ArraySum.pdf}
+            \caption{Time vs N for ArraySum}
+        \end{subfigure}
+        \begin{subfigure}[t]{0.444\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{ArrayMax.pdf}
+            \caption{Time vs N for ArrayMax}
+        \end{subfigure}
+        \caption{Array algorithms}
     \end{figure}
 
-    \subsection{ArraySum}
-    \begin{figure}[H]
-      \begin{floatrow}
-        \ffigbox{
-          \includegraphics[scale=0.45]{ArraySum.pdf}
-        }{
-          \caption{Time vs. N for ArraySum}
-        }
-        \capbtabbox{
-        \begin{tabular}{cc}
-          \hline
-          \textbf{N} & \textbf{Time (ns)} \\ \hline
-          10         & 6000             \\
-          100        & 22000            \\
-          1000       & 348000           \\
-          10000      & 6418000           \\ \hline
-        \end{tabular}
-        }{
-          \caption{ArraySum's data.}
-        }
-      \end{floatrow}
-    \end{figure}
-
-    \subsection{InsertionSort}
-    \begin{figure}[H]
-      \begin{floatrow}
-        \ffigbox{
-          \includegraphics[scale=0.45]{InsertionSort.pdf}
-        }{
-          \caption{Time vs. N for InsertionSort}
-        }
-        \capbtabbox{
-        \begin{tabular}{cc}
-          \hline
-          \textbf{N} & \textbf{Time (ns)} \\ \hline
-          10         & 31000              \\
-          100        & 291000             \\
-          1000       & 3734000            \\
-          10000      & 45673000           \\ \hline
-        \end{tabular}
-        }{
-          \caption{InsertionsSort's data.}
-        }
-      \end{floatrow}
-    \end{figure}
-
-    \subsection{MergeSort}
-    \begin{figure}[H]
-      \begin{floatrow}
-        \ffigbox{
-          \includegraphics[scale=0.45]{MergeSort.pdf}
-        }{
-          \caption{Time vs. N for MergeSort}
-        }
-        \capbtabbox{
-        \begin{tabular}{cc}
-          \hline
-          \textbf{N} & \textbf{Time (ns)} \\ \hline
-          10  & 10000 \\
-          100 & 445000 \\
-          1000	& 47573000 \\
-          10000	& 4655923000 \\ \hline
-        \end{tabular}
-        }{
-          \caption{MergeSort's data.}
-        }
-      \end{floatrow}
+    \begin{figure}[ht]
+        \begin{subfigure}[t]{0.444\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{InsertionSort.pdf}
+            \caption{Time vs N for InsertionSort}
+        \end{subfigure}
+        \begin{subfigure}[t]{0.444\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{MergeSort.pdf}
+            \caption{Time vs N for MergeSort}
+        \end{subfigure}
+        \caption{Sort algorithms}
     \end{figure}
 
     \subsection{}

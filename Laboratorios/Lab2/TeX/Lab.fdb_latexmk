@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Lab"] 1504782047 "Lab.aux" "Lab.bbl" "Lab" 1504782049
+["bibtex Lab"] 1504808740 "Lab.aux" "Lab.bbl" "Lab" 1504808742
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lab.aux" 1504782048 2707 4f0780254794443ec5fa5dcda78b015c ""
+  "Lab.aux" 1504808741 2320 a938546c1aadccd4bab0ca4cab243f6b ""
   "Lab.bib" 1503754497 740 53e20264b05006a99a4b61a28a114e57 ""
   (generated)
   "Lab.blg"
   "Lab.bbl"
-["pdflatex"] 1504782047 "Lab.tex" "Lab.pdf" "Lab" 1504782049
+["pdflatex"] 1504808741 "Lab.tex" "Lab.pdf" "Lab" 1504808742
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -17,6 +17,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1480098701 1524 4414a8315f39513458b80dfc63bff03a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1480098701 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm" 1480098701 1520 eccf95517727cb11801f4f1aee3a21b4 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1480098701 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1480098701 1288 655e228510b4c2a1abe905c368440826 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr17.tfm" 1480098701 1292 296a67155bdbfc32aa9c636f21e91433 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr6.tfm" 1480098701 1300 b62933e007d01cfd073f79b963c01526 ""
@@ -57,7 +58,9 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/size12.clo" 1480098821 8303 1d67e16498f00f63da792fab169302fc ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.dfu" 1487721667 11255 9d97362866549d3d3c994b5f28d1b9b5 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/utf8.def" 1487721667 7784 325a2a09984cb5c4ff230f9867145ad3 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption.sty" 1480098823 66233 8b81cfab95a1f8fc2f0f6c89415b087a ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption3.sty" 1480098823 64866 1ea74c5f2d1685881497f021b8f186b2 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/caption/subcaption.sty" 1480098823 5038 413302044f9700cf65465d590c2f4ad1 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty" 1480098827 42666 6fa770e3485520a6a5f2ea7d259c8f8d ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1480098827 22494 ab2f238426db63334832f85a72ef1f3b ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty" 1480098827 45360 a0833d32f1b541964596b02870342d5a ""
@@ -95,14 +98,14 @@
   "ArrayMax.pdf" 1504721108 23133 de3ee6ab94bebd38fa0b475e13ada6b6 ""
   "ArraySum.pdf" 1504721108 23913 9619cf5f543dc5c7aaf0adbd34ed5f35 ""
   "InsertionSort.pdf" 1504721108 22579 1d0b96e402df174857a0e1993fa0eca7 ""
-  "Lab.aux" 1504782048 2707 4f0780254794443ec5fa5dcda78b015c ""
-  "Lab.bbl" 1504782047 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
-  "Lab.out" 1504782048 665 5c2ad5ce399a37192fb597de131e4f03 ""
-  "Lab.tex" 1504782042 15169 931639697935979b819994e1abb4affd ""
+  "Lab.aux" 1504808741 2320 a938546c1aadccd4bab0ca4cab243f6b ""
+  "Lab.bbl" 1504808741 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
+  "Lab.out" 1504808741 678 80ad776ece568ad9c3b6f6bbd2018e4a ""
+  "Lab.tex" 1504808735 14605 832616b4af4651a52d527ff58252b1e7 ""
   "MergeSort.pdf" 1504721108 23930 fa70f6a1f2287abd5e1059d1b21c02a8 ""
   "logo.pdf" 1503607525 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.pdf"
-  "Lab.aux"
-  "Lab.out"
   "Lab.log"
+  "Lab.out"
+  "Lab.aux"
+  "Lab.pdf"
