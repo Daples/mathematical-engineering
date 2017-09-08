@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Lab"] 1504808740 "Lab.aux" "Lab.bbl" "Lab" 1504808742
+["bibtex Lab"] 1504895249 "Lab.aux" "Lab.bbl" "Lab" 1504895251
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lab.aux" 1504808741 2320 a938546c1aadccd4bab0ca4cab243f6b ""
+  "Lab.aux" 1504895250 2558 1e9fa111c9918f98ec7a63571db97147 ""
   "Lab.bib" 1503754497 740 53e20264b05006a99a4b61a28a114e57 ""
   (generated)
   "Lab.blg"
   "Lab.bbl"
-["pdflatex"] 1504808741 "Lab.tex" "Lab.pdf" "Lab" 1504808742
+["pdflatex"] 1504895250 "Lab.tex" "Lab.pdf" "Lab" 1504895251
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -98,14 +98,14 @@
   "ArrayMax.pdf" 1504721108 23133 de3ee6ab94bebd38fa0b475e13ada6b6 ""
   "ArraySum.pdf" 1504721108 23913 9619cf5f543dc5c7aaf0adbd34ed5f35 ""
   "InsertionSort.pdf" 1504721108 22579 1d0b96e402df174857a0e1993fa0eca7 ""
-  "Lab.aux" 1504808741 2320 a938546c1aadccd4bab0ca4cab243f6b ""
-  "Lab.bbl" 1504808741 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
-  "Lab.out" 1504808741 678 80ad776ece568ad9c3b6f6bbd2018e4a ""
-  "Lab.tex" 1504808735 14605 832616b4af4651a52d527ff58252b1e7 ""
+  "Lab.aux" 1504895250 2558 1e9fa111c9918f98ec7a63571db97147 ""
+  "Lab.bbl" 1504895250 49 0eba253fc001332e731e8aba3f23127b "bibtex Lab"
+  "Lab.out" 1504895250 850 6fab26e69ad61919a94d10fd63e47c65 ""
+  "Lab.tex" 1504895244 15242 5343c2de5b1777ae43e83fbbdf10fc1e ""
   "MergeSort.pdf" 1504721108 23930 fa70f6a1f2287abd5e1059d1b21c02a8 ""
   "logo.pdf" 1503607525 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.log"
   "Lab.out"
+  "Lab.log"
   "Lab.aux"
   "Lab.pdf"
