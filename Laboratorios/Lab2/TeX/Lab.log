@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 SEP 2017 15:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 SEP 2017 15:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -806,23 +806,23 @@ Package pdftex.def Info: logo.pdf used on input line 335.
 File: logo.pdf Graphic file (type pdf)
 
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf used on input line 378.
+Package pdftex.def Info: logo.pdf used on input line 376.
 (pdftex.def)             Requested size: 84.73949pt x 35.0551pt.
  [7] 
 AED: lastpage setting LastPage
 File: logo.pdf Graphic file (type pdf)
 <use logo.pdf>
-Package pdftex.def Info: logo.pdf used on input line 384.
+Package pdftex.def Info: logo.pdf used on input line 382.
 (pdftex.def)             Requested size: 84.73949pt x 35.0551pt.
  [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 384.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 384.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 382.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 382.
  (./Lab.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 384.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 384.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 382.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 382.
 Package rerunfilecheck Info: File `Lab.out' has not changed.
 (rerunfilecheck)             Checksum: F40F45BE30C5736DF88F42AE0441AA9C;1101.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 384.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 382.
  ) 
 Here is how much of TeX's memory you used:
  9459 strings out of 492995

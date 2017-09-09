@@ -151,7 +151,7 @@
 
   \subsection{How efficient is \texttt{mergeSort} with respect to \texttt{insertionSort} for large arrays?}
     The asymptotic complexity of \texttt{insertionSort} is $O(n^2)$, whereas for \texttt{mergeSort} is $O(n\log(n))$; it can be proved
-    that $n\log(n)<n^2, \forall n\geq0$, therefore, \texttt{mergeSort} is more efficent than \texttt{mergeSort}.
+    that $n\log(n)<n^2, \forall n\geq0$, therefore, \texttt{mergeSort} is more efficent than \texttt{insertionSort}.
 
   \subsection{How does \texttt{maxSpan} work?}
   \begin{Verbatim}
@@ -365,8 +365,6 @@ it searches the array to find the biggest span and returns that number.
     \texttt{canBalance} is $O(c_0+c_1+c_2+(c_3+c_4+c_5+c_10+c_11)n+(c_6+c_7+c_8+c_9)n^2)$, where n is the size of \texttt{nums};
     therefore \texttt{canBalance} is $O(n^2)$.
   \end{enumerate}
-
-
 
   \section{EXAM SIMULATION}
   \begin{enumerate}
