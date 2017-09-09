@@ -143,6 +143,10 @@ complexity of $n^2$. In this manner, we can see that if we use insertion sort fo
 big numbers it will take a enourmous amount of time, so it will not be
 efficient in any shape or form.
 
+  \subsection{What happens to \texttt{arraySum} for large N? Why does \texttt{insertionSort} increase faster?}
+    As we know, the \textit{Big-O} notation tells us how does the function behave for large values of N.
+    \texttt{arraySum} only makes one simple recursive call, thus \texttt{arraySum} is $O(n)$. This tells us
+    that the execution time for \texttt{arraySum} increases linearly, proportional to the value of N. 
   \subsection{How does \texttt{maxSpan} work?}
   \begin{Verbatim}
     def maxSpan(array):
