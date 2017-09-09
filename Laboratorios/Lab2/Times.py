@@ -4,7 +4,7 @@ import time
 
 sys.setrecursionlimit(1000000)
 myFile = open('Tables.csv','w')
-def insertionSort(x):
+def insertionsort(x):
 	"""
 	It orders the array x
 	:param x: array with numbers
@@ -18,7 +18,7 @@ def insertionSort(x):
 			x[j-1] = temp
 			j -= 1
 
-def arraySum(nums, i):
+def arraysum(nums, i):
 	"""
 	:param nums: arrary with numbers
 	:param i: index in the array
@@ -28,7 +28,7 @@ def arraySum(nums, i):
 		return nums[0]
 	return nums[i] + arraysum(nums,i-1)
 
-def arrayMax(nums,n):
+def arraymax(nums,n):
 	"""
 	:param nums: arrary with numbers
 	:param n: index in the array
@@ -46,7 +46,7 @@ def arrayMax(nums,n):
 #Date: September 13, 2013
 #Code version: 1.0
 #Availability: https://stackoverflow.com/questions/18761766/mergesort-python
-def mergeSort(x):
+def mergesort(x):
 	"""
 	:param x: array with numbers
 	:return: the ordered array
