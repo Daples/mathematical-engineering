@@ -181,8 +181,6 @@ INPUT logo.pdf
 INPUT ./logo.pdf
 INPUT logo.pdf
 INPUT ./logo.pdf
-INPUT Lab.bbl
-INPUT Lab.bbl
 INPUT logo.pdf
 INPUT ./logo.pdf
 INPUT Lab.aux

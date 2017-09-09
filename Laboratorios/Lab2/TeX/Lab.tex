@@ -84,7 +84,7 @@
   \thispagestyle{fancy}
 
   \section{CODE FOF \texttt{ARRAYSUM, ARRAYMAX, INSERTIONSORT, MERGESORT} WITH RANDOM ARRAYS}
-    The \texttt{.java} file can be found in the ``codigo'' folder.
+    The \texttt{.py} file can be found in the ``codigo'' folder.
   \section{ONLINE EXERCISES (\texttt{CODINGBAT)}}
     The source code for all 10 exercises can be found in a \texttt{.java} file in ``ejercicioenlinea'' folder.
   \section{SIMULATION OF PROJECT PRESENTATION QUESTIONS}
@@ -138,34 +138,35 @@
       does indeed fit the data.
 
     \subsection{What happens to \texttt{insertionSort} for large N?}
-    As we see in the graphics and the values, insertion sort has a asymptotical
-complexity of $n^2$. In this manner, we can see that if we use insertion sort for
-big numbers it will take a enourmous amount of time, so it will not be
-efficient in any shape or form.
+      As we see in the graphics and the values, insertion sort has a asymptotical
+      complexity of $n^2$. In this manner, we can see that if we use insertion sort for
+      big numbers it will take a enourmous amount of time, so it will not be
+      efficient in any shape or form.
 
   \subsection{What happens to \texttt{arraySum} for large N? Why does \texttt{insertionSort} increase faster?}
     As we know, the \textit{Big-O} notation tells us how does the function behave for large values of N.
     \texttt{arraySum} only makes one simple recursive call, thus \texttt{arraySum} is $O(n)$. This tells us
-    that the execution time for \texttt{arraySum} increases linearly, proportional to the value of N.
+    that the execution time for \texttt{arraySum} increases linearly, proportional to the value of N. On the other hand,
+    \texttt{insertionSort} is $O(n^2)$, which makes \texttt{arraySum} n times more efficent for the worst-case scenario.
 
   \subsection{How efficient is \texttt{mergeSort} with respect to \texttt{insertionSort} for large arrays?}
-    The asymptotic complexity of \texttt{insertionSort} is $O(n^2)$, whereas for \texttt{mergeSort} is $O(n)$; this implies that
-    \texttt{insertionSort} has to make n steps more than \texttt{mergeSort}, making \texttt{mergeSort} n times more efficent in the worst-case scenario.
+    The asymptotic complexity of \texttt{insertionSort} is $O(n^2)$, whereas for \texttt{mergeSort} is $O(n\log(n))$; it can be proved
+    that $n\log(n)<n^2, \forall n\geq0$, therefore, \texttt{mergeSort} is more efficent than \texttt{mergeSort}.
 
   \subsection{How does \texttt{maxSpan} work?}
   \begin{Verbatim}
     def maxSpan(array):
-            arr = []
-            max = 0
-            for i in range(len(array)):
-                    for j in range(i,len(array)):
-                            if array[i] == array[j]:
-                                    c = j-i+1
-                    arr.append(c)
-            for i in range(len(arr)):
-                    if arr[i] > max:
-                            max = arr[i]
-            return max
+      arr = []
+      max = 0
+      for i in range(len(array)):
+        for j in range(i,len(array)):
+          if array[i] == array[j]:
+            c = j-i+1
+        arr.append(c)
+      for i in range(len(arr)):
+        if arr[i] > max:
+        max = arr[i]
+      return max
   \end{Verbatim}
 It works fairly easy. First for every data in the array of integers it moves
 through the same array to the same index through the end of the array
@@ -377,7 +378,7 @@ it searches the array to find the biggest span and returns that number.
   \end{enumerate}
 
 
-    \newpage
-    \bibliographystyle{plain}
-    \bibliography{Lab.bib}
+    %\newpage
+    %\bibliographystyle{plain}
+    %\bibliography{Lab.bib}
 \end{document}
