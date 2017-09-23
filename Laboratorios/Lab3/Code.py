@@ -1,8 +1,8 @@
-from DataStructures import LinkedList, ArrayList, Queue, Stack
-from Classes import Fridge, Order
+from CodeLab3.DataStructures import LinkedList, ArrayList, Queue, Stack
+from CodeLab3.Classes import Fridge, Order
 
 
-def list_product(*nums):
+def list_product(nums):
     s = 1
     for i in nums:
         s *= i
@@ -10,11 +10,11 @@ def list_product(*nums):
 
 
 def smart_insert(data, nums):
-    try:
-        nums.index(data)
-    except ValueError:
-        nums.append(data)
+    for item in nums:
+        if data == item:
+            return
 
+    nums.insert(data, nums.size())
     return nums
 
 
@@ -57,3 +57,48 @@ def exercise_4():
               Order("olimpica", 4), Order("exito", 1)]
 
     manage_fridges(fridges, orders)
+
+
+def manage_string(string):
+    # Start character
+    if "]" in string:
+        string += "\n]"
+    array = string.split("[") # O(n) --> Split
+    ll = LinkedList()
+    for item in array:
+        if item != "":
+            ll.insert(item, 0)
+    temp = ""
+    for link in ll:
+        temp += link
+
+    # End Character
+    array2 = temp.split("]")
+    reach_eof = False
+
+    ll.clear()
+    for item in array2:
+
+        if item[-1] == "\n":
+            reach_eof = True
+            ll.insert(item, ll.size())
+            continue
+
+        if reach_eof:
+            index = ll.size() - 1
+        else:
+            index = ll.size()
+
+        ll.insert(item, index)
+
+    final = ""
+    for link in ll:
+        final += link
+
+    print(final)
+
+
+def exercise_2_1():
+    manage_string(input("Start typing (press enter to finish):\n"))
+
+exercise_2_1()
