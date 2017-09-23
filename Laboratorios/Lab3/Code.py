@@ -57,5 +57,3 @@ def exercise_4():
               Order("olimpica", 4), Order("exito", 1)]
 
     manage_fridges(fridges, orders)
-
-

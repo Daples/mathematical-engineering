@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{CODE FOF ARRAYSUM, ARRAYMAX, INSERTIONSORT, MERGESORT WITH RANDOM ARRAYS}{}% 1
+\BOOKMARK [1][-]{section.2}{ONLINE EXERCISES \(CODINGBAT\)}{}% 2
+\BOOKMARK [1][-]{section.3}{SIMULATION OF PROJECT PRESENTATION QUESTIONS}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Time for algorithms}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Plots for execution time}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{What can you say between the results obtained and the theoretical Big-O results?}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{What happens to insertionSort for large N?}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.5}{What happens to arraySum for large N? Why does insertionSort increase faster?}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.6}{How efficient is mergeSort with respect to insertionSort for large arrays?}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.7}{How does maxSpan work?}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.8}{Array II}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.9}{Array III}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{EXAM SIMULATION}{}% 13
