@@ -1,5 +1,5 @@
-from CodeLab3.DataStructures import LinkedList, ArrayList, Queue, Stack
-from CodeLab3.Classes import Fridge, Order
+from DataStructures import LinkedList, ArrayList, Queue, Stack
+from Classes import Fridge, Order
 
 
 def list_product(nums):
@@ -78,18 +78,18 @@ def manage_string(string):
 
     ll.clear()
     for item in array2:
+        if item != "":
+            if item[-1] == "\n":
+                reach_eof = True
+                ll.insert(item, ll.size())
+                continue
 
-        if item[-1] == "\n":
-            reach_eof = True
-            ll.insert(item, ll.size())
-            continue
+            if reach_eof:
+                index = ll.size() - 1
+            else:
+                index = ll.size()
 
-        if reach_eof:
-            index = ll.size() - 1
-        else:
-            index = ll.size()
-
-        ll.insert(item, index)
+            ll.insert(item, index)
 
     final = ""
     for link in ll:
