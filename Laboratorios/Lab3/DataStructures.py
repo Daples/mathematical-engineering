@@ -14,6 +14,9 @@ class LinkedList:
         self.int_size = 0
         self.last = None
 
+    def __len__(self):
+        return self.int_size
+
     def insert_multi(self, *objs):
         for obj in objs:
             self.insert(obj, self.int_size)
@@ -84,7 +87,7 @@ class LinkedList:
                 for j in range(i):
                     temp_node = temp_node.next
 
-            return temp_node
+            return temp_node.node
 
     def remove(self, i):
         if i >= self.int_size:
@@ -152,6 +155,9 @@ class ArrayList:
 
     def __init__(self):
         self.data = []
+
+    def __len__(self):
+        return len(self.data)
 
     def insert_multi(self, *objs):
         for obj in objs:
