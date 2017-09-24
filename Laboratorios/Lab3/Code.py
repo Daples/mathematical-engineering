@@ -1,4 +1,4 @@
-from DataStructures import LinkedList, ArrayList, Queue, Stack
+from DataStructures import LinkedList, ArrayList, Stack
 from Classes import Fridge, Order
 
 
@@ -57,6 +57,7 @@ def balance(to_balance):
 
 def manage_fridges(fridges1, orders1):
     """
+    This is using linked list implicitly
     :param fridges1: a list with fridges
     :param orders1: a list with orders
     :return: nothing, it prints the orders and the fridges assigned
@@ -102,24 +103,29 @@ def exercise_4():
 
 def manage_string(string):
     ll = LinkedList()
-    index = 0
-    for char in string:
-        if char == "[":
-            index = 0
-        elif char == "]":
-            index = ll.size()
-        else:
-            ll.insert(char, index)
-            index += 1
-
+    array = string.split("\n")
     resp = ""
-    for item in ll:
-        resp += item
+    for line in array:
+        ll.clear()
+        index = 0
+        for char in line:
+            if char == "[":
+                index = 0
+            elif char == "]":
+                index = ll.size()
+            else:
+                ll.insert(char, index)
+                index += 1
 
-    print(resp)
+        for item in ll:
+            resp += item
+        resp += "\n"
+
+    return resp
+
 
 def exercise_2_1():
-    manage_string(input("Start typing (press enter to finish):\n"))
+    resp = manage_string(input("Start typing (press enter to finish):\n"))
+    print(resp)
+    return resp
 
-
-exercise_2_1()
