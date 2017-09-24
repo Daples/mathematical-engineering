@@ -101,43 +101,25 @@ def exercise_4():
 
 
 def manage_string(string):
-    # Start character
-    if "]" in string:
-        string += "\n]"
-    array = string.split("[") # O(n) --> Split
     ll = LinkedList()
-    for item in array:
-        if item != "":
-            ll.insert(item, 0)
-    temp = ""
-    for link in ll:
-        temp += link
+    index = 0
+    for char in string:
+        if char == "[":
+            index = 0
+        elif char == "]":
+            index = ll.size()
+        else:
+            ll.insert(char, index)
+            index += 1
 
-    # End Character
-    array2 = temp.split("]")
-    reach_eof = False
+    resp = ""
+    for item in ll:
+        resp += item
 
-    ll.clear()
-    for item in array2:
-        if item != "":
-            if item[-1] == "\n":
-                reach_eof = True
-                ll.insert(item, ll.size())
-                continue
-
-            if reach_eof:
-                index = ll.size() - 1
-            else:
-                index = ll.size()
-
-            ll.insert(item, index)
-
-    final = ""
-    for link in ll:
-        final += link
-
-    print(final)
-
+    print(resp)
 
 def exercise_2_1():
     manage_string(input("Start typing (press enter to finish):\n"))
+
+
+exercise_2_1()

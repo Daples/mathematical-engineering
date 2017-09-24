@@ -1,10 +1,27 @@
-class LinkedList:
+class LinkedList(object):
 
     class Node(object):
         def __init__(self, node):
             self.node = node
             self.next = None
             self.prev = None
+
+        def set_next(self, obj):
+            self.next = obj
+
+        def set_prev(self, obj):
+            self.prev = obj
+
+        def set(self, node):
+            self.node = node.node
+            self.set_next(node.get_next())
+            self.set_prev(node.get_prev())
+
+        def get_prev(self):
+            return self.prev
+
+        def get_next(self):
+            return self.next
 
         def __str__(self):
             return str(self.node)
@@ -13,6 +30,7 @@ class LinkedList:
         self.first = None
         self.int_size = 0
         self.last = None
+        self.it = None
 
     def __len__(self):
         return self.int_size
@@ -47,14 +65,14 @@ class LinkedList:
                 return
             elif i < self.int_size / 2:
                 for j in range(i):
-                    if j == i - 1:
+                    if j <= i - 1:
                         last = mov_obj
                     mov_obj = mov_obj.next
 
-                    obj_node.next = mov_obj
-                    obj_node.prev = mov_obj.prev
-                    mov_obj.prev = obj_node
-                    last.next = obj_node
+                obj_node.next = mov_obj
+                obj_node.prev = mov_obj.prev
+                mov_obj.prev = obj_node
+                last.next = obj_node
             else:
                 j = self.int_size - 1
                 mov_obj = self.last
@@ -88,6 +106,9 @@ class LinkedList:
                     temp_node = temp_node.next
 
             return temp_node.node
+
+    def get_iterator(self):
+        return self.it
 
     def remove(self, i):
         if i >= self.int_size:
@@ -149,6 +170,12 @@ class LinkedList:
 
     def size(self):
         return self.int_size
+
+    def get_first(self):
+        return self.first
+
+    def get_last(self):
+        return self.last
 
 
 class ArrayList:
