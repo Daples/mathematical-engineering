@@ -17,7 +17,7 @@ def brokenKey(text):
             ll.first = movingObj.next
             ll.last.next = firstObj
             ll.last = movingObj.prev
-            movingObj.prev.next= None
+            movingObj.prev.next = None
             movingObj = ll.first
         elif str(movingObj) == ']':
             '''
