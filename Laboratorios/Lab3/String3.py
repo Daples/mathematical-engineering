@@ -32,4 +32,9 @@ def brokenKey(text):
         movingObj = movingObj.next
         print(ll)
         acumn += 1
+
+    acum = ""
+    for link in ll:
+        acum += link
+    print(acum)
 brokenKey('Thi[s_[ooois_a_[Beiju]_text')
