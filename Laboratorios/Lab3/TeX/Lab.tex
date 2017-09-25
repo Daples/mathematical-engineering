@@ -63,7 +63,7 @@
 
 %==============Title==============
 
-\title{\color{Eblue}\textbf{Laboratory practice No. 3: Big O Notation}}
+\title{\color{Eblue}\textbf{Laboratory practice No. 3: LinkedList and ArrayList}}
 \author{
   \textbf{Juan S. Cárdenas Rodríguez}\\
   Universidad EAFIT\\
@@ -101,15 +101,53 @@
           \textbf{Exercise 1.4} & $O(n^2m)$          & $O(nm)$             \\ \hline
         \end{tabular}
       \end{table}
+    \subsection{How does exercise 2.1 work?}
+      Exercise 2.1 is simple. First, every time that it finds the character '[', it assigns 0
+      to the variable \texttt{index}; representing that it will insert in the beginnig from that point.
+      On the other hand, if it finds a ']', \texttt{index} is assigned with the end of the array.
+
+      In any other case, when it finds a character different from '[' and ']', it just adds this characters
+      at the \texttt{index} position; therefore, it adds 1 to the \texttt{index} to keep it at the end or at the start.
+
+    \subsection{What's the complexity of exercise 2.1?}
+      \begin{Verbatim}
+        def manage_string(string):              # c0
+            ll = LinkedList()                   # c1
+            array = string.split("\n")          # c2
+            resp = ""                           # c3
+            for line in array:                  # c4*m
+                ll.clear()                      # c5*m
+                index = 0                       # c6*m
+                for char in line:               # c7*m*n
+                    if char == "[":             # c8*m*n
+                        index = 0               # c9*m*n
+                    elif char == "]":           # c10*m*n
+                        index = ll.size()       # c11*m*n
+                    else:                       # c12*m*n
+                        ll.insert(char, index)  # c13*m*n
+                        index += 1              # c14*m*n
+                for item in ll:                 # c15*n
+                    resp += item                # c16*n
+                resp += "\n"                    # c17
+            return resp                         # c18
+      \end{Verbatim}
+      Therefore, \texttt{manage\_string} is $O(c_{k1}+c_{k2}m+c_{k3}n+c_{k4}mn)$.
+      When the product and sum properties are applied, \texttt{manage\_string} is $O(mn)$,
+      where n is the length of the string and m is the number of lines.
+
+
 
   \section{TEST SIMULATION}
-   c)
-  2. c)
-  3.
-  02 q.size() > 1
-  03 <=
-  04 q.remove()
-  06 q.remove()
+    \begin{enumerate}
+      \item c)
+      \item c)
+      \item \begin{itemize}
+        \item q.size()
+        \item <=
+        \item q.remove()
+        \item q.remove()
+    \end{itemize}
+    \end{enumerate}
 
 
 \end{document}

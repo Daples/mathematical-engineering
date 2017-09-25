@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1506297392 "Lab.tex" "Lab.pdf" "Lab" 1506297393
+["pdflatex"] 1506305397 "Lab.tex" "Lab.pdf" "Lab" 1506305398
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -21,6 +21,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1480098733 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1480098733 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1480098733 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1480098733 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
@@ -43,6 +44,7 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty" 1480098820 2431 fe3078ec12fc30287f568596f8e0b948 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls" 1480098821 19821 310da678527a7dfe2a02c88af38079b7 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/inputenc.sty" 1480098821 4732 d63eda807ac82cca2ca8488efd31a966 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd" 1480098821 2256 80ce1168fb4ce6a85583a9cf8972c013 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/omsenc.dfu" 1487721667 2004 ac51aeac484f08c01026120d62677eca ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/ot1enc.dfu" 1487721667 3181 1cb3e9ad01f4a01127b2ffd821bfeec7 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/size12.clo" 1480098821 8303 1d67e16498f00f63da792fab169302fc ""
@@ -85,12 +87,12 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "Lab.aux" 1506297393 1303 7f4c90c7ddf67d2db3375379ee5a5840 ""
-  "Lab.out" 1506297393 298 788e1858ba46656f02ed7b6e5500d103 ""
-  "Lab.tex" 1506297391 3364 045df76e277033c339b8655abe10e265 ""
+  "Lab.aux" 1506305398 1676 73614d779828d1e04e47942ddd8e012f ""
+  "Lab.out" 1506305398 511 fabc545afb440f6089d37b6a801484e5 ""
+  "Lab.tex" 1506305391 5652 90b89f8f8caf2390ec6da4d787e3d9bd ""
   "logo.pdf" 1506087276 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.pdf"
   "Lab.aux"
   "Lab.out"
   "Lab.log"
+  "Lab.pdf"
