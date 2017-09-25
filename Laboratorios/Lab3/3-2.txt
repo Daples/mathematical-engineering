@@ -1,0 +1,9 @@
+El ejercicio 2.1 funciona de una manera muy simple. En primer lugar, cada vez
+que se encuentra con "[" pone la variable index en el valor 0; de esta manera,
+representando de que de ahora en adelante va a ingresar en el principio. Por
+otro lado, si se encuentra con un "]" pone el indice al final del arreglo.
+
+Ya, cada vez que no se encuentre con ninguno de estos simplemente inserta el 
+caracter en el valor del índice y, para no perder donde estaba el valor al que
+estabamos haciendo referencia para, así, no perder de vista en que valor
+estabamos ingresando en un incio conservando la posicion correctamente. 
