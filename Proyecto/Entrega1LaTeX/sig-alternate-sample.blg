@@ -4,18 +4,18 @@ The top-level auxiliary file: sig-alternate-sample.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
 Warning--entry type for "Tuto:Data" isn't style-file defined
---line 31 of file sigproc.bib
+--line 33 of file sigproc.bib
 You've used 4 entries,
             2118 wiz_defined-function locations,
-            522 strings with 4358 characters,
-and the built_in function-call counts, 1002 in all, are:
-= -- 88
+            522 strings with 4418 characters,
+and the built_in function-call counts, 1000 in all, are:
+= -- 87
 > -- 50
 < -- 0
 + -- 20
 - -- 16
 * -- 48
-:= -- 179
+:= -- 178
 add.period$ -- 12
 call.type$ -- 4
 change.case$ -- 18
@@ -24,13 +24,13 @@ cite$ -- 4
 duplicate$ -- 38
 empty$ -- 89
 format.name$ -- 16
-if$ -- 209
+if$ -- 208
 int.to.chr$ -- 0
 int.to.str$ -- 4
 missing$ -- 4
 newline$ -- 23
 num.names$ -- 8
-pop$ -- 36
+pop$ -- 37
 preamble$ -- 1
 purify$ -- 16
 quote$ -- 0

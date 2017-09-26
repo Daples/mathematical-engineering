@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex sig-alternate-sample"] 1506429002 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1506429003
+["bibtex sig-alternate-sample"] 1506431224 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1506431225
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/abbrv.bst" 1480098433 20329 b5fed53e10044d0f8112183785c759b1 ""
-  "sig-alternate-sample.aux" 1506429003 2680 fc40d46c695d4e010cb6c686218a13f1 ""
-  "sigproc.bib" 1502647848 953 19bcd54eb44cd1ed9269d87bc1d998b8 ""
+  "sig-alternate-sample.aux" 1506431225 2680 fc40d46c695d4e010cb6c686218a13f1 ""
+  "sigproc.bib" 1506431220 939 6c0e7136f79555c0d57f8c299b71e77c ""
   (generated)
-  "sig-alternate-sample.bbl"
   "sig-alternate-sample.blg"
-["pdflatex"] 1506429002 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1506429003
+  "sig-alternate-sample.bbl"
+["pdflatex"] 1506431224 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1506431225
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1480098688 4484 b828043cbd581d289d955903c1339981 ""
@@ -123,10 +123,10 @@
   "SkipList.pdf" 1506098024 10508 50748f37a19dc0f0d3a7e77162ca11c8 ""
   "acmcopyright.sty" 1442245560 9626 03a22ffcc9f51aaef67ac6ed43847230 ""
   "sig-alternate-05-2015.cls" 1506428574 66821 dad6d37cbe19e9f1ab52840a28c4b912 ""
-  "sig-alternate-sample.aux" 1506429003 2680 fc40d46c695d4e010cb6c686218a13f1 ""
-  "sig-alternate-sample.bbl" 1506429002 761 2488dc0ee163d058a38add61851768af "bibtex sig-alternate-sample"
-  "sig-alternate-sample.out" 1506429003 473 2b8dd6e965f208db3a6e7ec9af6a9a56 ""
-  "sig-alternate-sample.tex" 1506428999 8836 f8a157d3c7a751bfccdedc9a56cbb31e ""
+  "sig-alternate-sample.aux" 1506431225 2680 fc40d46c695d4e010cb6c686218a13f1 ""
+  "sig-alternate-sample.bbl" 1506431224 823 ad462cf3734d20db7682bed6d502b49e "bibtex sig-alternate-sample"
+  "sig-alternate-sample.out" 1506431225 473 2b8dd6e965f208db3a6e7ec9af6a9a56 ""
+  "sig-alternate-sample.tex" 1506429364 8854 1474a6cb9f8454a115d5a7c9b25466d1 ""
   (generated)
   "sig-alternate-sample.log"
   "sig-alternate-sample.pdf"
