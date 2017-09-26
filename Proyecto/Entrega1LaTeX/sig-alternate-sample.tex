@@ -1,23 +1,19 @@
 \documentclass{sig-alternate-05-2015}
 \usepackage[hidelinks]{hyperref}
+\usepackage{float}
+
+\makeatletter
+\def\@copyrightspace{\relax}
+\makeatother
 
 \begin{document}
 
 
-  \setcopyright{acmcopyright}
+  \setcopyright{none}
+  \doi{}
+  \isbn{}
 
-  \doi{10.475/123_4}
-
-  \isbn{123-4567-24-567/08/06}
-
-  \conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
-
-  \acmPrice{\$15.00}
-
-  \conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
-
-
-  \title{Data structure for efficient handling of files and directories in computers}
+  \title{Data structure for efficient indexing of files and directories}
 
   \numberofauthors{3}
 
@@ -74,10 +70,10 @@
       Before we get into red-black trees, we will talk about binary search tree (BST). A BST is a tree on which nodes satisfy:
       \begin{itemize}
         \item The left sub-tree of a node has a key less or equal to its parents node$'$s key.
-        \item The right sub-tree of a node has a key greater or equal to its parents node$'$s key. \cite{Tuto:Data}
+        \item The right sub-tree of a node has a key greater or equal to its parents node$'$s key \cite{Tuto:Data}.
       \end{itemize}
-      A red-black tree is a BST with one extra bit of storage per node: its color, which can be either black or red. \cite{Cormen:Algorithms}
-      No leaf is more than twice as far from the root as any other. \cite{Black:RBTree}
+      A red-black tree is a BST with one extra bit of storage per node: its color, which can be either black or red \cite{Cormen:Algorithms}.
+      No leaf is more than twice as far from the root as any other \cite{Black:RBTree}.
       A BST is a red-black tree if it satisfies the following properties:
       \begin{itemize}
         \item Every node is either red or black.
@@ -87,11 +83,11 @@
         \item For each node, all paths from the node to descendant leaves contain the same number of black nodes.
       \end{itemize}
       Insertion of a node into an n-node red-black tree can be accomplished in $O(log(n))$
-      time. We use a slightly modified version of the tree-insert procedure; and we use recoloring and rotation to re-balance the tree. \cite{Cormen:Algorithms}
+      time. We use a slightly modified version of the tree-insert procedure; and we use recoloring and rotation to re-balance the tree \cite{Cormen:Algorithms}.
 
       Figure \ref{img:RBTree} shows an example of a red-black tree.
 
-      \begin{figure}
+      \begin{figure}[b]
         \centering
         \includegraphics[scale=0.35]{RBTree.pdf}
         \caption{Example of red-black tree with integers}
@@ -101,13 +97,13 @@
     \subsubsection{Hash tables}
         A hash table is a generalization of the simpler notion of an ordinary array
         \cite{Cormen:Algorithms}, and each data value has its own index value.
-        It is a data structure in which insertion and search operations are very fast. \cite{Tuto:Data}
+        It is a data structure in which insertion and search operations are very fast \cite{Tuto:Data}.
         Whenever an element is to be inserted, we compute the hash code of the key passed and
         locate the index using that hash code as an index in the array.
         Each data value is converted into an index of the array, using a hash function.
         This is how searching is carried out on Hash tables. The hash functions has to
         do an uniform distribution of keys: each key is equally likely to hash to any of
-        the slots of the array, independently of where any other key has hashed to. \cite{Cormen:Algorithms}
+        the slots of the array, independently of where any other key has hashed to \cite{Cormen:Algorithms}.
 
         Figure \ref{img:Hash} shows an example of a Hash table.
         \begin{figure}
@@ -129,7 +125,7 @@
         \item If the root node is an index node, it must have at least two children.
       \end{itemize}
       Figure \ref{img:BTree} shows an example of a B-Tree.
-      \begin{figure}
+      \begin{figure}[b]
         \centering
         \includegraphics[scale=0.45]{BTree.pdf}
         \caption{Example of B-Tree with integers}
@@ -154,10 +150,10 @@
       marked in the procedure and then pop marked boxes from the stack as needed and then insert x next to each of the popped
       boxes.
       The idea of adding the negative and positive infinity is just to put some fixed values of the least and greatest
-      value. So, in this way, this concept could apply in other areas as adresses in sorted way and so fourth.\cite{Mehta:Handbook}
+      value. So, in this way, this concept could apply in other areas as adresses in sorted way and so fourth \cite{Mehta:Handbook}.
       \begin{figure}
         \centering
-        \includegraphics[scale=0.4]{SkipList.png}
+        \includegraphics[scale=0.4]{SkipList.pdf}
         \caption{Example of a SkipList}
         \label{img:skipList}
       \end{figure}

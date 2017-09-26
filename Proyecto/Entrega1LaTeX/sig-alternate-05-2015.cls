@@ -1,3 +1,4 @@
+% 2^10 - Copy
 % SIG-ALTERNATE.CLS - VERSION 2.8
 % "COMPATIBLE" WITH THE "ACM_PROC_ARTICLE-SP.CLS" V3.2SP
 % Gerald Murray - May 23rd 2012
@@ -1014,32 +1015,46 @@
     \endgroup
 }
 %
-
-
-
-
-
-
 %%% This section (written by KBT) handles the 1" box in the lower left
 %%% corner of the left column of the first page by creating a picture,
 %%% and inserting the predefined string at the bottom (with a negative
 %%% displacement to offset the space allocated for a non-existent
 %%% caption).
 %%%
+
+% \newtoks\copyrightnotice
+% \def\ftype@copyrightbox{8}
+% \def\@copyrightspace{
+% \@float{copyrightbox}[b]
+% \begin{center}
+% \setlength{\unitlength}{1pc}
+% \ifnum\ACM@basesize=9
+% \begin{picture}(20,6) %Space for copyright notice
+% \put(0,-0.95){\crnotice{\@toappear}}
+% \end{picture}
+% \fi
+% \ifnum\ACM@basesize=10
+% \begin{picture}(20,7) %Space for copyright notice
+% \put(0,-0.95){\crnotice{\@toappear}}
+% \end{picture}
+% \fi
+% \end{center}
+% \end@float}
+
 \newtoks\copyrightnotice
-\def\ftype@copyrightbox{8}
+\def\ftype@copyrightbox{0}
 \def\@copyrightspace{
 \@float{copyrightbox}[b]
 \begin{center}
 \setlength{\unitlength}{1pc}
 \ifnum\ACM@basesize=9
-\begin{picture}(20,6) %Space for copyright notice
-\put(0,-0.95){\crnotice{\@toappear}}
+\begin{picture}(0,0) %Space for copyright notice
+\put(0,0){\crnotice{\@toappear}}
 \end{picture}
 \fi
 \ifnum\ACM@basesize=10
-\begin{picture}(20,7) %Space for copyright notice
-\put(0,-0.95){\crnotice{\@toappear}}
+\begin{picture}(0,0) %Space for copyright notice
+\put(0,0){\crnotice{\@toappear}}
 \end{picture}
 \fi
 \end{center}
