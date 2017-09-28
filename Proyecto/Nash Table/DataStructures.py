@@ -405,14 +405,12 @@ class NashTable:
         letter = name[letter_index]
         total = []
         temp = None
-        if letter not in self.hash and letter.upper() not in self.hash and letter.lower() not in self.hash:
+        if letter.upper() not in self.hash and letter.lower() not in self.hash:
             return None
         letters = []
-        if letter in self.hash:
-            letters.append(letter)
-        if letter.upper() in self.hash and letter.upper() not in letters:
+        if letter.upper() in self.hash:
             letters.append(letter.upper())
-        if letter.lower() in self.hash and letter.lower() not in letters:
+        if letter.lower() in self.hash:
             letters.append(letter.lower())
 
         for let in letters:
