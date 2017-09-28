@@ -334,18 +334,16 @@ class NashTable:
             self.depth = depth
             self.table = LinkedList()
 
-        def __init_nash__(self, level, ascii_init=0, ascii_final=128):
-            self.nash = NashTable(self.depth, ascii_init, ascii_final, level)
+        def __init_nash__(self, level):
+            self.nash = NashTable(self.depth, level)
 
         def __str__(self):
             return "(" + str(self.table) + ",", str(self.nash) + ")"
 
-    def __init__(self, depth=2, ascii_init=0, ascii_final=127, level=1):
+    def __init__(self, depth=2, level=1):
         self.depth = depth
         self.hash = {}
         self.level = level
-        self.ascii_init = ascii_init
-        self.ascii_final = ascii_final
 
     def __str__(self):
         return str(self.hash)
