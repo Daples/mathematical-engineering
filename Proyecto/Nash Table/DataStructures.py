@@ -360,7 +360,7 @@ class NashTable:
             my_list.insert(item, my_list.size())
         else:
             if self.hash[letter].nash is None:
-                self.hash[letter].__init_nash__(self.level+1, self.ascii_init,self.ascii_final)
+                self.hash[letter].__init_nash__(self.level+1)
             self.hash[letter].nash.__aux__insert__(letter_index+1, item)
 
 
