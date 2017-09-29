@@ -67,7 +67,8 @@
 
     First of all, we live in a world where everyone needs everything quick; times have changed and if the user orders the computer
     to do something for them, they want a quick answer. Especially when finding an archive in their computer. Imagine that the
-    user forgot where his Power Point presentation was and he had 5 minutes before presenting it; it would be infuriating that he
+    user forgot where his Powe
+    r Point presentation was and he had 5 minutes before presenting it; it would be infuriating that he
     had to wait a considerable amount of time for the computer to retrieve the file's location. In this sense, if we make a slow algorithm for searching
     archives we would bring an unsatisfying experience to the user.
 
@@ -79,8 +80,8 @@
   \section{Problem}
     Design and develop a data structure to efficiently represent files and directories of a computer and search/retrieve information from it.
 
-  \subsection{Related work}
-    \subsubsection{Red-black trees}
+  \section{Related work}
+    \subsection{Red-black trees}
       Before we get into red-black trees, we will talk about binary search tree (BST). A BST is a tree on which nodes satisfy:
       \begin{itemize}
         \item The left sub-tree of a node has a key less or equal to its parents node$'$s key.
@@ -101,14 +102,14 @@
 
       Figure \ref{img:RBTree} shows an example of a red-black tree.
 
-      \begin{figure}[b]
+      \begin{figure}[H]
         \centering
         \includegraphics[scale=0.35]{RBTree.pdf}
         \caption{Example of red-black tree with integers}
         \label{img:RBTree}
       \end{figure}
 
-    \subsubsection{Hash tables}
+    \subsection{Hash tables}
         A hash table is a generalization of the simpler notion of an ordinary array
         \cite{Cormen:Algorithms}, and each data value has its own index value.
         It is a data structure in which insertion and search operations are very fast \cite{Tuto:Data}.
@@ -127,7 +128,7 @@
           \label{img:Hash}
         \end{figure}
 
-    \subsubsection{B-Trees}
+    \subsection{B-Trees}
       The B-tree aims to solve the problem of given a large collection of objects, each having a key and an
       value, design a disk-based index structure which efficently supports query and update. It is defined as a tree
       structure which satisfies the following properties:
@@ -149,7 +150,7 @@
       way. If the root node is full, the algorithm will split it into two nodes and, the previous will pass to a higher level and,
       repeat the process until the node is avaible.
 
-    \subsubsection{Skip list}
+    \subsection{Skip list}
       Let $S_{0}$, $S_{1}$... $S_r$ be a collection of sets that satifies that for the set $S_r = 0$ and for each $i<j$, $0\leq i \leq r$ and $0\leq j\leq r$ then
       $S_j$ is a subset of $S_i$. The index of each set is said to represent the level of each element in the set. Then, a skip list
       is the linked lists $L_i$ each of them containing the respective $S_i$; in every linked list we attach the special keys negative
@@ -165,12 +166,21 @@
       boxes.
       The idea of adding the negative and positive infinity is just to put some fixed values of the least and greatest
       value. So, in this way, this concept could apply in other areas as adresses in sorted way and so fourth \cite{Mehta:Handbook}.
-      \begin{figure}
+      \begin{figure}[t]
         \centering
         \includegraphics[scale=0.4]{SkipList.pdf}
         \caption{Example of a SkipList}
         \label{img:skipList}
       \end{figure}
+
+  \section{Nash table}
+  \begin{figure*}[t]
+    \centering
+    \includegraphics[scale=0.6]{NashTable.pdf}
+    \caption{Example of NashTable}
+    \label{img:nashT}
+  \end{figure*}
+
 
   \bibliographystyle{abbrv}
   \bibliography{sigproc}
