@@ -184,12 +184,20 @@
 
   \subsection{Operations of the data structure}
 
+    \subsubsection{Insertion}
+    \begin{figure}[t]
+      \centering
+      \includegraphics[scale=0.4]{NashInsert.pdf}
+      \caption{Example of a SkipList}
+      \label{img:nashInsert}
+    \end{figure}
+
   \subsection{Design criteria of the data structure}
     The NashTable is based on hash tables and double linked lists; searching files
     is the priority. Each NashTable has a hash table, its hash function is associated with the
     nth letter of the name of the file, and n depends on the depth of the structure;
     the hash table has a reference to a Branch with has another NashTable and so fourth.
-    This first approach to solve the problem is not optimized for low memory consumption; 
+    This first approach to solve the problem is not optimized for low memory consumption;
 
 
 
