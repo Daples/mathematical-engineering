@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  28 SEP 2017 21:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  29 SEP 2017 17:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -304,20 +304,20 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 ) (./sig-alternate-sample.aux)
 \openout1 = `sig-alternate-sample.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
  (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
@@ -349,7 +349,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package hyperref Warning: Height of page (\paperheight) is invalid (0.0pt),
 (hyperref)                using 11in.
 
-Package hyperref Info: Link coloring OFF on input line 10.
+Package hyperref Info: Link coloring OFF on input line 11.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -357,36 +357,36 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count127
 )
-LaTeX Info: Redefining \ref on input line 10.
-LaTeX Info: Redefining \pageref on input line 10.
-LaTeX Info: Redefining \nameref on input line 10.
+LaTeX Info: Redefining \ref on input line 11.
+LaTeX Info: Redefining \pageref on input line 11.
+LaTeX Info: Redefining \nameref on input line 11.
  (./sig-alternate-sample.out) (./sig-alternate-sample.out)
 \@outlinefile=\write4
 \openout4 = `sig-alternate-sample.out'.
 
  Excluding 'CCSXML' comment.
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
+LaTeX Font Info:    Try loading font information for U+msa on input line 52.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 52.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 51.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 52.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for OMS+aer on input line 59.
+LaTeX Font Info:    Try loading font information for OMS+aer on input line 60.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/ae/omsaer.fd
 File: omsaer.fd 1999/12/27
 )
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
- <RBTree.pdf, id=45, 498.02473pt x 284.0102pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+ <RBTree.pdf, id=49, 498.02473pt x 284.0102pt>
 File: RBTree.pdf Graphic file (type pdf)
  <use RBTree.pdf>
-Package pdftex.def Info: RBTree.pdf used on input line 107.
+Package pdftex.def Info: RBTree.pdf used on input line 108.
 (pdftex.def)             Requested size: 174.31126pt x 99.40504pt.
  [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -395,82 +395,87 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.122 
-       <./RBTree.pdf>] <Hash.pdf, id=72, 406.46944pt x 93.07115pt>
+l.123 
+       <./RBTree.pdf>] <Hash.pdf, id=76, 406.46944pt x 93.07115pt>
 File: Hash.pdf Graphic file (type pdf)
  <use Hash.pdf>
-Package pdftex.def Info: Hash.pdf used on input line 126.
+Package pdftex.def Info: Hash.pdf used on input line 127.
 (pdftex.def)             Requested size: 231.68997pt x 53.05109pt.
- <BTree.pdf, id=74, 520.48145pt x 147.83922pt>
+ <BTree.pdf, id=78, 520.48145pt x 147.83922pt>
 File: BTree.pdf Graphic file (type pdf)
  <use BTree.pdf>
-Package pdftex.def Info: BTree.pdf used on input line 145.
+Package pdftex.def Info: BTree.pdf used on input line 146.
 (pdftex.def)             Requested size: 234.21448pt x 66.52702pt.
- <SkipList.pdf, id=77, 580.67728pt x 249.85077pt>
+ <SkipList.pdf, id=81, 580.67728pt x 249.85077pt>
 File: SkipList.pdf Graphic file (type pdf)
  <use SkipList.pdf>
-Package pdftex.def Info: SkipList.pdf used on input line 171.
+Package pdftex.def Info: SkipList.pdf used on input line 172.
 (pdftex.def)             Requested size: 232.26678pt x 99.93852pt.
- <NashTable.pdf, id=78, 762.9pt x 393.21826pt>
+ <NashTable.pdf, id=82, 745.33345pt x 263.39214pt>
 File: NashTable.pdf Graphic file (type pdf)
  <use NashTable.pdf>
-Package pdftex.def Info: NashTable.pdf used on input line 179.
-(pdftex.def)             Requested size: 457.74353pt x 235.93277pt.
- (./sig-alternate-sample.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 188.
+Package pdftex.def Info: NashTable.pdf used on input line 180.
+(pdftex.def)             Requested size: 298.1281pt x 105.35498pt.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 184.
+
+(./sig-alternate-sample.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 193.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.188 \end{document}
+l.193 \end{document}
                      [2pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.188 \end{document}
+l.193 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.188 \end{document}
+l.193 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.188 \end{document}
+l.193 \end{document}
                      <./Hash.pdf> <./BTree.pdf> <./SkipList.pdf
 
 pdfTeX warning: pdflatex (file ./SkipList.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.188 \end{document}
+l.193 \end{document}
                      [3pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.188 \end{document}
+l.193 \end{document}
                      <./NashTable.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 188.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
  (./sig-alternate-sample.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 188.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 188.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 193.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
 Package rerunfilecheck Info: File `sig-alternate-sample.out' has not changed.
-(rerunfilecheck)             Checksum: CB69F216135DF92FB61D5B48B693D8BA;464.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 188.
+(rerunfilecheck)             Checksum: E71D75CFA54CFE1CDCEE1952894C931A;534.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
  ) 
 Here is how much of TeX's memory you used:
- 6720 strings out of 492995
- 95487 string characters out of 6132704
- 195055 words of memory out of 5000000
- 10129 multiletter control sequences out of 15000+600000
- 47315 words of font info for 64 fonts, out of 8000000 for 9000
+ 6723 strings out of 492995
+ 95534 string characters out of 6132704
+ 196055 words of memory out of 5000000
+ 10130 multiletter control sequences out of 15000+600000
+ 48451 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,37p,300b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on sig-alternate-sample.pdf (3 pages, 173242 bytes).
+ 41i,10n,37p,300b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on sig-alternate-sample.pdf (3 pages, 178560 bytes).
 PDF statistics:
- 215 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 211 PDF objects out of 1000 (max. 8388607)
+ 173 compressed objects within 2 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
