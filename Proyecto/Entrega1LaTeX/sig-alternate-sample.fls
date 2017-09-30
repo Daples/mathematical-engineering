@@ -185,11 +185,14 @@ INPUT ./NashTable.pdf
 INPUT NashInsert.pdf
 INPUT ./NashInsert.pdf
 INPUT ./NashInsert.pdf
+INPUT NashRemove.pdf
+INPUT ./NashRemove.pdf
+INPUT ./NashRemove.pdf
 INPUT sig-alternate-sample.bbl
 INPUT sig-alternate-sample.bbl
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aeti9.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aeti9.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aeti9.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti9.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl9.tfm

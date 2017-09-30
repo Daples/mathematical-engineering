@@ -175,9 +175,10 @@
       \end{figure}
 
   \section{Nash table}
+  Figure \ref{img:nashT} shows the structure of a NashTable with some examples.
   \begin{figure*}[t]
     \centering
-    \includegraphics[scale=0.4]{NashTable.pdf}
+    \includegraphics[scale=0.5]{NashTable.pdf}
     \caption{Example of NashTable}
     \label{img:nashT}
   \end{figure*}
@@ -185,12 +186,24 @@
   \subsection{Operations of the data structure}
 
     \subsubsection{Insertion}
+    Figure \ref{img:nashInsert} shows the insertion of a file named ``queries.vbs''.
     \begin{figure}[t]
       \centering
-      \includegraphics[scale=0.415]{NashInsert.pdf}
-      \caption{Example of a SkipList}
+      \includegraphics[scale=0.445]{NashInsert.pdf}
+      \caption{Insertion for NashTables.}
       \label{img:nashInsert}
     \end{figure}
+
+  \subsubsection{Deletion}
+  Figure \ref{img:nashRemove} shows an example when the program is asked to remove the file named
+  ``a.docx''.
+    \begin{figure}[t]
+      \centering
+      \includegraphics[scale=0.4]{NashRemove.pdf}
+      \caption{Deletion for NashTables.}
+      \label{img:nashRemove}
+    \end{figure}
+
 
   \subsection{Design criteria of the data structure}
     The NashTable is based on hash tables and double linked lists; searching files
