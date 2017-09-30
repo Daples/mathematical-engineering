@@ -181,10 +181,15 @@
     \caption{Example of NashTable}
     \label{img:nashT}
   \end{figure*}
-  \subsubsection{Design criteria of the data structure}
+
+  \subsection{Operations of the data structure}
+
+  \subsection{Design criteria of the data structure}
     The NashTable is based on hash tables and double linked lists; searching files
     is the priority. Each NashTable has a hash table, its hash function is associated with the
-    first letter of the name of the file; the NashTable has a branch which has another 
+    nth letter of the name of the file, and n depends on the depth of the structure;
+    the hash table has a reference to a Branch with has another NashTable and so fourth.
+    This first approach to solve the problem is not optimized for low memory consumption; 
 
 
 
