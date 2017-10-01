@@ -1,6 +1,6 @@
 import subprocess
 import platform
-import os
+import time
 from DataStructures import NashTable as nt
 
 
@@ -20,13 +20,16 @@ class HandlerFiles:
     h_cross = "└"
     cross = "├"
 
-    def __init__(self, name="Output.txt", directory="~/"):
+    def __init__(self, name="Output.txt", directory="~/", teacher=False):
         self.system = platform.system()
         self.name = name
-        if self.system == "Linux" or self.system == "Darwin":
-            process = subprocess.Popen('tree -hua ' + directory + ' > ' + name, stdout=subprocess.PIPE, shell=True)
-            process.communicate()[0].strip()
-        self.file = open(name)
+        if not teacher:
+            if self.system == "Linux" or self.system == "Darwin":
+                process = subprocess.Popen('tree -hua ' + directory + ' > ' + name, stdout=subprocess.PIPE, shell=True)
+                process.communicate()[0].strip()
+            self.file = open(name)
+        else:
+            self.file = open("treeEtc.txt")
 
     def read_file(self):
         def remove_dir(dir):
@@ -123,8 +126,9 @@ class HandlerUser:
                 i = 1
             print("======================================================")
             print(bcolors.BOLD + bcolors.OKBLUE + "What operation do you need?", bcolors.ENDC)
-            print(bcolors.BOLD + "0." + bcolors.ENDC + "Quit")
-            print(bcolors.BOLD + "1." + bcolors.ENDC + "Search")
+            print(bcolors.BOLD + "0. " + bcolors.ENDC + "Quit")
+            print(bcolors.BOLD + "1. " + bcolors.ENDC + "Search")
+            print(bcolors.BOLD + "2. " + bcolors.ENDC + "Remove")
             decision = int(input("Press the number wanted: "))
             if decision == 0:
                 return
@@ -202,6 +206,122 @@ class HandlerUser:
 
         print(bcolors.OKGREEN + "Found", str(index-1) + " files!\n" + bcolors.ENDC)
 
+
+class Tester:
+    def __init__(self):
+        self.hf = HandlerFiles(teacher=True)
+        self.file = open('Times.csv', 'w')
+        self.nt = nt()
+
+    def read_file_times(self):
+        self.file.write("Reading file: (seconds *10⁶) \n")
+        max = 0
+        min = 0
+        avg = 0
+        for i in range(100):
+            before = time.clock()*1000000
+            self.nt = self.hf.read_file()
+            now = time.clock()*1000000
+
+            delta = now - before
+            if i == 0:
+                max = delta
+                min = delta
+            else:
+                if max < delta:
+                    max = delta
+                elif min > delta:
+                    min = delta
+            avg += delta
+            self.file.write(str(delta) + "\n")
+            self.hf = HandlerFiles(teacher=True)
+
+        self.file.write("Average," + str(avg / 100) + "\n")
+        self.file.write("Max," + str(max) + "\n")
+        self.file.write("Min," + str(min) + "\n")
+
+    def insert_times(self):
+        self.file.write("Insertion: (seconds *10⁶) \n")
+        max = 0
+        min = 0
+        avg = 0
+        for i in range(100):
+            before = time.clock() * 1000000
+            self.nt.insert("sdagnjgnahg jewkewkj.pyjj", "", "", "", "")
+            now = time.clock() * 1000000
+
+            delta = now - before
+            if i == 0:
+                max = delta
+                min = delta
+            else:
+                if max < delta:
+                    max = delta
+                elif min > delta:
+                    min = delta
+            avg += delta
+            self.file.write(str(delta) + "\n")
+
+        self.file.write("Average," + str(avg / 100) + "\n")
+        self.file.write("Max," + str(max) + "\n")
+        self.file.write("Min," + str(min) + "\n")
+
+    def get_times(self):
+        self.file.write("Get: (seconds *10⁶) \n")
+        max = 0
+        min = 0
+        avg = 0
+        for i in range(100):
+            before = time.clock() * 1000000
+            self.nt.get("Python.py")
+            now = time.clock() * 1000000
+
+            delta = now - before
+            if i == 0:
+                max = delta
+                min = delta
+            else:
+                if max < delta:
+                    max = delta
+                elif min > delta:
+                    min = delta
+            avg += delta
+            self.file.write(str(delta) + "\n")
+
+        self.file.write("Average," + str(avg / 100) + "\n")
+        self.file.write("Max," + str(max) + "\n")
+        self.file.write("Min," + str(min) + "\n")
+
+    def remove_times(self):
+        self.file.write("Insertion: (seconds *10⁶) \n")
+        max = 0
+        min = 0
+        avg = 0
+        for i in range(100):
+            before = time.clock() * 1000000
+            self.nt.insert("sdagnjgnahg jewkewkj.pyjj", "", "", "", "")
+            now = time.clock() * 1000000
+
+            delta = now - before
+            if i == 0:
+                max = delta
+                min = delta
+            else:
+                if max < delta:
+                    max = delta
+                elif min > delta:
+                    min = delta
+            avg += delta
+            self.file.write(str(delta) + "\n")
+
+        self.file.write("Average," + str(avg / 100) + "\n")
+        self.file.write("Max," + str(max) + "\n")
+        self.file.write("Min," + str(min) + "\n")
+
+
 hu = HandlerUser()
-#hu.run()
-print(subprocess.check_output(['ls' , '-la'], cwd="/home/juanse/Documents"))
+test = Tester()
+test.read_file_times()
+test.insert_times()
+test.get_times()
+test.remove_times()
