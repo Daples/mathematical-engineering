@@ -1,7 +1,13 @@
 import subprocess
 import platform
 import time
-from DataStructures import NashTable as nt
+import importlib.util as ut
+spec = ut.spec_from_file_location("Nash Tables",
+                                  "/home/juanse/Documents/JuanSePlazas/Proyecto/Nash\ Table/DataStructures.py")
+nt = ut.module_from_spec(spec)
+spec.loader.exec_module(nt)
+nt.MyClass()
+
 
 
 class bcolors:
@@ -16,11 +22,13 @@ class bcolors:
 
 
 class HandlerFiles:
-    pipe = "│"
-    h_cross = "└"
-    cross = "├"
 
     def __init__(self, name="Output.txt", directory="~/", teacher=False):
+        """
+        :param name: the name of the file to read
+        :param directory: the directory to begin the tree
+        :param teacher: if the teacher wants to use the treeEtc.txt
+        """
         self.system = platform.system()
         self.name = name
         if not teacher:
@@ -32,6 +40,13 @@ class HandlerFiles:
             self.file = open("treeEtc.txt")
 
     def read_file(self):
+        """
+        :return: a nash table with the files of the tree
+        """
+        pipe = "│"
+        h_cross = "└"
+        cross = "├"
+
         def remove_dir(dir):
             index = 0
             i = 0
@@ -77,7 +92,7 @@ class HandlerFiles:
             first_dir = False
             redir = ""
             for char in line:
-                if char == HandlerFiles.h_cross or char == HandlerFiles.cross:
+                if char == h_cross or char == cross:
                     found_a_cross = True
                     if spaces < spaces_before:
                         aux = 0
@@ -85,7 +100,7 @@ class HandlerFiles:
                         while aux < to_erase:
                             address = remove_dir(address)
                             aux += 1
-                if not found_a_cross and char == " " or char == HandlerFiles.pipe:
+                if not found_a_cross and char == " " or char == pipe:
                     # Count how many spaces we're in are we in
                     spaces += 1
 
