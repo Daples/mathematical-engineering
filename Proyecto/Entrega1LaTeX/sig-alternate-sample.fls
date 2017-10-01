@@ -188,6 +188,9 @@ INPUT ./NashInsert.pdf
 INPUT NashRemove.pdf
 INPUT ./NashRemove.pdf
 INPUT ./NashRemove.pdf
+INPUT NashGet.pdf
+INPUT ./NashGet.pdf
+INPUT ./NashGet.pdf
 INPUT sig-alternate-sample.bbl
 INPUT sig-alternate-sample.bbl
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf

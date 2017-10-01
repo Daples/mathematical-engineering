@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex sig-alternate-sample"] 1506806986 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1506807083
+["bibtex sig-alternate-sample"] 1506867186 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1506868596
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/abbrv.bst" 1480098433 20329 b5fed53e10044d0f8112183785c759b1 ""
-  "sig-alternate-sample.aux" 1506807082 3775 67a60100be79bf1e00dc162fa72cd7cb ""
+  "sig-alternate-sample.aux" 1506868596 4085 1c623b2224d814be5d47c382c5188488 ""
   "sigproc.bib" 1506632436 939 6c0e7136f79555c0d57f8c299b71e77c ""
   (generated)
-  "sig-alternate-sample.bbl"
   "sig-alternate-sample.blg"
-["pdflatex"] 1506807080 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1506807083
+  "sig-alternate-sample.bbl"
+["pdflatex"] 1506868595 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1506868596
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1480098688 4484 b828043cbd581d289d955903c1339981 ""
@@ -120,19 +120,20 @@
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
   "BTree.pdf" 1506632436 9610 6cc21655f58af1bc14f2df29f904ea0f ""
   "Hash.pdf" 1506632436 10113 c40ebaa3c6b6d99fbcb8f30efc4786b3 ""
-  "NashInsert.pdf" 1506806226 24724 a8592c586f813cd3480b0a8a3e7050cb ""
+  "NashGet.pdf" 1506866934 19170 ec92d3dabe4c73e72e7801655f817629 ""
+  "NashInsert.pdf" 1506868567 24699 67480a0be43f26523d8426b5dc566383 ""
   "NashRemove.pdf" 1506733562 15583 c93a0a755a2c24c3496941c03f6b20a5 ""
   "NashTable.pdf" 1506735929 18804 cdbcf3aa71d7acd0f758a0f186b48178 ""
   "RBTree.pdf" 1506632436 4892 588af8aa831a51946e7de99693dc59e1 ""
   "SkipList.pdf" 1506632436 10508 50748f37a19dc0f0d3a7e77162ca11c8 ""
   "acmcopyright.sty" 1506632436 9626 03a22ffcc9f51aaef67ac6ed43847230 ""
   "sig-alternate-05-2015.cls" 1506632436 66821 dad6d37cbe19e9f1ab52840a28c4b912 ""
-  "sig-alternate-sample.aux" 1506807082 3775 67a60100be79bf1e00dc162fa72cd7cb ""
-  "sig-alternate-sample.bbl" 1506806986 823 ad462cf3734d20db7682bed6d502b49e "bibtex sig-alternate-sample"
-  "sig-alternate-sample.out" 1506807082 770 9e405b638df263bd7d721747e72a4af6 ""
-  "sig-alternate-sample.tex" 1506807079 10806 54489a872905e73ffc47e14dbac3f812 ""
+  "sig-alternate-sample.aux" 1506868596 4085 1c623b2224d814be5d47c382c5188488 ""
+  "sig-alternate-sample.bbl" 1506867187 823 ad462cf3734d20db7682bed6d502b49e "bibtex sig-alternate-sample"
+  "sig-alternate-sample.out" 1506868596 848 fe095f1d781b2ddb49f24e3c9ad9bd56 ""
+  "sig-alternate-sample.tex" 1506867332 11077 172d53ab6264c1a970e26e556f332199 ""
   (generated)
-  "sig-alternate-sample.aux"
-  "sig-alternate-sample.pdf"
-  "sig-alternate-sample.log"
   "sig-alternate-sample.out"
+  "sig-alternate-sample.pdf"
+  "sig-alternate-sample.aux"
+  "sig-alternate-sample.log"
