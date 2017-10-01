@@ -191,10 +191,10 @@ INPUT ./NashRemove.pdf
 INPUT NashGet.pdf
 INPUT ./NashGet.pdf
 INPUT ./NashGet.pdf
-INPUT sig-alternate-sample.bbl
-INPUT sig-alternate-sample.bbl
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
+INPUT sig-alternate-sample.bbl
+INPUT sig-alternate-sample.bbl
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aeti9.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aeti9.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti9.tfm

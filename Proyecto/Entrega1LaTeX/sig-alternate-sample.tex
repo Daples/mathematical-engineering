@@ -204,15 +204,30 @@
       \label{img:nashRemove}
     \end{figure}
 
-  \subsubsection{subsubsection name}
+  \subsubsection{Search}
   Figure \ref{img:nashGet} shows an example of search for ``a.jar''.
-  \begin{figure}
+  \begin{figure}[t]
     \centering
     \includegraphics[scale=0.4]{NashGet.pdf}
     \caption{Search for NashTables.}
     \label{img:nashGet}
   \end{figure}
 
+  \subsection{Complexity of operations}
+  Table \ref{table:Complex} shows the complexity of the operations of the data structure designed.
+  \begin{table}[ht]
+  \centering
+  \caption{Complexity of operations of NashTables}
+  \label{table:Complex}
+  \begin{tabular}{cc}
+  \hline
+  \textbf{Operation} & \textbf{Complexity} \\ \hline
+    Read data          & $O(tl)$             \\
+    Insertion          & $O(n)$              \\
+    Search             & $O(s^2)$            \\
+    Remove             & $O(s)$              \\ \hline
+  \end{tabular}
+  \end{table}
 
 
   \subsection{Design criteria of the data structure}
@@ -222,6 +237,7 @@
     the hash table has a reference to a Branch with has another NashTable and so fourth.
     Although this first approach to solve the problem is not optimized for low memory consumption,
     it has been developed for optimize searching with different options.
+    The complexity of the search operation 
 
 
 
