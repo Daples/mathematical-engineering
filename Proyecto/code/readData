@@ -1,9 +1,0 @@
-import subprocess
-import platform
-import os
-
-syst = platform.system()
-if syst == "Linux" or syst == "Darwin":
-   string = subprocess.check_output(['tree','-hDua','..'])
-elif syst == "Windows":
-   str = os.system("tree")
