@@ -158,6 +158,12 @@ class LinkedList(object):
         """
         return str(list(self.to_list()))
 
+    def __contains__(self, item):
+        for i in self:
+            if i is item:
+                return True
+        return False
+
     def to_list(self):
         temp_object = self.first
         while temp_object is not None:
@@ -212,6 +218,9 @@ class ArrayList:
 
     def __iter__(self):
         return self.data
+
+    def __contains__(self, item):
+        return item in self.data
 
 
 class Queue:
@@ -343,21 +352,37 @@ class NashTable:
         self.depth = depth
         self.hash = {}
         self.level = level
+        self.size = 0
 
     def __str__(self):
         return str(self.hash)
 
     def __len__(self):
-        return len(self.hash)
+        return self.size
 
-    def insert(self, name, dir, own, date, size):
-        self.__aux__insert__(0, {"name": name, "dir": dir, "owner": own, "date": date, "size": size})
+    def __contains__(self, item):
+        return item in self.hash
+
+    def getdepth(self):
+        return self.depth + 1
+
+    def insert(self, name, dir, own, date, size, **kwargs):
+        file = {"name": name, "dir": dir, "owner": own, "date": date, "size": size}
+        for key in kwargs:
+            if key not in file:
+                file[key] = kwargs[key]
+        if name == "":
+            self.hash[""] = NashTable.Branch(depth=self.depth-1)
+            self.hash[""].table.insert(file, self.hash[""].table.size())
+            return
+        self.__aux__insert__(0, file)
+        self.size += 1
 
     def __aux__insert__(self, letter_index, item):
         letter = item["name"][letter_index]
         if letter not in self.hash:
             self.hash[letter] = NashTable.Branch(depth=self.depth-1)
-        if self.depth == 0 or len(item["name"]) == self.level:
+        if self.getdepth() == 0 or len(item["name"]) == self.level:
             my_list = self.hash[letter].table
             my_list.insert(item, my_list.size())
         else:
@@ -366,37 +391,27 @@ class NashTable:
             self.hash[letter].nash.__aux__insert__(letter_index+1, item)
 
     def get(self, name, case_sens=True):
+        if name == "":
+            return
         if case_sens:
             return self.__aux__get__(name, 0)
         else:
-            files = self.__aux__get__case(name, 0)
-            NashTable.print_files(files)
-            return files
-
-    @staticmethod
-    def print_files(my_list):
-        index = 1
-        for item in my_list:
-            print(str(index) + "." + "[" + item["owner"], item["size"], item["date"] + "]", item["name"])
-            index += 1
+            return self.__aux__get__case(name, 0)
 
     def __aux__get__(self, name, letter_index):
         letter = name[letter_index]
         if letter in self.hash:
             branch = self.hash[letter]
         else:
-            print("There's no file with that name")
-            return None
-        if self.depth == 0 or len(name) == self.level:
+            return []
+        if self.getdepth() == 0 or len(name) == self.level:
             ll = branch.table
             files = []
+            if self.getdepth() != 0 and branch.nash is not None:
+                files += branch.nash.__search__all__(name)
             for item in ll:
                 if name in item["name"]:
                     files.append(item)
-            if len(files) == 0:
-                print("There's no files with that name")
-                return None
-            NashTable.print_files(files)
             return files
         else:
             return branch.nash.__aux__get__(name, letter_index+1)
@@ -404,20 +419,22 @@ class NashTable:
     def __aux__get__case(self, name, letter_index):
         letter = name[letter_index]
         total = []
-        temp = None
-        if letter.upper() not in self.hash and letter.lower() not in self.hash:
-            return None
+        temp = []
+        if letter.upper() not in self and letter.lower() not in self:
+            return []
         letters = []
-        if letter.upper() in self.hash:
+        if letter.upper() in self:
             letters.append(letter.upper())
-        if letter.lower() in self.hash:
+        if letter.lower() in self:
             letters.append(letter.lower())
 
         for let in letters:
             branch = self.hash[let]
-            if self.depth == 0 or len(name) == self.level:
+            if self.getdepth() == 0 or len(name) == self.level:
                 ll = branch.table
                 files = []
+                if self.getdepth() != 0 and branch.nash is not None:
+                    files += branch.nash.__search__all__(name)
                 for item in ll:
                     if name.lower() in item["name"].lower() and item not in files:
                         files.append(item)
@@ -430,11 +447,25 @@ class NashTable:
 
         return total
 
-nash = NashTable()
-nash.insert("ABC", "dd", "dd", "dd", "dd")
-nash.insert("abc", "d", "d", "d", "d")
-nash.insert("hola","d","d","d","d")
-nash.insert("aBc","dr","dr","dr","dr")
-nash.insert("aBC", "df", "df", "df", "df")
-nash.insert("abc mas juanse", "df", "df", "df", "df")
-nash.get("abc", False)
+    def __search__all__(self, name):
+        files = []
+        for key in self.hash:
+            branch = self.hash[key]
+            files += branch.table
+            if branch.nash is not None:
+                files += branch.nash.__search__all__(name)
+
+        return files
+
+    def searchallnash(self, name):
+        files = []
+        for key in self.hash:
+            branch = self.hash[key]
+            for item in branch.table:
+                if not item["name"].startswith(name) and name in item["name"]:
+                    files.append(item)
+
+            if branch.nash is not None:
+                files += branch.nash.searchallnash(name)
+
+        return files
