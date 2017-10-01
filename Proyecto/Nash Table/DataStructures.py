@@ -182,158 +182,6 @@ class LinkedList(object):
     def get_last(self):
         return self.last
 
-
-class ArrayList:
-
-    def __init__(self):
-        self.data = []
-
-    def __len__(self):
-        return len(self.data)
-
-    def insert_multi(self, *objs):
-        for obj in objs:
-            self.insert(obj, len(self.data))
-
-    def insert(self, obj, i):
-        if i > len(self.data):
-            print("Index out of bounds")
-        else:
-            if i == len(self.data):
-                self.data.append(obj)
-            else:
-                self.data.insert(i, obj)
-
-    def remove(self, obj):
-        self.data.remove(obj)
-
-    def get(self, i):
-        return self.data[i]
-
-    def size(self):
-        return len(self.data)
-
-    def __str__(self):
-        return str(self.data)
-
-    def __iter__(self):
-        return self.data
-
-    def __contains__(self, item):
-        return item in self.data
-
-
-class Queue:
-
-    def __init__(self):
-        self.ll = LinkedList()
-
-    def push(self, obj):
-        self.ll.insert(obj, 0)
-
-    def push_multi(self, *objs):
-        for obj in objs:
-            self.push(obj)
-
-    def peek(self):
-        return self.ll.last
-
-    def pop(self):
-        temp_obj = self.ll.last
-        self.ll.remove(self.ll.size() - 1)
-        return temp_obj
-
-    def size(self):
-        return self.ll.size()
-
-    def __str__(self):
-        return str(self.ll)
-
-
-class Stack:
-
-    def __init__(self, size):
-        self.max_size = size
-        self.ll = LinkedList()
-
-    def push_multi(self, *objs):
-        for obj in objs:
-            self.ll.insert(obj, 0)
-
-    def push(self, obj):
-        if self.ll.size() < self.max_size:
-            self.ll.insert(obj, 0)
-        else:
-            print("Stack overflow")
-
-    def peek(self):
-        return self.ll.first.node
-
-    def pop(self):
-        temp_object = self.ll.first.node
-        self.ll.remove(0)
-        return temp_object
-
-    def size(self):
-        return self.ll.size()
-
-    def __str__(self):
-        return str(self.ll)
-
-
-class HashTable:
-    def __init__(self, size=100):
-        self.size = size
-        self.table = [None for e in range(size)]
-
-    def _hash_function(self, key):
-        if type(key) == str:
-            acum = 0
-            i = 1
-            n = len(key)
-            for let in key:
-                acum += ord(let)*(31**(n - i))
-                i += 1
-            return acum % self.size
-        else:
-            print("The key passed is not a string")
-
-    def add(self, keys):
-        for key in keys:
-            hash_value = self._hash_function(key["key"])
-            if self.table[hash_value] is None:
-                self.table[hash_value] = []
-            self.table[hash_value].append(key["value"])
-
-    def get(self, key):
-        hash_value = self._hash_function(key)
-        if self.table[hash_value] is None:
-            print("There's no value assinged to that key")
-            return None
-        else:
-            if len(self.table[hash_value]) == 1:
-                return self.table[hash_value][0]
-            else:
-                return self.table[hash_value]
-
-    # 4
-    def is_key(self, key):
-        if self.get(key) is None:
-            return False
-        else:
-            return True
-
-    # 5
-    def is_value(self, value):
-        for i in range(self.size):
-            if self.table[i] is not None:
-                for j in range(len(self.table[i])):
-                    if self.table[i][j] == value:
-                        return True
-
-        return False
-
-
 class NashTable:
 
     class Branch(object):
@@ -446,6 +294,31 @@ class NashTable:
                 total += temp
 
         return total
+
+    def remove(self, name):
+        if name == "":
+            if "" in self:
+                self.hash[""].table.remove(0)
+            else:
+                return
+
+        letter_index = 0
+        mov_nash = self
+        letter = name[letter_index]
+        while len(name) != mov_nash.level or mov_nash.getdepth() != 0:
+            if letter in mov_nash:
+                mov_nash = mov_nash.hash[letter].nash
+            else:
+                return
+            letter_index += 1
+            letter = name[letter_index]
+
+        index = 0
+        for item in mov_nash.hash[letter_index].table:
+            if item["name"] == name:
+                mov_nash.hash[letter_index].table.remove(index)
+                break
+            index += 1
 
     def __search__all__(self, name):
         files = []
