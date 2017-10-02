@@ -237,7 +237,23 @@
     the hash table has a reference to a Branch with has another NashTable and so fourth.
     Although this first approach to solve the problem is not optimized for low memory consumption,
     it has been developed for optimize searching with different options.
-    
+
+  \subsection{Time and memory consumption}
+  \begin{table}
+    \small
+    \centering
+    \caption{Execution time for each operation.}
+    \label{tab:exTime}
+    \begin{tabular}{cccc}
+      \hline
+      \textbf{Operation} & \textbf{WorstTime} & 	\textbf{BestTime} & \textbf{AverageTime} \\ \hline
+      Read data          & $114478\mu s$      & $53179\mu s$      & $69442\mu s$         \\
+      Insertion          & $27$               & $5$               & $5.78$               \\
+      Search             & $6s$               & $1s$              & $1.61$               \\
+      Remove             & $20s$              & $5s$              & $6.25s$              \\ \hline
+    \end{tabular}
+  \end{table}
+
 
 
 
