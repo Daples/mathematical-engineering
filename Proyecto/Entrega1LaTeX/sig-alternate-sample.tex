@@ -236,7 +236,9 @@
     nth letter of the name of the file, and n depends on the depth of the structure;
     the hash table has a reference to a Branch with has another NashTable and so fourth.
     Although this first approach to solve the problem is not optimized for low memory consumption,
-    it has been developed for optimize searching with different options.
+    it has been developed for optimize searching with different options. Hash tables were used since
+    they are able to search for files in constant time, and double linked lists because insertion in the last position is achieved in constant time
+    and also because they don't have a fixed size (unlike arrays), allowing the NashTable to add objects depending on the files indexed.
 
   \subsection{Time and memory consumption}
   Table \ref{tab:exTime} shows the execution time for each operation of NashTables; and Table \ref{table:mem} shows
@@ -255,12 +257,20 @@
       Remove             & $20\mu s$              & $5\mu s$              & $6.25\mu s$              \\ \hline
     \end{tabular}
   \end{table}
+  \begin{table}[t]
+    \centering
+    \caption{Memory consumption.}
+    \label{table:mem}
+    \begin{tabular}{cc}
+      \hline\rule{0pt}{2ex}
+      \textbf{MemoryConsumption} & \textbf{DataSet1} \\ \hline\rule{0pt}{2ex}
+      Memory                     & 40.96MB           \\ \hline
+    \end{tabular}
+  \end{table}
   For example, insertion has an average time of $5.78\mu s$, which is really fast. Although the complexity of the operations
   seems slightly inefficent, when the algorithms are applied, different results are obtained; this is due to the fact that
   the worst-case scenario is highly unlikely, starting with the fact that not all the files indexed in a computer are called the
   same. All operations - read data, insertion, search, remove - were executed fast enough.
-
-
 
   \bibliographystyle{abbrv}
   \bibliography{sigproc}
