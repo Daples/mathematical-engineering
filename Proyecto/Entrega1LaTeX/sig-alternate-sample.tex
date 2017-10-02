@@ -215,7 +215,7 @@
 
   \subsection{Complexity of operations}
   Table \ref{table:Complex} shows the complexity of the operations of the data structure designed.
-  \begin{table}[ht]
+  \begin{table}[b]
   \centering
   \caption{Complexity of operations of NashTables}
   \label{table:Complex}
@@ -239,6 +239,8 @@
     it has been developed for optimize searching with different options.
 
   \subsection{Time and memory consumption}
+  Table \ref{tab:exTime} shows the execution time for each operation of NashTables; and Table \ref{table:mem} shows
+  memory consumption for each operation as well.
   \begin{table}
     \small
     \centering
@@ -248,12 +250,15 @@
       \hline
       \textbf{Operation} & \textbf{WorstTime} & 	\textbf{BestTime} & \textbf{AverageTime} \\ \hline
       Read data          & $114478\mu s$      & $53179\mu s$      & $69442\mu s$         \\
-      Insertion          & $27$               & $5$               & $5.78$               \\
-      Search             & $6s$               & $1s$              & $1.61$               \\
-      Remove             & $20s$              & $5s$              & $6.25s$              \\ \hline
+      Insertion          & $27\mu s$               & $5\mu s$               & $5.78\mu s$               \\
+      Search             & $6\mu s$               & $1\mu s$              & $1.61\mu s$               \\
+      Remove             & $20\mu s$              & $5\mu s$              & $6.25\mu s$              \\ \hline
     \end{tabular}
   \end{table}
-
+  For example, insertion has an average time of $5.78\mu s$, which is really fast. Although the complexity of the operations
+  seems slightly inefficent, when the algorithms are applied, different results are obtained; this is due to the fact that
+  the worst-case scenario is highly unlikely, starting with the fact that not all the files indexed in a computer are called the
+  same. All operations - read data, insertion, search, remove - were executed fast enough.
 
 
 
