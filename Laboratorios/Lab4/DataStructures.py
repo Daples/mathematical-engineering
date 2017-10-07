@@ -177,10 +177,10 @@ class LinkedList(object):
         return self.int_size
 
     def get_first(self):
-        return self.first
+        return self.first.node
 
     def get_last(self):
-        return self.last
+        return self.last.node
 
 class Queue:
 
