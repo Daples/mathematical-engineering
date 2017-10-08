@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1506305397 "Lab.tex" "Lab.pdf" "Lab" 1506305398
+["pdflatex"] 1507494459 "Lab.tex" "Lab.pdf" "Lab" 1507494460
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -87,12 +87,13 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "Lab.aux" 1506305398 1676 73614d779828d1e04e47942ddd8e012f ""
-  "Lab.out" 1506305398 511 fabc545afb440f6089d37b6a801484e5 ""
-  "Lab.tex" 1506305391 5652 90b89f8f8caf2390ec6da4d787e3d9bd ""
-  "logo.pdf" 1506087276 6917 5f078af3caefd2e1519d586d9fde82d9 ""
+  "Lab.aux" 1507494460 1580 53f408d7ad35808cf748aa22a2f218b2 ""
+  "Lab.out" 1507494460 461 7bfebcfe1005fa9860220b2a26e60341 ""
+  "Lab.tex" 1507494457 5986 7bb7154b6ef7b1e33531f542a983bef2 ""
+  "Tests.png" 1507494367 113025 6bc2af1338dcfc63c45da4825b68e6e3 ""
+  "logo.pdf" 1507474504 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
-  "Lab.aux"
-  "Lab.out"
   "Lab.log"
   "Lab.pdf"
+  "Lab.out"
+  "Lab.aux"

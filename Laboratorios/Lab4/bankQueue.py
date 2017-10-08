@@ -56,6 +56,11 @@ class Bank:
 
 if __name__ == '__main__':
     a = Bank()
-    a.line([['Lola', 'Manola'], ['Frodo','Maggi'],['Sergio'],['Frederic','Adolf','Ivan','Joseph']])
+    a.line([
+    ['Lola', 'Manola'],
+    ['Frodo','Maggi'],
+    ['Sergio'],
+    ['Frederic','Adolf','Ivan','Joseph']
+    ])
     a.printLines()
     a.simulation()
