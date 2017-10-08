@@ -1,4 +1,4 @@
-from DataStructures import LinkedList, Stack, Queue
+from DataStructures import LinkedList, Stack
 
 class bcolors:
     HEADER = '\033[95m'
@@ -10,7 +10,7 @@ class bcolors:
     BOLD = '\033[1m'
     ENDC = '\033[0m'
 
-'''Code for delivery: Tests and BankExample'''
+
 def tests():
     ll = LinkedList()
     test = ll.remove(0)
@@ -50,72 +50,6 @@ def tests():
     if ll.get_last() == 4:
         print(bcolors.OKGREEN + "Removed succesfully at last!" + bcolors.ENDC)
 
-tests()
-
-class Bank:
-
-    def __init__(self):
-        self.lines = LinkedList()
-        self.cashiers = LinkedList()
-        self.cashiers.insert(2)
-        self.cashiers.insert(1)
-        self.total = 0
-
-    def aux_line(self, names):
-        queue = Queue()
-        for i in names:
-            queue.push(i)
-        self.lines.insert(queue)
-        self.total += len(names)
-
-    def line(self, names):
-        i = len(names) - 1
-        while i >= 0:
-            self.aux_line(names[i])
-            i -= 1
-
-    def simulation(self):
-        mv_line = self.lines.first
-        mv_cashier = self.cashiers.first
-        cAux = 0
-        count = 0
-        while True:
-            if count == self.total:
-                break
-            if cAux == 4:
-                mv_line = self.lines.first
-                cAux = 0
-            if mv_line.node.ll.int_size != 0:
-                print(str(mv_line.node.pop()) + ' was attended by cashier ' + str(mv_cashier))
-            else:
-                mv_line = mv_line.next
-                cAux += 1
-                continue
-            count += 1
-            mv_line = mv_line.next
-            if mv_cashier.next is not None:
-                mv_cashier = mv_cashier.next
-            else:
-                mv_cashier = self.cashiers.first
-            cAux += 1
-
-    def printLines(self):
-        count = 1
-        for i in self.lines:
-            print('Line {} {}'.format(count,i))
-            count += 1
-'''
-a = Bank()
-a.line([
-['Lola', 'Manola'],
-['Frodo','Maggi'],
-['Sergio'],
-['Frederic','Adolf','Ivan','Joseph']
-])
-a.printLines()
-a.simulation()
-'''
-'''Online exercise'''
 
 def robotic_arm():
     def pile_stacks(stack1, stack2):
@@ -124,7 +58,7 @@ def robotic_arm():
             temp_stack.push(stack2.pop())
 
         while temp_stack.size() != 0:
-            stack1.push(temp_stack.pop()) # O(n)
+            stack1.push(temp_stack.pop())
 
     def sum_stacks(stack1, stack2):
         while stack2.size() != 0:
@@ -222,15 +156,16 @@ def robotic_arm():
 
     def pile_onto(linked, a, b, n):
         pile_over(linked, a, b, n)
-        stack = Stack()
+        stack = Stack(n)
+        end = False
         for item in linked:
             while item.size() != 0:
                 stack.push(item.pop())
-                if stack.peek() == b:
-                    item.push(stack.pop())
+                if stack.peek() == a:
                     while stack.size() != 0:
-                        x = stack.pop()
-                        if x == a:
+                        x = item.pop()
+                        if x == b:
+                            item.push(b)
                             break
                         linked.get(x).push(x)
             sum_stacks(item, stack)
@@ -298,4 +233,4 @@ def robotic_arm():
         print(string)
         i += 1
 
-#robotic_arm()
+robotic_arm()
