@@ -1,0 +1,39 @@
+In first place, we recieve the number of blocks that the user wants therefore,
+we create in a loop the linked list so the stack can have the form that the 
+user needs. After that, we wait for the user to input a command and, then 
+we process it so we know how much is a, b and what operation do we need to do.
+
+So, in second place, we check if a is equal to b or if they are in the same
+column; if one of this statements is true we just proceed to write the error
+and continue to wait to another instruction. On the other hand, we just make
+the operation he asks us to do. The operations are:
+
+	- Move a over b:
+	In this operation, we just search for a in all of the stacks that our
+	linked list has. To search in the stacks, we just create a temporary 
+	stack named "stack" and everything that we pop from the original is 
+	stored in this auxiliar. If we found a, we just pop it ouf the 
+	temporary stack and, all of the other elements in the data structure,
+	we send them to the stack at the index of the linked list that
+	corresponds to their number. After that, we just search for b doing
+	the same process and, when we find it, we just insert a at the end of
+	the stack.
+
+	- Move a onto b:
+	To do this operation, we call the method "move_over" that just makes
+	the process described above. And, after that, we just search in the
+	linked list till finding b and, removing everything that is in between
+	a and b doing a analogous algorithm as the move a over b.
+
+	- Pile a over b:
+	To do this algorithm, we search our list in the same way that we did
+	in the operations described below; but, when we found a, we save all
+	the numbers that he had on top of him (including a) to another 
+	auxiliary stack, a_pile. After that, we just find where b is and 
+	pile the stacks on top of each other.
+
+	- Pile a onto b:
+	To run this process, we do something like the operation we made on the
+	move a onto b. We just call the method "pile_over" and, after that,
+	we just erase what is in between a and b.
+
