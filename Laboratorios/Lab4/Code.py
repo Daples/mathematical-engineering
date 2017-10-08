@@ -172,7 +172,7 @@ def robotic_arm():
 
     def same_column(linked):
         stack = Stack(n)
-        for link in ll:
+        for link in linked:
             found_a = False
             found_b = False
             while link.size() != 0:
