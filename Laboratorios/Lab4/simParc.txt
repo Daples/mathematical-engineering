@@ -1,0 +1,10 @@
+1. 
+a) auxiliar.size()
+b) lista.add(auxiliar.pop())
+
+2.
+a) auxiliar1.size() > 0
+   auxiliar2.size() > 0
+b) personas.offer(edad)
+
+3. c) $n^2$
