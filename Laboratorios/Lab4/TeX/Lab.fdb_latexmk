@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1507494459 "Lab.tex" "Lab.pdf" "Lab" 1507494460
+["pdflatex"] 1507508571 "Lab.tex" "Lab.pdf" "Lab" 1507508572
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -21,7 +21,6 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1480098733 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1480098733 36741 fa121aac0049305630cf160b86157ee4 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1480098733 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1480098733 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
@@ -87,13 +86,13 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "Lab.aux" 1507494460 1580 53f408d7ad35808cf748aa22a2f218b2 ""
-  "Lab.out" 1507494460 461 7bfebcfe1005fa9860220b2a26e60341 ""
-  "Lab.tex" 1507494457 5986 7bb7154b6ef7b1e33531f542a983bef2 ""
+  "Lab.aux" 1507508572 1580 cf39c53f70ef6c98df76ba9013579e35 ""
+  "Lab.out" 1507508572 461 7bfebcfe1005fa9860220b2a26e60341 ""
+  "Lab.tex" 1507508570 5757 7f002d0ae1913f744e0a3f3bf91d8f51 ""
   "Tests.png" 1507494367 113025 6bc2af1338dcfc63c45da4825b68e6e3 ""
   "logo.pdf" 1507474504 6917 5f078af3caefd2e1519d586d9fde82d9 ""
   (generated)
   "Lab.log"
   "Lab.pdf"
-  "Lab.out"
   "Lab.aux"
+  "Lab.out"
