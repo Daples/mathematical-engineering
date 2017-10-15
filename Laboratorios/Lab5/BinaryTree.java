@@ -10,20 +10,29 @@ public class BinaryTree {
     }
 
     private Node root;
+
     public BinaryTree() {
         root = null;
     }
 
+    /**
+     * @param data the integers you want to insert to the binary tree
+     */
     public void insert(int... data) {
         for(int obj: data)
             insert(obj);
     }
+
+    /**
+     * @param data the integer you want to insert to the binary tree
+     */
     public void insert(int data) {
         if (root == null)
             root = new Node(data);
         else
             insert(root, data);
     }
+
     private void insert(Node n, int data) {
         if(n == null) {
             return;
@@ -42,6 +51,9 @@ public class BinaryTree {
         }
     }
 
+    /**
+     * @return the string version of the tree
+     */
     public String toString(){
         return auxPrint(root, 1);
     }
@@ -62,6 +74,9 @@ public class BinaryTree {
 
     }
 
+    /**
+     * @return the size of the tree
+     */
     public int size(){
         return size(root);
     }
@@ -71,6 +86,9 @@ public class BinaryTree {
         return 1 + size(n.left) + size(n.right);
     }
 
+    /**
+     * @return the depth of the binary tree
+     */
     public int depth(){
         return depth(root);
     }
@@ -80,16 +98,18 @@ public class BinaryTree {
         return Math.max(depth(n.left), depth(n.right)) + 1;
     }
 
+    /**
+     * Prints the tree in pos-order
+     */
     public void posOrder() {
-        System.out.println(posOrder(root));
+        posOrder(root);
     }
-    private String posOrder(Node n) {
+    private void posOrder(Node n) {
         if (n == null)
-            return "";
-        String acum = posOrder(n.left);
-        String right = posOrder(n.right);
-        if (!right.equals(""))
-            acum = acum + " " + right;
-        return acum + " " + n.data;
+            return;
+
+        posOrder(n.left);
+        posOrder(n.right);
+        System.out.println("" + n.data);
     }
 }
