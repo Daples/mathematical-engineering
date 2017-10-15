@@ -14,6 +14,10 @@ public class BinaryTree {
         root = null;
     }
 
+    public void insert(int... data) {
+        for(int obj: data)
+            insert(obj);
+    }
     public void insert(int data) {
         if (root == null)
             root = new Node(data);
@@ -24,7 +28,7 @@ public class BinaryTree {
         if(n == null) {
             return;
         }
-        if (n.data < data) {
+        if (n.data > data) {
             if (n.left == null)
                 n.left = new Node(data);
             else
@@ -74,5 +78,18 @@ public class BinaryTree {
         if (n == null)
             return 0;
         return Math.max(depth(n.left), depth(n.right)) + 1;
+    }
+
+    public void posOrder() {
+        System.out.println(posOrder(root));
+    }
+    private String posOrder(Node n) {
+        if (n == null)
+            return "";
+        String acum = posOrder(n.left);
+        String right = posOrder(n.right);
+        if (!right.equals(""))
+            acum = acum + " " + right;
+        return acum + " " + n.data;
     }
 }
