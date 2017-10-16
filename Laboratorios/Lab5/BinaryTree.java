@@ -112,4 +112,11 @@ public class BinaryTree {
         posOrder(n.right);
         System.out.println("" + n.data);
     }
+
+    /**
+     * It clears the tree
+     */
+    public void clear(){
+        root = null;
+    }
 }

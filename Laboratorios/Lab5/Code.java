@@ -12,7 +12,6 @@ public class Code {
             bt.insert(node); // c7*n*logn
             input = sc.next(); //c8*n
         }
-
         bt.posOrder(); // O(n)
     }
 }
