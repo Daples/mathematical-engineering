@@ -75,6 +75,14 @@ public class ParentsTree {
       }
     }
 
+    public String getGrandMothersName(String grandChild) {
+      return getGrandAux(root, grandChild);
+    }
+
+    public String getGrandAux(Node node, String name) {
+      
+    }
+
     public void testDavidParents() {
       root.left = new Node("Claudia");
       root.right = new Node("Gustavo");
@@ -86,7 +94,21 @@ public class ParentsTree {
       root.right.left.right = new Node("Epaminondas");
     }
 
+    public void testWilkensonParents() {
+      root.left = new Node("Joaquina");
+      root.right = new Node("Sufranio");
+      root.left.left = new Node("Eustaquia");
+      root.left.left.left = new Node("Florinda");
+      root.left.right = new Node("Eustaquio");
+      root.left.right.right = new Node("Jovin");
+      root.right.left = new Node("Piolina");
+      root.right.left.left = new Node("Wilberta");
+      root.right.right = new Node("Piolin");
+      root.right.right.right = new Node("Usnavy");
+    }
+
     public static void main(String[] args) {
+
       ParentsTree bt = new ParentsTree("David");
       bt.testDavidParents();
       System.out.println("Search for 'Ilva' = " + bt.search("Ilva"));
@@ -94,6 +116,14 @@ public class ParentsTree {
       System.out.println("MaxHeight = " + bt.maxHeight());
       System.out.println("Number of elements = " + bt.nElements());
       System.out.println(bt.printTree());
+
+      ParentsTree bt2 = new ParentsTree("Wilkenson");
+      bt2.testWilkensonParents();
+      System.out.println("Search for 'Jovin' = " + bt1.search("Jovin"));
+      System.out.println("Search for 'Mariana' = " + bt1.search("Mariana"));
+      System.out.println("MaxHeight = " + bt1.maxHeight());
+      System.out.println("Number of elements = " + bt1.nElements());
+      System.out.println(bt1.printTree());
     }
 
    /* testDavidParents
