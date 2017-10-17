@@ -32,7 +32,7 @@ public class ParentsTree {
       if (node == null) {
         return false;
       }
-      if (node.name == name) {
+      if (node.name.equals(name)) {
         return true;
       }
       return searchAux(node.left, name) || searchAux(node.right, name);
@@ -75,12 +75,41 @@ public class ParentsTree {
       }
     }
 
+    private static Node searchNode(Node node, String name) {
+      if (node != null) {
+        if (node.name.equals(name)) {
+          return node;
+        } else {
+          Node nodeAux = searchNode(node.left, name);
+          if (nodeAux == null) {
+            nodeAux = searchNode(node.right, name);
+          }
+          return nodeAux;
+        }
+      } else {
+        return null;
+      }
+    }
+
     public String getGrandMothersName(String grandChild) {
       return getGrandAux(root, grandChild);
     }
 
     public String getGrandAux(Node node, String name) {
-      
+      if (search(name)) {
+        Node grandChild = searchNode(root, name);
+        if (grandChild.left != null) {
+          if (grandChild.left.left != null) {
+            return grandChild.left.left.name;
+          } else {
+            return "GrandMa doesn't exist.";
+          }
+        } else {
+          return "Doesn't have.";
+        }
+      } else {
+        return "GrandChild doesn't exist.";
+      }
     }
 
     public void testDavidParents() {
@@ -108,7 +137,7 @@ public class ParentsTree {
     }
 
     public static void main(String[] args) {
-
+      System.out.println(" - My example - ");
       ParentsTree bt = new ParentsTree("David");
       bt.testDavidParents();
       System.out.println("Search for 'Ilva' = " + bt.search("Ilva"));
@@ -116,14 +145,21 @@ public class ParentsTree {
       System.out.println("MaxHeight = " + bt.maxHeight());
       System.out.println("Number of elements = " + bt.nElements());
       System.out.println(bt.printTree());
+      System.out.println("David's grandma = " + bt.getGrandMothersName("David"));
+      System.out.println("Gustavo's grandma = " + bt.getGrandMothersName("Gustavo"));
+      System.out.println("Leonilde's grandma = " + bt.getGrandMothersName("Leonilde"));
+      System.out.println("Mariana's grandma = " + bt.getGrandMothersName("Mariana"));
 
-      ParentsTree bt2 = new ParentsTree("Wilkenson");
-      bt2.testWilkensonParents();
+      System.out.println("\n - Wilkenson's example - ");
+      ParentsTree bt1 = new ParentsTree("Wilkenson");
+      bt1.testWilkensonParents();
       System.out.println("Search for 'Jovin' = " + bt1.search("Jovin"));
       System.out.println("Search for 'Mariana' = " + bt1.search("Mariana"));
       System.out.println("MaxHeight = " + bt1.maxHeight());
       System.out.println("Number of elements = " + bt1.nElements());
       System.out.println(bt1.printTree());
+      System.out.println("Wilkenson's grandma = " + bt1.getGrandMothersName("Wilkenson"));
+      System.out.println("Sufranio's grandma = " + bt1.getGrandMothersName("Sufranio"));
     }
 
    /* testDavidParents
