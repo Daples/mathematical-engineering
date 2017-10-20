@@ -8,14 +8,6 @@ public class ParentsTree {
         Node(String name) {
             this.name = name;
         }
-
-        public Node getLeft() {
-          return left;
-        }
-
-        public Node getRight() {
-          return right;
-        }
     }
 
     private Node root;
@@ -24,6 +16,10 @@ public class ParentsTree {
       root = new Node(name);
     }
 
+    /**
+     * @param name name you want to search for.
+     * @return whether the name is in the tree or not.
+     */
     public boolean search(String name) {
       return searchAux(root, name);
     }
@@ -37,7 +33,9 @@ public class ParentsTree {
       }
       return searchAux(node.left, name) || searchAux(node.right, name);
     }
-
+    /**
+     * @return the number of elements in the tree.
+     */
     public int nElements() {
       return nElementsAux(root);
     }
@@ -49,7 +47,9 @@ public class ParentsTree {
         return 1 + nElementsAux(node.right) + nElementsAux(node.left);
       }
     }
-
+    /**
+     * @return the max height or depth of the tree.
+     */
     public int maxHeight() {
       return maxHeightAux(root);
     }
@@ -62,16 +62,19 @@ public class ParentsTree {
       }
     }
 
-    public String printTree() {
-      return printTreeAux(root);
+    /**
+     * @return string version of the tree.
+     */
+    public String toString() {
+      return toStringAux(root);
     }
 
-    private String printTreeAux(Node node) {
+    private String toStringAux(Node node) {
       if (node == null) {
         return "";
       } else {
-        return printTreeAux(node.left) + " "
-          + node.name + " " + printTreeAux(node.right);
+        return toStringAux(node.left) + " "
+          + node.name + " " + toStringAux(node.right);
       }
     }
 
@@ -90,7 +93,10 @@ public class ParentsTree {
         return null;
       }
     }
-
+    /**
+     * @param grandChild name of the grandchild.
+     * @return name of grandmother's name of the node passed.
+     */
     public String getGrandMothersName(String grandChild) {
       return getGrandAux(root, grandChild);
     }
@@ -144,7 +150,7 @@ public class ParentsTree {
       System.out.println("Search for 'Mariana' = " + bt.search("Mariana"));
       System.out.println("MaxHeight = " + bt.maxHeight());
       System.out.println("Number of elements = " + bt.nElements());
-      System.out.println(bt.printTree());
+      System.out.println(bt.toString());
       System.out.println("David's grandma = " + bt.getGrandMothersName("David"));
       System.out.println("Gustavo's grandma = " + bt.getGrandMothersName("Gustavo"));
       System.out.println("Leonilde's grandma = " + bt.getGrandMothersName("Leonilde"));
@@ -157,7 +163,7 @@ public class ParentsTree {
       System.out.println("Search for 'Mariana' = " + bt1.search("Mariana"));
       System.out.println("MaxHeight = " + bt1.maxHeight());
       System.out.println("Number of elements = " + bt1.nElements());
-      System.out.println(bt1.printTree());
+      System.out.println(bt1.toString());
       System.out.println("Wilkenson's grandma = " + bt1.getGrandMothersName("Wilkenson"));
       System.out.println("Sufranio's grandma = " + bt1.getGrandMothersName("Sufranio"));
     }
