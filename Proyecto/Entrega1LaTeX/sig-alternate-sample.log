@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  20 OCT 2017 13:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  20 OCT 2017 20:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -396,37 +396,37 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.123 
-       <./RBTree.pdf>] <Hash.pdf, id=100, 406.46944pt x 93.07115pt>
+       <./RBTree.pdf>] <Hash.pdf, id=101, 406.46944pt x 93.07115pt>
 File: Hash.pdf Graphic file (type pdf)
  <use Hash.pdf>
 Package pdftex.def Info: Hash.pdf used on input line 127.
 (pdftex.def)             Requested size: 231.68997pt x 53.05109pt.
- <BTree.pdf, id=102, 520.48145pt x 147.83922pt>
+ <BTree.pdf, id=103, 520.48145pt x 147.83922pt>
 File: BTree.pdf Graphic file (type pdf)
  <use BTree.pdf>
 Package pdftex.def Info: BTree.pdf used on input line 146.
 (pdftex.def)             Requested size: 234.21448pt x 66.52702pt.
- <SkipList.pdf, id=105, 580.67728pt x 249.85077pt>
+ <SkipList.pdf, id=106, 580.67728pt x 249.85077pt>
 File: SkipList.pdf Graphic file (type pdf)
  <use SkipList.pdf>
 Package pdftex.def Info: SkipList.pdf used on input line 172.
 (pdftex.def)             Requested size: 232.26678pt x 99.93852pt.
- <NashTable.pdf, id=107, 745.33345pt x 275.9187pt>
+ <NashTable.pdf, id=108, 745.33345pt x 275.9187pt>
 File: NashTable.pdf Graphic file (type pdf)
  <use NashTable.pdf>
 Package pdftex.def Info: NashTable.pdf used on input line 181.
 (pdftex.def)             Requested size: 372.66582pt x 137.959pt.
- <NashInsert.pdf, id=109, 524.38243pt x 148.51605pt>
+ <NashInsert.pdf, id=110, 524.38243pt x 148.51605pt>
 File: NashInsert.pdf Graphic file (type pdf)
  <use NashInsert.pdf>
 Package pdftex.def Info: NashInsert.pdf used on input line 192.
 (pdftex.def)             Requested size: 233.35344pt x 66.09056pt.
- <NashRemove.pdf, id=111, 575.36905pt x 154.0666pt>
+ <NashRemove.pdf, id=112, 575.36905pt x 154.0666pt>
 File: NashRemove.pdf Graphic file (type pdf)
  <use NashRemove.pdf>
 Package pdftex.def Info: NashRemove.pdf used on input line 202.
 (pdftex.def)             Requested size: 230.14354pt x 61.62553pt.
- <NashGet.pdf, id=113, 553.53749pt x 170.1085pt>
+ <NashGet.pdf, id=114, 553.53749pt x 170.1085pt>
 File: NashGet.pdf Graphic file (type pdf)
  <use NashGet.pdf>
 Package pdftex.def Info: NashGet.pdf used on input line 211.
@@ -520,7 +520,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 278.
  ) 
 Here is how much of TeX's memory you used:
  6787 strings out of 492995
- 96325 string characters out of 6132704
+ 96327 string characters out of 6132704
  198341 words of memory out of 5000000
  10165 multiletter control sequences out of 15000+600000
  55397 words of font info for 81 fonts, out of 8000000 for 9000
@@ -528,7 +528,7 @@ Here is how much of TeX's memory you used:
  41i,10n,37p,300b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sig-alternate-sample.pdf (4 pages, 267662 bytes).
+Output written on sig-alternate-sample.pdf (4 pages, 268241 bytes).
 PDF statistics:
  338 PDF objects out of 1000 (max. 8388607)
  278 compressed objects within 3 object streams

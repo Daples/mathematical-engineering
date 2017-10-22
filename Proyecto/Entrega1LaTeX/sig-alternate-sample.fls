@@ -149,6 +149,7 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/latex-fonts/lasy5.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/ae/omsaer.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/ae/omsaer.fd
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aebx9.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aeti9.tfm
 INPUT RBTree.pdf
 INPUT ./RBTree.pdf
 INPUT ./RBTree.pdf
@@ -170,6 +171,9 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aeti9.vf
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti9.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl9.tfm
 INPUT Hash.pdf
 INPUT ./Hash.pdf
 INPUT ./Hash.pdf
@@ -204,7 +208,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/latex-fonts/lasy8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aebx8.tfm
 INPUT sig-alternate-sample.bbl
 INPUT sig-alternate-sample.bbl
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ae/aeti9.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aebx8.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
@@ -214,9 +217,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aer8.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmu10.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/ae/aeti9.vf
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti9.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl9.tfm
 INPUT sig-alternate-sample.aux
 INPUT ./sig-alternate-sample.out
 INPUT ./sig-alternate-sample.out
