@@ -68,10 +68,9 @@
 
     First of all, we live in a world where everyone needs everything quick; times have changed and if the user orders the computer
     to do something for them, they want a quick answer. Especially when finding an archive in their computer. Imagine that the
-    user forgot where his Powe
-    r Point presentation was and he had 5 minutes before presenting it; it would be infuriating that he
+    user forgot where his Power Point presentation was and he had 5 minutes before presenting it; it would be infuriating that he
     had to wait a considerable amount of time for the computer to retrieve the file's location. In this sense, if we make a slow algorithm for searching
-    archives we would bring an unsatisfying experience to the user.
+    archives we would bring an unsatisfying user experience.
 
     Consequently, although this problem is an specific one, it may apply to many other areas of knowledge; for example, in gaming,
     if the user wants to access his save file or check collision between objects, it would be an awful experience that this processes would take
@@ -175,6 +174,9 @@
       \end{figure}
 
   \section{Nash table}
+  The first approach proposed is NashTables. This is a proposed data structure based on hash tables, double linked lists and
+  similar to a tree structure. It takes each letter of each file and it indexes it accordingly; this allows us to build a structure where the
+  user can find files just by typing the first letters of the name of the file.
   Figure \ref{img:nashT} shows the structure of a NashTable with some examples.
   \begin{figure*}[t]
     \centering
@@ -251,10 +253,10 @@
     \begin{tabular}{cccc}
       \hline
       \textbf{Operation} & \textbf{WorstTime} & 	\textbf{BestTime} & \textbf{AverageTime} \\ \hline
-      Read data          & $114478\mu s$      & $53179\mu s$      & $69442\mu s$         \\
-      Insertion          & $27\mu s$               & $5\mu s$               & $5.78\mu s$               \\
-      Search             & $6\mu s$               & $1\mu s$              & $1.61\mu s$               \\
-      Remove             & $20\mu s$              & $5\mu s$              & $6.25\mu s$              \\ \hline
+      Read data          & $114.478ms$      & $53.179ms$      & $69442\mu s$         \\
+      Insertion          & $0.027ms$               & $0.005ms$               & $0.00578ms$               \\
+      Search             & $0.006ms$               & $0.001ms$              & $0.00161ms$               \\
+      Remove             & $0.020ms$              & $0.005ms$              & $0.00625ms$              \\ \hline
     \end{tabular}
   \end{table}
   \begin{table}[t]
