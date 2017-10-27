@@ -253,13 +253,13 @@
     \begin{tabular}{cccc}
       \hline
       \textbf{Operation} & \textbf{WorstTime} & 	\textbf{BestTime} & \textbf{AverageTime} \\ \hline
-      Read data          & $114.478ms$      & $53.179ms$      & $69442\mu s$         \\
+      Read data          & $114.478ms$      & $53.179ms$      & $69.442ms$         \\
       Insertion          & $0.027ms$               & $0.005ms$               & $0.00578ms$               \\
       Search             & $0.006ms$               & $0.001ms$              & $0.00161ms$               \\
       Remove             & $0.020ms$              & $0.005ms$              & $0.00625ms$              \\ \hline
     \end{tabular}
   \end{table}
-  \begin{table}[t]
+  \begin{table}[b]
     \centering
     \caption{Memory consumption.}
     \label{table:mem}
@@ -269,7 +269,7 @@
       Memory                     & 40.96MB           \\ \hline
     \end{tabular}
   \end{table}
-  For example, insertion has an average time of $5.78\mu s$, which is really fast. Although the complexity of the operations
+  For example, insertion has an average time of $0.00578ms$, which is really fast. Although the complexity of the operations
   seems slightly inefficent, when the algorithms are applied, different results are obtained; this is due to the fact that
   the worst-case scenario is highly unlikely, starting with the fact that not all the files indexed in a computer are called the
   same. All operations - read data, insertion, search, remove - were executed fast enough.

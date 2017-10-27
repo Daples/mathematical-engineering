@@ -54,8 +54,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvro8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvro8t.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
@@ -156,8 +154,6 @@ INPUT ./RBTree.pdf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
