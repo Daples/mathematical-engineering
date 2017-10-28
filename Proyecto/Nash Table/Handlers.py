@@ -1,13 +1,7 @@
 import subprocess
 import platform
 import time
-import importlib.util as ut
-spec = ut.spec_from_file_location("Nash Tables",
-                                  "/home/juanse/Documents/JuanSePlazas/Proyecto/Nash\ Table/DataStructures.py")
-nt = ut.module_from_spec(spec)
-spec.loader.exec_module(nt)
-nt.MyClass()
-
+from DataStructures import NashTable as nt
 
 
 class bcolors:
@@ -22,31 +16,23 @@ class bcolors:
 
 
 class HandlerFiles:
+    pipe = "│"
+    h_cross = "└"
+    cross = "├"
 
     def __init__(self, name="Output.txt", directory="~/", teacher=False):
-        """
-        :param name: the name of the file to read
-        :param directory: the directory to begin the tree
-        :param teacher: if the teacher wants to use the treeEtc.txt
-        """
         self.system = platform.system()
         self.name = name
         if not teacher:
             if self.system == "Linux" or self.system == "Darwin":
-                process = subprocess.Popen('tree -hua ' + directory + ' > ' + name, stdout=subprocess.PIPE, shell=True)
+                process = subprocess.Popen('tree -hua ' + directory + ' > ' + name,
+                                           stdout=subprocess.PIPE, shell=True)
                 process.communicate()[0].strip()
             self.file = open(name)
         else:
             self.file = open("treeEtc.txt")
 
     def read_file(self):
-        """
-        :return: a nash table with the files of the tree
-        """
-        pipe = "│"
-        h_cross = "└"
-        cross = "├"
-
         def remove_dir(dir):
             index = 0
             i = 0
@@ -75,6 +61,9 @@ class HandlerFiles:
         name_before = ""  # The name of the file before
         address = ""  # The directory we are in
         nash = nt()
+        dirhands = []
+        names_of_dirs = []
+        initial = ""
         i = 0
         for line in self.file:
             # So he can add the first direction
@@ -82,6 +71,7 @@ class HandlerFiles:
                 address += line.replace("\n", "")
                 if address[-1] == "/":
                     address = address[:-1]
+                initial = address
                 i = 1
                 continue
 
@@ -91,8 +81,10 @@ class HandlerFiles:
             found_a_cross = False
             first_dir = False
             redir = ""
+            appended = False
+            to_append = True
             for char in line:
-                if char == h_cross or char == cross:
+                if char == HandlerFiles.h_cross or char == HandlerFiles.cross:
                     found_a_cross = True
                     if spaces < spaces_before:
                         aux = 0
@@ -100,12 +92,22 @@ class HandlerFiles:
                         while aux < to_erase:
                             address = remove_dir(address)
                             aux += 1
-                if not found_a_cross and char == " " or char == pipe:
+                        if address != initial:
+                            last_name = address.split("/")[-1]
+                            while last_name != names_of_dirs[-1]:
+                                names_of_dirs.pop()
+                                dirhands.pop()
+                        else:
+                            while len(dirhands) != 0:
+                                dirhands.pop()
+                                names_of_dirs.pop()
+                if not found_a_cross and char == " " or char == HandlerFiles.pipe:
                     # Count how many spaces we're in are we in
                     spaces += 1
 
                 if not first_dir and spaces > spaces_before:
                     address += "/" + name_before
+                    to_append = True
                     first_dir = True
 
                 if char == "[": # Check if we reach the user and memory part
@@ -114,11 +116,29 @@ class HandlerFiles:
 
                 j += 1
 
+            file = None
             if redir == "":
-                nash.insert(name, address, owner, "", size)
+                if to_append:
+                    dirhands.append(nt.Dirhand())
+                    names_of_dirs.append(name)
+                    appended = True
+                    file = nash.insert(name, address, owner, "", size, dirhand=dirhands[-1])
+                else:
+                    nash.insert(name, address, owner, "", size)
             else:
-                nash.insert(name, address, owner, "", size, redirects=redir)
+                if to_append:
+                    appended = True
+                    dirhands.append(nt.Dirhand())
+                    names_of_dirs.append(name)
+                    file = nash.insert(name, address, owner, "", size,
+                                       redirects=redir, dirhand=dirhands[-1])
+                else:
+                    nash.insert(name, address, owner, "", size, redirects=redir)
 
+            if len(dirhands) > 0 and not appended:
+                dirhands[-1].insert(file)
+            if appended and len(dirhands) > 1:
+                dirhands[-2].insert(file)
             # Settings before other iteration
             name_before = name
             spaces_before = spaces
@@ -127,14 +147,15 @@ class HandlerFiles:
 
 class HandlerUser:
 
-    def __init__(self):
-        self.hf = HandlerFiles()
+    def __init__(self, dir="~/", teacher=False):
+        self.hf = HandlerFiles(directory=dir, teacher=teacher)
         self.nash = self.hf.read_file()
 
     def run(self):
         print(bcolors.HEADER + bcolors.BOLD + "Welcome!" + bcolors.ENDC)
         i = 0
         while True:
+            end_iter = False
             if i != 0:
                 print("\n\n")
             else:
@@ -148,7 +169,8 @@ class HandlerUser:
             if decision == 0:
                 return
             elif decision == 1:
-                print("Write the name or the initials of the file you want to search; if you need it")
+                print("Write the name or the initials of the file you want to search; "
+                      "if you need it")
                 print("to be case sensitive write " + bcolors.UNDERLINE + "(c)"
                       + bcolors.ENDC, "and then write the file you need to search.")
                 to_search = input("")
@@ -173,50 +195,99 @@ class HandlerUser:
 
                 HandlerUser.print_files(files)
 
-                ans2 = input(bcolors.BOLD + "Did you find the file you wanted?" + bcolors.ENDC + "[Y/N] ")
-                if ans2.lower().replace(" ","") == "n":
-                    ans3 = input("\n" + "Want to search the files that have the string in any other place"
-                                        " rather than the initials? [Y/N] ")
-                    if ans3.replace(" ", "").lower() == "y":
-                        files = self.nash.searchallnash(to_search)
-                        if len(files) == 0:
-                            print(bcolors.FAIL + bcolors.UNDERLINE +
-                                  "Found no files with the name nor the initials given" + bcolors.ENDC)
-                            continue
+                while True:
+                    ans2 = input(bcolors.BOLD + "Did you find the file you wanted?" +
+                                 bcolors.ENDC + "[Y/N] ")
+                    if ans2.lower().replace(" ","") == "n":
+                        ans3 = input("\n" + "Want to search the files that have the string "
+                                            "in any other place"
+                                            " rather than the initials? [Y/N] ")
+                        if ans3.replace(" ", "").lower() == "y":
+                            files = self.nash.searchallnash(to_search)
+                            if len(files) == 0:
+                                print(bcolors.FAIL + bcolors.UNDERLINE +
+                                      "Found no files with the name nor the initials given"
+                                      + bcolors.ENDC)
+                                break
+                            else:
+                                HandlerUser.print_files(files)
                         else:
-                            HandlerUser.print_files(files)
-                    else:
-                        continue
-
-                answer = input(bcolors.OKBLUE + "Do you want to know the address of a file? [Y/N] " + bcolors.ENDC)
-                if answer.lower().replace(" ", "") == "y":
-                    while True:
-                        print("\n")
-                        index = input(bcolors.OKBLUE + "What address do you want to know? "
-                                      + bcolors.ENDC + "(Enter 0 to cancel) ")
-
-                        if not index.isdigit():
-                            print(bcolors.WARNING + "That index doesn't exists" + bcolors.ENDC)
-                            continue
-
-                        index = int(index)
-                        if index == 0:
                             break
-                        if index > len(files):
-                            print(bcolors.FAIL + "There's no file with that index!" + bcolors.ENDC)
+
+                    answer = input(bcolors.OKBLUE + "Do you want to know the address of a file? "
+                                                    "[Y/N] " + bcolors.ENDC)
+                    if answer.lower().replace(" ", "") == "y":
+                        while True:
+                            print("\n")
+                            index = input(bcolors.OKBLUE + "What address do you want to know? "
+                                          + bcolors.ENDC + "(Enter 0 to cancel) ")
+
+                            if not index.isdigit():
+                                print(bcolors.WARNING + "That index doesn't exists" + bcolors.ENDC)
+                                continue
+
+                            index = int(index)
+                            if index == 0:
+                                break
+                            if index > len(files):
+                                print(bcolors.FAIL + "There's no file with that index!"
+                                      + bcolors.ENDC)
+                            else:
+                                print("Address:", files[index - 1]["dir"])
+                    while True:
+                        ans4 = input(bcolors.BOLD + "Do you want to know the content of a folder? "
+                                                    "[Y/N] " + bcolors.ENDC).lower()
+                        if ans4 == "y":
+                            print("\n\n")
+                            i = input(bcolors.OKBLUE + "Of what directory do you want their "
+                                          "subdirectories? (Type 0 to cancel) "
+                                          + bcolors.ENDC)
+
+                            if not i.isdigit():
+                                print(bcolors.WARNING + "That index doesn't exists" + bcolors.ENDC)
+                                continue
+
+                            i = int(i) - 1
+                            if i == -1:
+                                end_iter = True
+                                break
+                            elif i >= len(files):
+                                print(bcolors.FAIL + "That index doesn't exist" + bcolors.ENDC)
+                                continue
+                            file = files[i]
+                            if "dirhand" in file:
+                                files = file["dirhand"].sub
+                                if len(files) == 0:
+                                    print(bcolors.FAIL + bcolors.UNDERLINE +
+                                          "Found no files with the name nor the initials given"
+                                          + bcolors.ENDC)
+                                    continue
+                                HandlerUser.print_files(file["dirhand"].sub)
+                                break
+                            else:
+                                print(bcolors.FAIL + "The file selected is "
+                                                     "not a directory or it's empty"
+                                      + bcolors.ENDC)
+                                end_iter = True
+                                break
                         else:
-                            print("Address:", files[index - 1]["dir"])
+                            end_iter = True
+                            break
+                    if end_iter:
+                        break
+
+
 
     @staticmethod
     def print_files(my_list):
         index = 1
         for item in my_list:
             try:
-                print(bcolors.BOLD + str(index) + bcolors.ENDC + "." + "[" + item["owner"], item["size"],
-                      item["date"] + "]", item["name"], "->", item["redirects"])
+                print(bcolors.BOLD + str(index) + bcolors.ENDC + "." + "[" + item["owner"],
+                      item["size"], item["date"] + "]", item["name"], "->", item["redirects"])
             except KeyError:
-                print(bcolors.BOLD + str(index) + bcolors.ENDC + "." + "[" + item["owner"], item["size"],
-                      item["date"] + "]", item["name"])
+                print(bcolors.BOLD + str(index) + bcolors.ENDC + "." + "[" + item["owner"],
+                      item["size"], item["date"] + "]", item["name"])
             index += 1
 
         print(bcolors.OKGREEN + "Found", str(index-1) + " files!\n" + bcolors.ENDC)
@@ -335,8 +406,4 @@ class Tester:
 
 
 hu = HandlerUser()
-test = Tester()
-test.read_file_times()
-test.insert_times()
-test.get_times()
-test.remove_times()
+hu.run()

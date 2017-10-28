@@ -253,70 +253,73 @@ class NashTable:
 
     class Branch(object):
         def __init__(self, depth):
-            """
-            :param depth: the number plus one of nashes that the hash contains
-            """
             self.nash = None
             self.depth = depth
             self.table = LinkedList()
 
         def __init_nash__(self, level):
-            """
-            :param level: the letter quantity that the list holds
-            :return: Nothing
-            """
             self.nash = NashTable(self.depth, level)
 
         def __str__(self):
-            """
-            :return: The string version of the branch
-            """
             return "(" + str(self.table) + ",", str(self.nash) + ")"
 
-    def __init__(self, depth=2, level=1):
+    class Dirhand:
+        def __init__(self):
+            self.sub = []
+
+        def insert(self, file):
+            self.sub.append(file)
+
+        def __iter__(self):
+            return self.sub
+
+        def __str__(self):
+            return str(self.sub)
+
+    def __init__(self, depth=260, __level__=1):
         """
-        :param depth: The number plus one of nashes that the hash has
-        :param level: The quantity of the letters that the table will hold
+        :param depth: the depth of the trie
+        :param __level__: the size of the strings that the nash holds
         """
         self.depth = depth
         self.hash = {}
-        self.level = level
+        self.level = __level__
         self.size = 0
 
     def __str__(self):
         """
-        :return: The string version of the nash table
+        :return: A string version of the string
         """
         return str(self.hash)
 
     def __len__(self):
         """
-        :return: The size of the nash table
+        :return: the size of the nash table
         """
         return self.size
 
     def __contains__(self, item):
         """
-        :param item: a key in the nash
-        :return: if the dictionary there exists a key equal to item
+        :param item: a key
+        :return: if the key is in the hash table of the nash table
         """
         return item in self.hash
 
     def getdepth(self):
         """
-        :return: the depth of the table
+        :return: the real depth of the table
         """
         return self.depth + 1
 
     def insert(self, name, dir, own, date, size, **kwargs):
         """
-        :param name: The name of the file
-        :param dir: The directory that the file is associated with
-        :param own: The owner of the file
-        :param date: The date it was created
-        :param size: The size of the file
-        :param kwargs: Other parameters that are not included
-        :return: Nothing
+        :param name: the name of the file
+        :param dir: the directory that the file is located
+        :param own: the owner of the file
+        :param date: the date of the file
+        :param size: the size of the file
+        :param kwargs: the extra arguments that the file has
+        :return: the file itself
         """
         file = {"name": name, "dir": dir, "owner": own, "date": date, "size": size}
         for key in kwargs:
@@ -325,15 +328,16 @@ class NashTable:
         if name == "":
             self.hash[""] = NashTable.Branch(depth=self.depth-1)
             self.hash[""].table.insert(file, self.hash[""].table.size())
-            return
-        self.__aux__insert__(0, file)
+        else:
+            self.__aux__insert__(0, file)
         self.size += 1
+        return file
 
     def __aux__insert__(self, letter_index, item):
         """
-        :param letter_index: The index of the letter we're orn
-        :param item: The item we're going to insert
-        :return: Nothing
+        :param letter_index: the letter we are on
+        :param item: the file you want to insert
+        :return: nothing
         """
         letter = item["name"][letter_index]
         if letter not in self.hash:
@@ -348,9 +352,9 @@ class NashTable:
 
     def get(self, name, case_sens=True):
         """
-        :param name: The name of the file
-        :param case_sens: If you want the search to be case sensitive or not
-        :return: A list with the files found
+        :param name: the name of the file
+        :param case_sens: if the search is case sensitive or not
+        :return: a list with the files found
         """
         if name == "":
             return
@@ -361,9 +365,10 @@ class NashTable:
 
     def __aux__get__(self, name, letter_index):
         """
-        :param name: The name of the file you're searching
-        :param letter_index: The letter index that we're on
-        :return: A list with the files found
+        It searches with the name given case sensitive
+        :param name: the name to search
+        :param letter_index: the letter we are in
+        :return: a list with the files found
         """
         letter = name[letter_index]
         if letter in self.hash:
@@ -384,9 +389,10 @@ class NashTable:
 
     def __aux__get__case(self, name, letter_index):
         """
-        :param name: the name of the file you're searching for
-        :param letter_index: the letter index we're searching
-        :return: A list with the files found
+        It searches for the files with the name given not being case sensitive
+        :param name: the name of the file you're searching
+        :param letter_index: the letter we're in
+        :return: a list with the files found
         """
         letter = name[letter_index]
         total = []
@@ -411,28 +417,34 @@ class NashTable:
                         files.append(item)
                 total += files
             else:
-                temp = branch.nash.__aux__get__case(name, letter_index + 1)
+                if branch.nash is not None:
+                    temp = branch.nash.__aux__get__case(name, letter_index + 1)
+                else:
+                    temp = []
 
             if temp is not None:
                 total += temp
 
         return total
 
-    def remove(self, name):
+    def remove(self, name, file):
         """
-        :param name: the name of the file we want to remove
+        It removes the file from the nash table
+        :param name: the name you want to remove
+        :param file: a reference to the file you want to delete
         :return: nothing
         """
         if name == "":
             if "" in self:
                 self.hash[""].table.remove(0)
-            else:
-                return
+            return
 
         letter_index = 0
         mov_nash = self
         letter = name[letter_index]
-        while len(name) != mov_nash.level or mov_nash.getdepth() != 0:
+        while len(name) != mov_nash.level and mov_nash.getdepth() != 0:
+            if mov_nash is None:
+                break
             if letter in mov_nash:
                 mov_nash = mov_nash.hash[letter].nash
             else:
@@ -441,16 +453,17 @@ class NashTable:
             letter = name[letter_index]
 
         index = 0
-        for item in mov_nash.hash[letter_index].table:
-            if item["name"] == name:
-                mov_nash.hash[letter_index].table.remove(index)
+        for item in mov_nash.hash[letter].table:
+            if item["name"] == name and item == file:
+                mov_nash.hash[letter].table.remove(index)
                 break
             index += 1
 
     def __search__all__(self, name):
         """
+        It searches all the depths of a nash
         :param name: the name you're searching for
-        :return: a list with files that we're searching for
+        :return: a list with the files found
         """
         files = []
         for key in self.hash:
@@ -463,8 +476,9 @@ class NashTable:
 
     def searchallnash(self, name):
         """
-        :param name: the name that we're searching for
-        :return: A list with files that we're searching for
+        It searches all the nash table for files with a name
+        :param name: the name you're searching for
+        :return: a list with the files found
         """
         files = []
         for key in self.hash:
