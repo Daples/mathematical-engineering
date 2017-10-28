@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex sig-alternate-sample"] 1508720481 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1509123032
+["bibtex sig-alternate-sample"] 1508720481 "sig-alternate-sample.aux" "sig-alternate-sample.bbl" "sig-alternate-sample" 1509145975
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/abbrv.bst" 1480098433 20329 b5fed53e10044d0f8112183785c759b1 ""
-  "sig-alternate-sample.aux" 1508720858 4920 288d95d61f21827df482f03528752ed8 ""
+  "sig-alternate-sample.aux" 1509145974 4920 288d95d61f21827df482f03528752ed8 ""
   "sigproc.bib" 1506632436 939 6c0e7136f79555c0d57f8c299b71e77c ""
   (generated)
-  "sig-alternate-sample.blg"
   "sig-alternate-sample.bbl"
-["pdflatex"] 1508720857 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1509123032
+  "sig-alternate-sample.blg"
+["pdflatex"] 1509145974 "sig-alternate-sample.tex" "sig-alternate-sample.pdf" "sig-alternate-sample" 1509145975
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm" 1480098688 6628 34c39492c0adc454c1c199922bba8363 ""
@@ -136,13 +136,13 @@
   "RBTree.pdf" 1506632436 4892 588af8aa831a51946e7de99693dc59e1 ""
   "SkipList.pdf" 1506632436 10508 50748f37a19dc0f0d3a7e77162ca11c8 ""
   "acmcopyright.sty" 1506632436 9626 03a22ffcc9f51aaef67ac6ed43847230 ""
-  "sig-alternate-05-2015.cls" 1508720521 66820 037c31d50eab89a2259e6a1afdc02433 ""
-  "sig-alternate-sample.aux" 1508720858 4920 288d95d61f21827df482f03528752ed8 ""
+  "sig-alternate-05-2015.cls" 1509145972 66818 68387ef09e7b299811e059ed8a95447d ""
+  "sig-alternate-sample.aux" 1509145974 4920 288d95d61f21827df482f03528752ed8 ""
   "sig-alternate-sample.bbl" 1508720482 823 ad462cf3734d20db7682bed6d502b49e "bibtex sig-alternate-sample"
-  "sig-alternate-sample.out" 1508720858 987 3601e2edd4049013d4d551afc2d0d6bf ""
+  "sig-alternate-sample.out" 1509145974 987 3601e2edd4049013d4d551afc2d0d6bf ""
   "sig-alternate-sample.tex" 1508721236 14047 f5520b3daf4225001c1e83e9a06338e6 ""
   (generated)
-  "sig-alternate-sample.aux"
   "sig-alternate-sample.pdf"
   "sig-alternate-sample.out"
+  "sig-alternate-sample.aux"
   "sig-alternate-sample.log"

@@ -425,11 +425,11 @@
 \newfont{\subttlfnt}{phvr8t at 14pt}
 \newfont{\subttlit}{phvro8t at 14pt} % GM 2/4/2000
 \newfont{\subttlbf}{phvb8t at 14pt}  % 13 Jan 00 gkmt
-\newfont{\aufnt}{phvr8t at 10pt}
-\newfont{\auit}{phvro8t at 10pt}     % GM 2/4/2000
+\newfont{\aufnt}{ptmb8t at 10pt}
+\newfont{\auit}{ptmb8t at 10pt}     % GM 2/4/2000
 \newfont{\affaddr}{phvr8t at 10pt}
 \newfont{\affaddrit}{phvro8t at 10pt} % GM 2/4/2000
-\newfont{\eaddfnt}{phvr8t at 12pt}
+\newfont{\eaddfnt}{phvr8t at 4pt}
 \newfont{\ixpt}{ptmr8t at 9pt}
 \newfont{\confname}{ptmri8t at 8pt}
 \newfont{\crnotice}{ptmr8t at 8pt}
