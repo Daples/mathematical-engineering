@@ -429,7 +429,7 @@ class NashTable:
 
     def remove(self, name, file):
         """
-        It removes the file from the nash table
+        It removes the file from the nash table and the directory it's in
         :param name: the name you want to remove
         :param file: a reference to the file you want to delete
         :return: nothing
@@ -458,6 +458,15 @@ class NashTable:
                 mov_nash.hash[letter].table.remove(index)
                 break
             index += 1
+
+        father = file["dir"].split("/")[-1]
+        files = self.get(father)
+        for item in files:
+            if "dirhand" in item:
+                for subdir in item["dirhand"].sub:
+                    if file == subdir:
+                        item["dirhand"].sub.remove(subdir)
+                        return
 
     def __search__all__(self, name):
         """
