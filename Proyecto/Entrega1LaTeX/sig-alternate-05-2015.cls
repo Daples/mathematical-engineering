@@ -420,16 +420,16 @@
 \newfont{\secit}{ptmbi8t at 12pt}    %13 Jan 00 gkmt
 \newfont{\subsecfnt}{ptmri8t at 11pt}
 \newfont{\subsecit}{ptmbi8t at 11pt}  %
-\newfont{\ttlfnt}{cmssb8t at 18pt}
-\newfont{\ttlit}{cmssb8t at 18pt}    % GM 2/4/2000
+\newfont{\ttlfnt}{cmsmfbx8 at 18pt}
+\newfont{\ttlit}{cmsmfbx8 at 18pt}    % GM 2/4/2000
 \newfont{\subttlfnt}{phvr8t at 14pt}
 \newfont{\subttlit}{phvro8t at 14pt} % GM 2/4/2000
 \newfont{\subttlbf}{phvb8t at 14pt}  % 13 Jan 00 gkmt
 \newfont{\aufnt}{ptmr8t at 12pt}
 \newfont{\auit}{ptmr8t at 12pt}     % GM 2/4/2000
-\newfont{\affaddr}{phvr8t at 10pt}
-\newfont{\affaddrit}{phvro8t at 10pt} % GM 2/4/2000
-\newfont{\eaddfnt}{phvr8t at 10pt}
+\newfont{\affaddr}{ptmr8t at 10pt}
+\newfont{\affaddrit}{ptmr8t at 10pt} % GM 2/4/2000
+\newfont{\eaddfnt}{ptmr8t at 10pt}
 \newfont{\ixpt}{ptmr8t at 9pt}
 \newfont{\confname}{ptmri8t at 8pt}
 \newfont{\crnotice}{ptmr8t at 8pt}
