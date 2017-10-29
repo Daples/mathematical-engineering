@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  27 OCT 2017 18:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  29 OCT 2017 07:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -126,13 +126,35 @@ Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 \addauthors=\toks21
 \addauflag=\count96
 \subtitletext=\toks22
+
+./sig-alternate-05-2015.cls:423: Font \ttlfnt=cmssb8t at 18.0pt not loadable: Metric (TFM) file not found.
+<to be read again> 
+                   \relax 
+l.423 \newfont{\ttlfnt}{cmssb8t at 18pt}
+                                        
+I wasn't able to read the size data for this font,
+so I will ignore the font specification.
+[Wizards can fix TFM files using TFtoPL/PLtoTF.]
+You might try inserting a different font spec;
+e.g., type `I\font<same font id>=<substitute font name>'.
+
+./sig-alternate-05-2015.cls:424: Font \ttlit=cmssb8t at 18.0pt not loadable: Metric (TFM) file not found.
+<to be read again> 
+                   \relax 
+l.424 \newfont{\ttlit}{cmssb8t at 18pt}
+                                           % GM 2/4/2000
+I wasn't able to read the size data for this font,
+so I will ignore the font specification.
+[Wizards can fix TFM files using TFtoPL/PLtoTF.]
+You might try inserting a different font spec;
+e.g., type `I\font<same font id>=<substitute font name>'.
+
 \savesection=\count97
 \sectioncntr=\count98
 \c@figure=\count99
 \c@table=\count100
 \titleboxnotes=\toks23
 \titleboxnoteflag=\count101
-
 
 LaTeX Warning: You have requested document class `sig-alternate-05-2015',
                but the document class provides `sig-alternate'.
@@ -365,6 +387,60 @@ LaTeX Info: Redefining \nameref on input line 11.
 \openout4 = `sig-alternate-sample.out'.
 
  Excluding 'CCSXML' comment.
+Missing character: There is no D in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no x in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
 LaTeX Font Info:    Try loading font information for U+msa on input line 52.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -396,37 +472,37 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.122 
-       <./RBTree.pdf>] <Hash.pdf, id=100, 406.46944pt x 93.07115pt>
+       <./RBTree.pdf>] <Hash.pdf, id=101, 406.46944pt x 93.07115pt>
 File: Hash.pdf Graphic file (type pdf)
  <use Hash.pdf>
 Package pdftex.def Info: Hash.pdf used on input line 126.
 (pdftex.def)             Requested size: 231.68997pt x 53.05109pt.
- <BTree.pdf, id=102, 520.48145pt x 147.83922pt>
+ <BTree.pdf, id=103, 520.48145pt x 147.83922pt>
 File: BTree.pdf Graphic file (type pdf)
  <use BTree.pdf>
 Package pdftex.def Info: BTree.pdf used on input line 145.
 (pdftex.def)             Requested size: 234.21448pt x 66.52702pt.
- <SkipList.pdf, id=105, 580.67728pt x 249.85077pt>
+ <SkipList.pdf, id=106, 580.67728pt x 249.85077pt>
 File: SkipList.pdf Graphic file (type pdf)
  <use SkipList.pdf>
 Package pdftex.def Info: SkipList.pdf used on input line 171.
 (pdftex.def)             Requested size: 232.26678pt x 99.93852pt.
- <NashTable.pdf, id=107, 745.33345pt x 275.9187pt>
+ <NashTable.pdf, id=108, 745.33345pt x 275.9187pt>
 File: NashTable.pdf Graphic file (type pdf)
  <use NashTable.pdf>
 Package pdftex.def Info: NashTable.pdf used on input line 183.
 (pdftex.def)             Requested size: 372.66582pt x 137.959pt.
- <NashInsert.pdf, id=109, 524.38243pt x 148.51605pt>
+ <NashInsert.pdf, id=110, 524.38243pt x 148.51605pt>
 File: NashInsert.pdf Graphic file (type pdf)
  <use NashInsert.pdf>
 Package pdftex.def Info: NashInsert.pdf used on input line 194.
 (pdftex.def)             Requested size: 233.35344pt x 66.09056pt.
- <NashRemove.pdf, id=111, 575.36905pt x 154.0666pt>
+ <NashRemove.pdf, id=112, 575.36905pt x 154.0666pt>
 File: NashRemove.pdf Graphic file (type pdf)
  <use NashRemove.pdf>
 Package pdftex.def Info: NashRemove.pdf used on input line 204.
 (pdftex.def)             Requested size: 230.14354pt x 61.62553pt.
- <NashGet.pdf, id=113, 553.53749pt x 170.1085pt>
+ <NashGet.pdf, id=114, 553.53749pt x 170.1085pt>
 File: NashGet.pdf Graphic file (type pdf)
  <use NashGet.pdf>
 Package pdftex.def Info: NashGet.pdf used on input line 213.
@@ -519,19 +595,19 @@ Package rerunfilecheck Info: File `sig-alternate-sample.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 280.
  ) 
 Here is how much of TeX's memory you used:
- 6787 strings out of 492995
- 96326 string characters out of 6132704
+ 6786 strings out of 492995
+ 96321 string characters out of 6132704
  198341 words of memory out of 5000000
  10165 multiletter control sequences out of 15000+600000
- 54778 words of font info for 81 fonts, out of 8000000 for 9000
+ 49004 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,37p,300b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texliv
-e/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sig-alternate-sample.pdf (4 pages, 260693 bytes).
+e/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on sig-alternate-sample.pdf (4 pages, 270808 bytes).
 PDF statistics:
- 334 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
+ 338 PDF objects out of 1000 (max. 8388607)
+ 278 compressed objects within 3 object streams
  36 named destinations out of 1000 (max. 500000)
  169 words of extra memory for PDF output out of 10000 (max. 10000000)
 
