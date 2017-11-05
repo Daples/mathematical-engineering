@@ -1,4 +1,4 @@
-from Code import DigraphAL, DigraphAM
+from DataStructures import DigraphAL, DigraphAM
 
 class City:
     def readFile():

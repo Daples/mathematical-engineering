@@ -46,7 +46,7 @@ class DigraphAM:
 
 class DigraphAL:
     def __init__(self, n):
-        self.ar = [Ll() for e in range(n)]
+        self.ar = [LinkedList() for e in range(n)]
         self.n = n
 
     def insert(self, parent, child, weight=0, **kwargs):
