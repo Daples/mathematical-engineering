@@ -1,0 +1,9 @@
+3.3 The matrix representation is more useful when the important things are the
+connections, not the weights; so, in a simple graph the matrix representation
+is a fairly good approach to represent it better. But, the priority is to use 
+''greedy algorithms'' or a really big sample of data de linked list 
+representation is much better.
+
+3.5 It's better to use the linked list representation because, of the big size
+of the data (so we can optimize memory) and this type of data is a priority to
+search for smallest path and more. 
