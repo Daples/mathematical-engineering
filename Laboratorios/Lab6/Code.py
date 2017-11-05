@@ -27,7 +27,7 @@ class DigraphAM:
         child = []
         if parent in range(self.n):
             for i in range(len(self.matrix[parent])):
-                if self.matrix[parent][i].value == 1:
+                if self.matrix[parent][i] is not None:
                     child.append(i)
         else:
             print("The digraph only receives numbers between 0 and", self.n - 1)
@@ -44,7 +44,6 @@ class DigraphAM:
         if parent in range(self.n) and child in range(self.n):
             if self.matrix[parent][child] is not None:
                 return self.matrix[parent][child].weight
-        print("These values are not related")
         return -1
 
 
@@ -63,7 +62,7 @@ class DigraphAL:
         if parent in range(self.n):
             children = []
             for link in self.ar[parent]:
-                children += link.value
+                children.append(link.value)
             return children
         else:
             print("The digraph only receives numbers between 0 and", self.n - 1)
@@ -90,7 +89,6 @@ class DigraphAL:
             for link in self.ar[parent]:
                 if link.value == child:
                     return link.weight
-        print("These values are not related")
         return -1
 
 
@@ -117,14 +115,17 @@ class GraphAlgorithms:
                 if directed_graph.are_related(start, i):
                     distance[i] = mt.inf
                 else:
-                    distance[i] = directed_graph.weights[i]
+                    distance[i] = directed_graph.weight(start, i)
 
         seen = [False] * directed_graph.n
         seen[start] = True
         while False in seen:
-            vertex = distance.index(min(distance))
+            distance = sorted(distance)
+            vertex = 0
+            index = 1
             while seen[vertex]:
-                vertex = distance.index(min(distance))
+                vertex = index
+                index += 1
 
             seen[vertex] = True
             children = directed_graph.search(vertex)
@@ -182,3 +183,36 @@ class GraphAlgorithms:
                 print("Is bi colorable")
             else:
                 print("Is not bi colorable")
+
+    @staticmethod
+    def tests():
+        graph1AL = DigraphAL(3)
+        graph1AL.insert(0, 1, 5)
+        graph1AL.insert(1, 2, 10)
+        graph1AL.insert(2, 0, 40)
+
+        graph1AM = DigraphAM(3)
+        graph1AM.insert(0, 1, 5)
+        graph1AM.insert(1, 2, 10)
+        graph1AM.insert(2, 0, 40)
+
+        graph2AL = DigraphAL(3)
+        graph2AL.insert(0, 1, 3)
+        graph2AL.insert(1, 2, 50)
+
+        graph2AM = DigraphAM(3)
+        graph2AM.insert(0, 1, 3)
+        graph2AM.insert(1, 2, 50)
+
+        if GraphAlgorithms.dijkstra(graph1AL, 0) == GraphAlgorithms.dijkstra(graph1AM, 0):
+            print("First test passed!")
+        else:
+            print("First test failed!")
+
+        if GraphAlgorithms.dijkstra(graph2AL, 0) == GraphAlgorithms.dijkstra(graph2AM, 0):
+            print("Second test passed!")
+        else:
+            print("Second test failed!")
+
+
+GraphAlgorithms.tests()
