@@ -1,8 +1,15 @@
-\BOOKMARK [1][-]{section.1}{CODE FOR DELIVERING ON GITHUB}{}% 1
-\BOOKMARK [1][-]{section.2}{ONLINE EXERCISES}{}% 2
-\BOOKMARK [1][-]{section.3}{SIMULATION OF PROYECT PRESENTATION QUESTIONS}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Parents Tree??????????}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Is it possible to implement a better binary tree for parentsTree?}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{How does exercise 2.1 work?}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{What's the complexity of exercise 2.1?}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{TEST SIMULATION}{}% 8
+\BOOKMARK [1][-]{section.1}{Code for delivery on GitHub}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Graphs implementation}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Most Children}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Test with Dijkstra's alorithm}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{City-Based Graph}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Online Exercises}{}% 6
+\BOOKMARK [1][-]{section.3}{Other questions}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Proof for 1.3}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Explanation for 1.1}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{On which graphs is better to use the matrix implementation and on which cases is better to use the linked list one?}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Which implementation is better for a city-based graph?}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.5}{Which implementation is better for a facebook-based network?}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.6}{Which implementation is better for a routing table?}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.7}{Complexity of exercise 2.1}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Exam simulation}{}% 15
