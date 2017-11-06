@@ -81,88 +81,23 @@
 \begin{document}
   \maketitle
   \thispagestyle{fancy}
+  \section{Code for delivery on GitHub}
+    \subsection{Graphs implementation}
+      The code for both implementations is inside the \texttt{DataStructures.py} file in the codigo folder.
+    \subsection{Most Children}
+      The code can be found inside the \texttt{Code.py} file in the codigo folder.
+    \subsection{Test with Dijkstra's alorithm}
+      The tests and the implementation for Dijkstra's algorithm can be found inside the \texttt{Code.py} file
+      inside the codigo folder.
+    \subsection{City-Based Graph}
+      The code can be found in the \texttt{City.py} file in the codigo folder.
+  \section{Online Exercises}
+    The solution to the problem can be found in the \texttt{Code.py} file in the codigo folder.
+    
 
-  \section{CODE FOR DELIVERING ON GITHUB}
-  The source code can be found in \texttt{ParentsTree.java} inside the \texttt{codigo} folder;
-  everything is tested in the main method.
 
-  \section{ONLINE EXERCISES}
-  The source code can be found in \texttt{Code.java} inside the \texttt{codigo} folder.
 
-  \section{SIMULATION OF PROYECT PRESENTATION QUESTIONS}
-    \subsection{Parents Tree??????????}
-      You can find binary tree in \texttt{ParentsTree.java}, for David's family.
-      Here's the original tree, you can find it implemented in the \texttt{.java} file.
-      \begin{Verbatim}
-                        David
-                      /      \
-                     /        \
-                    /          \
-                   /            \
-            Claudia              Gustavo
-          /        \              /     \
-        /           \            /       \
-      Ilva       Efrain    Astrid         Jose
-                          /     \
-                   Leonilde     Epaminondas
-      \end{Verbatim}
 
-    \subsection{Is it possible to implement a better binary tree for parentsTree?}
 
-    \subsection{How does exercise 2.1 work?}
-    This exercise is really straight-forward because, when we write a tree in
-    pre-order, we immediately know that the first integer is the root, the next
-    integers are the left ones and, then the right ones. So, first we insert the
-    first integer which is the root; then, as the tree is a binary search tree (BST)
-    we know that if we insert them in another BST, it will insert them in the right
-    order if and only if we insert them in the order they are given. So, just
-    inserting them as the user passes them solves this problem.
-
-    \subsection{What's the complexity of exercise 2.1?}
-      \begin{Verbatim}
-        public class Code {
-            public static void main(String[] args) {
-                Scanner sc = new Scanner(System.in); //c1
-                System.out.println("Write quit to end the program"); //c2
-                String input = sc.next(); //c3
-                BinaryTree bt = new BinaryTree(); //c4
-                while(!input.equals("quit")) { // c5*n
-                    int node = Integer.parseInt(input); // c6*n
-                    bt.insert(node); // c7*n*logn
-                    input = sc.next(); //c8*n
-                }
-                bt.posOrder(); // O(n)
-            }
-        }
-      \end{Verbatim}
-      Therefore, exercise 2.1 is $O(k_0+k_1n+kn\log{n})$. When the sum and product
-      properties of the Big-O notation are applied, exercise 2.1 is $O(n\log{n})$.
-
-  \section{TEST SIMULATION}
-    \begin{multicols}{2}
-    \begin{enumerate}
-      \item \begin{enumerate}
-        \item \texttt{altura(raiz.izq)+1}
-        \item \texttt{altura(raiz.der)+1}
-    \end{enumerate}
-      \item c) 3
-      \item \begin{enumerate}
-          \item $1 == 2$
-          \item 0
-          \item \texttt{a.izq, suma-a.dato}
-          \item \texttt{a.der, suma-a.dato}
-    \end{enumerate}
-      \item \begin{enumerate}
-        \item c) $T(n)=2T(n/2)+C$
-        \item a) $O(n)$
-        \item d)
-        \item a)
-    \end{enumerate}
-      \item \begin{enumerate}
-          \item $p.data == toInsert$
-          \item $p.data > toInsert$
-    \end{enumerate}
-    \end{enumerate}
-  \end{multicols}
 
 \end{document}
