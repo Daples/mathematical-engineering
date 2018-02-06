@@ -1,0 +1,59 @@
+Cuando se quiere cargar un objeto, la teoría dicta que hay tres maneras
+fundamentales de hacerlo las cuales son:
+
+\begin{itemize}
+	\item Por fricción: esto ocurre cuando un objeto se frota con algún
+	tipo de material para que este adquiera cierta carga, dependiendo de las
+	propiedades específicas de dicho objeto; esta se caracteriza por lo que
+	hay transferencia de masa, por más pequeña que sea. Un ejemplo de este,
+	sería cuando se frota una varilla de vidrio con seda; esto haría que
+	esta se cargara de manera positiva, lo cual perdería masa debido a que
+	pierde electrones para adquirir esta carga.
+
+	\item Por inducción: esto es cuando se tiene un cuerpo cargado y un 
+	cuerpo con carga totalmente neutra. Se procede a acercar estos dos 
+	cuerpos, lo cual hace que el campo generado por el cuerpo cargado hace
+	que las cargas de naturaleza contraria a la carga inicial; y, por 
+	conservación de la carga, las otras cargas se van al lado contrario.
+	En consecuencia, cuando se conecta a tierra, las cargas que están 
+	siendo repelidas por el cuerpo cargado se van y, al quitar la conexión,
+	este cuerpo queda cargado.
+
+	\item Por contacto: en esta también se tiene un cuerpo cargado y uno 
+	neutro pero, en vez de acercarlos, se ponen en contacto ya sea por 
+	medio de un cable o físicamente. Esto hace que se distribuya la carga
+	proporcionalmente al tamaño de los cuerpos; así, si son del mismo
+	tamaño y mismo material, la carga quedaría igualmente distribuida. Es
+	por esto que los cuerpos se descargan cuando se conectan a tierra; 
+	como esta es tan grande, la gran mayoría, casi que toda, se transfiere
+	a tierra.
+\end{itemize}
+
+Por otro lado, se puede cuantificar la manera en que dos partículas cargadas
+interactúan entre sí. Esta se da por la Ley de Coulomb la cual dice que si 
+tenemos dos partículas con cargas ${q}_{1}$, ${q}_{2}$ a una distancia $r$ 
+entre si, la fuerza electrostatćia que siente uno de los cuerpos está dada por:
+\begin{equation}
+	\vec { F } =\frac { 1 }{ 4\pi { \epsilon  }_{ 0 } } \frac { { q }_{ 1 }{ q }_{ 2 } }{ { r }^{ 2 } } \hat { r } 
+\end{equation}
+Siendo $\hat{r}$ el vector director, ${ \epsilon  }_{ 0 }$ la permitividad del 
+vacío y \pi la constante pi. Es importante aclarar que es posible demostrar que
+esta ley también es válida para la fuerza que genera una esfera afuera de su
+superficie.
+
+En este orden de ideas, se crea el concepto de campo eléctrico dado por una 
+partícula, lo cual es una abstracción de la idea que al poner una partícula
+en cierto lugar del espacio, alrededor el espacio coge unas propiedades halla
+otra partícula o no. El campo que hace una partícula es igual a:
+\begin{equation}
+	\vec { E } =\frac { \vec { F }  }{ { q }_{ 0 } }
+\end{equation}
+Siendo $\vec{F}}$ la fuerza que siente una partícula ${q}_{0}$ gracias a la
+partícula original. Así mismo, si juntamos esta definición con la Ley de
+Coulomb, obtenemos que el campo hecho por una partícula sería:
+  
+\begin{equation}
+	\vec { F } =\frac { 1 }{ 4\pi { \epsilon  }_{ 0 } } \frac { q }{ { r }^{ 2 } } \hat { r } 
+\end{equation}
+
+Lo cual, se observa, que depende de la carga y de su signo.
