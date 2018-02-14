@@ -1,0 +1,72 @@
+Una de las leyes más importantes en la teoría de la electrostática se llama la
+ley de Gauss. Esta dice que dado una superificie gaussiana (cerrada), un campo
+que fluye por esta superficie dado una carga encerrada está dada por la fórmula:
+\begin{equation}
+	\oint { E\cdot dA } =\frac { q }{ { \epsilon  }_{ 0 } } 
+\end{equation}
+Siendo $q$ la carga encerrada en este superifice, $E$ el campo que pasa por
+la superificie gaussiana, $A$ el área de la superificia ${\epsilon}_{0}$ la 
+permitividad del vacío. Así mismo, esta expresión es igual al flujo del campo
+que pasa por cierta área. 
+
+Esto es sumamente útil para hallar campos de diversos cuerpos. Sobre todo, 
+cuando el campo es constante durante toda la superifice, se llega a la 
+sencilla fórmula de:
+\begin{equation}
+        EA=\frac { q }{ { \epsilon  }_{ 0 } }
+\end{equation}
+
+Ya con esto, por ejemplo, podemos hallar el campo de una lámina infinita con
+una densidad superifical $\sigma$, tomemos un eje de coordenadas con el eje
+$y$ perpendicular a la superficie. Se puede observar que los campos hechos por
+todas las partes de la lámina se cancelan en el eje $x$, debido a que esta 
+es infinita. Así, tenemos que en todo punto encima de la lámina el campo es
+constante con dirección vértical. Si tomamos como superificie gaussiana un
+cilindro que pase por la lámina, tendríamos que por esa área hay dos de esos
+campos (una en la cara de abajo y otra arriba), concluyendo entonces que:
+
+\begin{equation}
+	E=\frac { \sigma  }{ 2{ \epsilon  }_{ 0 } }
+\end{equation}
+
+Así, cuando tenemos dos de estas placas a una distancia muy cercana entre si,
+y que las placas que están cerca entre si tienen signo opuesto, el campo entre
+ese espacio estaría dado por la ecuación:
+\begin{equation}  
+	E=\frac { \sigma  }{ { \epsilon  }_{ 0 } }
+\end{equation}
+
+Debido en que cada punto se tiene el campo original dos veces, debido a que
+el campo de cada lámina están en la misma dirección.
+
+Por otro lado, un concepto muy importante es el de la energía potencial 
+elétrica; esta sale del concepto que la fuerza elétrica genera un trabajo
+conservartivo a las otras partículas. Un claro ejemplo de estos es cuando 
+observamos la energía potencial elétrica, en el caso anterior. Como el campo
+es constante en ese espacio entre las láminas y la fuerza hecha a una partícula
+$q$ está dada por $F=qE$, entonces concluimos que el trabajo está dado por:
+
+\begin{equation}
+	{W}_{ab}=qE({y}_{a} - {y}_{b})
+\end{equation} 
+
+Lo cual, podemos identificar una energía potencial en un punto $a$ dado por:
+\begin{equation}
+	{U}_{a} = qE{y}_{a}
+\end{equation}
+
+Así, se desarrolla el concepto del voltaje que se considera como el trabajo dado
+por la fuerza elétrica entre dos puntos dado una carga $q$, que se escribiría 
+como:
+\begin{equation}
+	{V}_{ab}=\frac { {W}_{ab}} {q}
+\end{equation}
+
+Así, cuando observamos el voltaje de una partícula que se mueve dentro de dos
+placas metálicas entre un punto $a$ Y $b$. Remplazando el trabajo hecho y, una
+simple geometría entre los puntos obtenemos que el voltaje es:
+\begin{equation}
+	{ V }_{ ab }=Ed
+\end{equation}
+
+Siendo $d$ la distancia entre las placas metálicas y E el campo entre ellas.
