@@ -1,0 +1,41 @@
+5.4.2 Se observa que por definición de la resitividad, nos da entonces que la
+relación entre la resitencia (R) y la longitud (L) es:
+\begin{equation}
+	R = \frac { \rho } { A } L
+\end{equation}
+
+De esta manera, podemos hallar la resitividad por medio de la pendiente hallada
+en la regresión lineal; así:
+\begin{equation}
+	{ \rho }_{e} = 0.999 * 4.42 \times { 10 }^{ -7} = 4.42 \times {10}^{-7}
+\end{equation}
+
+En este sentido, podemos hallar la teórica ya teniendo el área, la longitud que
+es 1.1 y su resistencia teórica. Así:
+\begin{equation}
+	{\rho}_{t} = R \frac {A}{L} = 6.87 \times {10}^{-7}
+\end{equation}
+
+Así, el error es:
+\begin{equation}
+	\%Error=\frac{\left| {\rho}_{t} - {\rho}_{e} \right|}{ {\rho}_{t} \times 100 = 34.1\%
+\end{equation}
+
+5.5 Cuando se conecta el amperimetro y el voltímetro, al estos tener una
+resistencia por ley de OHM podríamos concluir que la corriente que se mide sería
+entonces:
+\begin{equation}
+	i = \frac {V}{R + {R}_{a} + {R}_{v}}
+\end{equation}
+Siendo ${R}_{a}$ la resistencia del amperímetro y ${R}_{v}$ la resistencia del
+voltímetro. Claro está, que cuando la resistencia es relativamente pequeña 
+en comparación con las resistencias de los instrumentos de medida tendríamos
+un error mucho mayor; está claro entonces porqué el error con el alambre de 
+nicromo con baja resistencia, nos da un error mucho mayor.
+
+Así, para evitar este tipo de imprecisiones, es importante que cuando se haga
+un experimento para verificar este comportamiento utilizar resistencias con 
+una resistencia considerable. O, por otro lado, verificar que los aparatos de
+medida tengan la menor resistencia posible y así mejorar la precisión.
+
+ 
