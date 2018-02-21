@@ -39,3 +39,25 @@ una resistencia considerable. O, por otro lado, verificar que los aparatos de
 medida tengan la menor resistencia posible y así mejorar la precisión.
 
  
+Conclusiones
+- Se evidenció como el voltaje depende del valor de la corriente de forma lineal
+siendo la resistencia el valor que une a estos dos conceptos. Lo cual, de esto
+deducimos que el rol que cumplen las resistencias en los circuitos, es reducir
+la cantidad de carga que pasa en una unidad de tiempo por cierto lugar; así, 
+estas son una manera de controlar el circuito y mitigar las posibilidades de
+un corto, debido a que hay mucha menos corriente, o sea, se reducía la densidad
+de corriente.
+
+-Logramos observar que a medida que la resistencia del conductor incrementaba,
+los datos cuadraban más con el la ley de Ohm. Esto es debido a, tanto
+el amperímetro como el voltaje tienen unas resistencias dentro de su sistema,
+por lo cual la resistencia equivalente de dicho circuito es diferente a la del
+conductor en sí; de esta manera, a medida que la resistencia se hacía 
+considerablemente mayor comparada a la de los medidores, la equivalente era casi
+la misma a la del conductor y, así, la ley de Ohm se cumplía.
+
+- Logramos ver de manera detalla como, cuando afectabamos la longitud del 
+conductor la resistencia de este mismo cambiaba; lo cual, nos permite concluir
+que la resistencia depende solamente de la geometría del donde este esté. Y,
+no solo de la forma del conductor, sino también del material en sí que tiene una
+resistivdad asociada.
