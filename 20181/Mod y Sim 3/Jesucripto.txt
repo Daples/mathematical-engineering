@@ -1,0 +1,72 @@
+Refuerzo:
+
+R1: CC Bought --> Price --> Growth Rate --> Investors --> CC Bought 
+R2: Exchange Fees --> Earnings --> CC Bought --> CC Sold --> Exchange Fees
+R3: Exchange Fees --> Earnings --> CC Bought --> Exchanges --> Exchange fees
+R4: Exchange Fees --> Investors --> CC Bought --> Exchanges --> Exchange Fees
+R5: CC Bought --> CC Sold --> Price --> CC Bought
+R6: CC Bought --> CC Sold --> Price --> Growth Rate --> Investors --> CC Bought
+
+
+
+Balance:
+B1: CC Bought --> Price && viceversa
+B2: CC Bought --> CC Sold --> Price --> Growth Rate --> Volatility --> Investors --> CC Bought
+
+
+//Variables
+1)
+CC Bought --> CC sold: When consumers buy a CC in order to, in the future, sell it to earn profit.
+CC Bought --> Price: If consumers start buying more of that CC, the price will augment.
+CC Bought --> Exchanges: An increment in the number of CC bought, Exchanges will more likely trade that CC.
+
+
+2)
+Price --> CC Bought: If the price increases, consumer cannot afford as much CC as before.
+Price --> Growth Rate: A decrease in the price of the CC implies that the growth reduces.
+
+
+3)
+Growth Rate --> Investors: When the CC is growing faster, humang beings invest more to gain more profit.
+Growth Rate --> CC Bought: If the growth rate increases, consumers will buy more of that CC.
+Growth Rate --> Volatility: An increment in the growth rate will generate an increase in the volatility.
+
+
+4)
+Investors --> CC Bought: If there are more investors due to the fact that they bought more CC.
+
+
+5)
+Exchange Fees --> Earnings: A decrease in the exchange fees, increment the earnings of the consumer.
+Exchange Fees --> Investors: If the exchange fees increase, people will invest less because it does not generate 
+utilities.
+
+
+6)
+Earnings --> CC Bought: If consumers earn more so they can afford buying more.
+
+
+7)
+Government taxes --> Exchanges: An increment in the government taxes will, in a period of time, reduce the number of 
+exchanges because the reduce rentability.
+Government taxes --> Exchange fees: If the government taxes increase, Exchanges need to increase their fees to balance
+the cost.
+
+
+8)
+Exchanges --> Exchange fees: When the number of Exchanges augment, they need to reduce their fees in order to overcome the
+competition.
+
+
+9)
+Volatility --> Investors: A positive change in volatility will reduce the number of investors.
+
+
+10)
+CC Sold --> Exchange fees: An increase in the number of CC sold, the fees of the Exchanges will decrease.
+CC Sold --> Price: If the number of CC sold increases, the price reduces.
+
+
+
+////////////////// Cycles explanation: /////////////////
+R1:
