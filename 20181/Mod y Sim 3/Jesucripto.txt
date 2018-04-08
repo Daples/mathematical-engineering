@@ -1,6 +1,6 @@
 Refuerzo:
 
-R1: CC Bought --> Price --> Growth Rate --> Investors --> CC Bought 
+R1: CC Bought --> Price --> Growth Rate --> Investors --> CC Bought
 R2: Exchange Fees --> Earnings --> CC Bought --> CC Sold --> Exchange Fees
 R3: Exchange Fees --> Earnings --> CC Bought --> Exchanges --> Exchange fees
 R4: Exchange Fees --> Investors --> CC Bought --> Exchanges --> Exchange Fees
