@@ -73,22 +73,19 @@
 
 
 \begin{frame}{INTERFEROMETRÍA}
-	\begin{mutlicols}{2}
+	\begin{multicols}{2}
 
-	\textbf{Medir ondas gravitacionales\\}
+	\textbf{Medir calidad de una superficie\\}
 
-	Este interferómetro, en conjunto con cavidades de Fabry-Perot, permitió a LIGO medir la existencia de ondas gravitacionales
-
-	en el 2015. \citar{LIGO} 
-
-	\url{https://ligo.caltech.edu/system/video_items/files/21/Einsteins_messengers_hi_res_Nov_17_MPEG720p.mp4?1447873693}
+	La interferometría se puede utilizar para medir que tan plana es una superficie, por medio de las franjas que éste presenta.
 
 	\vfill\null
 
-	\textbf{Experimento de Michelson-Morley\\}
-	En 1920, Michelson y Morley intentaron demostrar la existencia del éter por medio de esta configuración. Sin embargo, no se logró
-	demostrar su existencia.
+	\textbf{Interferómetro de Twyman-Green\\}
+	Es una variación del interferómetro de Michelson para probar el funcionamiento de algun tipo de lente.
 \end{multicols}
+	%%%%Imagen: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Optical_flat_interference_fringes.jpg/300px-Optical_flat_interference_fringes.jpg
+	%%%%Imagen2: https://en.wikipedia.org/wiki/Twyman%E2%80%93Green_interferometer
 \end{frame}
 
 
