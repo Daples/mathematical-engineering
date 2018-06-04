@@ -20,7 +20,7 @@ class HandlerFiles:
     h_cross = "└"
     cross = "├"
 
-    def __init__(self, name="Output.txt", directory="~/", teacher=False):
+    def __init__(self, name="Output.txt", directory="~/Documents/", teacher=False):
         self.system = platform.system()
         self.name = name
         if not teacher:
