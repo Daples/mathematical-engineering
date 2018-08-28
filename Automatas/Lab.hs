@@ -1,6 +1,5 @@
 import Data.Set as Set
 import Data.Map as Map
-import Data.List as List
 import DFA 
 import Regex
 
@@ -8,8 +7,8 @@ simplify :: Regex a -> Regex a
 simplify Empty = Empty
 simplify Epsilon = Epsilon
 simplify (Symbol a) = Symbol a
-simplify (Dot Empty c) = Empty
-simplify (Dot b Empty) = Empty
+simplify (Dot Empty _) = Empty
+simplify (Dot _ Empty) = Empty
 simplify (Dot Epsilon c) = simplify c
 simplify (Dot b Epsilon) = simplify b
 simplify (Dot (Symbol b) c) = Dot (Symbol b) (simplify c)
@@ -33,7 +32,7 @@ states :: Ord s => DFA s c -> Set s
 states dfa = Set.fromList $ Map.keys (delta dfa)
                                          
 tran :: Eq s => Map c s -> s -> Regex c
-tran map j = tran' (Map.assocs map) j where
+tran map1 j = tran' (Map.assocs map1) j where
 tran' :: Eq s => [(c,s)] -> s -> Regex c
 tran' [] _ = Empty
 tran' (t:ts) j
@@ -43,9 +42,9 @@ tran' (t:ts) j
 dfa2Regex :: Ord s => DFA s c -> Regex c
 dfa2Regex (MkDFA q0 d qf) = 
       let stat = states (MkDFA q0 d qf)
-      in let start = Set.findIndex q0 stat
+      in let beg = Set.findIndex q0 stat
              final = Set.findIndex (Set.elemAt 0 qf) stat
-         in dfa2Regex' stat (start, final) ((length stat) - 1) d where
+         in dfa2Regex' stat (beg, final) ((length stat) - 1) d where
 dfa2Regex' :: Ord s => Set s -> (Int, Int) -> Int -> Map s (Map c s) -> Regex c
 dfa2Regex' qs (i,j) k d
   | k == 0 && i == j = simplify (Plus Epsilon (tran (d!(Set.elemAt i qs)) (Set.elemAt j qs)))
@@ -56,13 +55,6 @@ dfa2Regex' qs (i,j) k d
                     rkj = simplify (dfa2Regex' qs (k,j) (k-1) d)
                 in simplify (Plus rij (Dot rik (Dot (Star rkk) rkj)))
 
-basis :: Regex Int
-basis = Plus Epsilon (Plus (Symbol 0) (Symbol 1))
 
-example1 :: Regex Int
-example1 = Plus (Star (Symbol 1)) $Dot (Dot (Dot (Star (Symbol 1)) (Symbol 0)) basis) Empty
-
-example2 :: Regex Int
-example2 = Plus basis $Dot (Dot basis (Star basis)) basis
-
+main :: IO()
 main = print $ (dfa2Regex example)
