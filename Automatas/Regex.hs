@@ -23,7 +23,7 @@ data Regex a =
 -- | Creates a String that is the infix representation of a Regex
 show' :: (Show c) => Regex c -> String
 show' Empty = "∅"
-show' Epsilon = "ε"
+show' Epsilon = "$"
 show' (Symbol a) = show a
 show' (Star (Symbol a)) = show' (Symbol a) ++ "*"
 show' (Star a) = "(" ++ show' a ++ ")*"
@@ -43,6 +43,14 @@ show' (Dot a (Star b)) = "(" ++ show' a ++ ")" ++ show' (Star b)
 show' (Dot (Dot a b) c) = show' (Dot a (Dot b c))
 show' (Dot a b) = "(" ++ show' a ++ ")(" ++ show' b ++ ")"
 
+show'1 :: (Show c) => Regex c -> String
+show'1 Empty = "∅"
+show'1 Epsilon = "$"
+show'1 (Symbol a) = show a
+show'1 (Star a) = "Star (" ++ show'1 a ++ ")"
+show'1 (Dot a b) = "Dot (" ++ show'1 a ++ ") (" ++ show'1 b ++ ")"
+show'1 (Plus a b) = "Plus (" ++ show'1 a ++ ") (" ++ show'1 b ++ ")"
+
 -- | Erases all instances of a Char in a String
 erase :: Char -> String -> String
 erase _ [] = []
@@ -52,4 +60,4 @@ erase c (h:t)
 
 -- | String with the infix representation of a Regex without quotation marks
 instance (Show c) => Show (Regex c) where
-  show a = erase '\"' (show' a)
+  show a = erase '\'' $ erase '\"' (show' a)
