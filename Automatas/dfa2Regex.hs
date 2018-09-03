@@ -1,12 +1,14 @@
 {- | Converts a deterministic finite automaton (DFA) into a regular expression (Regex), using the DFA2Regex function. -}
-module dfa2Regex where 
-
 {-# LANGUAGE ScopedTypeVariables #-}
+
+module Dfa2Regex where 
+
 import Data.Set as Set
 import Data.Map as Map
 import DFA
 import Regex
 
+-- | Checks if a Regex has epsilon.
 hasEp :: Regex c -> Bool
 hasEp Epsilon = True
 hasEp (Star _) = True
@@ -14,12 +16,14 @@ hasEp (Dot a b) = hasEp a && hasEp b
 hasEp (Plus a b) = hasEp a || hasEp b
 hasEp _ = False
 
+-- | Removes epsilon from a Regex, when necessary.
 rmEp :: Regex c -> Regex c
 rmEp (Plus Epsilon a) = rmEp a
 rmEp (Plus a Epsilon) = rmEp a
 rmEp (Plus a b) = Plus (rmEp a) (rmEp b)
 rmEp a = a
 
+-- | Checks if a Regex is written exactly as another Regex. Does not check equivalence.
 equal :: (Show c) => Regex c -> Regex c -> Bool
 equal a b = (show' a) == (show' b)
 
@@ -61,7 +65,7 @@ simplify (Plus c b)
 states :: Ord s => DFA s c -> Set s
 states (MkDFA _ d qf) = Set.union (Set.fromList $ Map.keys d) qf
 
--- |
+-- | Generates a Regex using all transitions that arrive at a given state.
 tran :: Eq s => Map c s -> s -> Regex c
 tran map1 j = tran' (Map.assocs map1) j where
 tran' :: Eq s => [(c,s)] -> s -> Regex c
@@ -105,7 +109,7 @@ dfa2Regex' qs (i,j) k d
                     rkk = simplify (dfa2Regex' qs (k,k) (k-1) d)
                     rkj :: Regex c
                     rkj = simplify (dfa2Regex' qs (k,j) (k-1) d)
-                in simplify (Plus rij (Dot (Dot rik (Star rkk)) rkj))
+                in simplify (Plus rij (Dot rik (Dot (Star rkk) rkj)))
 
 -- | Converts an input DFA into a Regex.
 dfa2Regex :: (Show c) => Ord s => DFA s c -> Regex c
