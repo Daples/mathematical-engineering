@@ -1,1 +1,10 @@
-La evaluación hecha por los estudiantes sobre los profesores de una institución universitaria es una herramienta importante para tener un indicador de la satisfacción de los estudiantes con el docente y, para medir en diversos aspectos el rendimiendo del pedagogo. Claramente, 
+La evaluación a docentes por parte de los estudiantes en una institución universitaria, es una herramienta importante para tener un indicador de la satisfacción de los estudiantes con el docente y, para medir en diversos aspectos el rendimiento del pedagogo; no obstante, con frecuencia esta evaluación no se enfoca en los aspectos que los alumnos consideran que son valiosos de los profesores, y se realiza la evaluación más como un protocolo que como una herramienta que puede utilizarse para la posterior mejora de la enseñanza en la institución. Dicho esto, en este trabajo se pretende explorar los criterios que los estudiantes consideren importantes a la hora de calificar la profesión de un docente y proponer un conjunto de criterios que sean fundamentales; por otra parte, otro objetivo fundamental de esta investigación es construir una metodología que permita identificar criterios y evaluar alternativas para una posterior implementación en otras carreras de la Universidad.
+
+
+% METODOL
+
+Para lograr los objetivos ya propuestos, el proceso se realizará siguiendo ideas de la Metodología Delphi (INSERTAR CITA), en donde se realizan varias rondas para evaluar la opinión de algunos expertos (en este caso son estudiantes de la carrera); se decidió realizar tres encuestas al grupo selecto de expertos. 
+
+Basado en lo que se expuso en el estado del arte, se seleccionó un conjunto de criterios de los instrumentos allí presentados (PONER NOMBRES) que se consideraron relevantes y que lograban representar la mayoría de los propuestos en la literatura, como una ``aproximación'' inicial a los factores; posteriormente, se organizó un cuestionario en donde los expertos evaluaron los criterios ya propuestos, en una escala del 1 al 4 (1 - Criterio no necesario, 4 - indispensable), pero además se dejó el espacio abierto a sugerencias de criterios que los expertos consideraban importantes a incluir en la evaluación de un profesor.
+
+El siguiente paso es evaluar los resultados obtenidos en esta encuesta y 
