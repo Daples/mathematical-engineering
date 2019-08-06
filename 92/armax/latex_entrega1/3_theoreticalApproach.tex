@@ -1,0 +1,9 @@
+\section{Theoretical Approach}\label{sec:theo}
+As previously mentioned, this works is devoted to the simulation and short analysis of an ARMAX system for ; hereby, the general ARMAX model is presented:
+\begin{equation}
+    z_{t+1}=\sum_{i=0}^{h_1}a_iz_{t-i}+\sum_{i=0}^{h_2}b_iu_{t-i}+\sum_{i=0}^{h_3}c_i\xi_{t-i}
+\end{equation}
+where $u_k$ are external inputs and $\xi_k$ are random noises. In this specific case, the model obtained in \cite{li2014armax}, 
+\begin{equation}
+\begin{aligned} Y_{t}=& 237.565+0.426 Y_{t-1}+a_{t}-0.153 a_{t-1}+8.9087 d_{1, t} \\ &-1.557 d_{7, t}+31.919 d_{8, t}-2.045 d_{9, t} \end{aligned}
+\end{equation}
