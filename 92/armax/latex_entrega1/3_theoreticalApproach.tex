@@ -5,9 +5,10 @@ As previously mentioned, this work uses an ARMAX model presented in the literatu
 \begin{equation}
     z_{t+1}=\sum_{i=0}^{h_1}a_iz_{t-i}+\sum_{i=0}^{h_2}b_iu_{t-i}+\sum_{i=0}^{h_3}c_i\xi_{t-i}
 \end{equation}
-for $t=0,1,2,\ldots$, and $u_k$ are external inputs and $\xi_k$ are random noises. In this specific case, the model obtained in \cite{li2014armax} is:
+for $t=0,1,2,\ldots$, and $u_k$ are external inputs and $\xi_k$ are random noises. In this particular case, the model obtained in \cite{li2014armax} is:
 \begin{equation}
 \begin{aligned} z_{t}=& 237.565+0.426z_{t-1}+\xi_{t}-0.153 \xi_{t-1}+8.9087u_{1, t} \\ &-1.557 u_{7, t}+31.919 u_{8, t}-2.045u_{9, t}
 \end{aligned}
 \end{equation}
 where $z_t$ is the power output of the PV grid in Watts (W); $u_{1,t}$ is the daily average temperature, $u_{7,t}$ is the precipitation amount, $u_{8,t}$ is the insolation duration and $u_{9,t}$ is the humidity.
+\section{}
