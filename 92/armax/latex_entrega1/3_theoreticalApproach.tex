@@ -1,8 +1,18 @@
 \section{Theoretical Approach}\label{sec:theo}
 \subsection{General ARMAX model}
-
-As previously mentioned, this work uses an ARMAX model presented in the literature; hereby, let the general ARMAX model be presented:
+This work uses an ARMAX model presented in the literature; hereby, let the general ARMAX model be presented:
 \begin{equation}
     z_{t+1}=\sum_{i=0}^{h_1}a_iz_{t-i}+\sum_{i=0}^{h_2}b_iu_{t-i}+\sum_{i=0}^{h_3}c_i\xi_{t-i}
 \end{equation}
-for $t=0,1,2,\ldots$, and $u_k$ are external inputs and $\xi_k$ are random noises. 
+for $t=0,1,2,\ldots$, and $u_k$ are external inputs and $\xi_k$ are random noises.
+
+\subsection{R\"ossler System}
+The R\"ossler system is a set of ordinary differential equations given by:
+\begin{equation}
+  \begin{cases}
+    \dot{x}=-y-z&\\
+    \dot{y}=x+ay&\\
+    \dot{z}=b+z(x-c).&
+  \end{cases}
+\end{equation}
+These equations originally proposed by O. R\"ossler in \cite{rossler1976equation}; it is well-known that, under certain parameters, the output of the state variable $z$ presents peaks in a aperiodic manner \cite{canals2014random}. This model is used to emulate the behavior of one of the inputs for the ARMAX model, since it presents quite an unusual behavior and this method gives a decent representation.
