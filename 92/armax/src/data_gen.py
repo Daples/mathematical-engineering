@@ -69,10 +69,6 @@ f = lambda x: np.array([-x[1] - x[2],
                         b + x[2]*(x[0] - c)])
 
 d7 = runge_kutta(f, np.array([0.72, 1.28, 0.21]), T)
-# precipitation weird
-# d7 = np.random.normal(-1, 2, (T,1)) #????????????????????????/
-# for i in range(T):
-#    d7[i][0] = max(d7[i][0],0)
 
 # matrix
 data.insert(1, d7)

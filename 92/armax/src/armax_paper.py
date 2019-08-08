@@ -13,6 +13,7 @@ def sim(a, t1):
 
 data_file = open('data.txt', 'r')
 
+
 data = data_file.read()
 data = data.split('\n')
 
