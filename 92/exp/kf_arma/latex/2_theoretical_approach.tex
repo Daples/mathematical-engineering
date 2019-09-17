@@ -1,0 +1,17 @@
+\section{Theoretical Approach}\label{sec:theo}
+\subsection{ARMA Model}
+The general scheme for the ARMA model is given by
+
+\begin{equation}
+  z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}
+\end{equation}
+
+\subsection{The Kalman-Filter State-Observer Model}
+
+\begin{equation}
+  \begin{split}
+    &x_0\in\R^n\\
+    &x_{t+1}=F_tx_t + B_tu_t + \xi_t, \ t=0,1,\dots\\
+    &y_t=H_tx_t+\zeta_t
+  \end{split}
+\end{equation}
