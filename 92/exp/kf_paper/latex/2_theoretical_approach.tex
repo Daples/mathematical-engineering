@@ -1,17 +1,74 @@
-\section{Theoretical Approach}\label{sec:theo}
+\section{Preliminaries}\label{sec:pre}
 \subsection{ARMA Model}
-The general scheme for the ARMA model is given by
-
+The general scheme for the observer-ARMA model is given by
 \begin{equation}
-  z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}
+  \begin{split}
+    &z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}\\
+    &y_t=h_tz_t+\zeta_t\\
+    &z_0\in\R, \ t=0,1,\dots
+  \end{split}
 \end{equation}
 
 \subsection{The Kalman-Filter State-Observer Model}
-
-\begin{equation}
+Every ARMA model can be translated into a KF state-observer model, given by
+\begin{equation}\label{eq:kf_so}
   \begin{split}
-    &x_0\in\R^n\\
-    &x_{t+1}=F_tx_t + B_tu_t + \xi_t, \ t=0,1,\dots\\
-    &y_t=H_tx_t+\zeta_t
+    &x_{t+1}=F_tx_t + \xi_t\\
+    &y_t=H_tx_t+\zeta_t\\
+    &x_0\in\R^n, \ t=0,1,\dots
   \end{split}
 \end{equation}
+
+\subsection{Extended KF}
+The main idea behind the extension is to apply the standard KF in nonlinear systems. Let us consider a system in the form
+\begin{equation}
+  \begin{split}
+    &x_{t+1}=f(x_t) + \xi_t\\
+    &y_t=H_tx_t+\zeta_t\\
+    &x_0\in\R^n, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+where $f:\R^n\rightarrow\R^n$ is a given vector function. In order to apply the KF, we wish to linearize the function $f(\cdot)$ around a reference point $x^{{\rm ref}}_t$, following the common linearization scheme using the jacobian of $f(\cdot)$.
+
+Let
+\[
+\tilde{F}_t:=\dfrac{\partial f(x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
+\]
+with $\tilde{F}_t$ model (\ref{eq:kf_so}) can be constructed and applied to the KF.
+
+\subsection{ILS?}
+
+
+
+
+
+\section{Instrumental Extended KF}\label{sec:IEKF}
+In this work we will use a simple ARMA model, with correlated state and one unknown stationary parameter $a$. The model in consideration is
+\begin{equation}
+  \begin{split}
+    &z_{t+1}=az_t+\xi_t+d\xi_{t-1}\\
+    &y_{t}=hz_t+\gamma_{t}
+  \end{split}
+\end{equation}
+and the objective is find an estimator $\tilde{a}$ for the unknown parameter $a$ using the data vector $y^*_t$.
+
+First, we assume that $\tilde{a}$ is not a constant, even when the real paramater $a$ is stationary. This assumption takes into consideration that the data vector can be constantly changing and the estimation will change depending on each observation. Another important assumption is that this estimator $\tilde{a}_t$ has small linear changes, hence, this estimator takes the form
+\begin{equation}
+  \tilde{a}_t=b\tilde{a}_{t-1}+\chi_{t-1}
+\end{equation}
+with $0<b<1$ and $\chi_t \sim N(0,\,\sigma)$. Given the dynamics for $\tilde{a}_t$, we propose the complete dynamics for the ARMA model as
+\begin{equation}
+  \begin{split}
+    &z_{t+1}=\tilde{a}_tz_t+\xi_t+d\xi_{t-1}\\
+    &\tilde{a}_{t+1}=b\tilde{a}_t+\chi_t\\
+    &z_0\in\R,\,\tilde{a}_0\in\R,\,t=0,1,\dots
+  \end{split}
+\end{equation}
+Note that the dynamics have a nonlinear, particularly bilinear, term in the first equation. Let $x_t:=(z_t,\,\tilde{a}_t)^T$ and let $x^{{\rm ref}}_t:=(z_t^{{\rm ref}},\,\tilde{a}_t^{{\rm ref}})^T$ be a given reference point, the linearization yields the matrix
+\[
+\tilde{F}_t = \begin{bmatrix}
+\tilde{a} & z\\
+0 & b
+\end{bmatrix}_{x=x_t^{{\rm ref}}}
+\]
+and the previously described KF scheme can be applied.

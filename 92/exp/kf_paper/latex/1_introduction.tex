@@ -1,1 +1,7 @@
 \section{Introduction}\label{sec:intro}
+Autoregressive Moving-Average (ARMA) models are widely used in areas such as economics and finance, with applications in modelling time series. The main problems with ARMA models is the estimation of its parameters, using only state data. One important remark is that ARMA models do not consider an observer, which cannot be always assumed in real conditions.
+
+Classical parameter estimation of ARMA models is often addressed with standard statistical methods, for instance, instrumental least-square (ILS) method. The main problem with the ILS method is the requirement of the complete state of the real system, which is not always achievable since the system is perceived only through the observer.
+
+
+This work is focused on the design of a Kalman-based filter for the estimation of ARMA parameters through the output of the observer, taking into consideration that the disturbances in the ARMA models can be correlated and this violates one of the main hypothesis of the standard Kalman-Filter (KF). We propose in this work a filter based on instrumental variables and extended KF.
