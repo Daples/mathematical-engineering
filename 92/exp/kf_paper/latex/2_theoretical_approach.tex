@@ -8,7 +8,7 @@ The general scheme for the observer-ARMA model is given by
     &z_0\in\R, \ t=0,1,\dots
   \end{split}
 \end{equation}
-where $\xi_t$ and $\zeta_t$ are random perturbances.
+where $\xi_t$ and $\zeta_t$ are random perturbations.
 
 \subsection{The Kalman-Filter State-Observer Model}
 The KF state-observer model, given by
@@ -43,13 +43,13 @@ Procedure \cite{kalman1960new} has two main hypothesis:\\
   \end{itemize}
   \item \textbf{H2: }
   \begin{itemize}
-    \item Normality of the perturbances:
+    \item Normality of the perturbations:
     \[\xi_t\sim\mathcal{N}(0,Q_t),\quad\zeta_t\sim\mathcal{N}(0,R_t),\quad\forall t=0,1,\ldots\]
   \end{itemize}
 \end{itemize}
 The KF procedure is now presented:
 \begin{enumerate}
-  \item \textbf{Initilization: }
+  \item \textbf{Initialization: }
   \[
   z_{0|0}=z_0\in\R^n, \ \Sigma_{0|0}=0
   \]
