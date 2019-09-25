@@ -17,10 +17,14 @@
 *.hi
 *.iml
 *.log
+*.nav
 *.o
 *.out
 *.pyc
+*.run.xml
+*.snm
 *.synctex.gz
+*.toc
 *.zip
 *.o
 **/.idea
