@@ -4,22 +4,25 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 *~
+*#
+*.agdai
 *.aux
 *.bbl
+*.bcf
 *.blg
+*.class
 *.dvi
 *.fdb_latexmk
 *.fls
-*.log
-*#
-*.agdai
-*.out
-*.synctex.gz
-*.pyc
-*.zip
-*.class
-*.o
 *.hi
 *.iml
+*.log
+*.o
+*.out
+*.pyc
+*.synctex.gz
+*.zip
+*.o
 **/.idea
 **/latex/*.pdf
+**slides/*.pdf
