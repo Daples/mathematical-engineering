@@ -28,5 +28,3 @@
 *.zip
 *.o
 **/.idea
-**/latex/*.pdf
-**slides/*.pdf

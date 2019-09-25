@@ -215,7 +215,22 @@ Where $\tilde{F}_t$ is:
 }
 
 \section{Instrumental Extended Kalman Filter}
-\aframe{}
+\subsection{Problem definition}
+\aframe{
+In this work we will use a simple ARMA model, with correlated state and one unknown stationary parameter $a$. The model in consideration is
+\begin{equation}
+  \begin{split}
+    &z_{t+1}=az_t+\xi_t+d\xi_{t-1}\\
+    &y_{t}=hz_t+\gamma_{t}\\
+    &z_0\in\mathbb{R}, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+\pause
+\begin{remark}
+  The objective is find an estimator $\tilde{a}$ for the unknown parameter $a$ using the data vector $y^*_t$.
+\end{remark}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]{References}
   \printbibliography
