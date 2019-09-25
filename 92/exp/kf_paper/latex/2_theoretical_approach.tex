@@ -93,7 +93,8 @@ In this work we will use a simple ARMA model, with correlated state and one unkn
 \begin{equation}
   \begin{split}
     &z_{t+1}=az_t+\xi_t+d\xi_{t-1}\\
-    &y_{t}=hz_t+\gamma_{t}
+    &y_{t}=hz_t+\gamma_{t}\\
+    &z_0\in\R, \ t=0,1,\dots
   \end{split}
 \end{equation}
 and the objective is find an estimator $\tilde{a}$ for the unknown parameter $a$ using the data vector $y^*_t$.
