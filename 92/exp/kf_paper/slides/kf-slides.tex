@@ -159,10 +159,16 @@ The general scheme for the observer-ARMA model is given by
 \aframe{
   The standard KF Procedure \parencite{kalman1960new} has two main hypothesis:\\
   \textbf{H1}
-  \[E(\xi_t)=E(\zeta_t)=0, \quad t=0,1,\ldots\].
-  \[E(\xi_t\xi_t^T)=Q_t, \quad E(\zeta_t\zeta_t^T)=R_t\]
-  \[E(\xi_t\xi_s^T)=E(\zeta_t\zeta_s^T)=0,\quad\forall s\neq t\]\[E(\xi_t\zeta_s^T)=0, \quad \forall t,s=0,1,\ldots\].
-  \[E(z_tz_s^T)=0,\quad\forall t\neq s\] \pause
+  \[
+  \begin{split}
+  &E(\xi_t)=E(\zeta_t)=0, \quad t=0,1,\ldots\\
+  &E(\xi_t\xi_t^T)=Q_t, \quad E(\zeta_t\zeta_t^T)=R_t\\
+  &E(\xi_t\xi_s^T)=E(\zeta_t\zeta_s^T)=0,\quad\forall s\neq t\\
+  &E(\xi_t\zeta_s^T)=0, \quad \forall t,s=0,1,\ldots\\
+  &E(z_tz_s^T)=0,\quad\forall t\neq s
+  \end{split}
+  \] \pause
+
   \textbf{H2}
   \[\xi_t\sim\mathcal{N}(0,Q_t),\quad\zeta_t\sim\mathcal{N}(0,R_t),\quad\forall t=0,1,\ldots\]
 }
