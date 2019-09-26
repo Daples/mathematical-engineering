@@ -122,7 +122,7 @@
 %%%%%%%% START DOCUMENT
 \title{Kalman Filter for Observer-ARMA Model with Parameter Estimation}
 
-\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\ David Plazas Escudero  \\ \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\ David Plazas Escudero  \\ \vspace{0.5cm} \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
 
 \begin{document}
 
@@ -143,7 +143,7 @@
 \end{itemize}
 }
 
-\subsection{Observer-ARMA model}
+\subsection{Observer-ARMA Model}
 \aframe{
 The general scheme for the observer-ARMA model is given by
 \begin{equation}
@@ -215,7 +215,7 @@ Where $\tilde{F}_t$ is:
 }
 
 \section{Instrumental Extended Kalman Filter}
-\subsection{Problem definition}
+\subsection{Problem Definition}
 \aframe{
 In this work we will use a simple ARMA model, with correlated state and one unknown stationary parameter $a$. The model in consideration is
 \begin{equation}
@@ -229,6 +229,46 @@ In this work we will use a simple ARMA model, with correlated state and one unkn
 \begin{remark}
   The objective is find an estimator $\tilde{a}$ for the unknown parameter $a$ using the data vector $y^*_t$.
 \end{remark}
+}
+
+\subsection{Assumptions}
+\aframe{
+  It is assumed that the parameter $\tilde{a}$ is not constant, even if the original parameter is. \\ \vspace{0.5cm} \pause
+
+  It is supposed that $\tilde{a}$ behaves as:
+\begin{equation}
+  \tilde{a}_t=b\tilde{a}_{t-1}+\chi_{t-1}
+\end{equation}
+with $0<b<1$ and $\chi_t \sim N(0,\,\sigma)$.
+}
+
+\subsection{Final Model}
+\aframe{
+Given the dynamics for $\tilde{a}_t$, we propose the complete dynamics for the ARMA model as
+\begin{equation}\label{eq:mainARMA}
+  \begin{split}
+    &z_{t+1}=\tilde{a}_tz_t+\xi_t+d\xi_{t-1}\\
+    &\tilde{a}_{t+1}=b\tilde{a}_t+\chi_t\\
+    &z_0, \, \tilde{a}_0\in\mathbb{R},\,t=0,1,\dots
+  \end{split}
+\end{equation} \pause
+
+Let $x_t:=(z_t,\,\tilde{a}_t)^T$ and $x^{{\rm ref}}_t:=(z_t^{{\rm ref}},\,\tilde{a}_t^{{\rm ref}})^T$. Extended Kalman Filter is applied.
+\[
+\tilde{F}_t = \begin{bmatrix}
+\tilde{a} & z\\
+0 & b
+\end{bmatrix}_{x=x_t^{{\rm ref}}}
+\]
+}
+
+\aframe{
+  Let $\tilde{x}_t:=x_{2t}$, these transformation assures that the new state $\tilde{x}_t$ is not correlated with $\tilde{x}_{t-1}$.
+  \[\tilde{y}_t^*:=\begin{cases}
+   (y_0^T, y_2^T,\ldots,y_t^T)^T,&t\text{ even}\\
+   (y_0^T, y_2^T,\ldots,y_{t-1}^T)^T,&t\text{ odd}
+ \end{cases}\]
+Now, given the instrumental variables transformation and the linearization procedure for model, the standard KF procedure can be applied.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
