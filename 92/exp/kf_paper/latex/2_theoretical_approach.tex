@@ -5,7 +5,7 @@ The general scheme for the observer-ARMA model is given by
   \begin{split}
     &z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}\\
     &y_t=h_tz_t+\zeta_t\\
-    &z_0\in\R, \ t=0,1,\dots
+    &z_0,z_{-1},\ldots,z_{-l_1}\in\R, \ t=0,1,\dots
   \end{split}
 \end{equation}
 where $\xi_t$ and $\zeta_t$ are random perturbations.
@@ -67,7 +67,7 @@ The KF procedure is now presented:
     &\Sigma_{t | t}=\Sigma_{t | t-1}-M_{t}^{\text{opt}} H_{t} \Sigma_{t | t-1}
   \end{split}
   \]
-  where ${M_{t}^{\text {opt}}=\Sigma_{t | t-1} H_{t}^{T}\left(H_{t} \Sigma_{t | t-1} H_{t}^{T}+R_{t}\right)^{-1}}$.
+  where ${M_{t}^{\text {opt}}:=\Sigma_{t | t-1} H_{t}^{T}\left(H_{t} \Sigma_{t | t-1} H_{t}^{T}+R_{t}\right)^{-1}}$.
 \end{enumerate}
 
 \subsection{Extended KF}
@@ -83,9 +83,9 @@ where $f:\R^n\rightarrow\R^n$ is a given vector function. In order to apply the 
 
 Let
 \[
-\tilde{F}_t:=\dfrac{\partial f(x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
+\tilde{F}:=\dfrac{\partial f(x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
 \]
-with $\tilde{F}_t$ model (\ref{eq:kf_so}) can be constructed and applied to the KF.
+with $\tilde{F}$ model (\ref{eq:kf_so}) can be constructed and applied to the KF.
 
 
 \section{Instrumental Extended KF}\label{sec:IEKF}
@@ -113,7 +113,7 @@ with $0<b<1$ and $\chi_t \sim N(0,\,\sigma)$. Given the dynamics for $\tilde{a}_
 \end{equation}
 Note that the dynamics have a nonlinear, particularly bilinear, term in the first equation. Let $x_t:=(z_t,\,\tilde{a}_t)^T$ and $x^{{\rm ref}}_t:=(z_t^{{\rm ref}},\,\tilde{a}_t^{{\rm ref}})^T$ be a given reference point, the linearization yields the matrix
 \[
-\tilde{F}_t = \begin{bmatrix}
+\tilde{F} = \begin{bmatrix}
 \tilde{a} & z\\
 0 & b
 \end{bmatrix}_{x=x_t^{{\rm ref}}}

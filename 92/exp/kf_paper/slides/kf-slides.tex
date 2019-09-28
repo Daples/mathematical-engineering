@@ -150,7 +150,7 @@ The general scheme for the observer-ARMA model is given by
   \begin{split}
     &z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}\\
     &y_t=h_tz_t+\zeta_t\\
-    &z_0\in \mathbb{R}, \ t=0,1,\ldots
+    &z_0,z_{-1},\ldots,z_{-l_1}\in \mathbb{R}, \ t=0,1,\ldots
   \end{split}
 \end{equation}
 }
@@ -209,14 +209,14 @@ The KF procedure is now presented:
   \end{cases}
   \pause \implies
   \begin{cases}
-    x_{t+1}=\tilde{F}_tx_t + \xi_t&\\
+    x_{t+1}=\tilde{F}x_t + \xi_t&\\
     y_t=H_tx_t+\zeta_t &\\
     x_0\in \mathbb{R}^n, \ t=0,1,\ldots &
   \end{cases}
 \end{equation}
-Where $\tilde{F}_t$ is:
+Where $\tilde{F}$ is:
 \[
-\tilde{F}_t:=\dfrac{\partial f(x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
+\tilde{F}:=\dfrac{\partial f(t,x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
 \]
 }
 
