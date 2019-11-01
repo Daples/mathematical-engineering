@@ -12,7 +12,7 @@ getPages str = tail (splitOn "<page>" str)
 
 -- Gets the name of a mathematician, given it's page
 getName :: String -> String
-getName page = 
+getName page =
         let regName :: String
             regName  = "<title>(.*)</title>"
             name :: String
@@ -22,11 +22,11 @@ getName page =
             fixName2 :: String
             fixName2 = replace "</title>" "" fixName1
             in repRegex fixName2 "" "\\((.*)\\)"
-            
+
 -- A regular expresion of the InfoBox. As the infobox language isn't regular
 -- it helps to find a good aproximation to then continue to search
 regexInfoBox :: String
-regexInfoBox = 
+regexInfoBox =
           let typesInfos :: String
               typesInfos = "(scientist)?(officeholder)?(person)?(academic)?"
               begin :: String
@@ -37,7 +37,7 @@ regexInfoBox =
 
 -- Gives the index where the substring ends in the string. If the substring
 -- isn't at the givens string it returns -1
-findSubstring :: String -> String -> Int 
+findSubstring :: String -> String -> Int
 findSubstring sub str = findSubstringAux sub str 0 (length str)
 
 -- Auxiliar function to substring
@@ -46,7 +46,7 @@ findSubstringAux sub str i lStr
  | i + length sub >= lStr = -1
  | isPrefixOf sub str     = i + length sub - 1
  | otherwise              = findSubstringAux sub (tail str) (i+1) lStr
- 
+
 -- Count elements of a alphabet in a string, given a alphabet of symbols.
 countElem :: String -> String -> Int
 countElem alphabet str = length (findIndices (`elem` alphabet) str)
@@ -62,7 +62,7 @@ nestedKeys page = let nOpenKeys :: Int
 -- Given the original page and a substring, it completes the remaining string so
 -- it has balanced keys.
 getCompleteNestedKeys :: String -> String -> String
-getCompleteNestedKeys header page = 
+getCompleteNestedKeys header page =
                       let indHead :: Int
                           indHead = findSubstring header page
                           aftHead :: String
@@ -71,7 +71,7 @@ getCompleteNestedKeys header page =
 
 -- An auxiliar function to the function above.
 getCompleteNestedKeysAux :: String -> String -> String
-getCompleteNestedKeysAux [] header 
+getCompleteNestedKeysAux [] header
                      = header
 getCompleteNestedKeysAux (x:xs) header
  | nestedKeys header = header
@@ -88,7 +88,7 @@ repRegex page rep regex =
 -- An auxiliar function to repRegex
 repRegexAux :: String -> String -> String -> String -> String
 repRegexAux page _ _ ""            = page
-repRegexAux page rep regex toClean = 
+repRegexAux page rep regex toClean =
             let cleaned :: String
                 cleaned      = replace toClean rep page
                 toCleanAgain :: String
@@ -124,17 +124,17 @@ cleanForm page =
           complete :: String
           complete = getCompleteNestedKeys clean page
           in complete
-          
+
 -- It tells if a form has different values for a parameter
 variousStudies :: String -> Bool
-variousStudies inform 
+variousStudies inform
  | countElem "*" inform >= 2                              = True
  | countElem "|" inform >= 1                              = True
  | countElem "," inform >= 1 && countElem "[" inform >= 1 = True
  | countElem "[" inform > 2                               = True
  | countElem "[" inform == 2 && last(inform) /= ']'       = True
  | otherwise = False
-  
+
 -- It extracts the value of a parameter, given the possibility that it could
 -- be variousStudies answers.
 obtainStudies :: String -> String
@@ -143,7 +143,7 @@ obtainStudies inform
  | otherwise             = obtainStudiesAux inform
 
 -- Auxiliar to obtainStudies
-obtainStudiesAux :: String -> String  
+obtainStudiesAux :: String -> String
 obtainStudiesAux inform
  | isInfixOf "*" inform = let value :: String
                               value  = (inform =~ "\\*(.*)[\r]?[\n]")
@@ -155,9 +155,9 @@ obtainStudiesAux inform
                               clean2 :: String
                               clean2 = replace "]" "" clean1
                               in clean2
-                              
+
 -- Gets the value of a parameter, given that it could be organized in a list
--- or different ways.                           
+-- or different ways.
 getInformTypeList :: String -> String -> String
 getInformTypeList info regex =
              let head1 :: String
@@ -168,7 +168,7 @@ getInformTypeList info regex =
                  cleaned = cleanForm infor
                  in obtainStudies cleaned
 
--- Gets the alma mater given a infobox.                             
+-- Gets the alma mater given a infobox.
 getAlmaMater :: String -> String
 getAlmaMater info = getInformTypeList info "alma[_ ]mater[ ]*=(.*)[\r]?[\n]"
 
@@ -225,18 +225,18 @@ getDate info regex =
 getDateAux :: String -> String
 getDateAux "" = ""
 getDateAux date
- | isInfixOf "{" date && countElem "|" date > 1 = 
+ | isInfixOf "{" date && countElem "|" date > 1 =
                                      let dPipe :: String
                                          dPipe = (date =~ "[0-9]+\\|[0-9]+\\|[0-9]+")
                                          in replace "|" "/" dPipe
- | isInfixOf "{" date                            = 
+ | isInfixOf "{" date                            =
                                      let unDate :: String
                                          unDate = ((splitOn "|" date)!!1)
                                          cleaned :: String
                                          cleaned = replace "}" "" unDate
                                          in transDate cleaned
-                                         
- | isInfixOf "," date                            = 
+
+ | isInfixOf "," date                            =
                                      let ordDate :: String
                                          ordDate = orderDate date
                                          in transDate ordDate
@@ -259,7 +259,7 @@ eraseFstSp str = let firstSpaces :: String
                         then str
                         else replace firstSpaces "" str
 
--- It takes out extra characters that appear at extracting the place                     
+-- It takes out extra characters that appear at extracting the place
 cleanPlace :: String -> String
 cleanPlace str = let clean1 :: String
                      clean1 = replace "[" "" str
@@ -286,8 +286,8 @@ getPlace info regex = let form :: String
                           cleaned :: String
                           cleaned = cleanSpacEqual form
                           in getPlaceAux cleaned
-                          
--- A auxiliar function for the function above.                          
+
+-- A auxiliar function for the function above.
 getPlaceAux :: String -> String
 getPlaceAux "" = ""
 getPlaceAux form
@@ -298,9 +298,9 @@ getPlaceAux form
  | countElem "|" form > 1 = let place :: String
                                 place = last (splitOn "|" form)
                                 in cleanPlace place
- | otherwise = "(Various)" 
+ | otherwise = "(Various)"
 
--- Get's the birth place given it's infobox                        
+-- Get's the birth place given it's infobox
 getBPlace :: String -> String
 getBPlace info = getPlace info "birth_place[ ]*=(.*)[\r]?[\n]"
 
@@ -313,7 +313,7 @@ generateMatrix :: [String] -> [[String]]
 generateMatrix pages = ["Name", "Birth date", "Death date",
                          "Birth place", "Death place",
                           "Alma mater", "Fields"] : generateMatrixAux pages
-                                            
+
 generateMatrixAux :: [String] -> [[String]]
 generateMatrixAux [] = []
 generateMatrixAux (x:xs) = let name :: String
@@ -332,18 +332,18 @@ generateMatrixAux (x:xs) = let name :: String
                                alma = getAlmaMater info
                                fields :: String
                                fields = getFields info
-                               in [name, bDate, dDate, 
-                               bPlace, dPlace, alma, fields] : 
+                               in [name, bDate, dDate,
+                               bPlace, dPlace, alma, fields] :
                                generateMatrixAux xs
-                            
-                          
+
+
 
 printList :: (Show a) => [a] -> IO()
 printList [] = print "End of array"
-printList (x:xs) = do 
+printList (x:xs) = do
  print $ x
  printList xs
- 
+
 printListEnum :: [[String]] -> Int -> IO()
 printListEnum [] _ = print ""
 printListEnum (x:xs) y = do
@@ -351,7 +351,7 @@ printListEnum (x:xs) y = do
      toPrint = (show y) ++ ". [" ++ (strList x)
      in print toPrint
  printListEnum xs (y+1)
- 
+
 strList :: [String] ->String
 strList [] = "]"
 strList (x:xs) = x ++ ", " ++ strList xs
