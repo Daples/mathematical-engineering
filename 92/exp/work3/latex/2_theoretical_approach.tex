@@ -1,0 +1,130 @@
+\section{Preliminaries}\label{sec:pre}
+\subsection{ARMA Model}
+The general scheme for the observer-ARMA model is given by
+\begin{equation}
+  \begin{split}
+    &z_{t+1}=\sum_{s=0}^{l_1}a_sz_{t-s}+\sum_{s=0}^{l_2}b_s\xi_{t-s}\\
+    &y_t=h_tz_t+\zeta_t\\
+    &z_0,z_{-1},\ldots,z_{-l_1}\in\R, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+where $\xi_t$ and $\zeta_t$ are random perturbations.
+
+\subsection{The Kalman-Filter State-Observer Model}
+The KF state-observer model, given by
+\begin{equation}\label{eq:kf_so}
+  \begin{split}
+    &x_{t+1}=F_tx_t + \xi_t\\
+    &y_t=H_tx_t+\zeta_t\\
+    &x_0\in\R^n, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+where $\xi_t$ and $\zeta_t$ are random noises. Every ARMA model can be translated into a form of system (\ref{eq:kf_so}).
+
+
+
+\subsection{Traditional KF}
+We will present, first, some notation in order to write the instrumental KF:
+\begin{itemize}
+  \item Observed data vector: $y^*_t:=(y_0^T,\,y_1^T,\dots,y_t^T)^T$.
+  \item $z_{t|t-1}:=E(z_t|y^*_{t-1})$ and $y_{t|t-1}:=E(y_t|y^*_{t-1})$.
+  \item $\Delta y_t:=y_t-y_{t|t-1}$ and $\Delta z_t:=z_t-z_{t|t-1}$.
+  \item $\Sigma_{t|t}:={\rm Cov}(\Delta z_t|y_t^*$).
+\end{itemize}
+The standard KF
+Procedure \cite{kalman1960new} has two main hypothesis:\\
+\begin{itemize}
+  \item \textbf{H1: }\begin{itemize}
+    \item The noise perturbations must be white noise: \[E(\xi_t)=E(\zeta_t)=0, \quad t=0,1,\ldots\].
+    \item Given finite second moments: \[E(\xi_t\xi_t^T)=Q_t, \quad E(\zeta_t\zeta_t^T)=R_t\].
+    \item The perturbations are uncorrelated: \[E(\xi_t\xi_s^T)=E(\zeta_t\zeta_s^T)=0,\quad\forall s\neq t\]\[E(\xi_t\zeta_s^T)=0, \quad \forall t,s=0,1,\ldots\].
+    \item The states are uncorrelated:
+    \[E(z_tz_s^T)=0,\quad\forall t\neq s\]
+  \end{itemize}
+  \item \textbf{H2: }
+  \begin{itemize}
+    \item Normality of the perturbations:
+    \[\xi_t\sim\mathcal{N}(0,Q_t),\quad\zeta_t\sim\mathcal{N}(0,R_t),\quad\forall t=0,1,\ldots\]
+  \end{itemize}
+\end{itemize}
+The KF procedure is now presented:
+\begin{enumerate}
+  \item \textbf{Initialization: }
+  \[
+  z_{0|0}=z_0\in\R^n, \ \Sigma_{0|0}=0
+  \]
+  \item \textbf{Prediction: }
+  \[
+  \begin{split}
+    &z_{t|t-1}=F_tz_{t-1|t-1}\\
+    &\Sigma_{t|t-1}=F_{t-1}\Sigma_{t-1|t-1}F_{t-1}^T+Q_{t-1}
+  \end{split}
+  \]
+  \item \textbf{Correction: }
+  \[
+  \begin{split}
+    &z_{t | t}=z_{t | t-1}+M_{t}^{\text{opt}} \Delta y_{t} \\
+    &\Sigma_{t | t}=\Sigma_{t | t-1}-M_{t}^{\text{opt}} H_{t} \Sigma_{t | t-1}
+  \end{split}
+  \]
+  where ${M_{t}^{\text {opt}}:=\Sigma_{t | t-1} H_{t}^{T}\left(H_{t} \Sigma_{t | t-1} H_{t}^{T}+R_{t}\right)^{-1}}$.
+\end{enumerate}
+
+\subsection{Extended KF}
+The main idea behind the extension is to apply the standard KF in nonlinear systems. Let us consider a system in the form
+\begin{equation}
+  \begin{split}
+    &x_{t+1}=f(x_t) + \xi_t\\
+    &y_t=H_tx_t+\zeta_t\\
+    &x_0\in\R^n, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+where $f:\R^n\rightarrow\R^n$ is a given vector function. In order to apply the KF, we wish to linearize the function $f(\cdot)$ around a reference point $x^{{\rm ref}}_t$, following the common linearization scheme using the jacobian of $f(\cdot)$.
+
+Let
+\[
+\tilde{F}:=\dfrac{\partial f(x)}{\partial x}\bigg|_{x=x^{{\rm ref}}_t}
+\]
+with $\tilde{F}$ model (\ref{eq:kf_so}) can be constructed and applied to the KF.
+
+
+\section{Instrumental Extended KF}\label{sec:IEKF}
+In this work we will use a simple ARMA model, with correlated state and one unknown stationary parameter $a$. The model in consideration is
+\begin{equation}
+  \begin{split}
+    &z_{t+1}=az_t+\xi_t+d\xi_{t-1}\\
+    &y_{t}=hz_t+\gamma_{t}\\
+    &z_0\in\R, \ t=0,1,\dots
+  \end{split}
+\end{equation}
+and the objective is find an estimator $\tilde{a}$ for the unknown parameter $a$ using the data vector $y^*_t$.
+
+First, we assume that $\tilde{a}$ is not a constant, even when the real parameter $a$ is stationary. This assumption takes into consideration that the data vector can be constantly changing and the estimation will change depending on each observation. Another important assumption is that this estimator $\tilde{a}_t$ has small linear changes, hence, this estimator takes the form
+\begin{equation}
+  \tilde{a}_t=b\tilde{a}_{t-1}+\chi_{t-1}
+\end{equation}
+with $0<b<1$ and $\chi_t \sim N(0,\,\sigma)$. Given the dynamics for $\tilde{a}_t$, we propose the complete dynamics for the ARMA model as
+\begin{equation}\label{eq:mainARMA}
+  \begin{split}
+    &z_{t+1}=\tilde{a}_tz_t+\xi_t+d\xi_{t-1}\\
+    &\tilde{a}_{t+1}=b\tilde{a}_t+\chi_t\\
+    &z_0\in\R,\,\tilde{a}_0\in\R,\,t=0,1,\dots
+  \end{split}
+\end{equation}
+Note that the dynamics have a nonlinear, particularly bilinear, term in the first equation. Let $x_t:=(z_t,\,\tilde{a}_t)^T$ and $x^{{\rm ref}}_t:=(z_t^{{\rm ref}},\,\tilde{a}_t^{{\rm ref}})^T$ be a given reference point, the linearization yields the matrix
+\[
+\tilde{F} = \begin{bmatrix}
+\tilde{a} & z\\
+0 & b
+\end{bmatrix}_{x=x_t^{{\rm ref}}}
+\]
+Initially, the standard KF scheme could be applied, but one of the assumptions that is used to develop the KF procedure is that the state $z_t$ cannot be correlated with $z_{t-s}$ $\forall s$; clearly, $z_t$ and $z_{t-1}$ are correlated due to the delay in $\xi_t$ therefore, the state $x_t$ is correlated with $x_{t-1}$.
+
+Taking into consideration these facts, the standard procedure cannot assure a ``adequate'' estimation of the state $z_t$. In order to address this problem, we suggeest an implementation with instrumental variables.
+
+Let $\tilde{x}_t:=x_{2t}$, these transformation assures that the new state $\tilde{x}_t$ is not correlated with $\tilde{x}_{t-1}$; evidently, this transformation implies a new sampling in the available data, namely, we need to define a new data vector
+ \[\tilde{y}_t^*:=\begin{cases}
+   (y_0^T, y_2^T,\ldots,y_t^T)^T,&t\text{ even}\\
+   (y_0^T, y_2^T,\ldots,y_{t-1}^T)^T,&t\text{ odd}
+ \end{cases}\]
+Now, given the instrumental variables transformation and the linearization procedure for model (\ref{eq:mainARMA}), the standard KF procedure can be applied.
