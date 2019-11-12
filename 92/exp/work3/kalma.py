@@ -68,7 +68,7 @@ def plot_estimation(a_est, a_real, t):
         plt.hlines(a, 0, t+1, color=colors[i], linestyles='dashed')
         plt.plot(a_est[:, i], color= colors[i])
     plt.legend(["a1", "a2", "a3"])
-    plt.savefig('chinese_estimation.pdf', bbox_inches='tight')
+    plt.savefig('chinese_original.pdf', bbox_inches='tight')
     plt.show()
 
 def plot_variance(sigma, T):
@@ -89,17 +89,16 @@ x_ref = np.zeros(3)
 x_0 = np.concatenate( (x_ref, a_ref) )
 
 # Matrix of noise
-Q = np.eye(6) * 1
-# Q[0:3, 0:3] = np.eye(3) * 0.1** 2
-# Q[3:6, 3:6] = np.eye(3) * 0.1** 2
+# Q = np.eye(6) * 1
+Q = np.zeros((6,6)) * 1
+Q[0:3, 0:3] = np.eye(3) * 0.1** 2
+Q[3:6, 3:6] = np.eye(3) * 0.1** 2
 
 # Output matrix
 H = np.zeros((1, 6))
 H[0, 0] = 1
-H[0, 1] = 1
-H[0, 2] = 1
 
-R = np.eye(1) * 5
+R = np.eye(1) * 25
 
 seed = 1063421940 #np.random.randint(0,2**30-1)
 np.random.seed(seed)

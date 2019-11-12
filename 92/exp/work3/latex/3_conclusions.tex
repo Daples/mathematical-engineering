@@ -1,8 +1,1 @@
 \section{Discussion and Future Work}\label{sec:conc}
-Given the proposed extension of the standard KF for nonlinear ARMA models, it can be easily extended for higher order noise delays (making larger steps in the sampling of the available data) or more complex structures for the parameters (matrices for example).
-
-The suggested procedure is designed to satisfy the hypothesis for the standard KF, but it pays with the usage of available data (take half or less available data); on the other hand, a direct application of the KF cannot assure an adequate estimation of the state and we enter a situation where the two approaches have advantages and disadvantages, and it is believed that the two approaches performance depend on the concrete problem to solve.
-
-As future work, first, we consider important to develop a computational implementation of the proposed scheme, compare it with a direct application of the standard KF (even when \textbf{H1} is violated) and compare both approaches with some known time-series data.
-
-On the other hand, the estimation of parameter $a$ needs to be contrasted with an standard application of classical method, namely, a least-square estimation and analyze the effectiveness of each approach in different scenarios.
