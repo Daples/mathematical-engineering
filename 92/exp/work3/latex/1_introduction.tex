@@ -1,1 +1,26 @@
 \section{Introduction}\label{sec:intro}
+The model used in the present work is discussed in \cite{wei2017parameter}, given by the discrete dynamic system presented in \cref{eq:sys}.
+\begin{equation}\label{eq:sys}
+  \begin{cases}
+    x_{t+1}=A x_t+\xi_t&\\
+    y_{t}=Cx_t + \zeta_t&
+  \end{cases}
+\end{equation}
+Where $\xi_t$ and $\zeta_t$ are uncorrelated white noises with covariance matrices $Q_t$ and $R_t$ respectively.
+
+The specific state matrices are given in \cref{eq:mat}, with parameters $a^1$, $a^2$, $a^3$.
+\begin{equation}\label{eq:mat}
+A=\begin{bmatrix}
+{a^{1}} & {1} & {0} \\
+{a^{2}} & {0} & {1} \\
+{a^{3}} & {0} & {0}
+\end{bmatrix}
+C=\begin{bmatrix}{1} & {0} & {0}\end{bmatrix}
+\end{equation}
+
+In order to estimate parameters $a^i$, the state must be extended with the dynamics of these parameters. Let $z_t:=(x_t^T, a_t^T)^T$, where $x_t:=(x_t^1,x_t^2,x_t^3)^T$ and $a_t:=(a_t^1,a_t^2,a_t^3)$. Clearly, the resulting dynamic system is nonlinear, hence we use the extended Kalman-Filter. The new state matrix would be
+\begin{equation}\label{eq:linmat}
+  \tilde{A}=\begin{bmatrix}
+
+  \end{bmatrix}
+\end{equation}

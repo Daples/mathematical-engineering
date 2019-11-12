@@ -1,4 +1,6 @@
-x1[k+1] = a1_ref x1[k] + x1_ref a1[k]
-x2[k+1] = a2_ref x1[k] + x1_ref a2[k]
-
-a1[k+1] = a1[k] 
+x1[k+1] = a1_ref x1[k] + x2[k] + x1_ref a1[k] + xi1
+x2[k+1] = a2_ref x1[k] + x3[k] + x1_ref a2[k] + xi2
+x3[k+1] = a3_ref x1[k]         + x1_ref a3[k] + xi3
+a1[k+1] = a1[k]                               + xi4
+a2[k+1] = a2[k]                               + xi5
+a3[k+1] = a3[k]                               + xi6
