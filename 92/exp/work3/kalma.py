@@ -46,7 +46,7 @@ def kalman_filter(F, H, R, Q, z_0, y, t):
 def A(a_ref, x_ref):
     A = np.zeros((6, 6))
     A[0:3, 0] = a_ref
-    A[0:2, 1:3] = np.eye(2) # Comment for group 3
+    # A[0:2, 1:3] = np.eye(2) # Comment for group 3
     A[0:3, 3:6] = np.eye(3) * x_ref[0]
     A[3:6, 3:6] = np.eye(3)
     return A
@@ -82,23 +82,24 @@ def plot_variance(sigma, T):
 
 T = 400
 
-a_real = np.array([-0.1, -0.2, -0.2])
-a_ref = a_real - 0.1
+a_real = np.array([0.1, -0.2, 0.2])
+a_ref = a_real - 0.2
 x_ref = np.zeros(3)
 
 x_0 = np.concatenate( (x_ref, a_ref) )
 
 # Matrix of noise
-# Q = np.eye(6) * 1
-Q = np.zeros((6,6))
-Q[0:3, 0:3] = np.eye(3) * 0.1** 2
-Q[3:6, 3:6] = np.eye(3) * 0.1** 2
+Q = np.eye(6) * 1
+# Q = np.zeros((6,6))
+# Q[0:3, 0:3] = np.eye(3) * 0.1** 2
+# Q[3:6, 3:6] = np.eye(3) * 0.1** 2
 
 # Output matrixz
 H = np.zeros((1, 6))
 H[0, 0] = 1
 
-R = np.eye(1) * 25
+
+R = np.eye(1) * 5
 
 seed = 1063421940 #np.random.randint(0,2**30-1)
 np.random.seed(seed)
