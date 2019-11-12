@@ -46,7 +46,7 @@ def kalman_filter(F, H, R, Q, z_0, y, t):
 def A(a_ref, x_ref):
     A = np.zeros((6, 6))
     A[0:3, 0] = a_ref
-    A[0:2, 1:3] = np.eye(2) # Comment for group 3
+    # A[0:2, 1:3] = np.eye(2) # Comment for group 3
     A[0:3, 3:6] = np.eye(3) * x_ref[0]
     A[3:6, 3:6] = np.eye(3)
     return A
@@ -65,9 +65,10 @@ def plot_simulations(y, y_kalman, var, t):
 def plot_estimation(a_est, a_real, t):
     colors = ["r", "g", "b"]
     for i, a in enumerate(a_real):
-        plt.hlines(a, 0, t+1, color=colors[i])
+        plt.hlines(a, 0, t+1, color=colors[i], linestyles='dashed')
         plt.plot(a_est[:, i], color= colors[i])
     plt.legend(["a1", "a2", "a3"])
+    plt.savefig('chinese_estimation.pdf', bbox_inches='tight')
     plt.show()
 
 def plot_variance(sigma, T):
@@ -82,21 +83,23 @@ def plot_variance(sigma, T):
 T = 400
 
 a_real = np.array([0.1, -0.2, 0.2])
-a_ref = a_real + 0.2
+a_ref = a_real + 0.15
 x_ref = np.zeros(3)
 
 x_0 = np.concatenate( (x_ref, a_ref) )
 
 # Matrix of noise
-Q = np.zeros((6, 6))
-Q[0:3, 0:3] = np.eye(3) * 0.1** 2
-Q[3:6, 3:6] = np.eye(3) * 0.1** 2
+Q = np.eye(6) * 1
+# Q[0:3, 0:3] = np.eye(3) * 0.1** 2
+# Q[3:6, 3:6] = np.eye(3) * 0.1** 2
 
 # Output matrix
 H = np.zeros((1, 6))
 H[0, 0] = 1
+H[0, 1] = 1
+H[0, 2] = 1
 
-R = np.eye(1) * 5**2
+R = np.eye(1) * 5
 
 seed = 1063421940 #np.random.randint(0,2**30-1)
 np.random.seed(seed)

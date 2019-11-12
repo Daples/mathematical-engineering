@@ -1,0 +1,4 @@
+x1[k+1] = a1_ref x1[k] + x1_ref a1[k]
+x2[k+1] = a2_ref x1[k] + x1_ref a2[k]
+
+a1[k+1] = a1[k] 
