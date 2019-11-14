@@ -14,8 +14,7 @@ A=\begin{bmatrix}
 {a^{1}} & {1} & {0} \\
 {a^{2}} & {0} & {1} \\
 {a^{3}} & {0} & {0}
-\end{bmatrix}
-C=9
+\end{bmatrix}, \ C=C_i
 \end{equation}
 
 In order to estimate parameters $a^i$, the state must be extended with the dynamics of these parameters. Let $z_t:=(x_t^T, a_t^T)^T$, where $x_t:=(x_t^1,x_t^2,x_t^3)^T$ and $a_t:=(a_t^1,a_t^2,a_t^3)$. Clearly, the resulting dynamic system is nonlinear, hence we use the extended Kalman-Filter (EKF). The proposed linearization is
