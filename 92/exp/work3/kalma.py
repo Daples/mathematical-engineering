@@ -97,6 +97,8 @@ Q = np.eye(6) * 1
 # Output matrixz
 H = np.zeros((1, 6))
 H[0, 0] = 1
+H[0, 1] = 1
+H[0, 2] = 1
 
 
 R = np.eye(1) * 5
@@ -114,6 +116,7 @@ y = perfect_observer(H, x, T)
 x_kalman, s_kalman = kalman_filter(A(a_ref, x_ref), H, R, Q, x_0, y, T)
 y_kalman = perfect_observer(H, x_kalman, T)
 
+print(x_kalman[-1, 3:])
 plot_estimation(x_kalman[:,3:], a_real, T)
 #plot_simulations(y, y_kalman, 0, T)
 #plot_variance(s_kalman, T)
