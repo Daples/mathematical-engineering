@@ -210,7 +210,7 @@ getMonth month
  | month == "October"   = "10"
  | month == "November"  = "11"
  | month == "December"  = "12"
- | otherwise = "00"
+ | otherwise            = "00"
 
 -- Gets date for a given field.
 getDate :: String -> String -> String
