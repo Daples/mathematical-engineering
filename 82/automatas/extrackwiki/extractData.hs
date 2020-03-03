@@ -355,6 +355,7 @@ printListEnum (x:xs) y = do
 strList :: [String] ->String
 strList [] = "]"
 strList (x:xs) = x ++ ", " ++ strList xs
+
 main :: IO()
 main = do
  x <- getArgs
@@ -363,8 +364,3 @@ main = do
  let matrix :: [[String]]
      matrix = generateMatrix (getPages fileStr)
      in writeFile "infoboxData.csv" (genCsvFile matrix)
- --let infos :: [String]
-     --infos = map getInfoBox (getPages fileStr)
-     --bDates :: [String]
-     --bDates = map getBDate infos
-     --in printList bDates

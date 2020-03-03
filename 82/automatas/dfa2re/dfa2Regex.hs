@@ -1,7 +1,7 @@
 {- | Converts a deterministic finite automaton (DFA) into a regular expression (Regex), using the DFA2Regex function. -}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module Dfa2Regex where 
+module Dfa2Regex where
 
 import Data.Set as Set
 import Data.Map as Map
@@ -83,10 +83,10 @@ dfa2Regex1 (MkDFA q0 d qf) fin =
           final :: Int
           final = Set.findIndex fin stat
       in dfa2Regex' stat (beg, final) ((length stat) - 1) d where
-dfa2Regex' :: forall s c. (Show c) => Ord s => 
+dfa2Regex' :: forall s c. (Show c) => Ord s =>
               Set s -> (Int, Int) -> Int -> Map s (Map c s) -> Regex c
 dfa2Regex' qs (i,j) k d
-  | k == -1 && i == j = 
+  | k == -1 && i == j =
            let i1 :: s
                i1 = Set.elemAt i qs
                tr :: Regex c
