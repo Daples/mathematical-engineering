@@ -66,30 +66,3 @@ def mils(f, g, delta_t, x0, bm=None, tf=-1, t0=-1):
         delta_b = bm[0, i] - bm[0, i - 1]
         xt[:, i] = xt[:, i - 1] + fx * delta_t + gx * delta_b + 0.5 * gpx * gx * (delta_b ** 2 - delta_t)
     return xt
-
-
-# # Parameters
-# mu = 0.003
-# sigma = 0.03
-# delta_t = 1
-# t_final = 365
-# x0 = np.array([1])
-# delta_mu = 0.004
-# n = 1000
-#
-# # Function
-# f = mu * x
-# g = sigma * x
-#
-# bm = brownian_motion(n, t_final, delta_t)
-# t = np.linspace(0, 1, int(t_final / delta_t))
-#
-# plt.figure(1)
-# for j in range(bm.shape[0]):
-#     plt.plot(t, bm[j, :].transpose())
-#
-# plt.figure(2)
-# series_1 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=t_final)
-# for j in range(series_1.shape[0]):
-#     plt.plot(t, series_1[j, 0, :])
-# plt.show()
