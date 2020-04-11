@@ -3,6 +3,8 @@ import numpy as np
 from sympy.abc import x
 from sim_par import brownian_motion, euler_m
 from scipy.stats import norm
+import scipy.optimize as opt
+import scipy.integrate as integrate
 from matplotlib import rc
 
 
@@ -91,7 +93,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Optimistic case
     mu1 += delta_mu
     f1 = mu1 * x
-    series_o = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
+    #  series_o = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
     if plot:
         plt.figure(2)
         top = max(series_1.flatten().max(), series_o.flatten().max())
@@ -107,7 +109,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Pessimistic case
     mu1 -= 2 * delta_mu
     f1 = mu1 * x
-    series_p = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
+    # series_p = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
     if plot:
         plt.figure(3)
         top = max(series_1.flatten().max(), series_p.flatten().max())
@@ -120,27 +122,40 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
         plt.ylabel("$X_t$")
         plt.savefig("pronostico-pesimista.pdf", bbox_inches='tight')
 
-    # # Confidence Bands
-    lower, mean, upper = calculation_bandwidth(series_c, 0.05)
 
-    t_val = np.linspace(t_final, 2 * t_final, int(t_final / delta_t))
 
-    plt.figure(4)
+    # # Prediction Bands
+    res = prediction_bands(series_c, 0.9, t1s)
+    print(res.x)
+    upper = res.x[0] * (t1s - t_final) + initial_condition
+    lower = res.x[1] * (t1s - t_final) + initial_condition
+    plt.plot(t1s, upper)
+    plt.plot(t1s, lower)
     for j in range(n1):
         if j == n1 - 1:
             plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth, label='Trayectories')
         plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth)
-    plt.plot(t_val, lower, 'r', linewidth=linewidth)
-    plt.plot(t_val, mean, 'k', linewidth=linewidth, label='Mean')
-    plt.plot(t_val, upper, 'r', linewidth=linewidth, label='Naive Confidence Bands')
-    plt.xlabel("Days")
-    plt.ylabel("$X_t$")
-    plt.legend()
-    plt.savefig("bandas-constante.pdf", bbox_inches='tight')
     plt.show()
+    # # # Mean Confidence Bands
+    # lower, mean, upper = mean_band(series_c, 0.01)
+    #
+    # t_val = np.linspace(t_final, 2 * t_final, int(t_final / delta_t))
+    #
+    # plt.figure(4)
+    # for j in range(n1):
+    #     if j == n1 - 1:
+    #         plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth, label='Trayectories')
+    #     plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth)
+    # plt.plot(t_val, lower, 'r', linewidth=linewidth)
+    # plt.plot(t_val, mean, 'k', linewidth=linewidth, label='Mean')
+    # plt.plot(t_val, upper, 'r', linewidth=linewidth, label='Naive Confidence Bands')
+    # plt.xlabel("Days")
+    # plt.ylabel("$X_t$")
+    # plt.legend()
+    # plt.savefig("bandas-constante.pdf", bbox_inches='tight')
+    # plt.show()
 
-
-def calculation_bandwidth(time_series, alpha1):
+def mean_band(time_series, alpha1):
     # Naive method
     n = time_series.shape[0]
     y_bar = (np.log(time_series[:, 0, :])).mean(axis=0)
@@ -154,5 +169,27 @@ def calculation_bandwidth(time_series, alpha1):
     return lower, means, upper
 
 
-# simulation_1(f, g, mu)
-bandwidths(f, g, mu, 100)
+def prediction_bands(time_series, alpha1, t):
+    x0 = time_series[0, 0, 0]
+    def of(a):
+        fun = (a[0] * (t - t_final) + x0) + (np.abs(a[1]) * (t - t_final) + x0 )
+        return integrate.simps(fun)
+
+    def prob(a):
+        probs = np.zeros(time_series.shape[2])
+        for j in range(time_series.shape[2]):
+            t_val = t_final + j * delta_t
+            probs_aux0 = time_series[:, 0, j]
+            probs_aux = probs_aux0[probs_aux0 >= a[1] * (t_val - t_final) + x0]
+            probs[j] = probs_aux[probs_aux <= a[0] * (t_val - t_final) + x0].size / time_series.shape[0]
+        return np.mean(probs) - lb
+
+    a0 = np.array([14/365, -2/365])
+    lb = 1 - alpha1
+    bnds = ((0, 1), (-0.1, 0.1))    
+    cons = ({'type': 'eq', 'fun': prob}, {'type': 'ineq', 'fun': lambda a: a[0] - a[1]})
+    res = opt.minimize(of, a0, constraints=cons, bounds=bnds)
+    print('Constraint', str(prob(res.x) + lb))
+    return res
+
+bandwidths(f, g, mu, 200)
