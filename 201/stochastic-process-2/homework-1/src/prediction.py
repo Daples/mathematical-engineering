@@ -2,12 +2,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sympy.abc import x
 from sim_par import brownian_motion, euler_m
-from scipy.stats import norm
-import scipy.optimize as opt
-import scipy.integrate as integrate
+from scipy.stats import norm, lognorm
 from matplotlib import rc
+from joblib import Parallel, delayed
+import multiprocessing
+import time
 
-
+num_cores = multiprocessing.cpu_count()
 rc('text', usetex=True)
 plt.rcParams.update({'font.size': 18})
 np.random.seed(123456789)
@@ -63,7 +64,6 @@ def simulation_1(f1, g1, mu1, linewidth=0.5):
     plt.savefig("pronostico-1-escenarios.pdf", bbox_inches='tight')
     plt.show()
 
-
 def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Brownian motion
     bm = brownian_motion(n1, 2*t_final, delta_t)
@@ -93,7 +93,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Optimistic case
     mu1 += delta_mu
     f1 = mu1 * x
-    #  series_o = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
+    series_o = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
     if plot:
         plt.figure(2)
         top = max(series_1.flatten().max(), series_o.flatten().max())
@@ -109,7 +109,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Pessimistic case
     mu1 -= 2 * delta_mu
     f1 = mu1 * x
-    # series_p = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
+    series_p = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):], t0=t_final, tf=2*t_final)
     if plot:
         plt.figure(3)
         top = max(series_1.flatten().max(), series_p.flatten().max())
@@ -122,82 +122,95 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
         plt.ylabel("$X_t$")
         plt.savefig("pronostico-pesimista.pdf", bbox_inches='tight')
 
+    plot_prediction_bands(t1s, series_c, 'plts/bands_constant.pdf', 0.1)
+    plot_prediction_bands(t1s, series_o, 'plts/bands_optimistic.pdf', 0.1)
+    plot_prediction_bands(t1s, series_p, 'plts/bands_pessimistic.pdf', 0.1)
 
-
-    # # Prediction Bands
-    res = prediction_bands(series_c, 0.05, t1s)
-    print(res.x)
-    upper = res.x[0] * (t1s - t_final) + initial_condition
-    lower = res.x[1] * (t1s - t_final) + initial_condition
+def plot_prediction_bands(ts, times_series, filename, alpha1, linewidth=0.5, show=False):
+    lower, upper = prediction_bands(times_series, alpha1)
+    n1 = times_series.shape[0]
     for j in range(n1):
         if j == n1 - 1:
-            plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth, label='Trayectories')
-        plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth)
-    plt.plot(t1s, upper)
-    plt.plot(t1s, lower)
-    plt.show()
+            plt.plot(ts, times_series[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth,
+                     label='Trajectories')
+        plt.plot(ts, times_series[j, 0, :].transpose(), color='grey', alpha=0.05, linewidth=linewidth)
+    plt.plot(ts, upper, 'r', linewidth=linewidth, label='Prediction Bands')
+    plt.plot(ts, lower, 'r', linewidth=linewidth)
+    plt.xlabel("Days")
+    plt.ylabel("$X_t$")
+    plt.legend()
+    plt.savefig(filename, bbox_inches='tight')
+    if show:
+        plt.show()
+    plt.clf()
 
-    # # # Mean Confidence Bands
-    # lower, mean, upper = mean_band(series_c, 0.01)
-    #
-    # t_val = np.linspace(t_final, 2 * t_final, int(t_final / delta_t))
-    #
-    # plt.figure(4)
-    # for j in range(n1):
-    #     if j == n1 - 1:
-    #         plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth, label='Trayectories')
-    #     plt.plot(t1s, series_c[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth)
-    # plt.plot(t_val, lower, 'r', linewidth=linewidth)
-    # plt.plot(t_val, mean, 'k', linewidth=linewidth, label='Mean')
-    # plt.plot(t_val, upper, 'r', linewidth=linewidth, label='Naive Confidence Bands')
-    # plt.xlabel("Days")
-    # plt.ylabel("$X_t$")
-    # plt.legend()
-    # plt.savefig("bandas-constante.pdf", bbox_inches='tight')
-    # plt.show()
-
-def mean_band(time_series, alpha1):
-    # Naive method
+def mean_band(time_series, alpha1, method='direct'):
     n = time_series.shape[0]
-    y_bar = (np.log(time_series[:, 0, :])).mean(axis=0)
-    S = time_series[:, 0, :].std(axis=0, ddof=1)
-    Za = norm.ppf(1 - alpha1/2)
-    width = S * Za / (n ** 0.5)
-    lower = np.exp(y_bar - width)
-    upper = np.exp(y_bar + width)
+    Za = norm.ppf(1 - alpha1 / 2)
     means = time_series[:, 0, :].mean(axis=0)
+    if method == 'cox':
+        log_y = np.log(time_series[:, 0, :])
+        y_bar = log_y.mean(axis=0)
+        S = log_y.std(axis=0, ddof=1)
+        width = Za * np.sqrt((np.power(S, 2) / n) + (np.power(S, 4) / (2 * (n - 1))))
+        lower = np.exp(y_bar + (np.power(S, 2) / 2) - width)
+        upper = np.exp(y_bar + (np.power(S, 2) / 2) + width)
+    elif method == 'direct':
+        S = time_series[:, 0, :].std(axis=0, ddof=1)
+        width = Za * S / (n ** 0.5)
+        lower = means - width
+        upper = means + width
+
     return lower, means, upper
 
-
-def prediction_bands(time_series, alpha1, t):
+def prediction_bands(time_series, alpha1):
+    n = time_series.shape[0]
+    tf = time_series.shape[2]
     x0 = time_series[0, 0, 0]
-    def of(a):
-        fun = (a[0] * (t - t_final) + x0) + (np.abs(a[1]) * (t - t_final) + x0 )
-        return integrate.simps(fun)
 
-    def prob(a):
-        probs = np.zeros(time_series.shape[2])
-        for j in range(time_series.shape[2]):
-            t_val = t_final + j * delta_t
-            probs_aux0 = time_series[:, 0, j]
-            probs_aux1 = probs_aux0[probs_aux0 >= a[1] * (t_val - t_final) + x0]
-            probs[j] = probs_aux1[probs_aux1 <= a[0] * (t_val - t_final) + x0].size / time_series.shape[0]
-        return np.mean(probs)
+    def aux(i):
+        return lognorm.fit(time_series[:, 0, i])
 
+    params = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(i) for i in range(1, tf)))
+    lower = np.zeros(tf)
+    upper = np.zeros(tf)
+    lower[0] = x0
+    upper[0] = x0
+    for p in range(tf - 1):
+        lower[p + 1] = lognorm.ppf(alpha1/2, *params[p, :])
+        upper[p + 1] = lognorm.ppf(1 - (alpha1/2), *params[p, :])
+    return lower, upper
 
-    a0 = np.array([time_series.flatten().max(), time_series.flatten().min()]) / 365
-    lb = 1 - alpha1
-    bnds = ((0, 1), (-0.1, 0))
+def sensitivity(f1, g1, mu1, sigma1, alpha1, p, n1, plot=False, linewidth=0.5):
+    # Brownian motion
+    bm = brownian_motion(n1, 2 * t_final, delta_t)
 
-    # Constraints for SLSQP
-    # cons = ({'type': 'eq', 'fun': prob}, {'type': 'ineq', 'fun': lambda a: a[0] - a[1]})
+    # First year simulation
+    series_1 = euler_m(f1, g1, delta_t, x0, 1, bm=bm[:, :int(365 / delta_t)], tf=t_final)
+    initial_condition = series_1[0, :, -1]
 
-    # Constraints for trust-constr
-    nlc = opt.NonlinearConstraint(prob, lb, 1)
-    lc = opt.LinearConstraint([1, -1], 0, np.inf)
+    t_val = np.linspace(0, 2 * t_final, int(2 * t_final / delta_t))
+    t1s = t_val[int(t_final / delta_t):]
+    sigmas = np.linspace(sigma1 - sigma1 * p, sigma1 + sigma1 * p, 40)
+    symbols = {-1: 'pessimistic', 0: 'constant', 1: 'optimistic'}
 
-    res = opt.minimize(of, a0, constraints=[nlc, lc], bounds=bnds, method='trust-constr', options={'verbose': 1, 'initial_constr_penalty': 10})
-    print(res)
-    return res
+    for key in symbols:
+        simulations = {}
+        f1 = (mu1 + key*delta_mu) * x
+        for sigma in sigmas:
+            g1 = sigma*x
+            simulation = euler_m(f1, g1, delta_t, initial_condition, n1, bm=bm[:, int(365 / delta_t):],
+                                 tf=2*t_final, t0=t_final)
+            simulations[sigma] = prediction_bands(simulation, alpha1)
 
-bandwidths(f, g, mu, 200)
+        lower = np.array(list(map(lambda x: x[0][-1], simulations.values())))
+        upper = np.array(list(map(lambda x: x[1][-1], simulations.values())))
+
+        plt.plot(sigmas, lower, linewidth=linewidth, label='Lower bounds')
+        plt.plot(sigmas, upper, linewidth=linewidth, label='Upper bounds')
+        plt.xlabel('$\sigma$')
+        plt.ylabel('$B_{t_f}$')
+        plt.legend()
+        name = 'plts/sens_' + symbols[key] + '.pdf'
+        plt.savefig(name, bbox_inches='tight')
+        plt.clf()
