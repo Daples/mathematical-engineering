@@ -4,7 +4,10 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage[utf8]{inputenc}
+
+\graphicspath{{../src/plts/}}
 
 %%%%%%%% MARGIN
 \geometry{verbose, letterpaper, tmargin=3cm,
@@ -109,6 +112,79 @@
 
 \begin{document}
 \maketitle
+\section{Prediction 1}
+Params: $\mu = 0.003$, $\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$, $\Delta \mu = 0.004$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{pronostico-1-escenarios.pdf}
+  \caption{Initial simulation with scenarios trajectories.}
+  \label{fig:scenarios}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{pronostico-constante.pdf}
+      \caption{Constant.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{pronostico-pesimista.pdf}
+      \caption{Pessimistic.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{pronostico-optimista.pdf}
+      \caption{Optimistic.}
+  \end{subfigure}
+  \caption{Prediction trajectories for each scenario.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{bands_constant.pdf}
+      \caption{Constant.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{bands_pessimistic.pdf}
+      \caption{Pessimistic.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{bands_optimistic.pdf}
+      \caption{Optimistic.}
+  \end{subfigure}
+  \caption{Prediction bands for each scenario.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{sens_constant.pdf}
+      \caption{Constant.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{sens_pessimistic.pdf}
+      \caption{Pessimistic.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{sens_optimistic.pdf}
+      \caption{Optimistic.}
+  \end{subfigure}
+  \caption{Sensitivity on $\sigma$ for each scenario.}
+\end{figure}
+
+\section{}
+Params: $\alpha = 0.5$, $\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t = 0.1$, $t_f = 30$, $n = 1000$.
+
 
 \printbibliography
 \end{document}
