@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sympy.abc import x
+from scipy import stats as st
 from sim_par import euler_m, brownian_motion
 from matplotlib import rc
 import multiprocessing
+from prediction import plot_prediction_bands, prediction_bands
 
 num_cores = multiprocessing.cpu_count() - 1
 rc('text', usetex=True)
@@ -19,7 +21,7 @@ gamma = 0.5
 delta_t = 0.1
 x0 = np.array([1])
 T = 30
-n = 200
+n = 1000
 
 # Function
 f = alpha * (mu - x)
@@ -30,12 +32,14 @@ series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=True)
 ts = np.linspace(0, T, int(T/delta_t))
 plot = False
 if plot:
-    plt.plot(ts, series2[0, 0, :], 'k', linewidth=linewidth)
+    for i in range(series2.shape[0]):
+        plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
     plt.xlabel('$t$')
     plt.ylabel('$X_t$')
     plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
     plt.show()
 
+# n = 200? 500?
 def parameter_estimation(time_series, plot=False):
     mults = [(i+1)/10  for i in range(10)]
     delta = delta_t
@@ -106,4 +110,112 @@ def parameter_estimation(time_series, plot=False):
         plt.ylabel('$\hat{\sigma}$')
         plt.savefig('plts/sigmas.pdf', bbox_inches='tight')
         plt.clf()
+
+# Extracted from https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing/
+def hurst(ts):
+    """Returns the Hurst Exponent of the time series vector ts"""
+    # Create the range of lag values
+    lags = range(2, 100)
+
+    # Calculate the array of the variances of the lagged differences
+    tau = [np.sqrt(np.std(np.subtract(ts[lag:], ts[:-lag]))) for lag in lags]
+
+    # Use a linear fit to estimate the Hurst Exponent
+    poly = np.polyfit(np.log(lags), np.log(tau), 1)
+
+    # Return the Hurst exponent from the polyfit output
+    return poly[0] * 2.0
+
+
+def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
+    test = [alpha1]
+    distribution = getattr(st, dist)
+    params = [[]]
+    for i in range(1, time_series.shape[axis]):
+        if axis == 0:
+            ts = time_series[i, 0, :]
+        else:
+            ts = time_series[:, 0, i]
+        params.append(distribution.fit(ts))
+        _, p_value = st.kstest(ts, dist, args=params[-1])
+        test.append(p_value)
+    return test, params
+
+# 1000 trajs
+def hists(time_series, filename, axis=0):
+    test, params = statistical_analysis(time_series, axis=axis)
+    test = np.array(test)
+    bool_test = np.array(test >= 0.05, dtype=int)
+    count = bool_test.sum()
+    print(count/bool_test.size)
+    plot_hist = True
+    if plot_hist:
+        index_max = int(np.argmax(test))
+        index_min = int(np.argmin(test))
+        if axis == 0:
+            series = time_series[index_max, 0, :]
+        else:
+            series = time_series[:, 0, index_max]
+        _, bins, _ = plt.hist(series, label='Histogram', color='white', ec='black', density=True)
+        x = np.linspace(bins[0] - 0.5, bins[-1] + 0.5, 200)
+        y_pdf = st.lognorm.pdf(x, *params[index_max])
+        plt.ylabel('Relative Frequency')
+        plt.plot(x, y_pdf, 'r', label='Density')
+        plt.legend()
+        s = 'plts/maxp_' + filename
+        plt.savefig(s, bbox_inches='tight')
+        plt.show()
+        plt.clf()
+
+        if axis == 0:
+            series = time_series[index_min, 0, :]
+        else:
+            series = time_series[:, 0, index_min]
+        _, bins, _ = plt.hist(series, label='Histogram', color='white', ec='black', density=True)
+        x = np.linspace(bins[0] - 0.5, bins[-1] + 0.5, 200)
+        y_pdf = st.lognorm.pdf(x, *params[index_min])
+        plt.ylabel('Relative Frequency')
+        plt.plot(x, y_pdf, 'r', label='Density')
+        plt.legend()
+        s = 'plts/minp_' + filename
+        plt.savefig(s, bbox_inches='tight')
+        plt.show()
+
+
+def sensitivity(p):
+    def simul(initial_param, f_param, indicator):
+        lasts = []
+        ls_param = np.linspace((1 - p) * initial_param, (1 + p) * initial_param, 40)
+        for param in ls_param:
+            funs = f_param(param)
+            if indicator == 0:
+                series = euler_m(funs, g, delta_t, x0, n, bm=bm, tf=T)
+            else:
+                series = euler_m(f, funs, delta_t, x0, n, bm=bm, tf=T)
+            lower, upper = prediction_bands(series)
+            lasts.append((lower[-1], upper[-1]))
+        return lasts, ls_param
+
+    def plot_sens(ls, lasts1, var):
+        plt.plot(ls, list(map(lambda x: x[0], lasts1)), label='Lower bounds')
+        plt.plot(ls, list(map(lambda x: x[1], lasts1)), label='Upper bounds')
+        plt.xlabel(var)
+        plt.ylabel('$B_{t_f}$')
+        plt.legend()
+        plt.savefig('plts/' + var[2:-1] + '_sens.pdf', bbox_inches='tight')
+        plt.show()
+        plt.clf()
+
+    print('Starting alpha')
+    alpha_lasts, ls_alpha = simul(alpha, lambda a: a * (mu - x), 0)
+    plot_sens(ls_alpha, alpha_lasts, '$\\alpha$')
+    print('Starting mu')
+    mu_lasts, ls_mu = simul(mu, lambda mu: alpha * (mu - x), 0)
+    plot_sens(ls_mu, mu_lasts, '$\mu$')
+    print('Starting sigma')
+    sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1)
+    plot_sens(ls_sigma, sigma_last, '$\sigma$')
+
+
+# sensitivity(0.5)
 

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sympy.abc import x
 from sim_par import brownian_motion, euler_m
-from scipy.stats import norm, lognorm
+import scipy.stats as st
 from matplotlib import rc
 from joblib import Parallel, delayed
 import multiprocessing
@@ -126,7 +126,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     plot_prediction_bands(t1s, series_o, 'plts/bands_optimistic.pdf', 0.1)
     plot_prediction_bands(t1s, series_p, 'plts/bands_pessimistic.pdf', 0.1)
 
-def plot_prediction_bands(ts, times_series, filename, alpha1, linewidth=0.5, show=False):
+def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5, show=False):
     lower, upper = prediction_bands(times_series, alpha1)
     n1 = times_series.shape[0]
     for j in range(n1):
@@ -144,32 +144,14 @@ def plot_prediction_bands(ts, times_series, filename, alpha1, linewidth=0.5, sho
         plt.show()
     plt.clf()
 
-def mean_band(time_series, alpha1, method='direct'):
-    n = time_series.shape[0]
-    Za = norm.ppf(1 - alpha1 / 2)
-    means = time_series[:, 0, :].mean(axis=0)
-    if method == 'cox':
-        log_y = np.log(time_series[:, 0, :])
-        y_bar = log_y.mean(axis=0)
-        S = log_y.std(axis=0, ddof=1)
-        width = Za * np.sqrt((np.power(S, 2) / n) + (np.power(S, 4) / (2 * (n - 1))))
-        lower = np.exp(y_bar + (np.power(S, 2) / 2) - width)
-        upper = np.exp(y_bar + (np.power(S, 2) / 2) + width)
-    elif method == 'direct':
-        S = time_series[:, 0, :].std(axis=0, ddof=1)
-        width = Za * S / (n ** 0.5)
-        lower = means - width
-        upper = means + width
-
-    return lower, means, upper
-
-def prediction_bands(time_series, alpha1):
+def prediction_bands(time_series, alpha1=0.1, dist='lognorm'):
+    distribution = getattr(st, dist)
     n = time_series.shape[0]
     tf = time_series.shape[2]
     x0 = time_series[0, 0, 0]
 
     def aux(i):
-        return lognorm.fit(time_series[:, 0, i])
+        return distribution.fit(time_series[:, 0, i])
 
     params = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(i) for i in range(1, tf)))
     lower = np.zeros(tf)
@@ -177,11 +159,11 @@ def prediction_bands(time_series, alpha1):
     lower[0] = x0
     upper[0] = x0
     for p in range(tf - 1):
-        lower[p + 1] = lognorm.ppf(alpha1/2, *params[p, :])
-        upper[p + 1] = lognorm.ppf(1 - (alpha1/2), *params[p, :])
+        lower[p + 1] = distribution.ppf(alpha1/2, *params[p, :])
+        upper[p + 1] = distribution.ppf(1 - (alpha1/2), *params[p, :])
     return lower, upper
 
-def sensitivity(f1, g1, mu1, sigma1, alpha1, p, n1, plot=False, linewidth=0.5):
+def sensitivity(f1, g1, mu1, sigma1, alpha1, p, n1, linewidth=0.5):
     # Brownian motion
     bm = brownian_motion(n1, 2 * t_final, delta_t)
 
