@@ -6,8 +6,9 @@ from sim_par import euler_m, brownian_motion
 from matplotlib import rc
 import multiprocessing
 from prediction import plot_prediction_bands, prediction_bands
+import time
 
-num_cores = multiprocessing.cpu_count() - 1
+num_cores = multiprocessing.cpu_count()
 rc('text', usetex=True)
 plt.rcParams.update({'font.size': 18})
 np.random.seed(123456789)
@@ -28,16 +29,17 @@ f = alpha * (mu - x)
 g = sigma * x ** gamma
 linewidth = 0.5
 bm = brownian_motion(n, T, delta_t)
-series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=True)
-ts = np.linspace(0, T, int(T/delta_t))
-plot = False
-if plot:
-    for i in range(series2.shape[0]):
-        plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
-    plt.xlabel('$t$')
-    plt.ylabel('$X_t$')
-    plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
-    plt.show()
+# series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=True)
+# ts = np.linspace(0, T, int(T/delta_t))
+# plot = False
+# if plot:
+#     for i in range(series2.shape[0]):
+#         plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
+#     plt.xlabel('$t$')
+#     plt.ylabel('$X_t$')
+#     plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
+#     plt.show()
+
 
 # n = 200? 500?
 def parameter_estimation(time_series, plot=False):
@@ -111,6 +113,7 @@ def parameter_estimation(time_series, plot=False):
         plt.savefig('plts/sigmas.pdf', bbox_inches='tight')
         plt.clf()
 
+
 # Extracted from https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing/
 def hurst(ts):
     """Returns the Hurst Exponent of the time series vector ts"""
@@ -127,6 +130,7 @@ def hurst(ts):
     return poly[0] * 2.0
 
 
+
 def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
     test = [alpha1]
     distribution = getattr(st, dist)
@@ -140,6 +144,7 @@ def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
         _, p_value = st.kstest(ts, dist, args=params[-1])
         test.append(p_value)
     return test, params
+
 
 # 1000 trajs
 def hists(time_series, filename, axis=0):
@@ -182,12 +187,15 @@ def hists(time_series, filename, axis=0):
         plt.show()
 
 
+
 def sensitivity(p):
-    def simul(initial_param, f_param, indicator):
+    def simul(initial_param, f_param, indicator, show=False):
         lasts = []
         ls_param = np.linspace((1 - p) * initial_param, (1 + p) * initial_param, 40)
         for param in ls_param:
             funs = f_param(param)
+            if show:
+                print(funs)
             if indicator == 0:
                 series = euler_m(funs, g, delta_t, x0, n, bm=bm, tf=T)
             else:
@@ -203,18 +211,21 @@ def sensitivity(p):
         plt.ylabel('$B_{t_f}$')
         plt.legend()
         plt.savefig('plts/' + var[2:-1] + '_sens.pdf', bbox_inches='tight')
-        plt.show()
+        # plt.show()
         plt.clf()
 
     print('Starting alpha')
-    alpha_lasts, ls_alpha = simul(alpha, lambda a: a * (mu - x), 0)
+    alpha_lasts, ls_alpha = simul(alpha, lambda a: a * (mu - x), 0, show=True)
     plot_sens(ls_alpha, alpha_lasts, '$\\alpha$')
     print('Starting mu')
-    mu_lasts, ls_mu = simul(mu, lambda mu: alpha * (mu - x), 0)
+    mu_lasts, ls_mu = simul(mu, lambda mu: alpha * (mu - x), 0, show=True)
     plot_sens(ls_mu, mu_lasts, '$\mu$')
     print('Starting sigma')
-    sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1)
+    sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1, show=True)
     plot_sens(ls_sigma, sigma_last, '$\sigma$')
 
 
-# sensitivity(0.5)
+pre = time.time()
+sensitivity(0.5)
+print('Elapsed time', time.time() - pre, 'seconds')
+

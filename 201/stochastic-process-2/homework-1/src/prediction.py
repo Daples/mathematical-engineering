@@ -64,6 +64,7 @@ def simulation_1(f1, g1, mu1, linewidth=0.5):
     plt.savefig("pronostico-1-escenarios.pdf", bbox_inches='tight')
     plt.show()
 
+
 def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     # Brownian motion
     bm = brownian_motion(n1, 2*t_final, delta_t)
@@ -126,6 +127,7 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     plot_prediction_bands(t1s, series_o, 'plts/bands_optimistic.pdf', 0.1)
     plot_prediction_bands(t1s, series_p, 'plts/bands_pessimistic.pdf', 0.1)
 
+
 def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5, show=False):
     lower, upper = prediction_bands(times_series, alpha1)
     n1 = times_series.shape[0]
@@ -143,6 +145,7 @@ def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5,
     if show:
         plt.show()
     plt.clf()
+
 
 def prediction_bands(time_series, alpha1=0.1, dist='lognorm'):
     distribution = getattr(st, dist)
@@ -162,6 +165,7 @@ def prediction_bands(time_series, alpha1=0.1, dist='lognorm'):
         lower[p + 1] = distribution.ppf(alpha1/2, *params[p, :])
         upper[p + 1] = distribution.ppf(1 - (alpha1/2), *params[p, :])
     return lower, upper
+
 
 def sensitivity(f1, g1, mu1, sigma1, alpha1, p, n1, linewidth=0.5):
     # Brownian motion

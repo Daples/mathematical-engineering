@@ -44,11 +44,16 @@ def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
         bm = brownian_motion(n, tf - t0, delta_t)
 
     # Simulation
-    if show:
-        print('\nSimulating EDEs')
-        xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in tqdm(range(n))))
-    else:
-        xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in range(n)))
+    while True:
+        try:
+            if show:
+                print('\nSimulating EDEs')
+                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in tqdm(range(n))))
+            else:
+                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in range(n)))
+            break
+        except:
+            bm = brownian_motion(n, tf - t0, delta_t)
     return xt
 
 
