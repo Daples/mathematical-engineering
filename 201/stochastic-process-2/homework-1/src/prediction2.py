@@ -130,7 +130,6 @@ def hurst(ts):
     return poly[0] * 2.0
 
 
-
 def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
     test = [alpha1]
     distribution = getattr(st, dist)
@@ -187,7 +186,6 @@ def hists(time_series, filename, axis=0):
         plt.show()
 
 
-
 def sensitivity(p):
     def simul(initial_param, f_param, indicator, show=False):
         lasts = []
@@ -223,9 +221,3 @@ def sensitivity(p):
     print('Starting sigma')
     sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1, show=True)
     plot_sens(ls_sigma, sigma_last, '$\sigma$')
-
-
-pre = time.time()
-sensitivity(0.5)
-print('Elapsed time', time.time() - pre, 'seconds')
-
