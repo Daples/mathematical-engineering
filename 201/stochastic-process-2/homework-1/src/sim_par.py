@@ -25,7 +25,7 @@ def brownian_motion(n, tf, delta_t, show=False):
 
 # Euler Maruyama method
 def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
-    def aux(f1, g1, delta_t1, x01, j, bm1, tf1, arr_type=np.int):
+    def aux(f1, g1, delta_t1, x01, j, bm1, tf1, arr_type=np.float):
         arr = np.zeros((x0.size, int((tf1 - t0) / delta_t)), dtype=arr_type)
         arr[:, 0] = x01
         for i in range(1, arr.shape[1]):
@@ -35,7 +35,7 @@ def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
             arr[:, i] = arr[:, i - 1] + fx * delta_t1 + gx * (bm1[j, i] - bm1[j, i - 1])
         return arr
 
-    def simulation_exit_status(arr_type=np.int):
+    def simulation_exit_status(arr_type=np.float):
         j = 0
         try:
             if show:
