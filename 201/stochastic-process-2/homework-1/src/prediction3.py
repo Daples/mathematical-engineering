@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import rc
+from prediction2 import hurst
 
 
 rc('text', usetex=True)
@@ -12,9 +13,13 @@ file = open("temps.txt").readlines()
 file = list(map(lambda x: x.replace("\n", "").split("\t"), file))
 
 temperatures = np.array(file, dtype=float)
-series = temperatures[:, list(range(3))].transpose().flatten()
-plt.plot(series,'k')
-plt.xlabel('$t$')
-plt.ylabel('$T_t$')
-plt.savefig('plts/temps.pdf', bbox_inches='tight')
-plt.show()
+series = temperatures[:, [-3, -2, -1]].transpose().flatten()
+plot = False
+if plot:
+    plt.plot(series,'k')
+    plt.xlabel('$t$')
+    plt.ylabel('$T_t$')
+    plt.savefig('plts/temps.pdf', bbox_inches='tight')
+    plt.show()
+
+print(hurst(series))
