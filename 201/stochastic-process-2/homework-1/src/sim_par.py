@@ -25,8 +25,8 @@ def brownian_motion(n, tf, delta_t, show=False):
 
 # Euler Maruyama method
 def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
-    def aux(f1, g1, delta_t1, x01, j, bm1, tf1):
-        arr = np.zeros((x0.size, int((tf1 - t0) / delta_t)))
+    def aux(f1, g1, delta_t1, x01, j, bm1, tf1, arr_type=np.int):
+        arr = np.zeros((x0.size, int((tf1 - t0) / delta_t)), dtype=arr_type)
         arr[:, 0] = x01
         for i in range(1, arr.shape[1]):
             t_val = t0 + i * delta_t1
@@ -34,6 +34,20 @@ def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
             gx = g1.subs([(x, arr[:, i - 1]), (t, t_val)]).evalf()
             arr[:, i] = arr[:, i - 1] + fx * delta_t1 + gx * (bm1[j, i] - bm1[j, i - 1])
         return arr
+
+    def simulation_exit_status(arr_type=np.int):
+        j = 0
+        try:
+            if show:
+                print('\nSimulating EDEs')
+                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf,
+                                                                      arr_type=arr_type) for j in tqdm(range(n))))
+            else:
+                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf, arr_type=arr_type)
+                                                                      for j in range(n)))
+            return (True, -1), xt
+        except:
+            return (False, j), []
 
     # Initialize optional parameters
     if tf < 0:
@@ -44,16 +58,18 @@ def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
         bm = brownian_motion(n, tf - t0, delta_t)
 
     # Simulation
+    count = 0
+    max_count = 20
     while True:
-        try:
-            if show:
-                print('\nSimulating EDEs')
-                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in tqdm(range(n))))
-            else:
-                xt = np.array(Parallel(n_jobs=num_cores)(delayed(aux)(f, g, delta_t, x0, j, bm, tf) for j in range(n)))
+        exit_status, xt = simulation_exit_status()
+        if exit_status[0]:
             break
-        except:
-            bm = brownian_motion(n, tf - t0, delta_t)
+        else:
+            bm[exit_status[1], :] = brownian_motion(1, tf - t0, delta_t)[0, :]
+            count += 1
+        if count > max_count:
+            _, xt = simulation_exit_status(np.complex)
+            break
     return xt
 
 
