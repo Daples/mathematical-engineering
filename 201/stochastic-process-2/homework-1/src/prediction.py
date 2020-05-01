@@ -128,8 +128,8 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
     plot_prediction_bands(t1s, series_p, 'plts/bands_pessimistic.pdf', 0.1)
 
 
-def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5, show=False):
-    lower, upper = prediction_bands(times_series, alpha1)
+def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5, show=False, dist='lognorm'):
+    lower, upper = prediction_bands(times_series, alpha1, dist=dist)
     n1 = times_series.shape[0]
     for j in range(n1):
         if j == n1 - 1:
@@ -149,7 +149,6 @@ def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5,
 
 def prediction_bands(time_series, alpha1=0.1, dist='lognorm'):
     distribution = getattr(st, dist)
-    n = time_series.shape[0]
     tf = time_series.shape[2]
     x0 = time_series[0, 0, 0]
 

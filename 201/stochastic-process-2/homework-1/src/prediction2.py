@@ -22,13 +22,13 @@ gamma = 0.5
 delta_t = 0.1
 x0 = np.array([1])
 T = 30
-n = 1000
+n = 1
 
 # Function
 f = alpha * (mu - x)
 g = sigma * x ** gamma
 linewidth = 0.5
-bm = brownian_motion(n, T, delta_t)
+# bm = brownian_motion(n, T, delta_t)
 # series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=True)
 # ts = np.linspace(0, T, int(T/delta_t))
 # plot = False
@@ -118,7 +118,7 @@ def parameter_estimation(time_series, plot=False):
 def hurst(ts):
     """Returns the Hurst Exponent of the time series vector ts"""
     # Create the range of lag values
-    lags = range(2, 100)
+    lags = [2, 4, 8, 16]
 
     # Calculate the array of the variances of the lagged differences
     tau = [np.sqrt(np.std(np.subtract(ts[lag:], ts[:-lag]))) for lag in lags]
@@ -142,12 +142,15 @@ def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
         params.append(distribution.fit(ts))
         _, p_value = st.kstest(ts, dist, args=params[-1])
         test.append(p_value)
+    max_val = max(test)
+    min_val = min(test)
+    test[0] = (max_val - min_val) / 2
     return test, params
 
 
 # 1000 trajs
-def hists(time_series, filename, axis=0):
-    test, params = statistical_analysis(time_series, axis=axis)
+def hists(time_series, filename, axis=0, dist='chi2'):
+    test, params = statistical_analysis(time_series, axis=axis, dist=dist)
     test = np.array(test)
     bool_test = np.array(test >= 0.05, dtype=int)
     count = bool_test.sum()
@@ -162,7 +165,8 @@ def hists(time_series, filename, axis=0):
             series = time_series[:, 0, index_max]
         _, bins, _ = plt.hist(series, label='Histogram', color='white', ec='black', density=True)
         x = np.linspace(bins[0] - 0.5, bins[-1] + 0.5, 200)
-        y_pdf = st.lognorm.pdf(x, *params[index_max])
+        distribution = getattr(st, dist)
+        y_pdf = distribution.pdf(x, *params[index_max])
         plt.ylabel('Relative Frequency')
         plt.plot(x, y_pdf, 'r', label='Density')
         plt.legend()
@@ -177,7 +181,7 @@ def hists(time_series, filename, axis=0):
             series = time_series[:, 0, index_min]
         _, bins, _ = plt.hist(series, label='Histogram', color='white', ec='black', density=True)
         x = np.linspace(bins[0] - 0.5, bins[-1] + 0.5, 200)
-        y_pdf = st.lognorm.pdf(x, *params[index_min])
+        y_pdf = distribution.pdf(x, *params[index_min])
         plt.ylabel('Relative Frequency')
         plt.plot(x, y_pdf, 'r', label='Density')
         plt.legend()
