@@ -28,3 +28,4 @@
 *.zip
 *.o
 **/.idea
+**/.ipynb_checkpoints
