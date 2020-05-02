@@ -135,11 +135,12 @@ def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5,
         if j == n1 - 1:
             plt.plot(ts, times_series[j, 0, :].transpose(), color='grey', alpha=0.25, linewidth=linewidth,
                      label='Trajectories')
-        plt.plot(ts, times_series[j, 0, :].transpose(), color='grey', alpha=0.05, linewidth=linewidth)
-    plt.plot(ts, upper, 'r', linewidth=linewidth, label='Prediction Bands')
-    plt.plot(ts, lower, 'r', linewidth=linewidth)
+        plt.plot(ts, times_series[j, 0, :].transpose(), color='grey', alpha=0.01, linewidth=linewidth)
+    plt.plot(ts, upper, 'b', linewidth=2 * linewidth, label='Prediction Bands')
+    plt.plot(ts, lower, 'b', linewidth=2 * linewidth)
     plt.xlabel("Days")
     plt.ylabel("$X_t$")
+    plt.ylim((-10, 35))
     plt.legend()
     plt.savefig(filename, bbox_inches='tight')
     if show:

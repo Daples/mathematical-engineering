@@ -149,13 +149,12 @@ def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
 
 
 # 1000 trajs
-def hists(time_series, filename, axis=0, dist='chi2'):
+def hists(time_series, filename, axis=0, dist='chi2', plot_hist=False):
     test, params = statistical_analysis(time_series, axis=axis, dist=dist)
     test = np.array(test)
     bool_test = np.array(test >= 0.05, dtype=int)
     count = bool_test.sum()
     print(count/bool_test.size)
-    plot_hist = True
     if plot_hist:
         index_max = int(np.argmax(test))
         index_min = int(np.argmin(test))
