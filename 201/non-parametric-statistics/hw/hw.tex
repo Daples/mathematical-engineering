@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=3cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% BIB-LATEX STUFF
+\usepackage[style=numeric,
+            bibstyle=numeric,
+            citestyle=numeric,
+            hyperref=true,
+            backend=biber]{biblatex}
+\addbibresource{ref.bib} %Put relative path to ref
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
+
+%%%% Lambda Calculus Symbols
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Ordinal Lambda Calculus Symbols
+\newcommand{\ordAlph}{\Sigma_{\text{Ord}}}
+\newcommand{\termOrd}{\text{Term}_\text{Ord}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\sk}{\mathrm{sk}}
+
+%%%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+%%%%%%%% START DOCUMENT
+
+\title{Non-Parametric Statistics Workshop 1}
+\author{David Plazas Escudero \\
+  Juan Pablo Vidal \\
+  Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\printbibliography
+\end{document}
