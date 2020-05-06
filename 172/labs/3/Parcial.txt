@@ -1,8 +1,0 @@
-Simulacro de parcial
-1. c)
-2. c)
-3.
-02 q.size() > 1
-03 <=
-04 q.remove()
-06 q.remove()

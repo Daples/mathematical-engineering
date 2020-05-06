@@ -1,9 +1,0 @@
-1. 
-a) lista.size()
-b) lista.insert(auxiliar.pop(), lista.size())
-
-2.
-a) auxiliar1.size() > 0 - auxiliar2.size() > 0
-b) personas.offer(edad)
-
-3. O(n²)
