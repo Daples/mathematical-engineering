@@ -402,14 +402,15 @@ for $k>1$.
   P(|Y-\mu|\geq t)\leq\dfrac{\sigma^2}{t^2}.
 \]
 
-Let $P(|X-\mu|>k \sigma)=P(-k \sigma>X-\mu>k \sigma)$
+Let
 \begin{align*}
   P(|X-\mu|>k \sigma) &=P(-k \sigma>X-\mu>k \sigma) \\
                       &=P(-k \sigma+\mu>X>k \sigma+\mu) \\
                       &=P(X<\mu-k \sigma)+P(X>k \sigma+\mu) \\
                       &=P\left(X<\frac{1-k}{\beta}\right)+1-P\left(X<\frac{k+1}{\beta}\right) \quad \text { but } 1-k<0\\
                       &=1-\left(1-e^{-\frac{k+1}{\beta^{2}}}\right) \\
-                      &=P(|X-\mu|>k \sigma) \leq \frac{\sigma^{2}}{(k \sigma)^{2}} \\
+                      &=P(|X-\mu|>k \sigma)\\
+                      &\leq \frac{\sigma^{2}}{(k \sigma)^{2}} \\
                       &\leq \frac{1}{k^{2}}
 \end{align*}
 
