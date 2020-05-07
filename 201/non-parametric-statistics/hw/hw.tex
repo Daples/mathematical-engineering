@@ -59,6 +59,7 @@
 %%%% Statistics
 \newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
 \newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
+\renewcommand{\P}[1]{\mathrm{P}\left(#1 \right)}
 
 %%%% Lambda Calculus Symbols
 \newcommand{\dneq}{\,\, \# \,\,}
@@ -98,6 +99,10 @@
 % https://www.overleaf.com/learn/latex/Errors/LaTeX_Error:_Unknown_float_option_%60H%27
 \usepackage{float}
 
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
 %%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
 % Compile with flag -shell-escape
 %\usepackage{minted}
@@ -115,7 +120,28 @@
 \begin{document}
 \maketitle
 \section{Workshop Exercises}
-\subsection*{Exercise 3}
+\subsection*{Exercise 1 (10\%)}
+The data used is the average daily temperatures in Canada for the past
+35 years. The empirical cumulative distributions (ECDFs) for each year
+are presented in Figure \ref{fig:ecdfs_temps}, where the yellow-most
+curve represents the ECDF of the data recorded for the first year, and
+the blue-most is the last year.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{../figs/ecdfs.pdf}
+    \caption{Empirical distributions by years.}
+    \label{fig:ecdfs_temps}
+\end{figure}
+
+Based on this plots, it can be observed a climate change effect over
+the years. The plots of the first years arise for lower values of the
+temperature $T$, whereas the last years tend to be on the right of the
+plot. This can be interpreted as follows: since the plots for the
+early years are on the left, these years reported more data on lower
+average daily temperature than the most recent years. This means that
+recent years have been hotter in average daily temperature.
+
+\subsection*{Exercise 3 (10\%)}
 Calculate and plot the confidence bands for the empirical continuous
 distribution function (ECDF) of the coldest and hottest year in
 average with a confidence of 95 \% . Are there any sectors that are
@@ -156,20 +182,657 @@ not enclosed in the bands?
   upper bound and the final point.
 \end{proof}
 
-\subsection*{Exercise 4}
+\subsection*{Exercise 4 (10\%)}
+Write and execute a code that allows to visualize the Glivenko
+Cantelli for a Weibull distribution.
+\begin{proof}
+  The Glivenko Cantelli shows the relationship of how the difference
+  between the empirical and theoretical distribution changes depending
+  of the number of the sample.
 
-\subsection*{Exercise 7}
+  In this manner, if $n$ is the size of the sample, $\hat{F}_n(\cdot)$ is
+  the ECDF of that sample and $F(\cdot)$ is the theoretical distribution
+  the theorem states that:
+  \begin{equation*}
+    \sup_x \mid \hat{F_n}(x) - F(x) \mid \xrightarrow[]{\text{a.s.}} 0
+  \end{equation*}
+  In these manner, we generated Weibull random variables of different
+  sizes $n_i$ calculated with:
+  \begin{equation*}
+    n_i = 2^i, \quad \text{for } i=1,\ldots,20
+  \end{equation*}
+  The results of the experiment can be found in Figure \ref{fig:ex4}.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{../figs/weibull.pdf}
+    \caption{Glivenko Cantelli theorem visualization.}
+    \label{fig:ex4}
+  \end{figure}
 
-\subsection*{Exercise 11}
+  It is clear that the biggest difference between the ECDF and the
+  theoretical distribution starts to go to 0 when $n$ gets
+  bigger. Furthermore, although the behavior in the graph does not
+  show a monotone decrease, it does display the asymptotic behavior
+  described in the theorem.
+\end{proof}
 
-\subsection*{Exercise 12}
+\subsection*{Exercise 5 (5 \%)}
+\begin{theorem}[Jensen's Inequality]
+  Let $g(\cdot)$ be a concave function and let $X$ be a random
+  variable, then
+\[
+  \E{g(X)} \leq g(\E{X}).
+\]
+\end{theorem}
 
-\subsection*{Exercise 14}
+\begin{proof}
+  Let $g(\cdot)$ be a concave function and $L(x)$ be its tangent line
+  at a fixed point $x_0$. It holds that (see Theorem 6 from
+  \cite{nachbar2018concave})
+\begin{equation}\label{eq:conc}
+  g(x) \leq L(x).
+\end{equation}
+If $x_0=\E{X}$. From (\ref{eq:conc}) and given that $\E{\cdot}$
+preserves order, we have
+\[
+  \E{g(X)} \leq \E{L(X)} = \E{a+bX} = a + b\E{X} = L(\E{X}) =
+  g(\E{X}).
+\]
+\end{proof}
 
-\section{Book Exercises}
-All exercises in this section are extracted from \parencite{wasserman2006}.
+\subsection*{Exercise 7 (Extra)}
+\label{subsec:7}
+Deduce the distribution and density of the $j$-th ordered
+statistic. Explain with detail what would be a simple procedure to
+simulate the $j$-th ordered statistic. Simulate 1000 observations of
+some ordered statistic of a sample of size n that comes from a Weibull
+distribution. Draw in a same graph the ECDF and theoretical
+distribution.
 
-\subsection*{Exercise 16--10}
+\begin{proof}
+  Let's first deduce the distribution and density of the $j$-th
+  ($X_{[j]}$) ordered statistic. Let $X_1, \ldots, X_n$ be independent
+  random variables that come from a distribution $F(\cdot)$. Hence,
+  the probability that $X_i \le t$ is given by:
+  \begin{equation*}
+    \P{X_i \le t} = F(t)
+  \end{equation*}
+  Let $Z_t$ be a random variable that represents the number of
+  variables whose value are less than $t$. Hence:
+  \begin{equation*}
+    Z_t \in \{0, 1, \ldots, n\}
+  \end{equation*}
+  Hence:
+  \begin{align*}
+    \P{Z_t = 0} &= \P{X_1 > t \wedge \ldots \wedge X_n>t} \\
+                &= \P{X_1 > t} \ldots \P{X_n > t} \\
+                &= (1 - F(t))\ldots (1 - F(t)) \\
+                &= (1 - F(t))^n \\
+    \P{Z_t = 1} &= \binom{n}{1} \P{X_1 \le t \wedge X_2 > t \wedge \ldots \wedge X_n > t} \\
+                &=\binom{n}{1} F(t) (1 - F(t)) \ldots (1 - F(t)) \\
+                &= \binom{n}{1} F(t) (1 - F(t))^{n-1} \\
+                &\quad \vdots \\
+    \P{Z_t = j} &= \binom{n}{j} F(t)^j (1 - F(t))^{n - j}
+  \end{align*}
+  Hence, the distribution $j$-th ordered statistic is given by:
+  \begin{equation*}
+    \label{eq:jth}
+    \P{X_{[j]} \le t} = \P{Z_t \ge j} = \sum_{i=j}^n \binom{n}{i} F(t)^i (1 - F(t))^{n - i}
+  \end{equation*}
+  In these manner, we obtained the distribution for the $j$-th ordered
+  statistic. Then, to obtain the density ($f_{[j]}(\cdot)$) we just
+  differentiate hence:
+  \begin{align*}
+    f_{[j]}(t) &= \frac{d}{dt} \P{X_{[j]} \le t} \\
+               &= \sum_{i=j}^n \binom{n}{i} \left[i F(t)^{i-1}(1 - F(t))^{n-i}f(t) -
+                  (n - i) F(t)^i(1 - F(t))^{n-i-1}f(t)\right] \\
+               &= f(t)\sum_{i=j}^n \binom{n}{i}F(t)^{i-1}(1-F(t))^{n-i-1}\left[i(1 - F(t))
+                 - (n - i)F(t)\right] \\
+               &= f(t) \sum_{i=j}^n \binom{n}{i}F(t)^{i-1}(1 - F(t))^{n-i-1}
+                 (i - nF(t)) \\
+               &= f(t) \left[\sum_{i=j}^n i\binom{n}{i} F(t)^{i-1}(1 - F(t))^{n -i-1} -
+                 \sum_{i=j}^n n \binom{n}{i} F(t)^i(1 - F(t))^{n - i - 1}\right] \\
+               &= nf(t) \left[\sum_{i=j}^n \binom{n-1}{i-1}F(t)^{i-1}(1 - F(t))^{n -i-1} -
+                  \sum_{i=j}^n \binom{n}{i} F(t)^i(1 - F(t))^{n - i - 1}\right]
+  \end{align*}
+  Furthermore, simulating a $j$-th statistic can be done easily. In
+  first place, generate samples of size $n$ and obtain the $j$-th
+  statistic of that sample. These generates one data of the $j$-th
+  ordered statistic. Repeat the previous process until the desired
+  number of data is obtained.
+
+  The result of the simulation of the $5$-th ordered statistic for a
+  Weibull distribution can be found in Figure \ref{fig:ex7}.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{../figs/order.pdf}
+    \caption{Comparison between ECDF and theoretic distribution.}
+    \label{fig:ex7}
+  \end{figure}
+\end{proof}
+
+\subsection*{Exercise 9 (5 \%)}
+Prove that if $X\sim \mathrm{Poisson}(\lambda)$, then
+\[
+  P(X\geq 2\lambda)\leq \dfrac{1}{\lambda}.
+\]
+\begin{proof}
+  Let $X\sim \mathrm{Poisson}(\lambda)$. Recall Chebyshev's
+  inequality: let $Y$ be a random variable and let $\E{Y}=\mu$ and
+  $\V{Y}=\sigma^2$, then
+\[
+  P(|Y-\mu|\geq t)\leq\dfrac{\sigma^2}{t^2}.
+\]
+Clearly, $\E{X}=\V{X}=\lambda$. If we set $t=\lambda$, then
+\[
+\begin{split}
+  P(|X-\lambda|\geq\lambda)&\leq\dfrac{1}{\lambda}\\
+  P\left[(X-\lambda\geq\lambda)\cup(X-\lambda\leq-\lambda)\right]&\leq\dfrac{1}{\lambda}\\
+  P\left[(X\geq2\lambda)\cup(X\leq0)\right]&\leq\dfrac{1}{\lambda}\\
+  P(X\geq2\lambda)+P(X\leq0)&\leq\dfrac{1}{\lambda}\\
+  P(X\geq 2\lambda)&\leq \dfrac{1}{\lambda}
+\end{split}
+\]
+\end{proof}
+
+\subsection*{Exercise 10 (5 \%)}
+\begin{definition}
+  The sequence $\{X_n\}$ of random variables is said to converge in
+  probability to $X$ if
+\[
+\forall\epsilon>0, \ \lim_{n\rightarrow\infty}P\left(|X_n-X|>\epsilon\right)=0
+\]
+\end{definition}
+
+\begin{definition}
+  The sequence $\{X_n\}$ of random variables is said to converge in
+  mean-square to $X$ if
+\[
+  \lim_{n\rightarrow\infty}\E{(X_n-X)^2}=0
+\]
+\end{definition}
+\begin{theorem}
+  The convergence in mean-square implies convergence in probability.
+\end{theorem}
+
+\begin{proof}
+  Let $\{X_n\}$ be a sequence of random variables that converges in
+  mean-square to $X$. Recall Markov's inequality: Let $Y$ be a
+  non-negative random variable and suppose $\E{Y}$ exists. Then for
+  any $t>0$,
+\[
+  P(Y>t) \leq \dfrac{\E{Y}}{t}.
+\]
+Take $Y=|X_n-X|$ and $t=\epsilon$, then
+\[
+\begin{split}
+  P(|X_n-X|>\epsilon) &= P\left[(X_n-X)^2>\epsilon^2\right]\\
+  & \leq \dfrac{\E{(X_n-X)^2}}{\epsilon^2}
+\end{split}
+\]
+Since $\{X_n\}$ converges in mean-square to $X$
+
+, $\E{(X_n-X)^2}\rightarrow0$ as $n\rightarrow\infty$, which directly
+implies that $P(|X_n-X|>\epsilon)\rightarrow0$ as
+$n\rightarrow\infty$.
+\end{proof}
+
+
+\subsection*{Exercise 11 (7 \%)}
+Show that the ECDF converges in probability to the theoretical
+continuous distribution function.
+\begin{proof}
+  Let $X_i$, for $i=1,\ldots,n$, be a independent data sample. Then,
+  the empirical distribution function is defined as
+  \begin{equation*}
+    \hat{F}_n(x) = \frac{1}{n} \sum_{i=1}^nI(X_i \le x)
+  \end{equation*}
+  where
+  \begin{equation*}
+    I(X_i \le x) =
+    \begin{cases}
+      1 &\text{if } X_i \le x \\
+      0 &\text{otherwise}
+    \end{cases}
+  \end{equation*}
+
+  Hence, to see that it converges in probability lets see if the MSE
+  tends to 0 when the number of samples is bigger. Let's calculate the
+  expectancy of the estimator.
+  \begin{align*}
+    \E{\hat{F}_n(x)} &= \E{\frac{1}{n}\sum_{i=1}^nI(X_i \le x)} \\
+                     &=\frac{1}{n}\sum_{i=1}^n \E{I(X_i \le x)} \\
+                     &= \frac{1}{n} \sum_{i=1}^n \P{X_i \le x} \\
+                     &= \frac{1}{n} \sum_{i=1}^nF(x) \\
+                     &= F(x)
+  \end{align*}
+  In this manner, it is a non-biased estimator for the theoretical
+  distribution. Hence, the MSE is calculated by the variance. Then:
+  \begin{align*}
+    \mathrm{MSE} &= \V{\hat{F}_n(x)} + \mathrm{Bias}\left(\hat{F}_n(x), F(x)\right)\\
+                 &= \V{\frac{1}{n} \sum_{i=1}^n I(X_i \le x)} \\
+                 &= \frac{1}{n^2} \sum_{i=1}^n \V{I(X_i \le x)} \\
+                 &= \frac{1}{n^2} \sum_{i=1}^n \left[\P{X_i \le x}(1 - \P{X_i \le x})\right] \\
+                 &= \frac{1}{n^2} \sum_{i=1}^n \left[F(x)(1 - F(x))\right] \\
+                 &= \frac{F(x)(1 - F(x))}{n}
+  \end{align*}
+  Hence, when $n \rightarrow \infty$ the MSE tends to 0. Therefore,
+  \begin{equation*}
+    \hat{F}_n(x) \xrightarrow[]{P} F(x)
+  \end{equation*}
+\end{proof}
+
+\subsection*{Exercise 12 (12 \%)}
+Consider the daily temperatures of the hottest year in
+average. Calculate a confidence interval for the maximum
+temperature. Calculate the bias of $T_{[n]}$ and the variance.
+
+\begin{proof}
+  To calculate the interval for the maximum temperature, we applied
+  the normal bootstrap method. The normal bootstrap method consists
+  of, in a sample $X_1, \ldots, X_n$ and a confidence of $1 - \alpha$:
+  \begin{enumerate}
+  \item First, extract $k$ samples of the size $n$ with repetition and
+    calculate the desired statistic to find it's confidence
+    intervals.  Let $S_i$ be the sample of each statistic calculated.
+  \item Calculate:
+    \begin{equation*}
+      v_{\text{boot}} = \frac{1}{k} \sum_{i=1}^k\left(S_i - \frac{1}{n}
+        \sum_{i=1}^k S_i\right)^2
+     \end{equation*}
+   \item Then, the interval of confidence for the statistic is, with
+     $S$ the statistic calculated in the original sample:
+     \begin{equation*}
+       (S - z_{\alpha/2} \sqrt{v_{\text{boot}}} , S + z_{\alpha/2} \sqrt{v_{\text{boot}}})
+     \end{equation*}
+     where $z_{\alpha/2}$ is the $1 - \alpha / 2$ quantile of a
+     standard normal distribution.
+   \end{enumerate}
+   The result for the maximum temperatures interval is, with
+   $\alpha=0.05$ and $k = 1000$:
+   \begin{equation*}
+     T_{[n]} \in (18.486, 18.714)
+   \end{equation*}
+
+   On the other hand, to calculate the variance and bias the Jackknife
+   method was used. The Jackknife method consists of:
+   \begin{enumerate}
+   \item First, generate new samples by removing one data from the
+     original sample. Then, calculate the statistic for this new
+     sample. Let $S_i$ be the sample of each statistic calculated and
+     $S$ be statistic calculated in the original sample.
+   \item To calculate the bias, use:
+     \begin{equation*}
+       \text{Bias} = (n - 1) \left(\frac{1}{n} \sum_{i=1}^n S_i \right)
+     \end{equation*}
+   \end{enumerate}
+\end{proof}
+
+\subsection*{Exercise 14 (Extra)}
+Show the differences between the parametric and non-parametric
+bootstrap. Investigate robust versions of the bootstrap method and
+show examples about their performance.
+
+\begin{proof}
+  Following the ideas from \cite{wasserman2006} and
+  \cite{kulperger2018}, Bootstrap is performed over a sample
+  $X_1,...,X_n$. In the case of the nonparametric Bootstrap, we
+  generate new samples (resampling) based on the ECDF $\hat{F}_n$ of
+  the sample; the generation of samples from the ECDF is equivalent to
+  draw samples $X_1^j,...,X_n^j$ from the original data \textbf{with
+    replacement} for $j=1,...,N$, where $N$ is the number of Bootstrap
+  resamples. On the other hand, the parametric Bootstrap takes into
+  consideration that the data comes from an specific distribution
+  $F_\theta$ that, clearly, depends on an unknown parameter $\theta$;
+  instead of drawing from $\hat{F}_n$, we draw from
+  $F_{\hat{\theta}}$, where $\hat{\theta}$ is an estimator of $\theta$
+  based on the sample. This method is just as accurates as the
+  nonparametric, but under certain scenarios could not behave
+  properly. An excellent example of the parametric and nonparametric
+  Bootstrap is presented in point 11 of page 40 from
+  \cite{wasserman2006}.
+
+\end{proof}
+
+\subsection*{Exercise 15 (13 \%)}
+The data used in this section is bivariate, taking the temperature
+from the years that are, in average, the coldest and hottest. Let
+$\boldsymbol{\mathrm{Y}}\in\mathbb{R}^{n\times2}$ be the set of
+bivariate samples of size $n$ (data matrix). In our case, $n=365$
+days.
+
+
+The usual cutout of outliers in elliptical data (e.g. bivariate
+normally distributed data) is made using the $\chi^2$
+distribution. However, the bivariate data obtained from the
+temperatures is not guaranteed to follow such elliptical
+behavior. Therefore, the usual cutout will be done with the same
+methodology as the robust variations. The methods for estimating the
+covariance matrix will be first presented, then the methodology to
+remove outliers will be described and finally the results will be
+presented.
+
+\subsubsection*{Usual Estimation}
+\begin{definition}
+  Let $\boldsymbol{\mathrm{x}}$ be an multivariate observation from a
+  set of observations with mean vector $\boldsymbol{\mu}$ and
+  covariance matrix $\Sigma$. The Mahalanobis distance of the
+  observation $\boldsymbol{\mathrm{x}}$ is
+\begin{equation}\label{eq:mahal}
+  d^2(\boldsymbol{\mathrm{x}}) = (\boldsymbol{\mathrm{x}} - \boldsymbol{\mu})^T\Sigma^{-1}(\boldsymbol{\mathrm{x}} - \boldsymbol{\mu}).
+\end{equation}
+
+\end{definition}
+
+Clearly, the usual cutout is performed using the natural estimation of
+the Mahalanobis distance, using the standard unbiased estimators of
+the mean vector and covariance matrix from the data matrix
+$\boldsymbol{\mathrm{Y}}$, presented respectively in Equation
+(\ref{eq:nat_est}), where $\boldsymbol{\mathrm{y}}_i$ is the $i$-th
+row of the data matrix $\boldsymbol{\mathrm{Y}}$.
+
+\begin{equation}\label{eq:nat_est}
+  \hat{\boldsymbol\mu}=\bar{\boldsymbol{\mathrm{y}}}=\left[\dfrac{1}{n}\sum_{i=1}^{n}\boldsymbol{\mathrm{y}}_i\right]^T,\quad \hat{\Sigma}=S=\dfrac{1}{n}\sum_{i=1}^{n} (\boldsymbol{\mathrm{y}}_i^T-\bar{\boldsymbol{\mathrm{y}}})(\boldsymbol{\mathrm{y}}_i^T-\bar{\boldsymbol{\mathrm{y}}})^T
+\end{equation}
+
+\subsubsection*{Comedian Estimation}
+
+The first robust calculation of the Mahalanobis distance is based on a
+robust estimation of the covariance matrix following the ideas from
+\cite{falk1997mad}, using the following definition.
+\begin{definition}
+  Let $X$ and $Y$ be random variables. The comedian between $X$ and
+  $Y$ is defined as
+\[
+  \mathrm{Com}(X,Y)=\mathrm{Med}\left[(X-\mathrm{Med}(X))(Y-\mathrm{Med}(Y))\right]
+\]
+\end{definition}
+The covariance matrix is then estimated by applying the comedian to
+each entry. Then the Mahalanobis distance formula is applied using
+this matrix and the median vector instead of the mean.
+
+\subsubsection*{Kendall Estimation}
+This method uses the Kendall rank correlation coefficient, usually
+known as Kendall's $\tau$ coefficient, originally proposed in
+\cite{kendall1938new}. Each entry of the covariance matrix is
+estimated using
+\[
+  \mathrm{Cov}(X,Y)=\rho_kS_XS_Y,
+\]
+where $\rho_k$ is Kendall's $\tau$ coefficient, and $S_X$ and $S_Y$
+are the respective standard deviations.
+
+\subsubsection*{Spearman Estimation}
+This estimation was performed similarly to Kendall's. The covariance
+matrix is estimated using
+\[
+  \mathrm{Cov}(X,Y)=\rho_sS_XS_Y,
+\]
+where $\rho_s$ is Spearman's correlation coefficient (see
+\cite{ce1904general}), and $S_X$ and $S_Y$ are the respective standard
+deviations.
+
+\subsubsection*{Cutout Procedure}
+As previously mentioned, the cutout method is performed with the same
+procedure for all the covariance matrix estimations. The procedure is
+presented as follows:
+\begin{enumerate}
+\item Estimate the covariance matrix accordingly to the estimation
+  method.
+  \item Apply equation (\ref{eq:mahal}) to each bivariate data, with
+    the estimation of the covariance matrix from step 1 and the
+    corresponding estimated mean vector.
+  \item Fit a continuous distribution to the vector of squared
+    distances: take the available continuous distributions from
+    Python's package SciPy, fit each distribution to the squared
+    distances and apply a Kolmogorov-Smirnov goodness-of-fit test in
+    order to rank the fitted distributions. Keep the best fit.
+  \item Calculate the $\alpha/2$ and $1-\alpha/2$ quantiles of the fitted distibution.
+  \item Mark the outliers as the data points that are beyond the
+    quantiles obtained on step 4.
+\end{enumerate}
+
+
+\subsubsection*{Results}
+In Figure \ref{fig:scatter} shows the scatter plot of the bivariate
+data used in this section.
+
+\begin{figure}[H]
+  \centering \includegraphics[scale=.5]{../figs/scatter.pdf}
+  \caption{Scatter plot of bivariate data.}
+  \label{fig:scatter}
+\end{figure}
+
+The first cut method was done with the usual estimation of the
+covariance matrix. In Figure \ref{fig:nrob_cut_nnoise}, the results
+for this procedure are presented. The best-fit was a Mielke's
+Beta-Kappa distribution, whose probability density function(p.d.f.) is
+\[
+f(t)=\dfrac{kt^{k-1}}{(1+t^s)^{1+\frac{k}{s}}},\quad t>0
+\]
+with parameters $k=0.96$, $s=3.85$, loc=0.01 and scale=3.37, and it
+was not rejected with a p-value of $0.34$.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/non_robust_hist_no-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/non_robust_scatter_no-noise.pdf}
+    \caption{Outliers cutout.}
+    \end{subfigure}
+  \caption{Results using the usual estimation.}
+  \label{fig:nrob_cut_nnoise}
+\end{figure}
+
+On the other hand, the first robust approach is usig the Comedian
+procedure above described, where each entry is estimated using the
+comedian and the mean vector is replaced with the median vector. The
+results are shown in Figure \ref{fig:comedian_cut_nnoise}. The
+best-fit was an inverse gaussian distribution, whose density is given
+by
+\[
+  f(t)=\dfrac{1}{\sqrt{2\pi t^3}}e^{-\frac{(t-\mu)^2}{2t\mu^2}}, \quad
+  t>0
+\]
+with parameters $\mu=1.11$, loc=-254.79 and scale=2667.77, and it not
+rejected with a p-value of $0.28$.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/comedian_hist_no-noise.pdf}
+      \caption{Fitted distribution.}
+    \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/comedian_scatter_no-noise.pdf}
+      \caption{Outliers cutout.}
+    \end{subfigure}
+  \caption{Results using the comedian estimation.}
+  \label{fig:comedian_cut_nnoise}
+\end{figure}
+
+
+Furthermore, the same procedure was carried out using the covariance
+matrix estimation based on Kendall's $\tau$ correlation
+coefficient. Figure \ref{fig:kendall_cut_nnoise} shows the obtained
+results for the bivariate data.  The best-fit was a folded normal
+distribution, whose p.d.f is given by
+\[
+  f(t)=\sqrt{\dfrac{2}{\pi}}\cosh{(ct)}e^{-\frac{(t^2+c^2)}{2}},\quad
+  t>0
+\]
+with parameters $\mu=1.01$, loc=0 and scale=2.19, and it was not
+rejected with a p-value of 0.45.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/kendall_hist_no-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/kendall_scatter_no-noise.pdf}
+    \caption{Outliers cutout.}
+    \end{subfigure}
+  \caption{Results using Kendall estimation.}
+  \label{fig:kendall_cut_nnoise}
+\end{figure}
+
+Finally, the last robust estimation of the covariance matrix was
+constructed using Spearman's correlation coefficient and the outlier
+detection results are presented in Figure
+\ref{fig:spearman_cut_nnoise}. The best-fit was a Gompertz
+distribution, whose p.d.f. is given by
+\[
+  f(t)=ce^{t}e^{-ce^{t}-1},\quad t>0
+\]
+with parameters $c=1.04$, loc=0 and scale=2.19, and it was not
+rejected with a p-value of 0.31.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/spearman_hist_no-noise.pdf}
+    \caption{Fitted distribution.}
+    \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/spearman_scatter_no-noise.pdf}
+    \caption{Outliers cutout.}
+    \end{subfigure}
+  \caption{Results using Spearman estimation.}
+  \label{fig:spearman_cut_nnoise}
+\end{figure}
+
+In the following results, the same procedures of outlier cutout is
+presented, but taking a "damaged" sample. This new sample takes 30
+random bivariate observations and adds normally distributed
+observations, with mean 10 and standard deviation of 0.5. The results
+for the usual, the comedian, the Kendall and the Spearman cutouts are
+presented, respectively, in Figures \ref{fig:nrob_cut_wnoise},
+\ref{fig:comedian_cut_wnoise}, \ref{fig:kendall_cut_wnoise} and
+\ref{fig:spearman_cut_wnoise}. It is important to highlight that the
+fitting was done assuming the same distributions from the previous
+procedures.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/non_robust_hist_with-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/non_robust_scatter_with-noise.pdf}
+    \caption{Outliers cutout.}
+  \end{subfigure}
+  \caption{Results using the usual estimation on contaminated data.}
+  \label{fig:nrob_cut_wnoise}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/comedian_hist_with-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/comedian_scatter_with-noise.pdf}
+    \caption{Outliers cutout.}
+  \end{subfigure}
+  \caption{Results using the comedian estimation on contaminated
+    data.}
+  \label{fig:comedian_cut_wnoise}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/kendall_hist_with-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/kendall_scatter_with-noise.pdf}
+    \caption{Outliers cutout.}
+  \end{subfigure}
+  \caption{Results using Kendall estimation on contaminated data.}
+  \label{fig:kendall_cut_wnoise}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/spearman_hist_with-noise.pdf}
+    \caption{Fitted distribution.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+    \centering
+    \includegraphics[scale=0.45]{../figs/spearman_scatter_with-noise.pdf}
+    \caption{Outliers cutout.}
+  \end{subfigure}
+  \caption{Results using Spearman estimation on contaminated data.}
+  \label{fig:spearman_cut_wnoise}
+\end{figure}
+
+
+\section{Book Exercises (Extra)}
+\subsection{Page 41, Exercise 11}
+All exercises in this section are extracted from
+\parencite{wasserman2006}.  Let
+$X_1,...,X_n\sim \mathrm{Uniform}(0,1)$, the maximum likelihood
+estimator (MLE) for $\theta=1$ is
+$\hat{\theta}=X_{\max}=\max\{X_1,...,X_n\}$. The distribution of
+$\hat{\theta}$ is a direct consequence of the proof made in Subsection
+\ref{subsec:7} and it is given by
+\[
+  F(t)=t^n.
+\]
+In Figure \ref{fig:max_density} shows the theoretical density of
+$X_{\max}$ and the approximation in histograms by parametric and
+nonparametric Bootstrap.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=.7]{../figs/max_density.pdf}
+  \caption{Density of $X_{\max}$, parametric and nonparametric
+    histograms of $X_{\max}$.}
+  \label{fig:max_density}
+\end{figure}
+
+Let $\hat{\theta}^*$ be the estimation of the parameter $\theta$ for
+each Bootstrap replication. For a parametric Bootstrap, one could draw
+samples from $F_{\hat{\theta}}$, instead of drawing samples from the
+empirial distribuion $\hat{F}_n$. Therefore, we would draw a $N$
+(number of Bootstrap iterations) new samples
+$X_1^j,...,X_n^j\sim\mathrm{Uniform}(0,X_{\max})$, for
+$j=1,...,N$. Clearly, $P(\hat{\theta}^*=\hat{\theta})=0$, since it is
+the probability of a point on a continuous random variable, which is
+obvious that it has a probability measure 0.
+
+On the other hand, for a nonparametric Bootstrap, the procedure would
+be to draw new samples from the empirical distribution, i.e. simply
+draw samples with replacement from the initial sample $X_1,...,X_n$
+and calculate the new estimation. In this case,
+$P(\hat{\theta}^*=\hat{\theta})\approx1-(1-\frac{1}{n})^n$, since the
+event $\hat{\theta}^*=\hat{\theta}$ could be interpreted as the
+probability of $\hat{\theta}^*$ appearing at least once within the
+$j$-th resample for the nonparametric Bootstrap.
+
+Now, in order to calculate the true probabilty of the event
+$\hat{\theta}^*=\hat{\theta}$, take the limit as
+$n\rightarrow\infty$. It is well known that
+$(1-\frac{1}{n})^n\rightarrow e^{-1}$ as $n\rightarrow\infty$. Then,
+$P(\hat{\theta}^*=\hat{\theta})=1-e^{-1}\approx0.632$.
 
 \printbibliography
 \end{document}
