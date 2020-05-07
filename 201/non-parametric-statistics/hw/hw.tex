@@ -143,6 +143,79 @@ early years are on the left, these years reported more data on lower
 average daily temperature than the most recent years. This means that
 recent years have been hotter in average daily temperature.
 
+\subsection*{Exercise 2 (Extra)}
+
+The plug-in principle is a technique used in probability theory and
+statistics to estimate a feature of a probability distribution (e.g.,
+the expected value, the variance, a quantile) that cannot be computed
+exactly. In general, the plug-in principle says that a feature of a
+given distribution can be approximated by the same feature of the
+empirical distribution of a sample of observations drawn from the
+given distribution \cite{van2000asymptotic}.
+
+The feature of the empirical distribution is called a plug-in estimate
+of the feature of the given distribution. For example, a quantile of a
+given distribution can be approximated by the analogous quantile of
+the empirical distribution of a sample of draws from the given
+distribution.
+\\
+
+The following is a formal definition of plug-in estimate.
+\\
+
+A statistical functional $T(F)$ is any function of $F$.
+
+The plug-in estimator of $\theta=T(F)$ is defined by
+
+\[
+  \widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)
+\]
+
+A functional of the form $\int a(x) d F(x)$ is called a linear
+functional.
+
+The plug-in estimator for linear functional $T(F)=\int a(x) d F(x)$
+is:
+
+\[
+  T\left(\widehat{F}_{n}\right)=\int a(x) d
+  \widehat{F}_{n}(x)=\frac{1}{n} \sum_{i=1}^{n} a\left(X_{i}\right)
+\]
+
+It is important to note that $T\left(F_{n}\right)$ converges to $T(F)$
+as the sample size $n$ increases.
+
+In the practice, the limited area is calculated in the first quadrant
+for each empirical curve of the temperature data, this allows to
+extract the plug-in estimator of the mean, since the difference
+between the area with positive values and the area with negative
+values is extracted from the empirical curve, which allows estimating
+the mean of the series. The plug-in estimation of the mean for each
+year is presented in Figure \ref{fig:plug-in}, where a comparison with
+the natural estimator of the mean is presented.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{../figs/means.pdf}
+    \caption{Mean estimation of the series.}
+    \label{fig:plug-in}
+\end{figure}
+
+From Figure \ref{fig:plug-in} an almost identical estimate can be seen
+between the two estimators, however Figure \ref{fig:comparision} shows
+a slight difference between the mean estimates, this is because the
+only case in which both estimates are identical is when the sample
+size is infinite.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{../figs/mle-vs-plugin.pdf}
+    \caption{Comparison between the natural estimator and the plug-in estimator.}
+    \label{fig:comparision}
+\end{figure}
+
 \subsection*{Exercise 3 (10\%)}
 Calculate and plot the confidence bands for the empirical continuous
 distribution function (ECDF) of the coldest and hottest year in
@@ -313,6 +386,39 @@ distribution.
   \end{figure}
 \end{proof}
 
+\subsection*{Exercise 8 (10\%)}
+Suppose $X$ is an exponentially random variable of parameter
+$\beta$. Calculate:
+
+$$P(|X-\mu|>k \sigma)$$
+
+for $k>1$.
+
+\begin{proof}
+  Recall Chebyshev's inequality: let $Y$ be a random variable and let
+  $\E{Y}=\mu$ and $\V{Y}=\sigma^2$, then
+
+\[
+  P(|Y-\mu|\geq t)\leq\dfrac{\sigma^2}{t^2}.
+\]
+
+Let $P(|X-\mu|>k \sigma)=P(-k \sigma>X-\mu>k \sigma)$
+\begin{align*}
+  P(|X-\mu|>k \sigma) &=P(-k \sigma>X-\mu>k \sigma) \\
+                      &=P(-k \sigma+\mu>X>k \sigma+\mu) \\
+                      &=P(X<\mu-k \sigma)+P(X>k \sigma+\mu) \\
+                      &=P\left(X<\frac{1-k}{\beta}\right)+1-P\left(X<\frac{k+1}{\beta}\right) \quad \text { but } 1-k<0\\
+                      &=1-\left(1-e^{-\frac{k+1}{\beta^{2}}}\right) \\
+                      &=P(|X-\mu|>k \sigma) \leq \frac{\sigma^{2}}{(k \sigma)^{2}} \\
+                      &\leq \frac{1}{k^{2}}
+\end{align*}
+
+Clearly $e^{-\frac{k+2}{\beta^{2}}}$ is always lesser than $1$ and
+because $k>1$ then $\frac{1}{k^{2}}$ is also lesser than one. Thus,
+$P(|X-\mu|>k \sigma)$ is bounded by Chebyshev's inequality.
+\end{proof}
+
+
 \subsection*{Exercise 9 (5 \%)}
 Prove that if $X\sim \mathrm{Poisson}(\lambda)$, then
 \[
@@ -468,7 +574,79 @@ temperature. Calculate the bias of $T_{[n]}$ and the variance.
        \text{Bias} = (n - 1) \left(\frac{1}{n} \sum_{i=1}^n S_i \right)
      \end{equation*}
    \end{enumerate}
-\end{proof}
+ \end{proof}
+
+ \subsection*{Exercise 13 (13 \%)}
+ In this section, a sample of a uniform distribution in the interval
+ [0,1] is generated. Then a bootstrap method to calculate the variance
+ and a Jackknife method to calculate the bias of this sample are
+ implemented.
+
+The bootstrap and the jackknife are non-parametric methods for
+computing standard errors and confidence intervals
+\cite{rodgers1999bootstrap}.
+
+\subsubsection*{The Jackknife}
+
+Jackknife is a simple method for approximating the bias and variance
+of an estimator. Let $T_{n}=T\left(X_{1}, \ldots, X_{n}\right)$ be an
+estimator of some quantity $\theta$ and let
+$\operatorname{bias}\left(T_{n}\right)=\mathbb{E}\left(T_{n}\right)-\theta$
+denote the bias. Let $T_{(-i)}$ denote the statistic with the
+$i^{\text {th }}$ observation removed. The jackknife bias estimate is
+defined by
+\[
+  b_{\mathrm{jack}}=(n-1)\left(\bar{T}_{n}-T_{n}\right)
+\]
+
+where $\bar{T}_{n}=n^{-1} \sum_{i} T_{(-i)}$. The bias-corrected
+estimator is $T_{\mathrm{jack}}=T_{n}-b_{\mathrm{jack}}$
+
+\subsubsection*{The Bootstrap}
+
+Bootstrap is a method for estimating the variance and the distribution
+of a statistic $T_{n}=g\left(X_{1}, \ldots, X_{n}\right) .$
+
+Let $\mathbb{V}_{F}\left(T_{n}\right)$ denote the variance of
+$T_{n} .$ We have added the subscript $F$ to emphasize that the
+variance is a function of $F$. If we knew $F$ we could, at least in
+principle, compute the variance. For example, if
+$T_{n}=n^{-1} \sum_{i=1}^{n} X_{i}$ then
+\[
+  \mathbb{V}_{F}\left(T_{n}\right)=\frac{\sigma^{2}}{n}=\frac{\int
+    x^{2} d F(x)-\left(\int x d F(x)\right)^{2}}{n}
+\]
+which is clearly a function of $F$.
+
+With the bootstrap, we estimate $\mathbb{V}_{F}\left(T_{n}\right)$
+with $\mathbb{V}_{\widehat{F}_{n}}\left(T_{n}\right)$. In other words,
+we use a plug-in estimator of the variance. since,
+$\mathbb{V}_{\widehat{F}_{n}}\left(T_{n}\right)$ may be difficult to
+compute, we approximate it with a simulation estimate denoted by
+$v_{\text {boot }}$
+\\
+
+Its important to know that The jackknife is a linear approximation of
+the bootstrap.
+\\
+
+In the simulation, the Variance Bootstrap obtained from the uniform
+sample of the Order statistic is
+$v_{\text {boot }} = 3.5815$x$10^{-8}$, this indicates that almost all
+of the Order data values are nearly identical. Moreover, the
+theoretical bias and the Jackknife bias generated similar results,
+$b_{\mathrm{jack}}$ = $-1.6166$x$10^{-5}$ and
+$b_{\mathrm{theoretical}}$ = $-9.9990$x$10^{-5}$, which shows that the
+bias of the estimator is unbiased, hence the sampling distribution has
+a mean that is equal to the parameter being estimated.
+
+
+It should be noted that the jackknife method is less computationally
+expensive, but the bootstrap has some statistical advantages, such as
+its simplicity to derive estimates of standard errors and confidence
+intervals for complex estimators of complex parameters of the
+distribution.
+
 
 \subsection*{Exercise 14 (Extra)}
 Show the differences between the parametric and non-parametric
