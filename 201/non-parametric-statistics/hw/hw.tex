@@ -121,7 +121,7 @@
 \maketitle
 \section{Workshop Exercises}
 The code done to solve this workshop can be found in a Jupyter
-notebook in this \href{https://bit.ly/2SNMPod}{link}.
+notebook in \href{https://bit.ly/2SNMPod}{this link}.
 \subsection*{Exercise 1}
 The data used is the average daily temperatures in Canada for the past
 35 years. The empirical cumulative distributions (ECDFs) for each year
@@ -146,9 +146,9 @@ recent years have been hotter in average daily temperature.
 \subsection*{Exercise 2}
 
 The plug-in principle is a technique used in probability theory and
-statistics to estimate a feature of a probability distribution (e.g.,
-the expected value, the variance, a quantile) that cannot be computed
-exactly. In general, the plug-in principle says that a feature of a
+statistics to estimate a parameter of a probability distribution (e.g.,
+the expected value, the variance, a quantile) that cannot be exactly computed.
+In general, the plug-in principle says that a feature of a
 given distribution can be approximated by the same feature of the
 empirical distribution of a sample of observations drawn from the
 given distribution \cite{van2000asymptotic}.
@@ -157,24 +157,17 @@ The feature of the empirical distribution is called a plug-in estimate
 of the feature of the given distribution. For example, a quantile of a
 given distribution can be approximated by the analogous quantile of
 the empirical distribution of a sample of draws from the given
-distribution.
+distribution. The following is a formal definition of plug-in estimate.
 \\
 
-The following is a formal definition of plug-in estimate.
-\\
-
-A statistical functional $T(F)$ is any function of $F$.
-
-The plug-in estimator of $\theta=T(F)$ is defined by
+A statistical functional $T(F)$ is any function of $F$. The plug-in estimator of $\theta=T(F)$ is defined by
 
 \[
   \widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)
 \]
 
 A functional of the form $\int a(x) d F(x)$ is called a linear
-functional.
-
-The plug-in estimator for linear functional $T(F)=\int a(x) d F(x)$
+functional. The plug-in estimator for linear functional $T(F)=\int a(x) d F(x)$
 is:
 
 \[
@@ -202,8 +195,8 @@ the natural estimator of the mean is presented.
     \label{fig:plug-in}
 \end{figure}
 
-From Figure \ref{fig:plug-in} an almost identical estimate can be seen
-between the two estimators, however Figure \ref{fig:comparision} shows
+From Figure \ref{fig:plug-in}, an almost identical estimation can be seen
+between the two estimators, however it shows
 a slight difference between the mean estimates, this is because the
 only case in which both estimates are identical is when the sample
 size is infinite.
@@ -224,7 +217,9 @@ not enclosed in the bands?
 
 \begin{proof}
   Let $n$ be the size of the sample and $1 - \alpha$ the desired
-  confidence for the bands. To calculate the confidence bands for the
+  confidence for the bands. This method is based on the
+  Dvoretzky–Kiefer–Wolfowitz inquality (see \cite{wasserman2006}).
+  In order to calculate the confidence bands for the
   ECDF, we first define $\epsilon_n$ by the following formula:
   \begin{equation*}
     \epsilon_n = \sqrt{\frac{1}{2n} \ln\left(\frac{2}{\alpha}\right)}
@@ -269,9 +264,9 @@ Cantelli for a Weibull distribution.
   the ECDF of that sample and $F(\cdot)$ is the theoretical distribution
   the theorem states that:
   \begin{equation*}
-    \sup_x \mid \hat{F_n}(x) - F(x) \mid \xrightarrow[]{\text{a.s.}} 0
+    \sup_x \mid \hat{F_n}(x) - F(x) \mid \xrightarrow[]{\text{a.s.}} 0.
   \end{equation*}
-  In these manner, we generated Weibull random variables of different
+  We generated Weibull random variables of different
   sizes $n_i$ calculated with:
   \begin{equation*}
     n_i = 2^i, \quad \text{for } i=1,\ldots,20
@@ -319,8 +314,8 @@ preserves order, we have
 
 \subsubsection*{ L-estimator }
 
-An L-estimator is an estimator which is an L-statistic, a linear
-combination of order statistics of the measurements. They have the
+An L-estimator is  a linear combination of order statistics of the measurements,
+often called L-statistic. They have the
 advantage of being robust and simple to use, but tend to have problems
 with low efficiency. Not all L-estimators are robust (for example, the
 minimum, maximum and mean are not considered robust) and some have
@@ -328,7 +323,7 @@ better efficiency than others. L-statistics with multiple (correct)
 weights will tend to be more efficient than those with fewer weights
 or poorly chosen weights \cite{andersen2008modern}.
 
-L-estimators for a sample size n are defined by Tn:
+L-estimators for a sample size n are defined by $T_n$:
 
 \begin{align*}
   &T_{n}\left(X_{1}, \ldots, X_{n}\right)=\sum_{i=1}^{n} a_{i} X_{n,(i)}\\
@@ -339,10 +334,10 @@ L-estimators for a sample size n are defined by Tn:
 where: $X_{n}$ are the order statistics and $a_{i}$ are weight
 factors.
 
-L-estimators are useful in robust statistics, however, they are
-inefficient, and in modern times robust statistics M-estimators are
-preferred, though these are much more difficult computationally. In
-many circumstances L-estimators are reasonably efficient, and thus
+L-estimators are useful in robust statistics, but they are
+considered inefficient. In modern statistics M-estimators are
+preferred, though these are much more difficult to implement computationally. In
+many circumstances, L-estimators are reasonably easier to implement and, thus,
 adequate for initial estimation. M-estimators provide robust
 statistics that also have high relative efficiency, at the cost of
 being much more computationally complex \cite{andersen2008modern}.
@@ -366,12 +361,12 @@ being much more computationally complex \cite{andersen2008modern}.
 \end{figure}
 
 Figure \ref{fig:L-Estimators_1} shows the influence function of the
-median and mean, It can be seen that the median is a much more robust
-observer, which maintains a high breakdown point of 50\%, allowing the
+median and mean. It can be seen that the median is a much more robust
+statistic, which maintains a high breakdown point, above 50\%, allowing the
 estimator to remain unchanged when modifying or contaminating the
-sample. In this case, random data is generated from a normal
+sample. In this case, random data is generated from a standard normal
 distribution, and by contaminating the sample in multiple percentages,
-the mean remains with a very similar value until it exceeds the
+the median remains with a very similar value until it exceeds the
 breakdown point, which is 50\%, the highest in the L-estimators.
 
 On the other hand, it can be seen that the mean, a measures of central
@@ -397,7 +392,7 @@ modifies its value.
 
 Figure \ref{fig:L-Estimators_2} shows the influence function of the
 maximum and minimum, these non-robust estimators have a break down
-point of 0, since any modification of the sample alters its value
+point of 0, since any modification of the sample can alter its value
 considerably, as can be seen in both figures, where in any percentage
 of contamination, the estimator has a totally different value.
 
@@ -427,10 +422,10 @@ contains y outliers and the model matrix is measured with no errors
 \cite{susanti2014m}.
 
 This estimators are especially useful when the data has outliers or is
-contaminated because one outlier (or heavy tailed errors). On the
-other hand, M-estimation isn’t recommended when Anomalous data
-reflects the true population, or The population is made up of distinct
-mixture of distributions .
+contaminated by heavy tailed errors. On the
+other hand, M-estimation is not recommended when anomalous data
+reflects the true population, or the population is made up of distinct
+mixture of distributions.
 
  \subsubsection*{Examples}
 
@@ -460,7 +455,7 @@ mixture of distributions .
   \begin{subfigure}[t]{0.475\textwidth}
       \centering
       \includegraphics[scale=0.20]{../figs/HuberT.pdf}
-      \caption{Huber’s t estimator.}
+      \caption{Huber’s T estimator.}
     \end{subfigure}
   \caption{M-estimators.}
   \label{fig:M-estimators_2}
@@ -472,7 +467,7 @@ functions that are non-decreasing near the origin, but decreasing
 toward 0 far from the origin. These kinds of estimators are very
 efficient, have a high breakdown point (close to 0.5) and, unlike
 other outlier rejection techniques, they do not suffer from a masking
-effect. They are efficient because they completely reject gross
+effect. They are efficient since they completely reject gross
 outliers, and do not completely ignore moderately large outliers (like
 median). In this case the worst estimator is Hubert T estimator,
 because the other estimators completely reject gross outliers, while
@@ -646,9 +641,7 @@ Take $Y=|X_n-X|$ and $t=\epsilon$, then
   & \leq \dfrac{\E{(X_n-X)^2}}{\epsilon^2}
 \end{split}
 \]
-Since $\{X_n\}$ converges in mean-square to $X$
-
-, $\E{(X_n-X)^2}\rightarrow0$ as $n\rightarrow\infty$, which directly
+Since $\{X_n\}$ converges in mean-square to $X$, $\E{(X_n-X)^2}\rightarrow0$ as $n\rightarrow\infty$, which directly
 implies that $P(|X_n-X|>\epsilon)\rightarrow0$ as
 $n\rightarrow\infty$.
 \end{proof}
@@ -747,8 +740,7 @@ temperature. Calculate the bias of $T_{[n]}$ and the variance.
  implemented.
 
 The bootstrap and the jackknife are non-parametric methods for
-computing standard errors and confidence intervals
-\cite{rodgers1999bootstrap}.
+computing standard errors and confidence intervals \cite{rodgers1999bootstrap}. A short review of the methodology will be presented, based on \cite{wasserman2006}.
 
 \subsubsection*{The Jackknife}
 
@@ -1131,6 +1123,7 @@ procedures.
 
 
 \section{Book Exercises}
+All exercises in this section are extracted from \parencite{wasserman2006}.
 \subsection*{Page 24, Exercise 3}
 This exercise uses a sample of 100 observations that are normally
 (standard) distributed. It is required to compute a 95\% confidence
@@ -1187,7 +1180,7 @@ well with the worst and best enclosing bands.
 \end{figure}
 
 
-\subsection{Page 40, Exercise 6}
+\subsection*{Page 40, Exercise 6}
 The objective of this experiment is to compare the four different
 confidence intervals exposed for the Bootstrap method. The Bootstrap
 is performed over a sample of lognormally distributed data, taking 50
@@ -1209,9 +1202,9 @@ results are presented in Table \ref{tab:cis}.
 \label{tab:cis}
 \end{table}
 
-\subsection{Page 40, Exercise 10}
+\subsection*{Page 40, Exercise 10}
 Let $X_1, \ldots, X_n \sim \mathrm{Normal}(\mu,1)$. Let
-$\theta = e^\mu$ and $\hat{theta}=e^{\bar{x}}$ be the MLE. Create a
+$\theta = e^\mu$ and $\hat{\theta}=e^{\bar{x}}$ be the MLE. Create a
 data set (using $\mu = 5$) consisting of $n = 100$ observations.
 \begin{enumerate}[label=\alph*)]
 \item Use the delta method to get the se and 95 percent confidence
@@ -1230,16 +1223,15 @@ data set (using $\mu = 5$) consisting of $n = 100$ observations.
 \begin{proof}
   Let's solve each item.
   \begin{enumerate}[label=\alph*)]
-  \item For the delta method, it is important to find the influence
-    function for the estimator. For that, let's find the influence
-    function for the parameter. In first place, let's find the plug-in
+  \item For the delta method, it is necessary to find the influence
+    function for the estimator. In first place, the plug-in
     estimator:
     \begin{align*}
       \theta &= e^\mu \\
-      \theta &= T(F) \\
+             &= T(F) \\
              &= e^{\int u dF(u)}
     \end{align*}
-    Then, let's find the influence function:
+    Now, the influence function:
     \begin{align*}
       L_F(x) &= \lim_{\epsilon \rightarrow 0} \frac{T\left[(1 - \epsilon)F +
                \epsilon \delta_x\right] - T(F)}{\epsilon} \\
@@ -1250,7 +1242,7 @@ data set (using $\mu = 5$) consisting of $n = 100$ observations.
              &= e^\mu \lim_{\epsilon \rightarrow 0} \frac{e^{\epsilon(x - \mu)} - 1}{\epsilon}
              \quad \left[\frac{0}{0}\right]\\
              &\text{Applying L'Hopital's rule} \\
-             &= e^\mu \lim{\epsilon \rightarrow 0} \left((x - \mu) e^{\epsilon(x - \mu)}\right) \\
+             &= e^\mu \lim_{\epsilon \rightarrow 0} \left((x - \mu) e^{\epsilon(x - \mu)}\right) \\
              &= e^\mu (x - \mu)
     \end{align*}
     Hence:
@@ -1282,13 +1274,12 @@ data set (using $\mu = 5$) consisting of $n = 100$ observations.
       \label{fig:ex11}
     \end{figure}
     It is easy to see that the non-parametric bootstrap method is the
-    closest one to the real distribution, as it's peak does not have a
-    significant bias with a difference to the other ones.
+    closest one to the real distribution, as its peak does not have a
+    significant bias, different to the other ones.
   \end{enumerate}
 \end{proof}
-\subsection{Page 41, Exercise 11}
-All exercises in this section are extracted from
-\parencite{wasserman2006}.  Let
+\subsection*{Page 41, Exercise 11}
+Let
 $X_1,...,X_n\sim \mathrm{Uniform}(0,1)$, the maximum likelihood
 estimator (MLE) for $\theta=1$ is
 $\hat{\theta}=X_{\max}=\max\{X_1,...,X_n\}$. The distribution of
