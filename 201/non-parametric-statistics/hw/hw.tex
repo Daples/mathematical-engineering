@@ -122,7 +122,7 @@
 \section{Workshop Exercises}
 The code done to solve this workshop can be found in a Jupyter
 notebook in this \href{https://bit.ly/2SNMPod}{link}.
-\subsection*{Exercise 1 (10\%)}
+\subsection*{Exercise 1}
 The data used is the average daily temperatures in Canada for the past
 35 years. The empirical cumulative distributions (ECDFs) for each year
 are presented in Figure \ref{fig:ecdfs_temps}, where the yellow-most
@@ -143,7 +143,7 @@ early years are on the left, these years reported more data on lower
 average daily temperature than the most recent years. This means that
 recent years have been hotter in average daily temperature.
 
-\subsection*{Exercise 2 (Extra)}
+\subsection*{Exercise 2}
 
 The plug-in principle is a technique used in probability theory and
 statistics to estimate a feature of a probability distribution (e.g.,
@@ -216,7 +216,7 @@ size is infinite.
     \label{fig:comparision}
 \end{figure}
 
-\subsection*{Exercise 3 (10\%)}
+\subsection*{Exercise 3}
 Calculate and plot the confidence bands for the empirical continuous
 distribution function (ECDF) of the coldest and hottest year in
 average with a confidence of 95 \% . Are there any sectors that are
@@ -257,7 +257,7 @@ not enclosed in the bands?
   upper bound and the final point.
 \end{proof}
 
-\subsection*{Exercise 4 (10\%)}
+\subsection*{Exercise 4}
 Write and execute a code that allows to visualize the Glivenko
 Cantelli for a Weibull distribution.
 \begin{proof}
@@ -291,7 +291,7 @@ Cantelli for a Weibull distribution.
   described in the theorem.
 \end{proof}
 
-\subsection*{Exercise 5 (5 \%)}
+\subsection*{Exercise 5}
 \begin{theorem}[Jensen's Inequality]
   Let $g(\cdot)$ be a concave function and let $X$ be a random
   variable, then
@@ -315,7 +315,173 @@ preserves order, we have
 \]
 \end{proof}
 
-\subsection*{Exercise 7 (Extra)}
+\subsection{Exercise 6}
+
+\subsubsection*{ L-estimator }
+
+An L-estimator is an estimator which is an L-statistic, a linear
+combination of order statistics of the measurements. They have the
+advantage of being robust and simple to use, but tend to have problems
+with low efficiency. Not all L-estimators are robust (for example, the
+minimum, maximum and mean are not considered robust) and some have
+better efficiency than others. L-statistics with multiple (correct)
+weights will tend to be more efficient than those with fewer weights
+or poorly chosen weights \cite{andersen2008modern}.
+
+L-estimators for a sample size n are defined by Tn:
+
+\begin{align*}
+  &T_{n}\left(X_{1}, \ldots, X_{n}\right)=\sum_{i=1}^{n} a_{i} X_{n,(i)}\\
+  &a_{i}=\int_{(i-1) / n}^{i / n} h(x) \mathrm{d} x, \quad
+  \int_{0}^{1} h(x) \mathrm{d} x=1
+\end{align*}
+
+where: $X_{n}$ are the order statistics and $a_{i}$ are weight
+factors.
+
+L-estimators are useful in robust statistics, however, they are
+inefficient, and in modern times robust statistics M-estimators are
+preferred, though these are much more difficult computationally. In
+many circumstances L-estimators are reasonably efficient, and thus
+adequate for initial estimation. M-estimators provide robust
+statistics that also have high relative efficiency, at the cost of
+being much more computationally complex \cite{andersen2008modern}.
+
+\subsubsection*{Examples}
+
+ \begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.40]{../figs/median.pdf}
+      \caption{Median estimator.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.40]{../figs/mean-L.pdf}
+      \caption{Mean estimator.}
+  \end{subfigure}
+  \caption{L-estimators.}
+  \label{fig:L-Estimators_1}
+\end{figure}
+
+Figure \ref{fig:L-Estimators_1} shows the influence function of the
+median and mean, It can be seen that the median is a much more robust
+observer, which maintains a high breakdown point of 50\%, allowing the
+estimator to remain unchanged when modifying or contaminating the
+sample. In this case, random data is generated from a normal
+distribution, and by contaminating the sample in multiple percentages,
+the mean remains with a very similar value until it exceeds the
+breakdown point, which is 50\%, the highest in the L-estimators.
+
+On the other hand, it can be seen that the mean, a measures of central
+tendency, is a non-robust estimator, which varies according to how the
+sample is modified, with a breakdown point of 1/N, since any change
+modifies its value.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.40]{../figs/max-L.pdf}
+      \caption{Maximum estimator.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.40]{../figs/min-L.pdf}
+      \caption{Minimum estimator.}
+  \end{subfigure}
+  \caption{L-estimators.}
+  \label{fig:L-Estimators_2}
+\end{figure}
+
+Figure \ref{fig:L-Estimators_2} shows the influence function of the
+maximum and minimum, these non-robust estimators have a break down
+point of 0, since any modification of the sample alters its value
+considerably, as can be seen in both figures, where in any percentage
+of contamination, the estimator has a totally different value.
+
+ \subsubsection*{M-estimator}
+
+ M-estimators are a broad class of extremum estimators for which the
+ objective function is a sample average \cite{andersen2008modern}. The
+ extremum estimators are a wide class of estimators for parametric
+ models that are calculated through maximization (or minimization) of
+ a certain objective function. An M-estimator minimizes the function:
+
+$$Q\left(e_{i}, \rho\right)=\sum_{i} \rho\left(\frac{e_{i}}{s}\right)$$
+
+where $\rho$ is a symmetric function of the residuals
+
+\begin{itemize}
+\item The effect of $\rho$ is to reduce the influence of outliers
+\item $s$ is an estimate of scale.
+\item The robust estimates $\hat{\beta}$ are computed by the
+  iteratively re-weighted least squares algorithm
+\item We have several choices available for the weighting functions to
+  be used
+\end{itemize}
+
+The M-estimator is more efficient under certain conditions: the data
+contains y outliers and the model matrix is measured with no errors
+\cite{susanti2014m}.
+
+This estimators are especially useful when the data has outliers or is
+contaminated because one outlier (or heavy tailed errors). On the
+other hand, M-estimation isn’t recommended when Anomalous data
+reflects the true population, or The population is made up of distinct
+mixture of distributions .
+
+ \subsubsection*{Examples}
+
+ \begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.20]{../figs/AndrewWave.pdf}
+      \caption{Andrew’s Wave estimator.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.20]{../figs/TukeyBiweight.pdf}
+      \caption{Tukey’s Biweight estimator.}
+  \end{subfigure}
+  \caption{M-estimators.}
+  \label{fig:M-estimators_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.20]{../figs/Hampel.pdf}
+      \caption{Hampel’s estimator.}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.20]{../figs/HuberT.pdf}
+      \caption{Huber’s t estimator.}
+    \end{subfigure}
+  \caption{M-estimators.}
+  \label{fig:M-estimators_2}
+\end{figure}
+
+Figures \ref{fig:M-estimators_1} and Figure \ref{fig:M-estimators_2}
+shows redescending M-estimators, which are estimators which have
+functions that are non-decreasing near the origin, but decreasing
+toward 0 far from the origin. These kinds of estimators are very
+efficient, have a high breakdown point (close to 0.5) and, unlike
+other outlier rejection techniques, they do not suffer from a masking
+effect. They are efficient because they completely reject gross
+outliers, and do not completely ignore moderately large outliers (like
+median). In this case the worst estimator is Hubert T estimator,
+because the other estimators completely reject gross outliers, while
+the Huber estimator effectively treats these the same as moderate
+outliers \cite{susanti2014m}.
+
+
+
+\subsection*{Exercise 7}
 \label{subsec:7}
 Deduce the distribution and density of the $j$-th ordered
 statistic. Explain with detail what would be a simple procedure to
@@ -368,7 +534,8 @@ distribution.
                &= f(t) \left[\sum_{i=j}^n i\binom{n}{i} F(t)^{i-1}(1 - F(t))^{n -i-1} -
                  \sum_{i=j}^n n \binom{n}{i} F(t)^i(1 - F(t))^{n - i - 1}\right] \\
                &= nf(t) \left[\sum_{i=j}^n \binom{n-1}{i-1}F(t)^{i-1}(1 - F(t))^{n -i-1} -
-                  \sum_{i=j}^n \binom{n}{i} F(t)^i(1 - F(t))^{n - i - 1}\right]
+                 \sum_{i=j}^n \binom{n}{i} F(t)^i(1 - F(t))^{n - i - 1}\right] \\
+                 &= n\binom{n-1}{j-1}F(t)^{j-1}(1 - F(t))^{n-j}f(t)
   \end{align*}
   Furthermore, simulating a $j$-th statistic can be done easily. In
   first place, generate samples of size $n$ and obtain the $j$-th
@@ -386,7 +553,7 @@ distribution.
   \end{figure}
 \end{proof}
 
-\subsection*{Exercise 8 (10\%)}
+\subsection*{Exercise 8}
 Suppose $X$ is an exponentially random variable of parameter
 $\beta$. Calculate:
 
@@ -420,7 +587,7 @@ $P(|X-\mu|>k \sigma)$ is bounded by Chebyshev's inequality.
 \end{proof}
 
 
-\subsection*{Exercise 9 (5 \%)}
+\subsection*{Exercise 9}
 Prove that if $X\sim \mathrm{Poisson}(\lambda)$, then
 \[
   P(X\geq 2\lambda)\leq \dfrac{1}{\lambda}.
@@ -444,7 +611,7 @@ Clearly, $\E{X}=\V{X}=\lambda$. If we set $t=\lambda$, then
 \]
 \end{proof}
 
-\subsection*{Exercise 10 (5 \%)}
+\subsection*{Exercise 10}
 \begin{definition}
   The sequence $\{X_n\}$ of random variables is said to converge in
   probability to $X$ if
@@ -487,7 +654,7 @@ $n\rightarrow\infty$.
 \end{proof}
 
 
-\subsection*{Exercise 11 (7 \%)}
+\subsection*{Exercise 11}
 Show that the ECDF converges in probability to the theoretical
 continuous distribution function.
 \begin{proof}
@@ -531,7 +698,7 @@ continuous distribution function.
   \end{equation*}
 \end{proof}
 
-\subsection*{Exercise 12 (12 \%)}
+\subsection*{Exercise 12}
 Consider the daily temperatures of the hottest year in
 average. Calculate a confidence interval for the maximum
 temperature. Calculate the bias of $T_{[n]}$ and the variance.
@@ -564,20 +731,16 @@ temperature. Calculate the bias of $T_{[n]}$ and the variance.
    \end{equation*}
 
    On the other hand, to calculate the variance and bias the Jackknife
-   method was used. The Jackknife method consists of:
-   \begin{enumerate}
-   \item First, generate new samples by removing one data from the
-     original sample. Then, calculate the statistic for this new
-     sample. Let $S_i$ be the sample of each statistic calculated and
-     $S$ be statistic calculated in the original sample.
-   \item To calculate the bias, use:
-     \begin{equation*}
-       \text{Bias} = (n - 1) \left(\frac{1}{n} \sum_{i=1}^n S_i \right)
-     \end{equation*}
-   \end{enumerate}
+   method was used. The Jackknife method consists is explained in the
+   following exercise. Hence, we find that the bias and the variance
+   and we obtain:
+   \begin{align*}
+     b_{\text{jack}} &= -0.10 \\
+     v_{\text{jack}} &= 7.49 \cdot 10^{-8}
+   \end{align*}
  \end{proof}
 
- \subsection*{Exercise 13 (13 \%)}
+ \subsection*{Exercise 13}
  In this section, a sample of a uniform distribution in the interval
  [0,1] is generated. Then a bootstrap method to calculate the variance
  and a Jackknife method to calculate the bias of this sample are
@@ -649,7 +812,7 @@ intervals for complex estimators of complex parameters of the
 distribution.
 
 
-\subsection*{Exercise 14 (Extra)}
+\subsection*{Exercise 14}
 Show the differences between the parametric and non-parametric
 bootstrap. Investigate robust versions of the bootstrap method and
 show examples about their performance.
@@ -675,7 +838,7 @@ show examples about their performance.
 
 \end{proof}
 
-\subsection*{Exercise 15 (13 \%)}
+\subsection*{Exercise 15}
 The data used in this section is bivariate, taking the temperature
 from the years that are, in average, the coldest and hottest. Let
 $\boldsymbol{\mathrm{Y}}\in\mathbb{R}^{n\times2}$ be the set of
@@ -967,7 +1130,162 @@ procedures.
 \end{figure}
 
 
-\section{Book Exercises (Extra)}
+\section{Book Exercises}
+\subsection*{Page 24, Exercise 3}
+This exercise uses a sample of 100 observations that are normally
+(standard) distributed. It is required to compute a 95\% confidence
+band for the CDF $F$ and how many times this band covers the true CDF
+of the data, by repeating the process 1000 times. For this procedure
+we use the bands derived from Dvoretzky–Kiefer–Wolfowitz inequality
+\cite{wasserman2006}. In Figures \ref{subfig:worst_band_normal} and
+\ref{subfig:best_band_normal} we present the worst and best band
+obtained over the experiments, respectively. The experiments yield
+that only 8 out of the 1000 bands simulated contain the true CDF of
+the standard normal random variable.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{../figs/min_normal_bands.pdf}
+      \caption{Worst enclosing band.}
+      \label{subfig:worst_band_normal}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{../figs/max_normal_bands.pdf}
+      \caption{Best enclosing band.}
+      \label{subfig:best_band_normal}
+  \end{subfigure}
+  \caption{Confidence bands for $F$ of normal data.}
+  \label{fig:bands_normal}
+\end{figure}
+
+Additionally, the experiment was repeated with a Cauchy distribution
+with p.d.f. given by
+\[
+  f(t)=\dfrac{1}{\pi(1+t^2)},\quad\forall t\in\mathbb{R}.
+\]
+The obtained result are presented in Figure \ref{fig:bands_cauchy}, as
+well with the worst and best enclosing bands.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{../figs/min_cauchy_bands.pdf}
+      \caption{Worst enclosing band.}
+      \label{subfig:worst_band_cauchy}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.475\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{../figs/max_cauchy_bands.pdf}
+      \caption{Best enclosing band.}
+      \label{subfig:best_band_cauchy}
+  \end{subfigure}
+  \caption{Confidence bands for $F$ of normal data.}
+  \label{fig:bands_cauchy}
+\end{figure}
+
+
+\subsection{Page 40, Exercise 6}
+The objective of this experiment is to compare the four different
+confidence intervals exposed for the Bootstrap method. The Bootstrap
+is performed over a sample of lognormally distributed data, taking 50
+standard normal observations and making the exponentiation with the
+natural base. The statistic to be evaluated is the skewness of the
+data, which is well known to be positive for lognormal data. The
+results are presented in Table \ref{tab:cis}.
+\begin{table}[H]
+  \centering
+\begin{tabular}{ll}
+  \hline
+  \multicolumn{1}{c}{\textbf{Method}} & \multicolumn{1}{c}{\textbf{95\% C.I.}} \\ \hline
+  Normal                              & (1.23, 3.41)                           \\
+  Pivotal                             & (1.07, 3.22)                           \\
+  Studentized                         & (1.63, 3.57)                           \\
+  Percentile                          & (1.05, 3.20)                           \\ \hline
+\end{tabular}
+\caption{}
+\label{tab:cis}
+\end{table}
+
+\subsection{Page 40, Exercise 10}
+Let $X_1, \ldots, X_n \sim \mathrm{Normal}(\mu,1)$. Let
+$\theta = e^\mu$ and $\hat{theta}=e^{\bar{x}}$ be the MLE. Create a
+data set (using $\mu = 5$) consisting of $n = 100$ observations.
+\begin{enumerate}[label=\alph*)]
+\item Use the delta method to get the se and 95 percent confidence
+  interval for $\theta.$. Use the parametric bootstrap to get the se
+  and 95 percent confidence interval for $\theta.$. Use the
+  nonparametric bootstrap to get the se and 95 percent confidence
+  interval for $\theta.$ Compare your answers.
+\item Plot a histogram of the bootstrap replications for the
+  parametric and nonparametric bootstraps. These are estimates of the
+  distribution of $\hat{\theta}$. The delta method also gives an
+  approximation to this distribution, namely
+  $\mathrm{Normal}(\hat{\theta}, \hat{se}^2)$. Compare these to the
+  true sampling distribution of $\hat{\theta}$. Which approximation is
+  closer to the true distribution?
+\end{enumerate}
+\begin{proof}
+  Let's solve each item.
+  \begin{enumerate}[label=\alph*)]
+  \item For the delta method, it is important to find the influence
+    function for the estimator. For that, let's find the influence
+    function for the parameter. In first place, let's find the plug-in
+    estimator:
+    \begin{align*}
+      \theta &= e^\mu \\
+      \theta &= T(F) \\
+             &= e^{\int u dF(u)}
+    \end{align*}
+    Then, let's find the influence function:
+    \begin{align*}
+      L_F(x) &= \lim_{\epsilon \rightarrow 0} \frac{T\left[(1 - \epsilon)F +
+               \epsilon \delta_x\right] - T(F)}{\epsilon} \\
+      &= \lim_{\epsilon \rightarrow 0} \frac{e^{\int u d\left[(1 - \epsilon)F +
+        \epsilon \delta_x\right]} - e^{\int u dF(u)}}{\epsilon} \\
+             &= \lim_{\epsilon \rightarrow 0} \frac{e^{(1 - \epsilon)\mu + \epsilon x} - e^\mu}
+               {\epsilon} \\
+             &= e^\mu \lim_{\epsilon \rightarrow 0} \frac{e^{\epsilon(x - \mu)} - 1}{\epsilon}
+             \quad \left[\frac{0}{0}\right]\\
+             &\text{Applying L'Hopital's rule} \\
+             &= e^\mu \lim{\epsilon \rightarrow 0} \left((x - \mu) e^{\epsilon(x - \mu)}\right) \\
+             &= e^\mu (x - \mu)
+    \end{align*}
+    Hence:
+    \begin{equation*}
+      \hat{L}(x) = e^{\bar{X}} (x - \mu)
+    \end{equation*}
+
+    Using the parametric and non-parametric normal bootstrap method,
+    the results are found in Table \ref{tab:cis1}.
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ll}
+        \hline
+        \multicolumn{1}{c}{\textbf{Method}} & \multicolumn{1}{c}{\textbf{95\% C.I.}} \\ \hline
+        Delta                               & (128.52, 188.11)     \\
+        Parametric                          & (127.60, 189.03)     \\
+        Non-Parametric                      & (128.25, 188.38)
+      \end{tabular}
+      \caption{}
+      \label{tab:cis1}
+    \end{table}
+
+  \item The comparison of the real distribution and the estimation
+    done in the methods is shown in Figure \ref{fig:ex11}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[scale=0.5]{../figs/delta-np.pdf}
+      \caption{Comparison of distributions.}
+      \label{fig:ex11}
+    \end{figure}
+    It is easy to see that the non-parametric bootstrap method is the
+    closest one to the real distribution, as it's peak does not have a
+    significant bias with a difference to the other ones.
+  \end{enumerate}
+\end{proof}
 \subsection{Page 41, Exercise 11}
 All exercises in this section are extracted from
 \parencite{wasserman2006}.  Let
