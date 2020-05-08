@@ -1124,6 +1124,43 @@ procedures.
 
 \section{Book Exercises}
 All exercises in this section are extracted from \parencite{wasserman2006}.
+
+\subsection{Page 10, Exercise 2}
+Let $X_{1}, \ldots, X_{n} \sim$ Bernoulli $(p) .$ A pointwise
+asymptotic $1-\alpha$ confidence interval for $p$ is
+\[
+  \widehat{p}_{n} \pm z_{\alpha / 2}
+  \sqrt{\frac{\widehat{p}_{n}\left(1-\widehat{p}_{n}\right)}{n}}
+\]
+where $\widehat{p}_{n}=n^{-1} \sum_{i=1}^{n} X_{i} .$ It follows from
+Hoeffding's inequality that a finite sample confidence interval is
+\[
+  \widehat{p}_{n} \pm \sqrt{\frac{1}{2 n} \log
+    \left(\frac{2}{\alpha}\right)}
+\]
+
+In Figure \ref{fig:bands} is presented the coverage and length of the
+pointwise asymptotic $1-\alpha$ confidence interval and the finite
+sample confidence interval (Hoeffding) to estimate the $p$ parameter
+of a Bernoulli distribution. To simulated this scenario a Bernoulli
+distribution was generate with parameters $p$ = 0.2 and $\alpha$ =
+.05.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{../figs/bernoulli_bands.pdf}
+    \caption{Confidence bands for the value of $p$.}
+    \label{fig:bands}
+\end{figure}
+
+The result shows that an large sample must be generated so that the
+pointwise interval has accurate coverage of the $p$, it can also be
+seen that both intervals have similar length when reaching an accurate
+coverage, being Hoeffding the interval with the highest coverage due
+to a very slight difference.
+
+Note that the sample sizes shown on the graph are in powers.
+
 \subsection*{Page 24, Exercise 3}
 This exercise uses a sample of 100 observations that are normally
 (standard) distributed. It is required to compute a 95\% confidence
@@ -1179,6 +1216,47 @@ well with the worst and best enclosing bands.
   \label{fig:bands_cauchy}
 \end{figure}
 
+\subsection*{Page 24, Exercise 7}
+
+Let $X_{1}, \ldots, X_{n} \sim$ Bernoulli $(p)$ and let
+$Y_{1}, \ldots, Y_{m} \sim$ Bernoulli $(q)$ with a $p$ = 0.5 and $q$ =
+1 - $p$.
+
+The plug-in estimator for $p$ is $\widehat{p}$ = 0.51 with a estimated
+standard error $\widehat{se}$ = 0.0928 and an approximate 90 percent
+confidence interval for $p$ of (0.3405, 0.6594).
+
+The plug-in estimator for $p-q$ is $\widehat{p-q}$ = 0.5 with a
+estimated standard error $\widehat{se}$ = 0.0832 and an approximate 90
+percent confidence interval for $p-q$ of (0.3830, 0.6169).
+
+The estimates above show very similar results, with very slight
+differences in the intervals and the estimated standard error.
+
+\subsection*{Page 39, Exercise 2}
+
+The influence function is used to approximate the standard error of a
+plug-in estimator. In this case, the empirical influence function was
+use:
+
+The empirical influence function is defined by
+$\widehat{L}(x)=L_{\widehat{F}_{n}}(x) .$ Thus,
+\[
+  \widehat{L}(x)=\lim _{\epsilon \rightarrow 0}
+  \frac{T\left((1-\epsilon) \widehat{F}_{n}+\epsilon
+      \delta_{x}\right)-T\left(\widehat{F}_{n}\right)}{\epsilon}
+\]
+
+To estimate the the standard error, the empirical influence function,
+the jackknife and the bootstrap were used. The results were: Variance
+Bootstrap $v_{\text {boot }}$ = 7.5380x$10^{-17}$, Variance Jackknife
+$v_{\text {jack }}$ = 0.0176, Variance Influence
+$v_{\text {Influence }}$ = 0.4731 and a 95 percent studentized pivotal
+bootstrap confidence interval of [0.5459189161795877,
+0.5459189161795885]. This shows that the LSAT scores and GPA data are
+very similar to each other, since a very close variance is observed in
+the multiple test cases.
+
 
 \subsection*{Page 40, Exercise 6}
 The objective of this experiment is to compare the four different
@@ -1201,6 +1279,29 @@ results are presented in Table \ref{tab:cis}.
 \caption{}
 \label{tab:cis}
 \end{table}
+
+\subsection*{Page 40, Exercise 7}
+Let
+\[
+  X_{1}, \ldots, X_{n} \sim t_{3}
+\]
+
+where $n=25$ and $t_{3}$ is a student's t-distribution with $\nu$ =
+3. Let $\theta=T(F)=(q .75-q .25) / 1.34$. A simulation was
+implemented to compare the coverage and length of the following
+confidence intervals for $\theta$: Normal interval with standard error
+from the bootstrap : [1.5486, 0.1564], bootstrap percentile
+interval:[0.3823, 1.3026] and a normal interval with standard error
+from the jackknife: [0.8141, 0.8905].
+
+This results shows that the jackknife does not give a consistent
+estimator of the variance of a quantile, showing a very short coverage
+for the estimator, however, both bootstrap methods show a coverage and
+length very similar to each other, with the difference that the
+bootstrap percentile interval has a smaller lower bound, this is
+because it is a quantile method, With a statistics that have a small
+lower bound.
+
 
 \subsection*{Page 40, Exercise 10}
 Let $X_1, \ldots, X_n \sim \mathrm{Normal}(\mu,1)$. Let
