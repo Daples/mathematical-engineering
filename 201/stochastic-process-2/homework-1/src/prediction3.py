@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import sympy as sp
 import scipy.stats as st
 from matplotlib import rc
 from arch.unitroot import VarianceRatio
@@ -31,11 +30,11 @@ if plot:
 
 # Test for mean reversion
 def test_mean_reversion(times_series):
-    print(VarianceRatio(series))
-    print(VarianceRatio(series, lags=4))
-    print(VarianceRatio(series, lags=8))
-    print(VarianceRatio(series, lags=16))
-    print(hurst(series))
+    print(VarianceRatio(times_series))
+    print(VarianceRatio(times_series, lags=4))
+    print(VarianceRatio(times_series, lags=8))
+    print(VarianceRatio(times_series, lags=16))
+    print(hurst(times_series))
 
 
 def estimate_trend(time_series):

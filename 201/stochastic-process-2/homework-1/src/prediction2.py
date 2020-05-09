@@ -3,9 +3,12 @@ import numpy as np
 from sympy.abc import x
 from scipy import stats as st
 from sim_par import euler_m, brownian_motion
+from sim import brownian_motion as bm_no_par
 from matplotlib import rc
 import multiprocessing
 from prediction import prediction_bands
+from arch.unitroot import VarianceRatio
+import time
 
 num_cores = multiprocessing.cpu_count()
 rc('text', usetex=True)
@@ -18,30 +21,40 @@ mu = 1.25
 sigma = 0.4
 gamma = 0.5
 
-delta_t = 0.1
+delta_t = 0.2
 x0 = np.array([1])
-T = 30
-n = 1
+T = 100
+n = 1000
 
 # Function
 f = alpha * (mu - x)
 g = sigma * x ** gamma
 linewidth = 0.5
-bm = brownian_motion(n, T, delta_t)
-series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=False)
+bm_OG = bm_no_par(1, T, delta_t)
+seriesOG = euler_m(f, g, delta_t, x0, 1, bm=bm_OG, tf=T, show=False)
 
+bm = brownian_motion(n, T, delta_t)
+series = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=False)
 ts = np.linspace(0, T, int(T/delta_t))
 plot = False
 if plot:
-    for i in range(series2.shape[0]):
-        plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
+    for i in range(seriesOG.shape[0]):
+        plt.plot(ts, seriesOG[i, 0, :], 'k', linewidth=linewidth)
     plt.xlabel('$t$')
     plt.ylabel('$X_t$')
     plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
     plt.show()
 
 
-# n = 200? 500?
+# Test for mean reversion
+def test_mean_reversion(times_series):
+    print(VarianceRatio(times_series, lags=2))
+    print(VarianceRatio(times_series, lags=4))
+    print(VarianceRatio(times_series, lags=8))
+    print(VarianceRatio(times_series, lags=16))
+    print(hurst(times_series))
+
+
 def parameter_estimation(time_series, plot=False):
     mults = [(i+1)/10  for i in range(10)]
     delta = delta_t
@@ -137,6 +150,7 @@ def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
     for i in range(1, time_series.shape[axis]):
         if axis == 0:
             ts = time_series[i, 0, :]
+            ts = time_series[i, 0, :]
         else:
             ts = time_series[:, 0, i]
         params.append(distribution.fit(ts))
@@ -148,7 +162,6 @@ def statistical_analysis(time_series, alpha1=0.05, axis=0, dist='lognorm'):
     return test, params
 
 
-# 1000 trajs
 def hists(time_series, filename, axis=0, dist='chi2', plot_hist=False):
     test, params = statistical_analysis(time_series, axis=axis, dist=dist)
     test = np.array(test)
@@ -212,7 +225,7 @@ def sensitivity(p):
         plt.ylabel('$B_{t_f}$')
         plt.legend()
         plt.savefig('plts/' + var[2:-1] + '_sens.pdf', bbox_inches='tight')
-        # plt.show()
+        plt.show()
         plt.clf()
 
     print('Starting alpha')
@@ -221,6 +234,11 @@ def sensitivity(p):
     print('Starting mu')
     mu_lasts, ls_mu = simul(mu, lambda mu: alpha * (mu - x), 0, show=True)
     plot_sens(ls_mu, mu_lasts, '$\mu$')
+    p = 0.4
     print('Starting sigma')
     sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1, show=True)
     plot_sens(ls_sigma, sigma_last, '$\sigma$')
+
+t_prev = time.time()
+sensitivity(0.5)
+print(time.time() - t_prev)
