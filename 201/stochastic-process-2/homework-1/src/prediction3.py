@@ -7,9 +7,6 @@ from arch.unitroot import VarianceRatio
 from prediction2 import hurst
 from scipy.optimize import least_squares
 from sim_par import euler_m_ns
-from prediction2 import hists
-from prediction import plot_prediction_bands
-
 
 rc('text', usetex=True)
 plt.rcParams.update({'font.size': 18})
@@ -145,27 +142,10 @@ def g(x, t):
 def g_pred(x, t):
     return sigmas_day[-1]
 
+
 delta_t = 1
 x0 = series[0]
 t0 = 1
-n = 1
-
 n = 1000
 xt_pred = euler_m_ns(f, g_pred, delta_t, series[-1], n, bm=None, tf=2 * len(series), t0=len(series), show=True)
 ts_pred = np.linspace(len(series), 2 * len(series) - 1, len(series))
-
-plot_prediction_bands(ts_pred, xt_pred, 'plts/bands_prediction3.pdf', dist='norm')
-
-# for j in range(xt_pred.shape[0]):
-#     if j == 0:
-#         plt.plot(ts_pred, xt_pred[j, 0, :], 'r', alpha=0.5, label='Prediction')
-#     else:
-#         plt.plot(ts_pred, xt_pred[j, 0, :], 'r', alpha=0.01)
-# plt.plot(ts_pred, series_pred, 'k')
-# plt.plot(ts, series, 'k', label='Data')
-# plt.plot([len(series), len(series)], (-30,30), 'k--', alpha=0.5)
-# plt.xlabel('$t$')
-# plt.ylabel('$T_t$')
-# plt.legend()
-# plt.savefig('plts/pred_estimated_temps.pdf')
-# plt.show()

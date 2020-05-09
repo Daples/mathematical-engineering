@@ -5,8 +5,7 @@ from scipy import stats as st
 from sim_par import euler_m, brownian_motion
 from matplotlib import rc
 import multiprocessing
-from prediction import plot_prediction_bands, prediction_bands
-import time
+from prediction import prediction_bands
 
 num_cores = multiprocessing.cpu_count()
 rc('text', usetex=True)
@@ -28,17 +27,18 @@ n = 1
 f = alpha * (mu - x)
 g = sigma * x ** gamma
 linewidth = 0.5
-# bm = brownian_motion(n, T, delta_t)
-# series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=True)
-# ts = np.linspace(0, T, int(T/delta_t))
-# plot = False
-# if plot:
-#     for i in range(series2.shape[0]):
-#         plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
-#     plt.xlabel('$t$')
-#     plt.ylabel('$X_t$')
-#     plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
-#     plt.show()
+bm = brownian_motion(n, T, delta_t)
+series2 = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=False)
+
+ts = np.linspace(0, T, int(T/delta_t))
+plot = False
+if plot:
+    for i in range(series2.shape[0]):
+        plt.plot(ts, series2[i, 0, :], 'k', linewidth=linewidth)
+    plt.xlabel('$t$')
+    plt.ylabel('$X_t$')
+    plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
+    plt.show()
 
 
 # n = 200? 500?
