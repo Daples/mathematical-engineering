@@ -1,12 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sympy.abc import x
-from sim_par import brownian_motion, euler_m
+from sim_par import euler_m, brownian_motion
 import scipy.stats as st
 from matplotlib import rc
 from joblib import Parallel, delayed
 import multiprocessing
-import time
 
 num_cores = multiprocessing.cpu_count()
 rc('text', usetex=True)
@@ -61,7 +60,7 @@ def simulation_1(f1, g1, mu1, linewidth=0.5):
     plt.legend()
     plt.xlabel("Days")
     plt.ylabel("$X_t$")
-    plt.savefig("pronostico-1-escenarios.pdf", bbox_inches='tight')
+    plt.savefig("plts/series1.pdf", bbox_inches='tight')
     plt.show()
 
 

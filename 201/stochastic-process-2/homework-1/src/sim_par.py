@@ -61,7 +61,6 @@ def euler_m(f, g, delta_t, x0, n, bm=None, tf=-1, t0=-1, show=False):
     count = 0
     max_count = 20
     while True:
-        print(count)
         exit_status, xt = simulation_exit_status()
         if exit_status[0]:
             break
