@@ -122,8 +122,29 @@ def bandwidths(f1, g1, mu1, n1, plot=False, linewidth=0.5):
         plt.ylabel("$X_t$")
         plt.savefig("pronostico-pesimista.pdf", bbox_inches='tight')
 
+    alpha = 0.1
+    # Constant
+    lower_c, upper_c = prediction_bands(series_c, alpha)
+    eff_c = bands_effectiveness(series_c, lower_c, upper_c)
+    plt.hist(eff_c, ec='black', color='white')
+    plt.savefig('plts/eff_constant.pdf', bbox_inches='tight')
+    plt.clf()
     plot_prediction_bands(t1s, series_c, 'plts/bands_constant.pdf', 0.1)
+
+    # Optimistic
+    lower_o, upper_o = prediction_bands(series_o, alpha)
+    eff_o = bands_effectiveness(series_o, lower_o, upper_o)
+    plt.hist(eff_o, ec='black', color='white')
+    plt.savefig('plts/eff_opti.pdf', bbox_inches='tight')
+    plt.clf()
     plot_prediction_bands(t1s, series_o, 'plts/bands_optimistic.pdf', 0.1)
+
+    # Pessimistic
+    lower_p, upper_p = prediction_bands(series_p, alpha)
+    eff_p = bands_effectiveness(series_p, lower_p, upper_p)
+    plt.hist(eff_p, ec='black', color='white')
+    plt.savefig('plts/eff_pess.pdf', bbox_inches='tight')
+    plt.clf()
     plot_prediction_bands(t1s, series_p, 'plts/bands_pessimistic.pdf', 0.1)
 
 
@@ -164,6 +185,20 @@ def prediction_bands(time_series, alpha1=0.1, dist='lognorm'):
         lower[p + 1] = distribution.ppf(alpha1/2, *params[p, :])
         upper[p + 1] = distribution.ppf(1 - (alpha1/2), *params[p, :])
     return lower, upper
+
+
+def bands_effectiveness(time_series, lower, upper):
+    eff = []
+    for t in range(time_series.shape[2]):
+        total = 0
+        count = 0
+        aux = time_series[:, 0, t]
+        for i in aux:
+            if lower[t] <= i <= upper[t]:
+                count += 1
+            total += 1
+        eff.append(count / total)
+    return eff
 
 
 def sensitivity(f1, g1, mu1, sigma1, alpha1, p, n1, linewidth=0.5):
