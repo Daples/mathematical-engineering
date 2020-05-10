@@ -160,7 +160,6 @@ def plot_prediction_bands(ts, times_series, filename, alpha1=0.1, linewidth=0.5,
     plt.plot(ts, lower, 'b', linewidth=2 * linewidth)
     plt.xlabel("Days")
     plt.ylabel("$X_t$")
-    plt.ylim((-10, 35))
     plt.legend()
     plt.savefig(filename, bbox_inches='tight')
     if show:
