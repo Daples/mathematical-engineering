@@ -16,10 +16,10 @@ file = open("temps.txt").readlines()
 file = list(map(lambda x: x.replace("\n", "").split("\t"), file))
 n_years = 4
 temperatures = np.array(file, dtype=float)
-series = temperatures[:, range(n_years)].transpose().flatten()
+series = temperatures[:, range(-1, -5, -1)].transpose().flatten()
 series_pred = temperatures[:, range(n_years, 2*n_years)].transpose().flatten()
 ts = np.linspace(1, len(series) + 1, len(series))
-plot = False
+plot = True
 
 if plot:
     plt.plot(series,'k')
@@ -90,19 +90,15 @@ def estimate_a(ts, time_series, sigmas):
         sum_denom += Y * (time_series[day - 1] - Tm[day - 1])
     return -np.log(sum_num / sum_denom)
 
+
 def estimate_sigma(time_series, a_param, a_sine, sigmas):
     Nmu = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     sigma_estimated = []
     index = 0
     for month in range(n_years * len(Nmu)):
         days_month = Nmu[month % len(Nmu)]
-        temp_month = time_series[(index + 1):(index + days_month)]
-        j1 = ts[(index + 1):(index + days_month - 1)]
-        Tj1 = temp_month[:-1]
-        ej1 = np.random.normal()
-        Tj1m = sine(j1, a_sine)
-        Tv = a_param * Tj1m + (1 - a_param) * Tj1 + sigmas[month] * ej1
-        aux = (Tv - a_param * Tj1m - (1 - a_param) * Tj1) ** 2
+        ej1 = np.random.normal(size=Nmu[month % len(Nmu)])
+        aux = (sigmas[month] * ej1) ** 2
         sigma_estimated.append(np.sum(aux) / (days_month - 2))
         index += days_month
     return sigma_estimated
@@ -127,12 +123,12 @@ def differences(time_series):
     plt.savefig('plts/hist_diffs_temps.pdf', bbox_inches='tight')
 
 res = estimate_trend(series)
+print(res.x)
 sigmas = estimate_sigma_no_a(series)
 sigmas_day = sigma_days(sigmas)
 m = 5
-for i in range(m):
-    a = estimate_a(ts, series, sigmas)
-    sigmas = estimate_sigma(series, a, res.x, sigmas)
+a = estimate_a(ts, series, sigmas)
+
 
 def f(x, t):
     return a * (sine(t, res.x) - x)
@@ -146,5 +142,12 @@ delta_t = 1
 x0 = series[0]
 t0 = 1
 n = 1000
-xt_pred = euler_m_ns(f, g_pred, delta_t, series[-1], n, bm=None, tf=2 * len(series), t0=len(series), show=True)
+xt_pred = euler_m_ns(f, g_pred, delta_t, series[-1], 1, bm=None, tf=len(series), t0=0, show=True)
 ts_pred = np.linspace(len(series), 2 * len(series) - 1, len(series))
+plt.plot(ts, xt_pred[0, 0, :], 'r', label="Simulation")
+plt.plot(ts, series, 'k', label="Data")
+plt.xlabel("Days")
+plt.ylabel("$T_t$")
+plt.legend()
+plt.savefig("plts/estimated_temps.pdf", bbox_inches='tight')
+plt.show()

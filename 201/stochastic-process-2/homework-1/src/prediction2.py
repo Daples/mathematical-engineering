@@ -10,40 +10,40 @@ from prediction import prediction_bands
 from arch.unitroot import VarianceRatio
 import time
 
-num_cores = multiprocessing.cpu_count()
-rc('text', usetex=True)
-plt.rcParams.update({'font.size': 18})
-np.random.seed(123456789)
-
-# # Parameters
-alpha = 0.5
-mu = 1.25
-sigma = 0.4
-gamma = 0.5
-
-delta_t = 0.2
-x0 = np.array([1])
-T = 100
-n = 1000
-
-# Function
-f = alpha * (mu - x)
-g = sigma * x ** gamma
-linewidth = 0.5
-bm_OG = bm_no_par(1, T, delta_t)
-seriesOG = euler_m(f, g, delta_t, x0, 1, bm=bm_OG, tf=T, show=False)
-
-bm = brownian_motion(n, T, delta_t)
-series = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=False)
-ts = np.linspace(0, T, int(T/delta_t))
-plot = False
-if plot:
-    for i in range(seriesOG.shape[0]):
-        plt.plot(ts, seriesOG[i, 0, :], 'k', linewidth=linewidth)
-    plt.xlabel('$t$')
-    plt.ylabel('$X_t$')
-    plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
-    plt.show()
+# num_cores = multiprocessing.cpu_count()
+# rc('text', usetex=True)
+# plt.rcParams.update({'font.size': 18})
+# np.random.seed(123456789)
+#
+# # # Parameters
+# alpha = 0.5
+# mu = 1.25
+# sigma = 0.4
+# gamma = 0.5
+#
+# delta_t = 0.2
+# x0 = np.array([1])
+# T = 100
+# n = 1000
+#
+# # Function
+# f = alpha * (mu - x)
+# g = sigma * x ** gamma
+# linewidth = 0.5
+# bm_OG = bm_no_par(1, T, delta_t)
+# seriesOG = euler_m(f, g, delta_t, x0, 1, bm=bm_OG, tf=T, show=False)
+#
+# bm = brownian_motion(n, T, delta_t)
+# series = euler_m(f, g, delta_t, x0, n, bm=bm, tf=T, show=False)
+# ts = np.linspace(0, T, int(T/delta_t))
+# plot = False
+# if plot:
+#     for i in range(seriesOG.shape[0]):
+#         plt.plot(ts, seriesOG[i, 0, :], 'k', linewidth=linewidth)
+#     plt.xlabel('$t$')
+#     plt.ylabel('$X_t$')
+#     plt.savefig('plts/ornstein_serie2.pdf', bbox_inches='tight')
+#     plt.show()
 
 
 # Test for mean reversion
@@ -239,6 +239,6 @@ def sensitivity(p):
     sigma_last, ls_sigma = simul(sigma, lambda sigma: sigma * x ** gamma, 1, show=True)
     plot_sens(ls_sigma, sigma_last, '$\sigma$')
 
-t_prev = time.time()
-sensitivity(0.5)
-print(time.time() - t_prev)
+#t_prev = time.time()
+#sensitivity(0.5)
+#print(time.time() - t_prev)
