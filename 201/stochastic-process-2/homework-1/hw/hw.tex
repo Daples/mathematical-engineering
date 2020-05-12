@@ -183,12 +183,19 @@ with $\{W_t\}_{t \ge 0}$ a Weiner process, $\mu \in \R$ and
 $\sigma \in \R_+$.
 
 The SDE was simulated using the Euler-Maruyama Method
-\parencite{higham2001}, with the parameters $\mu = 0.003$,
-$\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$. The result of
-the simulation can be found in Figure \ref{fig:series1}. This
-simulation will be known as Series 1.
+\parencite{higham2001} in \texttt{Python}, with parameters $\mu = 0.003$,
+$\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$. It is important to
+mention that the implemented algorithm for Euler-Maruyama runs in different
+CPU cores simultaneously for speed execution and, additionally, the creation of
+Weiner processes is run in parallel as well. This fact implies that, regardless
+of a fixed seed for random number generation, the algorithm will return
+different trajectories on each run, since each core is accessing the random
+number generator simultaneously and not sequentially; therefore, the results
+here presented are those of a single run.
 
-For the scenario simulation, we modified the parameter $\mu$, in the
+The result of the simulation can be found in Figure \ref{fig:series1}. This
+simulation will be known as Series 1. For the scenario simulation, we
+modified the parameter $\mu$, in the
 optimistic case, $\mu=0.007$ and, in the pessimistic case,
 $\mu=-0.001$. The scenarios where simulated with the same $\Delta t$,
 $\sigma$ and $t_0 = 365$, $t_f = 730$, $x_0=X_{t_0}$. The result of
@@ -241,7 +248,7 @@ confidence is:
   $n$ different Weiner Processes.
 \item For each $t \in (t_0, t_f]$ we fit a distribution
   $\hat{F}_t(\cdot)$ using the \texttt{scipy.stats} Python package.
-\item For each $\hat{F}_t(\cdot)$ a goodness of fit test is done
+\item For each $\hat{F}_t(\cdot)$ a goodness-of-fit test is done
   (Kolmogorov-Smirnov, Anderson-Darling, \dots).
 \item For each $\hat{F}_t(\cdot)$ calculate the $\alpha / 2$ and
   $1 - \alpha/2$ quantiles. These yield a confidence interval at
@@ -251,7 +258,7 @@ confidence is:
 Therefore, it is important to find the distribution for this
 process. It is well known that the SDE is a Geometric Brownian Motion
 and thus, it follows a lognormal distribution. Hence, the parameters
-are fitted but the goodness of fit test is not performed.
+are fitted but the-goodness-of-fit test is not performed.
 
 The prediction bands $\{B_t\}_{t \ge 0 }=\left(L_t, U_t\right)$
 for each scenario are presented in Figure \ref{fig:pb1}, with
@@ -281,10 +288,13 @@ of each scenario.
 \end{figure}
 
 It is clearly seen that the prediction bands enclose the majority of
-trajectories.
-
-The percentage of effectiveness was calculated by checking how many
-points longitudinally are inside the bands for each scenario. The
+trajectories; furthermore, it can be observed that these bands are not
+completely smooth, for example in Figure \ref{fig:pb1} (c) the bands have a
+spike near the end of the simulation time. These spikes are due to the presence
+of atypical points in that particular time; it is clear that these annomalies
+would be corrected when the number of trajectories considered is increased.
+The percentage of effectiveness was calculated by checking how
+many points longitudinally are inside the bands for each scenario. The
 histogram of the effectiveness are shown Figure \ref{fig:eff1}.
 
 \begin{figure}[H]
@@ -309,9 +319,10 @@ histogram of the effectiveness are shown Figure \ref{fig:eff1}.
 \end{figure}
 
 In conclusion, an algorithm to calculate a prediction band was
-developed and successfully implemented. Furthermore, the prediction
-band satisfies that approximately $1 - \alpha$ percentage of the
-trajectories are inside the bands.
+developed and successfully implemented. Furthermore, this band satisfies that
+approximately $1 - \alpha$ percentage of the
+trajectories are inside the bands, according to the results obtained in
+\ref{fig:eff1} where the mode of enclosement is around $1 - \alpha$.
 
 A sensitivity analysis was done for the parameter $\sigma$. The
 analysis changed the respective parameter in the following manner:
@@ -320,7 +331,8 @@ analysis changed the respective parameter in the following manner:
 \end{equation*}
 
 For each value of $\sigma^*$, on each scenario, the prediction band
-was calculated and the last value of the band was saved. In Figure
+was calculated and the last value of the band was saved in order to summarize
+the behavior of the bands when the parameter changes. In Figure
 \ref{fig:sens1}, these values for each $\sigma^*$ are presented.
 
 \begin{figure}[H]
@@ -344,11 +356,17 @@ was calculated and the last value of the band was saved. In Figure
   \label{fig:sens1}
 \end{figure}
 
+Note that the curves for the sensitivity analysis have some annomalies, this
+can be explained for the same reason why the prediction bands have spikes; the
+data has unusual behavior and, again, this would be corrected if the number of
+trajectories simulated is increased. Yet, the trend of these curves can still
+be appreciated and it is clear that the bands get wider as $\sigma$ increases,
+due to the direct relation between the volatility and the variance of the
+process.
+
 In conclusion, a sensitivity analysis on the $\sigma$ parameter was
-successfully realized. As the parameter appears in the equation
-related to diffusion, it represents the variation of the
-process. Hence, it can be seen that the bands tend to get wider
-i.e. with more variance.
+successfully constructed and it showed the expected result: as the parameter
+appears in the part related to the diffusion, augmenting it implies wider bands.
 
 \section*{Prediction 2}
 \begin{question}
@@ -386,9 +404,9 @@ which is also known as the Chan–Karolyi–Longstaff–Sanders process
 \parencite{chan1992}, with $t_0 < t < t_f$ and
 $\gamma, \sigma, \alpha, \mu \in \R_+$.
 
-The simulation was done using the following parameters: $\alpha = 2$,
-$\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t = 0.2$,
-$t_f = 100$, $n = 1000$. The simulation can be found in Figure
+The simulation was done using the already described Euler-Maruyama scheme
+with parameters: $\alpha = 2$, $\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$,
+$\Delta t = 0.2$, $t_f = 100$, $n = 1000$. The simulation can be found in Figure
 \ref{fig:series2}.
 
 \begin{figure}[H]
@@ -398,16 +416,20 @@ $t_f = 100$, $n = 1000$. The simulation can be found in Figure
   \label{fig:series2}
 \end{figure}
 
-The Hurst Exponent of Series 2 was calculated to check its mean
-reversion property. A Hurst Exponent is mean reverting if the value
-$H$ is less tan 0.5. The obtained value for this process is
-$H = 0.093$.
+As for the statistical properties of Series 2, the Hurst Exponent of Series 2
+was calculated to check its mean reversion property, following the ideas
+(and code) from \parencite{quanstart}. A time series is mean reverting if the value
+of the Hurst Exponent $H$ is less than 0.5. the obtained value for this process
+is $H = 0.093$.
 
-A variance ratio test was also performed. The variance ratio test
-checks if a process is a random walk. Hence, a rejection of the null
-hypothesis indicates evidence that the process is mean reverting. The
-obtained result for this test using different lags is presented in
-Table \ref{tab:vrt2}.
+A variance ratio test was also performed, this is a well know test for random
+walks \parencite{lo1989size} and it has been widely used to test for mean
+reversion (see e.g. \parencite{lo1988stock,risager1998random,lam2006new}).
+The variance ratio test checks if a process is a random walk,
+using the quotient of a k-period return and the return for 1 period
+\parencite{charles2009variance}. Hence, a rejection of the null hypothesis
+gives evidence that the process is mean reverting. The obtained result for
+this test using different lags is presented in Table \ref{tab:vrt2}.
 
 \begin{table}[H]
   \centering
@@ -424,24 +446,26 @@ Table \ref{tab:vrt2}.
 \end{table}
 
 In this specific case where $\gamma=0.5$, the process is known as
-Cox-Ingersoll-Ross (CIR) model \parencite{cox1985}. It is well known that
-this process its imaginary party is 0 if $2\alpha\mu \ge \sigma^2$,
-i.e.
+Cox-Ingersoll-Ross (CIR) model \parencite{cox1985}. An important property
+of the CIR model is that it is, almost surely, strictly positive
+if $2\alpha\mu \ge \sigma^2$ \parencite{cox1985,unknown2017}, i.e.
 \begin{equation*}
   \P{\text{there is at least one value of } t > 0 \text{ for which }
     X_t = 0} = 0
 \end{equation*}
 
+For further extension of the CIR model see e.g.
+\parencite{overbeck1997estimation,mishra2010study,li2015asymptotic,medvedev2019cox}
 This is the simplest model that allows for positive interest
 rates. Furthermore, this model is useful to simulate a derivative and
 future option \parencite{unknown2017}.
 
-A property of the CIR model is that the distribution for this process,
+Another property of the CIR model is that the distribution of this process,
 longitudinally, is a non-central $\chi^2$ distribution
 \parencite{dyrting2004}. Although the process should follow this
-distribution, in the experiments realized only the 44\% of points in
-time fitted the distribution. In Figure \ref{fig:hist_chi2} the best
-and worst fitting can be seen.
+distribution, in the experiments executed, only the 44\% of points in
+time fitted this distribution according to a simple Kolmogorov-Smirnov test.
+In Figure \ref{fig:hist_chi2} the best and worst (in a p-value sense) are presented.
 
 \begin{figure}[H]
   \centering
@@ -457,10 +481,10 @@ and worst fitting can be seen.
   \label{fig:hist_chi2}
 \end{figure}
 
-This may occur since $\alpha$ is the mean reversion rate, hence for
-the parameters chosen and for the selected time frame the CIR process
-behaves as white noise. Hence, by fitting a normal distribution the
-99.8\% of points in time were fitted. In Figure \ref{fig:hist_norm}
+This may occur since $\alpha$, that is the mean reversion rate, is relatively
+high, hence for the parameters chosen and for the selected time frame the CIR
+process behaves similar to a white noise. Hence, by fitting a normal distribution
+the 99.8\% of points in time were fitted. In Figure \ref{fig:hist_norm}
 the best and worst fitting can be seen.
 
 \begin{figure}[H]
@@ -477,7 +501,8 @@ the best and worst fitting can be seen.
   \label{fig:hist_norm}
 \end{figure}
 
-Furthermore, a normal distribution fitting was made transversally. The
+Furthermore, a normal distribution fitting was made transversally, which is a
+string evidence of a mean-reversion-like process. The
 99.7\% of trajectories were fitted. In Figure \ref{fig:hist_norm2} the
 best and worst fitting can be seen.
 
@@ -495,10 +520,9 @@ best and worst fitting can be seen.
   \label{fig:hist_norm2}
 \end{figure}
 
-Let $M = \left\lfloor \frac{T}{\Delta t} \right\rfloor$. Following the
-ideas from \cite{marin2013}, it is first calculated the following
-terms:
-
+The parameter estimation is done based on \cite{marin2013}.
+Let $M = \left\lfloor \frac{T}{\Delta t} \right\rfloor$. The following terms
+are first calculated from a sample time series:
 
 \begin{alignat*}{2}
   &A = \sum_{i=1}^M \frac{X_iX_{i-1}}{X_{i-1}^{2\gamma}}, \quad
@@ -508,7 +532,7 @@ terms:
   &&E = \sum_{i=1}^M \left(\frac{X_{i-1}}{X_{i-1}^\gamma}\right)^2
 \end{alignat*}
 
-Then, the estimation is done by:
+Then, the estimation is given by:
 
 \begin{align*}
   &\hat{\alpha} = \frac{ED - B^2 - AD + BC}{(ED - B^2)\Delta t}, \quad
@@ -518,8 +542,8 @@ Then, the estimation is done by:
     X_{i-1}^\gamma}\right)^2}
 \end{align*}
 
-To see the behavior of this estimation, a parameter estimation was
-done for each trajectory and the number of observation was
+In order to see the behavior of this estimation, it was
+done for each trajectory and the number of observations was
 modified. The parameter estimation was done in different time frames
 of the form $[0, \tilde{t}]$. In Figure \ref{fig:conv_param} the
 average of the estimated parameters for each trajectory is seen.
@@ -545,8 +569,10 @@ average of the estimated parameters for each trajectory is seen.
   \label{fig:conv_param}
 \end{figure}
 
+It can be clearly observed that the parameters tend to converge on the true
+values as $\tilde{t}$ increases, and consequently, the sample size increases.
 Following the same procedure as the one in the previous section,
-prediction bands where constructed using the fitted distributed
+prediction bands were constructed using the fitted distributions
 longitudinally. In Figure \ref{fig:bands2} the predictions bands are
 displayed.
 
@@ -559,8 +585,8 @@ displayed.
 
 Finally, a sensitivity analysis was made for parameters
 $\alpha, \mu, \sigma$ using the same methodology already presented in
-prediction 1. In Figure \ref{fig:anal2}, the sensitivity analysis for
-each parameter is seen.
+prediction 1, but using $p \in [-0.25, 0.25]$. In Figure \ref{fig:anal2},
+the sensitivity analysis for each parameter is presented.
 
 \begin{figure}[H]
   \centering
@@ -582,6 +608,20 @@ each parameter is seen.
   \caption{Sensitivity analysis for parameters.}
   \label{fig:anal2}
 \end{figure}
+
+From Figure \ref{fig:anal2} (a), it can be concluded that the prediction bands
+tend to get thiner as the parameter $\alpha$ increases; recall that $\alpha$
+represents the mean reversion rate, therefore, if it is increased, the process
+will "recover" faster implying that the trajectories will accumulate
+closer to the mean and, finally, the bands capture this behavior. Additionally,
+it is clear from Figure \ref{fig:anal2} (b) that $\mu$ is closely related to
+the mean that the process reverts to, since an almost linear relationship
+between $\mu$ and the prediction bands was obtained; the higher the $\mu$,
+the higher the bands, with constant amplitude. Finally, Figure \ref{fig:anal2} (c)
+shows that the bands get wider as $\sigma$ increases, and this can be justified
+with a similar argument than the one in the sensitivity analysis of prediction
+1: as $\sigma$ appears in the diffusion component, it has a proportional
+relation with the variance of the process.
 
 \section*{Prediction 3}
 \begin{question}
@@ -605,9 +645,9 @@ each parameter is seen.
   period and conclude.
 \end{question}
 
-The data considered is given by Henry Laniado, for another
-subject. This data considered the average daily temperature in Canada
-for the last 35 years. It was only extracted the 4 more recent years.
+The data considered is given by Henry Laniado for another
+subject. This data considers the average daily temperature in Canada
+for the last 35 years. The four-most early years were extracted.
 The data can be seen in Figure \ref{fig:series3}.
 
 \begin{figure}[H]
@@ -625,7 +665,7 @@ in Table \ref{tab:lags3}.
   \centering
   \begin{tabular}{cc}
     \hline
-    lag & $p$   \\
+    lag & $p-value$   \\
     2   & 0 \\
     4   & 0     \\
     8   & 0     \\
@@ -636,7 +676,7 @@ in Table \ref{tab:lags3}.
 \end{table}
 
 It is clear that the ratio variance test shows that the process is
-mean reverting.
+mean reverting, as the null hypothesis of random-walk is rejected.
 
 Following the ideas from \parencite{alaton2002}, it was desired to see
 the behavior of the differences of adjacent daily temperatures which
@@ -650,7 +690,7 @@ can be interpreted as the Driving Noise Process. In Figure
   \label{fig:diff}
 \end{figure}
 
-The time series appears to be white noise. Hence, a normal
+The time series appears to be white noise with a small tendency. Hence, a normal
 distribution was fitted to the time series to verify this. In Figure
 \ref{fig:wn} it can be seen the fitted distribution and the histogram
 of the time series.
@@ -665,11 +705,11 @@ of the time series.
 Based on \parencite{alaton2002}, the daily temperatures trend was
 fitted to a process of the form:
 \begin{equation*}
-  Y_t = a_1 + a_2t + a_3\sin(\omega t) + a_4\cos(\omega t)
+  T^m_t = a_1 + a_2t + a_3\sin(\omega t) + a_4\cos(\omega t)
 \end{equation*}
 
-The parameters where found using the least-squared optimization
-procedure. It was obtained:
+The parameters were found using a least-squares optimization
+procedure using \texttt{SciPy}. It was obtained:
 
 \begin{equation*}
   \vv{a} = (-16.68, 9.01 \times 10^{-3}, 7.20, -18.87)
@@ -696,8 +736,8 @@ with $T_t^m$ being the adjusted trend. The procedure to estimate the
 parameters is:
 
 \begin{enumerate}
-\item Let $N_\mu$ be the days in a month $\mu$ and $T_j$ be the daily
-  temperatures at day $j$. A initial estimation for $\sigma$ in each month is
+\item Let $N_\mu$ be the days in a month $\mu$ and $T_j$ be the
+  temperatures in day $j$. A initial estimation for $\sigma$ in each month is
   calculated by:
   \begin{equation*}
     \hat{\sigma}_\mu^2 = \frac{1}{N_\mu}\sum_{j=0}^{N_\mu - 1} (T_{j+1} - T_j)^2
@@ -723,9 +763,9 @@ mean reverting process and the daily temperatures can be seen.
 \end{figure}
 
 Using the process with the estimated parameters, it is possible to
-make a forecast of another 4 years. Furthermore, as the information of
-that 4 years is known a comparison can be made. In Figure
-\ref{fig:pred3} the prediction done by the SDE and the real data is
+make a forecast of another four years. Furthermore, a comparison can be made
+taking the real data of those corresponding four years and the forecast. In Figure
+\ref{fig:pred3} the prediction done by the SDE and the real data are
 shown.
 
 \begin{figure}[H]
@@ -739,15 +779,17 @@ It is important to notice that the estimated process is a very close
 approximation to the real data. In the second year forward the
 approximation differs from the real data. This occurs because the data
 has an unusual behavior, therefore if the real data continued its
-tendency the approximation would've been much better.
+tendency the approximation would have been much better.
 
 It is seen that the data does not follow the linear tendency when the
 predictions differs. In this manner, the authors suggest adding a term
 to the tendency equation, for example adding a higher degree
 polynomial.
 
-In Figure \ref{fig:bands3} the prediction bands for the SDE and the
-process with 1000 trajectories is presented.
+Finally, the respective prediction bands can be constructed, using the fitted
+distribution of the driving noise. Once more, 1000 trajectories were simulated
+and the obtained bands (using the same procedure already described) are
+presented in Figure \ref{fig:bands3}.
 
 \begin{figure}[H]
   \centering
