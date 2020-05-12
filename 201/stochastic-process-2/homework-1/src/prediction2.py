@@ -56,7 +56,7 @@ def test_mean_reversion(times_series):
 
 
 def parameter_estimation(time_series, plot=False):
-    mults = [(i+1)/10  for i in range(10)]
+    mults = [(i+1)/10 for i in range(10)]
     delta = delta_t
     alphas = np.zeros((len(mults), n))
     mus = np.zeros((len(mults), n))
