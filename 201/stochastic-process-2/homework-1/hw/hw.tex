@@ -13,9 +13,12 @@
 \geometry{verbose, letterpaper, tmargin=3cm,
   bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
 
-%%%%%%%% NO PARAGRAPH INDENT
+%%%%%%%% PARAGRAPH SETTINGS
 % https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
 \setlength\parindent{0pt}
+
+% https://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
+\setlength{\parskip}{5pt}
 
 %%%%%%%% SUB-FIGURE PACKAGE
 \usepackage{subcaption}
@@ -48,20 +51,17 @@
             citestyle=numeric,
             hyperref=true,
             backend=biber]{biblatex}
-\addbibresource{ref.bib} %Put relative path to ref %%%%% TODO
+\addbibresource{ref.bib}
 
-%%%%%%%% SETS DEFINITIONS
+%%%%%%%% PERSONAL COMMANDS
 \usepackage{amssymb}
+
 %%%% Important sets
 \renewcommand{\O}{\mathbb{O}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{{\mathbb{Z}}}
 \newcommand{\Q}{{\mathbb{Q}}}
 \newcommand{\R}{{\mathbb{R}}}
-
-%%%% Statistics
-\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
-\newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
 
 %%%% Lambda Calculus Symbols
 \newcommand{\dneq}{\,\, \# \,\,}
@@ -84,6 +84,25 @@
 %%%% Make optional parameter
 % https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
 \usepackage{xparse}
+
+%%%% Statistics
+\NewDocumentCommand{\E}{o m}{
+  \IfNoValueTF{#1}
+  {\mathbb{E}\left[#2\right]}
+  {\mathbb{E}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\V}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{Var}\left[#2\right]}
+  {\mathrm{Var}^{#1}\left[ #2\right]}
+}
+\RenewDocumentCommand{\P}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{P}\left(#2\right)}
+  {\mathrm{P}^{#1}\left( #2\right)}
+}
+
+%%%% Lambda Calculus
 \NewDocumentCommand{\cx}{o}{
   \IfNoValueTF{#1}
   {\left[\quad\right]}
@@ -97,13 +116,20 @@
 % https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
 \allowdisplaybreaks
 
+%%%%%%%% TO USE SHORT COMMANDS FOR VECTOR LINES
+\usepackage{esvect}
+
+%%%%%%%% REFERENCES LAST PAGE
+% https://tex.stackexchange.com/questions/320683/can-i-force-the-references-to-be-the-last-thing/320685
+\usepackage{placeins}
+
 %%%%%%%% CODE RENDERING %%%%%%% UN-COMMENT IF NECESSARY
 % Compile with flag -shell-escape
 % \usepackage{minted}
 
 %%%%%%%% START DOCUMENT
 
-\title{Title here}
+\title{Stochastic Process Workshop}
 \author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
        David Plazas Escudero \\
        \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
@@ -112,17 +138,82 @@
 
 \begin{document}
 \maketitle
-\section{Prediction 1}
-Params: $\mu = 0.003$, $\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$, $\Delta \mu = 0.004$.
 
-\begin{figure}[H]
+The code for this workshop can be found in
+\href{https://bit.ly/3ciL6Px}{source code}.
+
+\section*{Prediction 1}
+\begin{question}
+  Suppose a variable can be modelled by a homogeneous linear
+  differential equation with parameters $\Theta = \{\mu,
+  \sigma\}$. Simulate a trajectory for a total of $N = 365$
+  observations (days) and save the simulated trajectory (Series 1).
+\end{question}
+
+\begin{question}
+  Construct three trajectories out the sample modifying the parameter
+  $\mu$ for a total of $N = 365$. The trajectories must consider three
+  scenarios optimistic, pessimistic and constant. Each trajectory must
+  have as initial point the last point of Series 1.
+\end{question}
+
+\begin{question}
+  Simulate multiple trajectories for Series 1 out of the historic
+  information considering the three possible scenarios. Each
+  trajectory will help to build a prediction band for each
+  scenario. The bands can be constructed as combination of descriptive
+  statistics obtained in the simulation of each trajectory
+  longitudinally. Compare each confidence bands with data out the
+  sample (scenarios). Determine the percentage of effectiveness of the
+  bands. Conclude.
+\end{question}
+
+\begin{question}
+  Make a sensitivity analysis of the simulated scenarios and their
+  forecast respect to $\sigma$. Conclude.
+\end{question}
+
+The homogeneous linear stochastic differential equation (SDE) is given by
+
+\begin{equation*}
+  dX_t = \mu X_t dt + \sigma X_t dW_t
+\end{equation*}
+
+with $\{W_t\}_{t \ge 0}$ a Weiner process, $\mu \in \R$ and
+$\sigma \in \R_+$.
+
+The SDE was simulated using the Euler-Maruyama Method
+\parencite{higham2001}, with the parameters $\mu = 0.003$,
+$\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$. The result of
+the simulation can be found in Figure \ref{fig:series1}. This
+simulation will be known as Series 1.
+
+For the scenario simulation, we modified the parameter $\mu$, in the
+optimistic case, $\mu=0.007$ and, in the pessimistic case,
+$\mu=-0.001$. The scenarios where simulated with the same $\Delta t$,
+$\sigma$ and $t_0 = 365$, $t_f = 730$, $x_0=X_{t_0}$. The result of
+the simulation of these scenarios can be found in \ref{fig:scenarios}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{series1.pdf}
+  \caption{Series 1 simulation.}
+  \label{fig:series1}
+\end{figure}
+
+\begin{figure}
   \centering
   \includegraphics[scale=0.5]{pronostico-1-escenarios.pdf}
   \caption{Initial simulation with scenarios trajectories.}
   \label{fig:scenarios}
 \end{figure}
 
-\begin{figure}[H]
+Using the defined parameters, multiple trajectories for each scenario
+were simulated. An example for 100 trajectories can be found in Figure
+\ref{fig:trajectories1}. These figures show Series 1 along with the
+trajectories of the respective scenario.
+
+\begin{figure}
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -140,9 +231,35 @@ Params: $\mu = 0.003$, $\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$, 
       \caption{Optimistic.}
   \end{subfigure}
   \caption{Prediction trajectories for each scenario.}
+  \label{fig:trajectories1}
 \end{figure}
 
-\begin{figure}[H]
+The procedure to obtain the prediction bands with a $1 - \alpha$
+confidence is:
+\begin{enumerate}
+\item Simulate $n$ different trajectories with Euler-Maruyama, using
+  $n$ different Weiner Processes.
+\item For each $t \in (t_0, t_f]$ we fit a distribution
+  $\hat{F}_t(\cdot)$ using the \texttt{scipy.stats} Python package.
+\item For each $\hat{F}_t(\cdot)$ a goodness of fit test is done
+  (Kolmogorov-Smirnov, Anderson-Darling, \dots).
+\item For each $\hat{F}_t(\cdot)$ calculate the $\alpha / 2$ and
+  $1 - \alpha/2$ quantiles. These yield a confidence interval at
+  time $t$.
+\end{enumerate}
+
+Therefore, it is important to find the distribution for this
+process. It is well known that the SDE is a Geometric Brownian Motion
+and thus, it follows a lognormal distribution. Hence, the parameters
+are fitted but the goodness of fit test is not performed.
+
+The prediction bands $\{B_t\}_{t \ge 0 }=\left(L_t, U_t\right)$
+for each scenario are presented in Figure \ref{fig:pb1}, with
+$\alpha=0.1$ and 1000 trajectories. It is important to notice that
+Series 1 is no longer shown, only the prediction with the trajectories
+of each scenario.
+
+\begin{figure}
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -160,9 +277,53 @@ Params: $\mu = 0.003$, $\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$, 
       \caption{Optimistic.}
   \end{subfigure}
   \caption{Prediction bands for each scenario.}
+  \label{fig:pb1}
 \end{figure}
 
-\begin{figure}[H]
+It is clearly seen that the prediction bands enclose the majority of
+trajectories.
+
+The percentage of effectiveness was calculated by checking how many
+points longitudinally are inside the bands for each scenario. The
+histogram of the effectiveness are shown Figure \ref{fig:eff1}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{eff_constant.pdf}
+      \caption{Constant.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{eff_pess.pdf}
+      \caption{Pessimistic.}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{eff_opti.pdf}
+      \caption{Optimistic.}
+  \end{subfigure}
+  \caption{Effectiveness of bands for each scenario.}
+  \label{fig:eff1}
+\end{figure}
+
+In conclusion, an algorithm to calculate a prediction band was
+developed and successfully implemented. Furthermore, the prediction
+band satisfies that approximately $1 - \alpha$ percentage of the
+trajectories are inside the bands.
+
+A sensitivity analysis was done for the parameter $\sigma$. The
+analysis changed the respective parameter in the following manner:
+\begin{equation*}
+  \sigma^* = (1 + p)\sigma, \quad p \in [-0.5, 0.5]
+\end{equation*}
+
+For each value of $\sigma^*$, on each scenario, the prediction band
+was calculated and the last value of the band was saved. In Figure
+\ref{fig:sens1}, these values for each $\sigma^*$ are presented.
+
+\begin{figure}
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -180,11 +341,190 @@ Params: $\mu = 0.003$, $\sigma = 0.03$, $\Delta t = 1$, $t_f = 365$, $x_0 = 1$, 
       \caption{Optimistic.}
   \end{subfigure}
   \caption{Sensitivity on $\sigma$ for each scenario.}
+  \label{fig:sens1}
 \end{figure}
 
-\section{}
-Params: $\alpha = 0.5$, $\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t = 0.1$, $t_f = 30$, $n = 1000$.
-\begin{figure}[H]
+In conclusion, a sensitivity analysis on the $\sigma$ parameter was
+successfully realized. As the parameter appears in the equation
+related to diffusion, it represents the variation of the
+process. Hence, it can be seen that the bands tend to get wider
+i.e. with more variance.
+
+\section*{Prediction 2}
+\begin{question}
+  Suppose that a variable can be modeled by a Ornstein-Uhlenbeck mean
+  reversion process with parameters
+  $\Theta = \{\mu, \sigma, \alpha, \gamma\}$. Simulate a trajectory
+  with $N = 500$ and save this trajectory (Series 2).
+\end{question}
+
+\begin{question}
+  Analyze the statistical properties of Series 2. Justify the
+  applicability of this equation in different knowledge areas.
+\end{question}
+
+\begin{question}
+  Based on the methodology from \parencite{marin2013}, estimate the
+  parameters $\{\alpha, \mu, \sigma\}$ and make an efficient forecast
+  for Series 2. Establish a confidence level for the forecast and
+  conclude.
+\end{question}
+
+\begin{question}
+  Make a sensitivity analysis and its respective forecast for Series 2
+  for parameters $\{\alpha, \mu, \sigma\}$ and conclude.
+\end{question}
+
+The mean reversion processes of one factor with constant parameters
+can be written as \parencite{marin2013}:
+
+\begin{equation*}
+  dX_t = \alpha (\mu - X_t) dt + \sigma X_t^\gamma dW_t
+\end{equation*}
+
+which is also known as the Chan–Karolyi–Longstaff–Sanders process
+\parencite{chan1992}, with $t_0 < t < t_f$ and
+$\gamma, \sigma, \alpha, \mu \in \R_+$.
+
+The simulation was done using the following parameters: $\alpha = 2$,
+$\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t = 0.2$,
+$t_f = 100$, $n = 1000$. The simulation can be found in Figure
+\ref{fig:series2}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{ornstein_serie2.pdf}
+  \caption{Simulation of mean reversion process.}
+  \label{fig:series2}
+\end{figure}
+
+The Hurst Exponent of Series 2 was calculated to check its mean
+reversion property. A Hurst Exponent is mean reverting if the value
+$H$ is less tan 0.5. The obtained value for this process is
+$H = 0.093$.
+
+A variance ratio test was also performed. The variance ratio test
+checks if a process is a random walk. Hence, a rejection of the null
+hypothesis indicates evidence that the process is mean reverting. The
+obtained result for this test using different lags is presented in
+Table \ref{tab:vrt2}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    lag & $p$   \\
+    2   & 0.039 \\
+    4   & 0     \\
+    8   & 0     \\
+    16  & 0     \\ \hline
+  \end{tabular}
+  \caption{}
+  \label{tab:vrt2}
+\end{table}
+
+In this specific case where $\gamma=0.5$, the process is known as
+Cox-Ingersoll-Ross (CIR) model \parencite{cox1985}. It is well known that
+this process its imaginary party is 0 if $2\alpha\mu \ge \sigma^2$,
+i.e.
+\begin{equation*}
+  \P{\text{there is at least one value of } t > 0 \text{ for which }
+    X_t = 0} = 0
+\end{equation*}
+
+This is the simplest model that allows for positive interest
+rates. Furthermore, this model is useful to simulate a derivative and
+future option \parencite{unknown2017}.
+
+A property of the CIR model is that the distribution for this process,
+longitudinally, is a non-central $\chi^2$ distribution
+\parencite{dyrting2004}. Although the process should follow this
+distribution, in the experiments realized only the 44\% of points in
+time fitted the distribution. In Figure \ref{fig:hist_chi2} the best
+and worst fitting can be seen.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{maxp_ncx2_histogram_eachT}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{minp_ncx2_histogram_eachT}
+  \end{subfigure}
+  \caption{Best and worst non-central $\chi^2$ fitting.}
+  \label{fig:hist_chi2}
+\end{figure}
+
+This may occur since $\alpha$ is the mean reversion rate, hence for
+the parameters chosen and for the selected time frame the CIR process
+behaves as white noise. Hence, by fitting a normal distribution the
+99.8\% of points in time were fitted. In Figure \ref{fig:hist_norm}
+the best and worst fitting can be seen.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{maxp_norm_histogram_eachT}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{minp_norm_histogram_eachT}
+  \end{subfigure}
+  \caption{Best and worst normal fitting.}
+  \label{fig:hist_norm}
+\end{figure}
+
+Furthermore, a normal distribution fitting was made transversally. The
+99.7\% of trajectories were fitted. In Figure \ref{fig:hist_norm2} the
+best and worst fitting can be seen.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{maxp_histogram_forallT}
+  \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[scale=.45]{minp_histogram_forallT}
+  \end{subfigure}
+  \caption{Best and worst normal transversal fitting.}
+  \label{fig:hist_norm2}
+\end{figure}
+
+Let $M = \left\lfloor \frac{T}{\Delta t} \right\rfloor$. Following the
+ideas from \cite{marin2013}, it is first calculated the following
+terms:
+
+
+\begin{alignat*}{2}
+  &A = \sum_{i=1}^M \frac{X_iX_{i-1}}{X_{i-1}^{2\gamma}}, \quad
+  B= \sum_{i=1}^M \frac{X_{i-1}}{X_{i-1}^{2\gamma}}, \quad
+  &&C = \sum_{i=1}^M \frac{X_i}{X_{i-1}^{2\gamma}} \\
+  &D = \sum_{i=1}^M \frac{1}{X_{i-1}^{|\gamma}}, \quad
+  &&E = \sum_{i=1}^M \left(\frac{X_{i-1}}{X_{i-1}^\gamma}\right)^2
+\end{alignat*}
+
+Then, the estimation is done by:
+
+\begin{align*}
+  &\hat{\alpha} = \frac{ED - B^2 - AD + BC}{(ED - B^2)\Delta t}, \quad
+    \hat{\mu} = \frac{A - E(1 - \hat{\alpha} \Delta t)}{\hat{\alpha} B \Delta t} \\
+  &\hat{\sigma} = \sqrt{\frac{1}{M \Delta t} \sum_{i=1}^M
+    \left(\frac{X_i - X_{i-1} - \hat{\alpha}(\hat{\mu} - X_{i-1})\Delta t}{
+    X_{i-1}^\gamma}\right)^2}
+\end{align*}
+
+To see the behavior of this estimation, a parameter estimation was
+done for each trajectory and the number of observation was
+modified. The parameter estimation was done in different time frames
+of the form $[0, \tilde{t}]$. In Figure \ref{fig:conv_param} the
+average of the estimated parameters for each trajectory is seen.
+
+\begin{figure}
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -202,7 +542,220 @@ Params: $\alpha = 0.5$, $\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t 
       \caption{}
   \end{subfigure}
   \caption{Convergence of parameter estimation.}
+  \label{fig:conv_param}
 \end{figure}
 
+Following the same procedure as the one in the previous section,
+prediction bands where constructed using the fitted distributed
+longitudinally. In Figure \ref{fig:bands2} the predictions bands are
+displayed.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{prediction_bands_2}
+  \caption{Prediction bands for CIR model.}
+  \label{fig:bands2}
+\end{figure}
+
+Finally, a sensitivity analysis was made for parameters
+$\alpha, \mu, \sigma$ using the same methodology already presented in
+prediction 1. In Figure \ref{fig:anal2}, the sensitivity analysis for
+each parameter is seen.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{alpha_sens}
+      \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{mu_sens}
+      \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includegraphics[scale=0.45]{sigma_sens}
+      \caption{}
+  \end{subfigure}
+  \caption{Sensitivity analysis for parameters.}
+  \label{fig:anal2}
+\end{figure}
+
+\section*{Prediction 3}
+\begin{question}
+  Download the data of the daily temperatures of a region of the
+  northern hemisphere during at least two years. In such series a
+  trigonometric periodic functional trend must be visible.
+\end{question}
+
+\begin{question}
+  Analyze the statistical properties of the data and make a brief
+  description of the region being analyzed.
+\end{question}
+
+\begin{question}
+  Following the methodology from \parencite{alaton2002} estimate the
+  parameters for a mean reversion process.
+\end{question}
+
+\begin{question}
+  Make an efficient forecast for a time equal to the estimation
+  period and conclude.
+\end{question}
+
+The data considered is given by Henry Laniado, for another
+subject. This data considered the average daily temperature in Canada
+for the last 35 years. It was only extracted the 4 more recent years.
+The data can be seen in Figure \ref{fig:series3}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{temps.pdf}
+  \caption{Daily temperatures.}
+  \label{fig:series3}
+\end{figure}
+
+In first place, the same methodology to test mean reversion used in
+last section was applied with this series. The results are presented
+in Table \ref{tab:lags3}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    lag & $p$   \\
+    2   & 0 \\
+    4   & 0     \\
+    8   & 0     \\
+    16  & 0 \\ \hline
+  \end{tabular}
+  \caption{Result of Variance Ratio Test.}
+  \label{tab:lags3}
+\end{table}
+
+It is clear that the ratio variance test shows that the process is
+mean reverting.
+
+Following the ideas from \parencite{alaton2002}, it was desired to see
+the behavior of the differences of adjacent daily temperatures which
+can be interpreted as the Driving Noise Process. In Figure
+\ref{fig:diff} it can be found the time series for the difference.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{diffs_temps.pdf}
+  \caption{Time series for the Driving Noise Process.}
+  \label{fig:diff}
+\end{figure}
+
+The time series appears to be white noise. Hence, a normal
+distribution was fitted to the time series to verify this. In Figure
+\ref{fig:wn} it can be seen the fitted distribution and the histogram
+of the time series.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{hist_diffs_temps.pdf}
+  \caption{Fitted distrbution and histogram for Driving Noise Process.}
+  \label{fig:wn}
+\end{figure}
+
+Based on \parencite{alaton2002}, the daily temperatures trend was
+fitted to a process of the form:
+\begin{equation*}
+  Y_t = a_1 + a_2t + a_3\sin(\omega t) + a_4\cos(\omega t)
+\end{equation*}
+
+The parameters where found using the least-squared optimization
+procedure. It was obtained:
+
+\begin{equation*}
+  \vv{a} = (-16.68, 9.01 \times 10^{-3}, 7.20, -18.87)
+\end{equation*}
+
+In Figure \ref{fig:trend} the adjusted trend and time series can be
+seen.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{sine_trend.pdf}
+  \caption{Trend and daily temperatures.}
+  \label{fig:trend}
+\end{figure}
+
+The time series is desired to be fitted to a Ornstein-Uhlenbeck
+Process, given by:
+
+\begin{equation*}
+  dT_t = \alpha(T_t^m - T_t)dt + \sigma_t dW_t
+\end{equation*}
+
+with $T_t^m$ being the adjusted trend. The procedure to estimate the
+parameters is:
+
+\begin{enumerate}
+\item Let $N_\mu$ be the days in a month $\mu$ and $T_j$ be the daily
+  temperatures at day $j$. A initial estimation for $\sigma$ in each month is
+  calculated by:
+  \begin{equation*}
+    \hat{\sigma}_\mu^2 = \frac{1}{N_\mu}\sum_{j=0}^{N_\mu - 1} (T_{j+1} - T_j)^2
+  \end{equation*}
+
+\item Then, an estimation for $\hat{\alpha}$ is done by the following
+  equation:
+  \begin{equation*}
+    \hat{\alpha} = \dfrac{\displaystyle\sum_{i=1}^nY_{i-1}(T_i - T_i^m)}{
+      \displaystyle\sum_{i=1}^nY_{i-1} (T_{i-1} - T_{i-1}^m)}, \quad
+    \text{where } Y_i = \frac{T_{i}^m - T_{i}}{\sigma_i^2}
+  \end{equation*}
+\end{enumerate}
+
+In Figure \ref{fig:estimated3} the mean of 1000 simulations of the
+mean reverting process and the daily temperatures can be seen.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{estimated_temps.pdf}
+  \caption{Simulation and temperatures.}
+  \label{fig:estimated3}
+\end{figure}
+
+Using the process with the estimated parameters, it is possible to
+make a forecast of another 4 years. Furthermore, as the information of
+that 4 years is known a comparison can be made. In Figure
+\ref{fig:pred3} the prediction done by the SDE and the real data is
+shown.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{pred_estimated_temps.pdf}
+  \caption{Mean reverting process and real data.}
+  \label{fig:pred3}
+\end{figure}
+
+It is important to notice that the estimated process is a very close
+approximation to the real data. In the second year forward the
+approximation differs from the real data. This occurs because the data
+has an unusual behavior, therefore if the real data continued its
+tendency the approximation would've been much better.
+
+It is seen that the data does not follow the linear tendency when the
+predictions differs. In this manner, the authors suggest adding a term
+to the tendency equation, for example adding a higher degree
+polynomial.
+
+In Figure \ref{fig:bands3} the prediction bands for the SDE and the
+process with 1000 trajectories is presented.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{bands_prediction3.pdf}
+  \caption{Prediction bands for temperatures prediction.}
+  \label{fig:bands3}
+\end{figure}
+
+\FloatBarrier
 \printbibliography
 \end{document}
