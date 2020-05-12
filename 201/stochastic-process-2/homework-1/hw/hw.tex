@@ -3,7 +3,7 @@
 \usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{graphicx}
+\usepackage[draft]{graphicx}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
 
@@ -194,14 +194,14 @@ $\mu=-0.001$. The scenarios where simulated with the same $\Delta t$,
 $\sigma$ and $t_0 = 365$, $t_f = 730$, $x_0=X_{t_0}$. The result of
 the simulation of these scenarios can be found in \ref{fig:scenarios}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{series1.pdf}
   \caption{Series 1 simulation.}
   \label{fig:series1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{pronostico-1-escenarios.pdf}
   \caption{Initial simulation with scenarios trajectories.}
@@ -213,7 +213,7 @@ were simulated. An example for 100 trajectories can be found in Figure
 \ref{fig:trajectories1}. These figures show Series 1 along with the
 trajectories of the respective scenario.
 
-\begin{figure}
+\begin{figure}[t]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -259,7 +259,7 @@ $\alpha=0.1$ and 1000 trajectories. It is important to notice that
 Series 1 is no longer shown, only the prediction with the trajectories
 of each scenario.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -287,7 +287,7 @@ The percentage of effectiveness was calculated by checking how many
 points longitudinally are inside the bands for each scenario. The
 histogram of the effectiveness are shown Figure \ref{fig:eff1}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -323,7 +323,7 @@ For each value of $\sigma^*$, on each scenario, the prediction band
 was calculated and the last value of the band was saved. In Figure
 \ref{fig:sens1}, these values for each $\sigma^*$ are presented.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -391,7 +391,7 @@ $\mu = 1.25$, $\sigma = 0.4$, $\gamma = 0.5$, $\Delta t = 0.2$,
 $t_f = 100$, $n = 1000$. The simulation can be found in Figure
 \ref{fig:series2}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{ornstein_serie2.pdf}
   \caption{Simulation of mean reversion process.}
@@ -443,7 +443,7 @@ distribution, in the experiments realized only the 44\% of points in
 time fitted the distribution. In Figure \ref{fig:hist_chi2} the best
 and worst fitting can be seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -463,7 +463,7 @@ behaves as white noise. Hence, by fitting a normal distribution the
 99.8\% of points in time were fitted. In Figure \ref{fig:hist_norm}
 the best and worst fitting can be seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -481,7 +481,7 @@ Furthermore, a normal distribution fitting was made transversally. The
 99.7\% of trajectories were fitted. In Figure \ref{fig:hist_norm2} the
 best and worst fitting can be seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -524,7 +524,7 @@ modified. The parameter estimation was done in different time frames
 of the form $[0, \tilde{t}]$. In Figure \ref{fig:conv_param} the
 average of the estimated parameters for each trajectory is seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -550,7 +550,7 @@ prediction bands where constructed using the fitted distributed
 longitudinally. In Figure \ref{fig:bands2} the predictions bands are
 displayed.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{prediction_bands_2}
   \caption{Prediction bands for CIR model.}
@@ -562,7 +562,7 @@ $\alpha, \mu, \sigma$ using the same methodology already presented in
 prediction 1. In Figure \ref{fig:anal2}, the sensitivity analysis for
 each parameter is seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
@@ -610,7 +610,7 @@ subject. This data considered the average daily temperature in Canada
 for the last 35 years. It was only extracted the 4 more recent years.
 The data can be seen in Figure \ref{fig:series3}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{temps.pdf}
   \caption{Daily temperatures.}
@@ -643,7 +643,7 @@ the behavior of the differences of adjacent daily temperatures which
 can be interpreted as the Driving Noise Process. In Figure
 \ref{fig:diff} it can be found the time series for the difference.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{diffs_temps.pdf}
   \caption{Time series for the Driving Noise Process.}
@@ -655,7 +655,7 @@ distribution was fitted to the time series to verify this. In Figure
 \ref{fig:wn} it can be seen the fitted distribution and the histogram
 of the time series.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{hist_diffs_temps.pdf}
   \caption{Fitted distrbution and histogram for Driving Noise Process.}
@@ -678,7 +678,7 @@ procedure. It was obtained:
 In Figure \ref{fig:trend} the adjusted trend and time series can be
 seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{sine_trend.pdf}
   \caption{Trend and daily temperatures.}
@@ -715,7 +715,7 @@ parameters is:
 In Figure \ref{fig:estimated3} the mean of 1000 simulations of the
 mean reverting process and the daily temperatures can be seen.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{estimated_temps.pdf}
   \caption{Simulation and temperatures.}
@@ -728,7 +728,7 @@ that 4 years is known a comparison can be made. In Figure
 \ref{fig:pred3} the prediction done by the SDE and the real data is
 shown.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{pred_estimated_temps.pdf}
   \caption{Mean reverting process and real data.}
@@ -749,7 +749,7 @@ polynomial.
 In Figure \ref{fig:bands3} the prediction bands for the SDE and the
 process with 1000 trajectories is presented.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=.5]{bands_prediction3.pdf}
   \caption{Prediction bands for temperatures prediction.}
