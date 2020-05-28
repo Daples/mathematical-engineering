@@ -1,13 +1,20 @@
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+import scipy.stats as st
 from PIL import Image
+from scipy.linalg import eigvals
 from scipy.ndimage import sobel
+from sklearn.covariance import LedoitWolf
 
 
 class ImageHandler:
-    def __init__(self, directory):
-        self.image = Image.open(directory)
+    def __init__(self, directory, array=None):
+        if array is None:
+            self.image = Image.open(directory)
+        else:
+            self.image = Image.fromarray(array, 'RGB')
         self.directory = directory
 
         # Modes for the image
@@ -42,15 +49,23 @@ class ImageHandler:
         f_xy[0, 0] = pos_y
         f_xy[1, 0] = pos_x
 
-        f_xy[2:5, 0] = self.rgb[x, y, :]
+        f_xy[2:5, 0] = self.rgb[pos_x, pos_y, :]
 
-        f_xy[5, 0] = self.der_imagex[x, y]
-        f_xy[6, 0] = self.der_imagey[x, y]
+        f_xy[5, 0] = np.abs(self.der_imagex[pos_x, pos_y])
+        f_xy[6, 0] = np.abs(self.der_imagey[pos_x, pos_y])
 
-        f_xy[7, 0] = self.der2_imagex[x, y]
-        f_xy[9, 0] = self.der2_imagey[x, y]
+        f_xy[7, 0] = np.abs(self.der2_imagex[pos_x, pos_y])
+        f_xy[8, 0] = np.abs(self.der2_imagey[pos_x, pos_y])
 
         return f_xy
+
+    # Calculate matrix of features
+    def matrix_features(self):
+        rows = []
+        for x in range(self.intensity.shape[0]):
+            for y in range(self.intensity.shape[1]):
+                rows.append(self.features(x, y)[:, 0])
+        return np.array(rows)
 
     # Mode to find desired regions
     def mode_draw_region(self):
@@ -78,7 +93,7 @@ class ImageHandler:
                 region = self.create_region((x0, y0), (x1, y1))
                 plt.close('all')
                 self.show(cont=True, regions=[region], rect=True,
-                          subimg=region[2])
+                          subimg=region[2].image)
 
                 ans = input("Continue? [y/n] ")
                 if "y" not in ans:
@@ -93,6 +108,7 @@ class ImageHandler:
             except:
                 self.export_info("temp_file.imgh")
 
+    # Create region
     def create_region(self, vertex_sup_left, vertex_bot_right):
         # Find coordinates
         x1 = vertex_sup_left[0]
@@ -104,7 +120,7 @@ class ImageHandler:
         region = self.rgb[y1:y2, x1:x2, :]
 
         return (vertex_sup_left, vertex_bot_right,
-                Image.fromarray(region, 'RGB'))
+                ImageHandler(self.directory, array=region))
 
     # Add region
     def add_region(self, vertex_sup_left, vertex_bot_right):
@@ -124,7 +140,7 @@ class ImageHandler:
         output.close()
 
     # Read regions from a file generates by export_regions
-    def read_information(self, directory=None):
+    def read_info(self, directory=None):
         if directory is None:
             new_directory = self.directory.split(".")[0]
             directory = new_directory + ".imgh"
@@ -137,6 +153,32 @@ class ImageHandler:
             vertex0 = tuple(map(int, vertex0.split(', ')))
             vertex1 = tuple(map(int, vertex1.split(', ')))
             self.add_region(vertex0, vertex1)
+
+    # Partition image in two
+    def half_image(self, horizontal=True):
+        if horizontal:
+            partition = int(self.rgb.shape[1] / 2)
+
+            first = self.rgb[:, :partition, :]
+            second = self.rgb[:, partition:, :]
+        else:
+            partition = int(self.rgb.shape[0] / 2)
+
+            first = self.rgb[:partition, :, :]
+            second = self.rgb[partition:, :, :]
+
+        first_im = ImageHandler(self.directory, array=first)
+        second_im = ImageHandler(self.directory, array=second)
+        return first_im, second_im
+
+    # Array of square for given scale
+    def get_regions(self, regions, index_region, scale):
+        # Calculate width and height
+        vertex0 = regions[index_region][0]
+        vertex1 = regions[index_region][1]
+
+        width = abs(vertex0[0] - vertex1[0])
+        height = abs(vertex1[0] -  vertex1[1])
 
     # Show image in pyplot
     def show(self, rect=False, regions=None, cont=False, subimg=None):
@@ -168,5 +210,103 @@ class ImageHandler:
         plt.show(block=(not cont))
 
 
-image = ImageHandler("exp-pics/og4.jpeg")
-image.mode_draw_region()
+class Cov:
+    def __init__(method):
+        self.method = method
+
+    def fetch(self, sample):
+        if self.method == 0:
+            return np.cov(sample.transpose())
+
+    # Correlation matrix to cov
+    def corr_to_cov(data, correlation):
+        stds = data.std(axis=0, ddof=1)
+
+        cov = np.zeros(correlation.shape)
+        for i in range(correlation.shape[0]):
+            for j in range(correlation.shape[1]):
+                cov[i, j] = correlation[i, j] * stds[i] * stds[j]
+
+        return cov
+
+    # Calculate comedian for two vectors
+    def comedian(u, v):
+        median_u = np.quantile(u, 0.5)
+        median_v = np.quantile(v, 0.5)
+
+        aux = (u - median_u) * (v - median_v)
+
+        return np.quantile(aux, 0.5)
+
+    # Calculate comedian matrix
+    def calculate_com(sample):
+        com = np.zeros((sample.shape[1], sample.shape[1]))
+        for i in range(sample.shape[1]):
+            for j in range(sample.shape[1]):
+                com[i, j] = comedian(sample[:, i], sample[:, j])
+
+        return com
+
+    # method =
+    #    0 -> Spearman
+    #    1 -> Kendall
+    def calculate_cov_corr(sample, method=0):
+        if method == 0:
+            # Calculate Spearman
+            spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
+            cov = corr_to_cov(sample, spearman)
+        else:
+            # Calculate Kendall
+            kendall = pd.DataFrame(sample).corr(method="kendall").to_numpy()
+            cov = corr_to_cov(sample, kendall)
+        return cov
+
+    # Calculate covariance of shrinkages
+    def calculate_cov_shrinkages(sample):
+        return LedoitWolf().fit(sample).covariance_
+
+
+class ImageProcessor:
+    def __init__(directory, method=0):
+        self.image = ImageHandler(directory)
+        self.cov = Cov(method)
+
+        self.regions = []
+
+        # Process image
+        self.c1 = []
+        # Find features for regions
+        self.get_region_1()
+
+        self.c2 = []
+        self.c3 = []
+        self.c4 = []
+        self.c5 = []
+
+    def get_region_1(self):
+        for region in self.regions:
+            imgh = region[2]
+            matrix = imgh.matrix_features()
+
+            self.c1.append(self.cov.fetch(matrix))
+
+    def distance(c1, c2):
+        eig_vals = eigvals(c1, c2)
+
+        nans = eig_vals[np.isnan(eig_vals)]
+        if nans.size > 0:
+            d = np.inf
+        else:
+            try:
+                d = np.sqrt((np.log(eig_vals) ** 2).sum())
+            except:
+                d = np.inf
+
+        return d
+
+    def process_image(self, find_object_image, method=0):
+        if method == 0:
+            calc = lambda matrix: np.cov(matrix.transpose())
+
+
+image = ImageProcessor("exp-pics/lower_res_images/og1.jpeg")
