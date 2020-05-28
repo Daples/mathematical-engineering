@@ -32,6 +32,9 @@ class ImageHandler:
         # Regions information
         self.regions = []
 
+        # Features
+        self.matrix = self.matrix_features()
+
     # Calculates derivatives of an image
     def calculate_derivatives(self):
         # First derivative
@@ -171,17 +174,61 @@ class ImageHandler:
         second_im = ImageHandler(self.directory, array=second)
         return first_im, second_im
 
-    # Array of square for given scale
-    def get_regions(self, regions, index_region, scale):
-        # Calculate width and height
-        vertex0 = regions[index_region][0]
-        vertex1 = regions[index_region][1]
+    def features_subregion(self, vertex0, vertex1):
+        x0 = vertex0[0]
+        y0 = vertex0[1]
 
-        width = abs(vertex0[0] - vertex1[0])
-        height = abs(vertex1[0] -  vertex1[1])
+        x1 = vertex1[0]
+        y1 = vertex1[1]
+
+        row_len = self.intensity.shape[0]
+
+        # Position in row_len
+        initial_coord_0 = x0*row_len + y0
+        rows = []
+        for y in range(y0, y1 + 1):
+            sub_matrix = self.matrix[(y*row_len + x0):(y*row_len + x1), :]
+            sub_matrix[:, 1] = y
+            sub_matrix[:, 0] = list(range(x0, x1))
+            sub_matrix = sub_matrix.tolist()
+
+            for row0 in sub_matrix:
+                rows.append(row0)
+
+        rows = np.array(rows)
+        return rows
+
+    # Array of square for given scale
+    def get_regions(self, region, scale):
+        # Calculate width and height
+        vertex0 = region[0]
+        vertex1 = region[1]
+
+        width = int(scale*abs(vertex0[0] - vertex1[0]))
+        height = int(scale*abs(vertex1[0] -  vertex1[1]))
+
+        if width == 0 or height == 0:
+            return []
+
+        regions = []
+        # Find all regions
+        for y in range(0, self.rgb.shape[0], 3):
+            if y + height >= self.rgb.shape[0]:
+                break
+            for x in range(0, self.rgb.shape[1], 3):
+                if x + width >= self.rgb.shape[1]:
+                    break
+                vertex1 = (x, y)
+                vertex2 = (x+width, y+height)
+                sub_array = self.rgb[y:(y + height), x:(x+width), :]
+                sub_region = ImageHandler(self.directory, array=sub_array)
+
+                regions.append((vertex1, vertex2, sub_region))
+
+        return regions
 
     # Show image in pyplot
-    def show(self, rect=False, regions=None, cont=False, subimg=None):
+    def show(self, output_dir="", rect=False, regions=None, cont=False, subimg=None):
         if subimg is not None:
             fig, (ax, ax2) = plt.subplots(nrows=2)
         else:
@@ -207,16 +254,26 @@ class ImageHandler:
         if subimg is not None:
             ax2.imshow(subimg)
 
-        plt.show(block=(not cont))
+        if len(output_dir) > 0:
+            plt.savefig(output_dir, bbox_inches='tight')
+            plt.clf()
+        else:
+            plt.show(block=(not cont))
 
 
 class Cov:
-    def __init__(method):
+    def __init__(self, method):
         self.method = method
 
     def fetch(self, sample):
         if self.method == 0:
             return np.cov(sample.transpose())
+        elif self.method == 1:
+            return Cov.calculate_com(sample)
+        elif self.method in range(2, 4):
+            return Cov.calculate_cov_corr(sample, method=(self.method-2))
+        else:
+            return Cov.calculate_cov_shrinkages(sample)
 
     # Correlation matrix to cov
     def corr_to_cov(data, correlation):
@@ -243,7 +300,7 @@ class Cov:
         com = np.zeros((sample.shape[1], sample.shape[1]))
         for i in range(sample.shape[1]):
             for j in range(sample.shape[1]):
-                com[i, j] = comedian(sample[:, i], sample[:, j])
+                com[i, j] = Cov.comedian(sample[:, i], sample[:, j])
 
         return com
 
@@ -254,11 +311,11 @@ class Cov:
         if method == 0:
             # Calculate Spearman
             spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
-            cov = corr_to_cov(sample, spearman)
+            cov = Cov.corr_to_cov(sample, spearman)
         else:
             # Calculate Kendall
             kendall = pd.DataFrame(sample).corr(method="kendall").to_numpy()
-            cov = corr_to_cov(sample, kendall)
+            cov = Cov.corr_to_cov(sample, kendall)
         return cov
 
     # Calculate covariance of shrinkages
@@ -267,11 +324,10 @@ class Cov:
 
 
 class ImageProcessor:
-    def __init__(directory, method=0):
+    def __init__(self, directory, method=0):
         self.image = ImageHandler(directory)
+        self.image.read_info()
         self.cov = Cov(method)
-
-        self.regions = []
 
         # Process image
         self.c1 = []
@@ -283,14 +339,22 @@ class ImageProcessor:
         self.c4 = []
         self.c5 = []
 
+        # Scale changes
+        scale1 = [0.85 ** j for j in range(4, 0, -1)]
+        scale2 = [1.15 ** j for j in range(0, 5)]
+
+        self.scales = np.array(scale1 + scale2)
+
     def get_region_1(self):
-        for region in self.regions:
+        for region in self.image.regions:
             imgh = region[2]
-            matrix = imgh.matrix_features()
+            matrix = imgh.matrix
 
             self.c1.append(self.cov.fetch(matrix))
 
     def distance(c1, c2):
+        if np.isnan(c1.sum()) or np.isnan(c2.sum()):
+            return np.inf
         eig_vals = eigvals(c1, c2)
 
         nans = eig_vals[np.isnan(eig_vals)]
@@ -301,12 +365,72 @@ class ImageProcessor:
                 d = np.sqrt((np.log(eig_vals) ** 2).sum())
             except:
                 d = np.inf
-
         return d
 
-    def process_image(self, find_object_image, method=0):
-        if method == 0:
-            calc = lambda matrix: np.cov(matrix.transpose())
+    def process_image_for_region(self, imagep, index_region):
+        # Image to process
+        best_locations = []
+        region = self.image.regions[index_region]
+        c1 = self.c1[index_region]
 
+        # Regions
+        locations = []
+        for scale in self.scales:
+            locations += imagep.get_regions(region, scale)
 
-image = ImageProcessor("exp-pics/lower_res_images/og1.jpeg")
+        # 1000 best regions
+        best_locations = list(sorted(locations, key=lambda x:
+                                     ImageProcessor.distance(c1,
+                                     self.cov.fetch(x[2].matrix))))[:1000]
+        # Covariances
+        left, right = region[2].half_image(horizontal=True)
+        c2 = self.cov.fetch(left.matrix)
+        c3 = self.cov.fetch(right.matrix)
+
+        upper, down = region[2].half_image(horizontal=False)
+        c4 = self.cov.fetch(upper.matrix)
+        c5 = self.cov.fetch(down.matrix)
+        cs = [c1, c2, c3, c4, c5]
+
+        # Best choice
+        dissimilarity = []
+        for choice in best_locations:
+            # Partition
+            c11 = self.cov.fetch(choice[2].matrix)
+
+            left, right = choice[2].half_image(horizontal=True)
+            c22 = self.cov.fetch(left.matrix)
+            c23 = self.cov.fetch(right.matrix)
+
+            upper, down = choice[2].half_image(horizontal=False)
+            c24 = self.cov.fetch(upper.matrix)
+            c25 = self.cov.fetch(down.matrix)
+            c2s = [c11, c22, c23, c24, c25]
+
+            sum_0 = 0
+            for i in range(len(c2s)):
+                sum_0 += ImageProcessor.distance(cs[i], c2s[i])
+
+            ds = []
+            for j in range(len(c2s)):
+                ds.append(ImageProcessor.distance(cs[j], c2s[j]))
+
+            dissimilarity.append(sum_0 - min(ds))
+
+        dissimilarity = np.array(dissimilarity)
+        # Extract the best region
+        return best_locations[dissimilarity.argmin()]
+
+    def search_objects(self, dir_process, output_file):
+        imagetp = ImageHandler(dir_process)
+
+        for i in range(len(self.image.regions)):
+            region = self.process_image_for_region(imagetp, 0)
+
+            imagetp.add_region(region[0], region[1])
+
+        imagetp.show(rect=True, output_dir=output_file)
+
+image_processor = ImageProcessor("exp-pics/og2.jpeg")
+image_processor.image.show(output_dir="outputs/og2.jpeg", rect=True)
+
