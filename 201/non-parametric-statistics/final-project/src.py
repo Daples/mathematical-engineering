@@ -168,6 +168,5 @@ class ImageHandler:
         plt.show(block=(not cont))
 
 
-image = ImageHandler("images/horses_art_night.jpg")
-image.read_information()
-image.show(rect=True)
+image = ImageHandler("exp-pics/og4.jpeg")
+image.mode_draw_region()
