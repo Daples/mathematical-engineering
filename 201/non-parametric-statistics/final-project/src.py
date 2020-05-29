@@ -429,8 +429,11 @@ class ImageProcessor:
 
             imagetp.add_region(region[0], region[1])
 
-        imagetp.show(rect=True, output_dir=output_file)
+        imagetp.show(rect=True)
 
-image_processor = ImageProcessor("exp-pics/og2.jpeg")
-image_processor.image.show(output_dir="outputs/og2.jpeg", rect=True)
+image_processor = ImageProcessor("exp-pics/og2.jpeg", method=3)
 
+for i in range(1, 3):
+    recon = "exp-pics/recon2{}.jpeg".format(i)
+    output = "com-recon2{}.jpeg".format(i)
+    image_processor.search_objects(recon, output)
