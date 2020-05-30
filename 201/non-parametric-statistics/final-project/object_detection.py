@@ -16,7 +16,7 @@ class ImagePreProcessor:
 
         self.intensity = np.array(self.image.convert("L"))
         self.rgb = np.array(self.image.convert("RGB"))
-
+        self.directory = directory
         self.regions = []
 
     # Save information of image in file
@@ -583,5 +583,5 @@ class ImageProcessor:
 
 
 #################################################
-img = ImageProcessor("exp-pics/og3.jpeg", method=0)
-img.search_objects("exp-pics/recon31.jpeg", "temp.jpeg")
+img = ImageProcessor("exp-pics/og7.jpeg", method=3)
+img.search_objects("exp-pics/recon71.jpeg", "temp.jpeg")
