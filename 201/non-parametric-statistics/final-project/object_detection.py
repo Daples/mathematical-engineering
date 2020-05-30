@@ -14,8 +14,8 @@ class ImagePreProcessor:
     def __init__(self, directory):
         self.image = Image.open(directory)
 
-        self.intensity = np.array(image.convert("L"))
-        self.rgb = np.array(image.convert("RGB"))
+        self.intensity = np.array(self.image.convert("L"))
+        self.rgb = np.array(self.image.convert("RGB"))
 
         self.regions = []
 
@@ -154,7 +154,14 @@ class Region:
         return first, second
 
     # Get rectangular patch
-    def get_patch(self):
+    def get_patch(self, index):
+        if index == 0:
+            color = 'w'
+        elif index == 1:
+            color = 'b'
+        else:
+            color = 'r'
+
         vertex1 = self.vertex1[::-1]
         vertex0 = self.vertex0[::-1]
 
@@ -162,7 +169,7 @@ class Region:
         height = vertex1[1] - vertex0[1]
 
         return patches.Rectangle(vertex0, width, height, fill=False,
-                                 edgecolor='w', linewidth=2)
+                                 edgecolor=color, linewidth=2)
 
     # Create feature matrix
     def create_matrix(self):
@@ -234,7 +241,6 @@ class Region:
 
         return self.c4, self.c5
 
-
 #################################################
 class ImageHandler:
     def __init__(self, directory):
@@ -294,13 +300,13 @@ class ImageHandler:
         if self.der_imagex is None:
             self.create_derivatives()
 
-        hsv = self.get_hsv()
+        rgb = self.get_rgb()
         f_xy = np.zeros((9, 1))
 
         f_xy[0, 0] = pos_y
         f_xy[1, 0] = pos_x
 
-        f_xy[2:5, 0] = hsv[pos_x, pos_y, :]
+        f_xy[2:5, 0] = rgb[pos_x, pos_y, :]
 
         f_xy[5, 0] = np.abs(self.der_imagex[pos_x, pos_y])
         f_xy[6, 0] = np.abs(self.der_imagey[pos_x, pos_y])
@@ -384,6 +390,16 @@ class ImageHandler:
                 region_aux = Region(vertex1, vertex2, self)
                 locations.append(region_aux)
 
+        for x in range(0, rgb.shape[0], step):
+            if x + height >= rgb.shape[0]:
+                break
+            for y in range(0, rgb.shape[1], step):
+                if y + width >= rgb.shape[1]:
+                    break
+                vertex1 = (x, y)
+                vertex2 = (x+height, y+width)
+                region_aux = Region(vertex1, vertex2, self)
+                locations.append(region_aux)
         return locations
 
     # Show image in pyplot
@@ -394,9 +410,11 @@ class ImageHandler:
 
         # Draw selected regions
         if rect:
+            index = 0
             for region in self.regions:
-                rectangle = region.get_patch()
+                rectangle = region.get_patch(index)
                 ax.add_patch(rectangle)
+                index += 1
 
         if len(output_dir) > 0:
             plt.savefig(output_dir, bbox_inches='tight')
@@ -485,7 +503,7 @@ class Cov:
 
 #################################################
 class ImageProcessor:
-    def __init__(self, directory, method=0):
+    def __init__(self, directory, method=0, method_mat=0):
         self.image = ImageHandler(directory)
         self.image.read_info()
         self.cov = Cov(method)
@@ -565,6 +583,5 @@ class ImageProcessor:
 
 
 #################################################
-img = ImageProcessor("exp-pics/og2.jpeg", method=3)
-
-img.search_objects("exp-pics/recon22.jpeg", "temp.jpeg")
+img = ImageProcessor("exp-pics/og3.jpeg", method=0)
+img.search_objects("exp-pics/recon31.jpeg", "temp.jpeg")
