@@ -244,6 +244,7 @@ class ImageHandler:
         # Modes for the image
         self.intensity = None
         self.rgb = None
+        self.hsv = None
 
         # Derivative information
         self.der_imagex = None
@@ -277,6 +278,9 @@ class ImageHandler:
     def create_intensity(self):
         self.intensity = np.array(self.image.convert("L"))
 
+    def create_hsv(self):
+        self.hsv = np.array(self.image.convert("HSV"))
+
     # Calculate matrix of features
     def create_matrix(self):
         intensity = self.get_intensity()
@@ -290,13 +294,13 @@ class ImageHandler:
         if self.der_imagex is None:
             self.create_derivatives()
 
-        rgb = self.get_rgb()
+        hsv = self.get_hsv()
         f_xy = np.zeros((9, 1))
 
         f_xy[0, 0] = pos_y
         f_xy[1, 0] = pos_x
 
-        f_xy[2:5, 0] = rgb[pos_x, pos_y, :]
+        f_xy[2:5, 0] = hsv[pos_x, pos_y, :]
 
         f_xy[5, 0] = np.abs(self.der_imagex[pos_x, pos_y])
         f_xy[6, 0] = np.abs(self.der_imagey[pos_x, pos_y])
@@ -346,7 +350,13 @@ class ImageHandler:
 
         return self.intensity
 
-    # Array of square for given scale
+    def get_hsv(self):
+        if self.hsv is None:
+            self.create_hsv()
+
+        return self.hsv
+
+# Array of square for given scale
     def get_regions(self, region, scale, index):
         rgb = self.get_rgb()
 
@@ -460,7 +470,7 @@ class Cov:
     #    1 -> Kendall
     def calculate_cov_corr(sample, method=0):
         if method == 0: # Calculate Spearman
-            spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
+            spearman = pd.DataFrame(sample).corr(method="spearman")
             cov = Cov.corr_to_cov(sample, spearman)
         else:
             # Calculate Kendall
@@ -555,6 +565,6 @@ class ImageProcessor:
 
 
 #################################################
-img = ImageProcessor("exp-pics/og6.jpeg", method=4)
+img = ImageProcessor("exp-pics/og2.jpeg", method=3)
 
-img.search_objects("exp-pics/recon64.jpeg", "temp.jpeg")
+img.search_objects("exp-pics/recon22.jpeg", "temp.jpeg")
