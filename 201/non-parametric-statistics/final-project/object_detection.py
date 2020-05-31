@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.stats as st
+import time
 from PIL import Image
 from scipy.linalg import eigvals
 from scipy.ndimage import sobel
 from sklearn.covariance import LedoitWolf
+from tqdm import tqdm
 
 
 #################################################
@@ -488,7 +490,7 @@ class Cov:
     #    1 -> Kendall
     def calculate_cov_corr(sample, method=0):
         if method == 0: # Calculate Spearman
-            spearman = pd.DataFrame(sample).corr(method="spearman")
+            spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
             cov = Cov.corr_to_cov(sample, spearman)
         else:
             # Calculate Kendall
@@ -519,7 +521,6 @@ class ImageProcessor:
         # Image to process
         region = self.image.regions[index_region]
         c1 = region.get_c1(self.cov)
-
 
         # Regions
         index = 0
@@ -579,9 +580,34 @@ class ImageProcessor:
 
             imagetp.add_region(region.vertex0, region.vertex1)
 
-        imagetp.show(rect=True)
+        imagetp.show(output_dir=output_file, rect=True)
 
 
 #################################################
-img = ImageProcessor("exp-pics/og7.jpeg", method=3)
-img.search_objects("exp-pics/recon71.jpeg", "temp.jpeg")
+recons = {1: 3, 2: 3, 3: 3, 4: 4, 5: 3, 6: 5, 7: 5}
+methods = {0: "nr", 1: "com", 2: "sp", 3: "k", 4: "sh"}
+
+for key in tqdm(recons):
+    og_name = "exp-pics/og{}.jpeg".format(key)
+    folder_output = "outputs/picture-{}".format(key)
+    recon_file = "recon{}".format(key)
+    folder_input = "exp-pics/" + recon_file
+    input_dir = (folder_output + "/og{}.jpeg").format(key)
+    time_file = folder_output + "/" + recon_file + ".txt"
+    file_t = open(time_file, "w")
+
+    for method in tqdm(range(5)):
+        img = ImageProcessor(og_name, method=method)
+        img.image.show(rect=True, output_dir=input_dir)
+
+        for num in range(1, recons[key]):
+            recon_dir = (folder_input + "{}.jpeg").format(num)
+            file_out = ("/" + methods[method] + "-" + recon_file + "{}.jpeg")
+            output = (folder_output + file_out).format(num)
+
+            time0 = time.time()
+            img.search_objects(recon_dir, output)
+            time1 = time.time()
+
+            file_t.write(methods[method] + "\t" + str(time1 - time0) + "\n")
+    file_t.close()
