@@ -10,13 +10,14 @@ from sim_par import brownian_motion, euler_m_ns
 from tqdm import tqdm
 
 
-num_cores = multiprocessing.cpu_count() - 2
+num_cores = multiprocessing.cpu_count()
 np.random.seed(123456789)
 rc('text', usetex=True)
 
 file = pd.read_csv('FB.csv')
 prices = file['Close'].to_numpy()
 returns = np.log(prices[1:] / prices[:-1])
+
 
 def bands(ecdf):
     lower = np.zeros(len(ecdf.y))
@@ -25,6 +26,7 @@ def bands(ecdf):
         lower[i] = max(ecdf.y[i] - epsilon, 0)
         upper[i] = min(ecdf.y[i] + epsilon, 1)
     return lower, upper
+
 
 def calculate_returns(data):
     rs = np.zeros(data.size - 1)
@@ -63,7 +65,7 @@ def exact(r, sigma, T, K, S0):
 
 def montecarlo(r, sigma, T, K, S0, M, W, delta_t):
     fcalls = []
-    for _ in tqdm(range(W)):
+    for _ in range(W):
         Sts = simulate_GBM(M, r, sigma, T, S0, delta_t, show=False)
         payoffs = np.vstack((Sts[:, -1] - K, np.zeros(Sts.shape[0]))).max(axis=0)
         fcall = np.exp(-r * T) * np.mean(payoffs)
@@ -75,7 +77,7 @@ def montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t):
     f = lambda x, t: alpha * (mu - x) - lamda * sigma
     g = lambda x, t: sigma
     fcalls = []
-    for _ in tqdm(range(W)):
+    for _ in range(W):
         Sts = euler_m_ns(f, g, delta_t, S0, M, tf=T)
         payoffs = np.vstack((Sts[:, 0, -1] - K, np.zeros(Sts.shape[0]))).max(axis=0)
         fcall = np.exp(-r * T) * np.mean(payoffs)
@@ -92,7 +94,7 @@ def finite_differences(r, sigma, T, K, S0, NS, NT=None):
 
     delta_t = T / NT
 
-    print('Condition: ', delta_t <= (delta_S / (sigma * Smax)) ** 2)
+    # print('Condition: ', delta_t <= (delta_S / (sigma * Smax)) ** 2)
 
     f = np.zeros((NT + 1, NS + 1))
 
@@ -174,14 +176,14 @@ def first_question():
     _, p_val = st.kstest(prices, 'lognorm', args=params)
 
 
-    plot = False
+    plot = True
     xs = np.linspace(st.lognorm.ppf(0.01, *params), st.lognorm.ppf(0.99, *params), 1000)
     if plot:
         plt.hist(prices, density=True, color='white', ec='black', label='Data')
         plt.plot(xs, st.lognorm.pdf(xs, *params), 'r', label='Fitted')
         plt.legend()
         plt.savefig('plts/price_fitting.pdf', bbox_inches='tight')
-        plt.show()
+        plt.clf()
 
     if plot:
         alpha = 0.05
@@ -196,7 +198,7 @@ def first_question():
         plt.ylabel('CDF($t$)')
         plt.legend()
         plt.savefig('plts/ecdf.pdf', bbox_inches='tight')
-        plt.show()
+        plt.clf()
 
     delta_t = 1
     sigma = estimate_volatility(prices, delta_t)
@@ -206,8 +208,8 @@ def first_question():
     S0 = prices[-1]
 
     # Montecarlo
-    M = 100
-    W = 10
+    M = 10000
+    W = 1000
 
     fs_montecarlo = []
     for K in Ks:
@@ -230,17 +232,16 @@ def first_question():
     for K in Ks:
         fs_exact.append(exact(r, sigma, T, K, S0))
 
-    print(fs_exact)
-    print(fs_montecarlo)
-    print(fs_finite)
-    print(fs_tree)
+    print('Exact: ',fs_exact)
+    print('\nMontecarlo: ', fs_montecarlo)
+    print('\nFinite Differences: ',fs_finite)
+    print('\nBinomial Tree: ',fs_tree)
 
 
 def second_question():
     S0 = returns[-1]
-    print(S0)
     params = st.norm.fit(returns)
-    plot = False
+    plot = True
     if plot:
         ts = np.linspace(st.norm.ppf(0.01, *params), st.norm.ppf(0.99, *params), 1000)
         pdf = st.norm.pdf(ts, *params)
@@ -248,7 +249,7 @@ def second_question():
         plt.plot(ts, pdf, 'r', label='Estimation')
         plt.legend()
         plt.savefig('plts/return_fitting.pdf', bbox_inches='tight')
-
+        plt.clf()
     _, p_value = st.jarque_bera(returns)
     print('pval: ', p_value)
 
@@ -264,15 +265,15 @@ def second_question():
         plt.ylabel('$S_t$')
         plt.legend()
         plt.savefig('plts/ou.pdf', bbox_inches='tight')
-        plt.show()
+        plt.clf()
 
     lamda = 0.125
     Ks = [-0.1, -1, -3]
     fs_montecarlo = []
 
     # Montecarlo
-    M = 100
-    W = 10
+    M = 10000
+    W = 1000
     for K in Ks:
         fs_montecarlo.append(montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t))
 
@@ -280,8 +281,13 @@ def second_question():
 
 
 
-def sensitivity(p, og_param, f1, f2, f3, fig_name, param_name, n_param=20, monte=True, finit=True, tree=True, isint=False):
-    params = np.linspace((1 - p) * og_param, (1 + p) * og_param, n_param)
+def sensitivity(p, og_param, f1, f2, f3, fig_name, param_name, n_param=20, monte=True, finit=True, tree=True,
+                isint=False, lb=0.0):
+    if p < 0:
+        aux = max(lb, (1 + p) * og_param)
+        params = np.linspace(aux, (1 - p) * og_param, n_param)
+    else:
+        params = np.linspace((1 - p) * og_param, (1 + p) * og_param, n_param)
 
     fs_montecarlo = []
     fs_finite = []
@@ -311,9 +317,15 @@ def sensitivity(p, og_param, f1, f2, f3, fig_name, param_name, n_param=20, monte
     plt.ylabel('$f_{\mathrm{call}}$')
     plt.legend()
     plt.savefig(fig_name, bbox_inches='tight')
+    plt.clf()
 
-def sensitivity_ou(p, og_param, f1, fig_name, param_name, n_param=20, isint=False):
-    params = np.linspace((1 - p) * og_param, (1 + p) * og_param, n_param)
+
+def sensitivity_ou(p, og_param, f1, fig_name, param_name, n_param=20, isint=False, lb=0.0):
+    if p < 0:
+        aux = max(lb, (1 + p) * og_param)
+        params = np.linspace(aux, (1 - p) * og_param, n_param)
+    else:
+        params = np.linspace((1 - p) * og_param, (1 + p) * og_param, n_param)
 
     fs_montecarlo = []
 
@@ -331,6 +343,7 @@ def sensitivity_ou(p, og_param, f1, fig_name, param_name, n_param=20, isint=Fals
     plt.xlabel(param_name)
     plt.ylabel('$f_{\mathrm{call}}$')
     plt.savefig(fig_name, bbox_inches='tight')
+    plt.clf()
 
 # Option 1
 delta_t = 1
@@ -348,8 +361,8 @@ S0_ou = returns[-1]
 T_ou = returns.size
 
 # Montecarlo
-M = 100
-W = 10
+M = 5000
+W = 500
 
 # Finite Differences
 NS = 1000
@@ -372,6 +385,7 @@ def first_sens():
 
     sensitivity(0.5, T, f1, f2, f3, 'plts/first_sens_opt1.pdf', '$T$')
     sensitivity_ou(0.5, T_ou, f_1, 'plts/first_sens_opt2.pdf', '$T$', n_param=20)
+
 
 def second_sens():
     def f1(r):
@@ -436,6 +450,7 @@ def fifth_a_sens():
     sensitivity((M - 10) / M, M, f1, f2, f3, 'plts/fifth_a_sens_opt1.pdf', '$M$', finit=False, tree=False, isint=True)
     sensitivity_ou((M - 10) / M, M, f_1, 'plts/fifth_a_sens_opt2.pdf', '$M$', n_param=20, isint=True)
 
+
 # TODO: Increment W > 100
 def fifth_b_sens():
     def f1(W):
@@ -453,6 +468,7 @@ def fifth_b_sens():
     sensitivity((W - 100) / W, W, f1, f2, f3, 'plts/fifth_b_sens_opt1.pdf', '$W$', finit=False, tree=False, isint=True)
     sensitivity_ou((W - 100) / W, W, f_1, 'plts/fifth_b_sens_opt2.pdf', '$W$', n_param=20, isint=True)
 
+
 def fifth_c_sens():
     def f1(delta_t):
         return [r, sigma, T, K, S0, M, W, delta_t]
@@ -466,8 +482,9 @@ def fifth_c_sens():
     def f_1(delta_t):
         return [mu, alpha, lamda, sigma_ou, T_ou, K_ou, S0_ou, M, W, delta_t]
 
-    sensitivity(1-T/(100*delta_t), delta_t, f1, f2, f3, 'plts/fifth_c_sens_opt1.pdf', '$\Delta t$', finit=False, tree=False)
-    sensitivity_ou(1-T/(100*delta_t), delta_t, f_1, 'plts/fifth_c_sens_opt2.pdf', '$\Delta t$', n_param=20)
+    sensitivity(1-T/(100*delta_t), delta_t, f1, f2, f3, 'plts/fifth_c_sens_opt1.pdf', '$\Delta t$', finit=False,
+                tree=False, lb=0.1)
+    sensitivity_ou(1-T/(100*delta_t), delta_t, f_1, 'plts/fifth_c_sens_opt2.pdf', '$\Delta t$', n_param=20, lb=0.1)
 
 
 def sixth_sens():
@@ -480,7 +497,8 @@ def sixth_sens():
     def f3(NS):
         return []
 
-    sensitivity(0.5, NS, f1, f2, f3, 'plts/sixth_sens_opt1.pdf', '$N_s$', monte=False, tree=False)
+    sensitivity(0.5, NS, f1, f2, f3, 'plts/sixth_sens_opt1.pdf', '$N_s$', monte=False, tree=False, isint=True)
+
 
 def seventh_sens():
     def f1(N):
@@ -492,7 +510,7 @@ def seventh_sens():
     def f3(N):
         return [r, sigma, T, K, S0, N]
 
-    sensitivity(0.5, N, f1, f2, f3, 'plts/seventh_sens_opt1.pdf', '$N$', monte=False, finit=False)
+    sensitivity(0.5, N, f1, f2, f3, 'plts/seventh_sens_opt1.pdf', '$N$', monte=False, finit=False, isint=True)
 
 
 def eight_sens():
@@ -501,16 +519,34 @@ def eight_sens():
 
     sensitivity_ou(0.5, lamda, f_1, 'plts/eight_sens_opt2.pdf', '$\lambda$', n_param=20)
 
+
 def run_sens():
-    # first_sens()
-    # second_sens()
-    # third_sens()
-    # fourth_sens()
+    print('Starting 1')
+    first_sens()
+    print('\nStarting 2')
+    second_sens()
+    print('\nStarting 3')
+    third_sens()
+    print('\nStarting 4')
+    fourth_sens()
+    print('\nStarting 5a')
     fifth_a_sens()
+    print('\nStarting 5b')
     fifth_b_sens()
+    print('\nStarting 5c')
     fifth_c_sens()
+    print('\nStarting 6')
     sixth_sens()
+    print('\nStarting 7')
     seventh_sens()
+    print('\nStarting 8')
     eight_sens()
 
+print('First Question:')
+first_question()
+
+print('Second Question:')
+second_question()
+
+print('Starting Senstivity:')
 run_sens()
