@@ -19,7 +19,7 @@ prices = file['Close'].to_numpy()
 returns = np.log(prices[1:] / prices[:-1])
 
 
-def bands(ecdf):
+def bands(ecdf, epsilon):
     lower = np.zeros(len(ecdf.y))
     upper = np.zeros(len(ecdf.y))
     for i in range(len(ecdf.y)):
@@ -63,9 +63,13 @@ def exact(r, sigma, T, K, S0):
     return f
 
 
-def montecarlo(r, sigma, T, K, S0, M, W, delta_t):
+def montecarlo(r, sigma, T, K, S0, M, W, delta_t, show=False):
     fcalls = []
-    for _ in range(W):
+    if show:
+        iter = tqdm(range(W))
+    else:
+        iter = range(W)
+    for _ in iter:
         Sts = simulate_GBM(M, r, sigma, T, S0, delta_t, show=False)
         payoffs = np.vstack((Sts[:, -1] - K, np.zeros(Sts.shape[0]))).max(axis=0)
         fcall = np.exp(-r * T) * np.mean(payoffs)
@@ -73,11 +77,16 @@ def montecarlo(r, sigma, T, K, S0, M, W, delta_t):
     return np.array(fcalls).mean()
 
 
-def montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t):
+def montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t, show=False):
     f = lambda x, t: alpha * (mu - x) - lamda * sigma
     g = lambda x, t: sigma
+
+    if show:
+        iter = tqdm(range(W))
+    else:
+        iter = range(W)
     fcalls = []
-    for _ in range(W):
+    for _ in iter:
         Sts = euler_m_ns(f, g, delta_t, S0, M, tf=T)
         payoffs = np.vstack((Sts[:, 0, -1] - K, np.zeros(Sts.shape[0]))).max(axis=0)
         fcall = np.exp(-r * T) * np.mean(payoffs)
@@ -185,7 +194,7 @@ def first_question():
         plt.savefig('plts/price_fitting.pdf', bbox_inches='tight')
         plt.clf()
 
-    if plot:
+    if False:
         alpha = 0.05
         epsilon = np.sqrt(1 / (2 * prices.shape[0]) * np.log(2 / alpha))
         ecdf = ECDF(prices)
@@ -208,19 +217,21 @@ def first_question():
     S0 = prices[-1]
 
     # Montecarlo
-    M = 10000
-    W = 1000
-
+    M = 3000
+    W = 500
+    print('Starting Montecarlo First Question')
     fs_montecarlo = []
     for K in Ks:
-        fs_montecarlo.append(montecarlo(r, sigma, T, K, S0, M, W, delta_t))
+        fs_montecarlo.append(montecarlo(r, sigma, T, K, S0, M, W, delta_t, show=True))
 
+    print('Starting FD First Question')
     # Finite Differences
     NS = 1000
     fs_finite = []
     for K in Ks:
         fs_finite.append(finite_differences(r, sigma, T, K, S0, NS))
 
+    print('Starting BT First Question')
     # Binomial Tree
     N = 100
     fs_tree = []
@@ -271,11 +282,12 @@ def second_question():
     Ks = [-0.1, -1, -3]
     fs_montecarlo = []
 
+    print('Starting Montecarlo Second Question')
     # Montecarlo
-    M = 10000
-    W = 1000
+    M = 3000
+    W = 500
     for K in Ks:
-        fs_montecarlo.append(montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t))
+        fs_montecarlo.append(montecarlo_ou(mu, alpha, lamda, sigma, T, K, S0, M, W, delta_t, show=True))
 
     print(fs_montecarlo)
 
@@ -297,7 +309,7 @@ def sensitivity(p, og_param, f1, f2, f3, fig_name, param_name, n_param=20, monte
         if isint:
             param = int(param)
         if monte:
-            fs_montecarlo.append(montecarlo(*f1(param)))
+            fs_montecarlo.append(montecarlo(*f1(param), show=True))
         if finit:
             fs_finite.append(finite_differences(*f2(param)))
         if tree:
@@ -332,7 +344,7 @@ def sensitivity_ou(p, og_param, f1, fig_name, param_name, n_param=20, isint=Fals
     for param in params:
         if isint:
             param = int(param)
-        fs_montecarlo.append(montecarlo_ou(*f1(param)))
+        fs_montecarlo.append(montecarlo_ou(*f1(param), show=True))
 
 
     ymax = max(fs_montecarlo)
@@ -361,8 +373,8 @@ S0_ou = returns[-1]
 T_ou = returns.size
 
 # Montecarlo
-M = 5000
-W = 500
+M = 750
+W = 125
 
 # Finite Differences
 NS = 1000
