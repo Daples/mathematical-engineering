@@ -177,8 +177,7 @@ def parameter_estimation(time_series, gamma):
     return alpha, mu, sigma
 
 
-
-##################################
+##################
 def first_question():
 
     params = st.lognorm.fit(prices)
@@ -357,30 +356,6 @@ def sensitivity_ou(p, og_param, f1, fig_name, param_name, n_param=20, isint=Fals
     plt.savefig(fig_name, bbox_inches='tight')
     plt.clf()
 
-# Option 1
-delta_t = 1
-sigma = estimate_volatility(prices, delta_t)
-r = 0.0065
-K = 200
-S0 = prices[-1]
-T = prices.size
-
-# Option 2
-alpha, mu, sigma_ou = parameter_estimation(returns, 0)
-lamda = 0.125
-K_ou = -1
-S0_ou = returns[-1]
-T_ou = returns.size
-
-# Montecarlo
-M = 750
-W = 125
-
-# Finite Differences
-NS = 1000
-
-# Binomial Tree
-N = 100
 
 def first_sens():
     def f1(T):
@@ -463,7 +438,6 @@ def fifth_a_sens():
     sensitivity_ou((M - 10) / M, M, f_1, 'plts/fifth_a_sens_opt2.pdf', '$M$', n_param=20, isint=True)
 
 
-# TODO: Increment W > 100
 def fifth_b_sens():
     def f1(W):
         return [r, sigma, T, K, S0, M, W, delta_t]
@@ -553,6 +527,32 @@ def run_sens():
     seventh_sens()
     print('\nStarting 8')
     eight_sens()
+
+
+# Option 1
+delta_t = 1
+sigma = estimate_volatility(prices, delta_t)
+r = 0.0065
+K = 200
+S0 = prices[-1]
+T = prices.size
+
+# Option 2
+alpha, mu, sigma_ou = parameter_estimation(returns, 0)
+lamda = 0.125
+K_ou = -1
+S0_ou = returns[-1]
+T_ou = returns.size
+
+# Montecarlo
+M = 750
+W = 125
+
+# Finite Differences
+NS = 1000
+
+# Binomial Tree
+N = 100
 
 print('First Question:')
 first_question()
