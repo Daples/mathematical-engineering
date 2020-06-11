@@ -185,7 +185,7 @@ def first_question():
     _, p_val = st.kstest(prices, 'lognorm', args=params)
 
 
-    plot = True
+    plot = False
     xs = np.linspace(st.lognorm.ppf(0.01, *params), st.lognorm.ppf(0.99, *params), 1000)
     if plot:
         plt.hist(prices, density=True, color='white', ec='black', label='Data')
@@ -194,7 +194,7 @@ def first_question():
         plt.savefig('plts/price_fitting.pdf', bbox_inches='tight')
         plt.clf()
 
-    if False:
+    if plot:
         alpha = 0.05
         epsilon = np.sqrt(1 / (2 * prices.shape[0]) * np.log(2 / alpha))
         ecdf = ECDF(prices)
