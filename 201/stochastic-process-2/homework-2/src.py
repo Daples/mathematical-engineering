@@ -182,7 +182,7 @@ def first_question():
 
     params = st.lognorm.fit(prices)
     _, p_val = st.kstest(prices, 'lognorm', args=params)
-
+    print(p_val)
 
     plot = False
     xs = np.linspace(st.lognorm.ppf(0.01, *params), st.lognorm.ppf(0.99, *params), 1000)
@@ -251,7 +251,7 @@ def first_question():
 def second_question():
     S0 = returns[-1]
     params = st.norm.fit(returns)
-    plot = True
+    plot = False
     if plot:
         ts = np.linspace(st.norm.ppf(0.01, *params), st.norm.ppf(0.99, *params), 1000)
         pdf = st.norm.pdf(ts, *params)
@@ -557,8 +557,8 @@ N = 100
 print('First Question:')
 first_question()
 
-print('Second Question:')
-second_question()
-
-print('Starting Senstivity:')
-run_sens()
+# print('Second Question:')
+# second_question()
+#
+# print('Starting Senstivity:')
+# run_sens()
