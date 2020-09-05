@@ -272,7 +272,7 @@
   metric?
 \end{question}
 \begin{proof}
-  Let $d_{i}: V \times V \rightarrow \R^{+}$ be metrics, for $i = 1,\ldots,n$.
+  Let $d_{i}: X \times X \rightarrow \R_{+}$ be metrics, for $i = 1,\ldots,n$.
   Let's show that the sum of all the metrics is a metric, i.e.
   %
   \begin{equation*}
@@ -282,7 +282,7 @@
   \begin{itemize}
     \item Let's show that $d(x,y) = 0 \iff x = y$.
 
-      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in V$.. In
+      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in X$.. In
       this manner, it is seen that:
       %
       \begin{equation*}
@@ -316,7 +316,7 @@
       Hence, by the previous two proofs it is seen that
       $d_{i}(x,y) = 0 \iff x = y$.
 
-    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in V$. It is known
+    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in X$. It is known
       that for all $i$ it happens that $d_{i}(x,y) = d_{i}(y,x)$ as their are
       metrics. Then
       %
@@ -329,7 +329,7 @@
       Therefore, it is symmetric.
 
     \item Let's show that $d(x,y) \le d(x, z) + d(z, y)$, for all
-      $x, y, z \in V$. Similarly to previous proofs, it is known that for all
+      $x, y, z \in X$. Similarly to previous proofs, it is known that for all
       $i$, $d_{i}(x,y) \le d_{i}(x,z) + d_{i}(z, y)$ as their are metrics. Hence
       %
       \begin{align*}
@@ -353,7 +353,7 @@
 \end{question}
 
 \begin{proof}
-  Let $d_{i}: V \times V \rightarrow \R^{+}$ be metrics, for $i = 1,\ldots,n$.
+  Let $d_{i}: X \times X \rightarrow \R_{+}$ be metrics, for $i = 1,\ldots,n$.
   Let's show that for $\lambda_{i} \in [0, 1]$ such that:
   \begin{equation*}
     \sum_{i=1}^{n}\lambda_{i} = 1
@@ -367,7 +367,7 @@
   \begin{itemize}
     \item Let's show that $d(x,y) = 0 \iff x = y$.
 
-      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in V$.. In
+      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in X$.. In
       this manner, it is seen that:
       %
       \begin{equation*}
@@ -409,7 +409,7 @@
       Hence, by the previous two proofs it is seen that
       $d_{i}(x,y) = 0 \iff x = y$.
 
-    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in V$. It is known
+    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in X$. It is known
       that for all $i$ it happens that $d_{i}(x,y) = d_{i}(y,x)$ as their are
       metrics. Then
       %
@@ -422,7 +422,7 @@
       Therefore, it is symmetric.
 
     \item Let's show that $d(x,y) \le d(x, z) + d(z, y)$, for all
-      $x, y, z \in V$. Similarly to previous proofs, it is known that for all
+      $x, y, z \in X$. Similarly to previous proofs, it is known that for all
       $i$, $d_{i}(x,y) \le d_{i}(x,z) + d_{i}(z, y)$ as their are metrics. Hence
       %
       \begin{align*}
@@ -456,7 +456,7 @@ covariance matrix $S$:
 \begin{proof}
   In order to prove that $d(\vec{x},\vec{y}) \geq 0$ we have to show that
   $(\vec{x} - \vec{y})^{T}S^{-1}(\vec{x}-\vec{y})\geq 0$. Note that this holds
-  if we prove that $S^{-1}$ is definite positive. Let's consider a sample of
+  if we prove that $S^{-1}$ is definite positive. Let us consider a sample of
   vector $x_{i} = (x_{i1},\ldots,x_{ik})^{T}$, with $i = 1,\ldots,n$, the sample
   mean vector is
   \[
@@ -505,7 +505,7 @@ covariance matrix $S$:
   \]
   We have shown that $S$ is positive-definite. By spectral theorem for symmetrix
   matrices, there are a diagonal $n \times n$ matrix
-  $\Lambda = diag(\lambda_{1},\ldots,\lambda_{n})$ and an orthogonal
+  $\Lambda = \mathrm{diag}(\lambda_{1},\ldots,\lambda_{n})$ and an orthogonal
   $n \times n$ matrix $Q$ (i.e. $Q^{T}Q = I$), such that $Q^{T} = Q^{-1}$ and:
   \[
     S = Q^{T} \Lambda Q
@@ -519,7 +519,7 @@ covariance matrix $S$:
   \end{align*}
   Let the matrix
   \[
-    U = diag(\sqrt{\lambda_{1}},\sqrt{\lambda_{2}},\ldots,\sqrt{\lambda_{n}})Q,
+    U = \mathrm{diag}(\sqrt{\lambda_{1}},\sqrt{\lambda_{2}},\ldots,\sqrt{\lambda_{n}})Q,
   \]
   note that:
   \[
@@ -652,7 +652,7 @@ covariance matrix $S$:
 \subsection*{Exercise g)}
 
 \begin{question}
-  If $d : X \times X \to \mathbb{R}$ is a metric, then
+  If $d : X \times X \to \mathbb{R}_{+}$ is a metric, then
   $\overline{d}(x,y) = \min{\{1,d(x,y)\}}$ also is.
 \end{question}
 \begin{proof}
@@ -773,8 +773,8 @@ covariance matrix $S$:
     \norm{Ax}_{2}^{2} &= \langle Ax, Ax \rangle> \\
                       &= \langle x, A^{T}Ax \rangle \\
                       &= \langle x, Bx \rangle \\
-                      &= \langle \sum_{i=1}^{n}a_{i}v_{i}, B\sum_{i=1}^{n}a_{i}v_{i} \rangle \\
-                      &= \langle \sum_{i=1}^{n}a_{i}V_{i}, \sum_{i=1}^{n}\lambda_{i}^{2}a_{i}V_{i} \rangle \\
+                      &= \left\langle \sum_{i=1}^{n}a_{i}v_{i}, B\sum_{i=1}^{n}a_{i}v_{i} \right\rangle \\
+                      &= \left\langle \sum_{i=1}^{n}a_{i}V_{i}, \sum_{i=1}^{n}\lambda_{i}^{2}a_{i}V_{i} \right\rangle \\
                       &= \sum_{i=1}^{n}a_{i}^{2}\lambda_{i} \\
                       &\le \lambda_{j} \sum_{i=1}^{n}a_{i}^{2} \\
                       &= \lambda_{j} \norm{x}_{2}^{2}
@@ -802,7 +802,6 @@ covariance matrix $S$:
   Define what it is a pseudometric and show a few examples of pseudometrics.
 \end{question}
 
-\begin{definition}
   A pseudometrix space $(E,d)$ is a set $E$ together with a non-negative
   real-valued function $d : E \times E \to \mathbb{R}_{\geq 0}$ (called a
   \textbf{pseudometric}) such that for every $x,y,z \in E$,
@@ -812,7 +811,6 @@ covariance matrix $S$:
     \item $d(x,y) = d(y,x)$
     \item $d(x,z) \leq d(x,y) + d(y,z)$
   \end{enumerate}
-\end{definition}
 
 \begin{example}
   For a set $E$, define $d(x,y) = 0$ for all $x,y \in E$. We call $d$ the
