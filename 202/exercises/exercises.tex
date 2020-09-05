@@ -1,0 +1,839 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=2.5cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% PARAGRAPH SETTINGS
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+% https://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
+\setlength{\parskip}{5pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% PERSONAL COMMANDS
+\usepackage{amssymb}
+
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Usual operations
+\newcommand{\pow}[2]{#1^{#2}}
+\newcommand{\expp}[1]{e^{#1}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
+
+%%%% Lambda Calculus
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Ordinal Lambda Calculus
+\newcommand{\ordAlph}{\Sigma_{\text{Ord}}}
+\newcommand{\termOrd}{\text{Term}_\text{Ord}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\sk}{\mathrm{sk}}
+
+%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+
+%%%% Statistics
+\NewDocumentCommand{\E}{o m}{
+  \IfNoValueTF{#1}
+  {\mathbb{E}\left[#2\right]}
+  {\mathbb{E}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\V}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{Var}\left[#2\right]}
+  {\mathrm{Var}^{#1}\left[ #2\right]}
+}
+\RenewDocumentCommand{\P}{o o m}{
+  \IfNoValueTF{#1}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}\left(#3\right)}
+    {\mathrm{P}^{#2}\left(#3\right)}}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}_{#1}\left(#3\right)}
+    {\mathrm{P}_{#1}^{#2} \left(#3\right)}}
+}
+
+%%%% Lambda Calculus
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%% Create absolute value function
+% https://tex.stackexchange.com/questions/43008/absolute-value-symbols
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% FLOAT SPECIFIER
+% https://www.overleaf.com/learn/latex/Errors/LaTeX_Error:_Unknown_float_option_%60H%27
+\usepackage{float}
+
+%%%%%%%% TO USE SHORT COMMANDS FOR VECTOR LINES
+\usepackage{esvect}
+
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
+%%%%%%%% DIFFERENT FONTS FOR MATH
+\usepackage{mathrsfs}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+%%%%%%%% START DOCUMENT
+
+\title{Theoretic Exercises}
+\author{Andrés Felipe Tamayo \\
+  \scalebox{0.7}{aftamayoa@eafit.edu.co} \and
+  David Plazas Escudero \\
+  \scalebox{0.7}{dplazas@eafit.edu.co} \and
+  Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{jscardenar@eafit.edu.co} \\ \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+
+\subsection*{Exercise a)}
+
+\begin{question}
+  Prove that a decreasing sequence of sets (in the inclusion sense) is
+  convergent. Give examples of a convergent and a divergent sequence of sets.
+\end{question}
+
+\begin{proof}
+  Let $\{A_n\}_{n\in\mathbb{N}}$ be a decreasing sequence of sets, that is,
+  $\forall n\in\mathbb{N}$, $A_{n+1}\subset A_n$. Recall that a sequence of sets
+  $\{B_n\}_{n\in\mathbb{N}}$ is said to be convergent if
+  \[
+    \limsup_{n\rightarrow\infty}{B_n} = \liminf_{n\rightarrow\infty}{B_n}
+  \]
+  where
+  \[
+    \limsup_{n\rightarrow\infty}{B_n} = \bigcap_{n\in\mathbb{N}}\bigcup_{m=n}^\infty B_m,\quad\text{and}\quad\liminf_{n\rightarrow\infty}{B_n} = \bigcup_{n\in\mathbb{N}}\bigcap_{m=n}^\infty B_m.
+  \]
+  Let us see that $\{A_n\}_{n\in\mathbb{N}}$ is convergent. Since
+  $\{A_n\}_{n\in\mathbb{N}}$, it is clear that
+  \[
+    \bigcup_{m=n}^\infty A_m = A_n
+  \]
+  and that
+  \[
+    \bigcap_{m=n}^\infty A_m=\bigcap_{m=1}^\infty A_m.
+  \]
+  Hence,
+  \[
+    \liminf_{n\rightarrow\infty}{A_n}=\bigcup_{n\in\mathbb{N}}\bigcap_{m=n}^\infty A_m = \bigcap_{m=1}^\infty A_m = \bigcap_{m\in\mathbb{N}}\bigcup_{n=m}^\infty=\limsup_{m\rightarrow\infty}{A_m}
+  \]
+  and by renaming $m$ as $n$ in the right-most expression we conclude that
+  $\{A_n\}_{n\in\mathbb{N}}$ is convergent.
+
+  An example of convergent sequence in $\mathbb{R}$ is the sequence
+  $\{A_n\}_{n\in\mathbb{N}}$, where $A_n=[-1, n]$. It is clear that this in an
+  monotone increasing sequence of sets, since
+  $n<n+1\implies A_n\subset A_{n+1}$. Furthermore,
+  \[
+    \liminf_{n\rightarrow\infty}{A_n}=\bigcup_{n\in\mathbb{N}}\bigcap_{m=n}^\infty [-1, m]=\bigcup_{n\in\mathbb{N}}[-1, n]=[-1, \infty]
+  \]
+  and
+  \[
+    \limsup_{n\rightarrow\infty}{A_n} = \bigcap_{n\in\mathbb{N}}\bigcup_{m=n}^\infty [-1, m]=\bigcap_{n\in\mathbb{N}}[-1,\infty]=[-1,\infty]
+  \]
+
+  On the other hand, an example of divergent sequence of sets is
+  $\{B_n\}_{n\in\mathbb{N}}$, where
+  $B_n=\{0, \frac{1}{n}, \frac{2}{n},\hdots, \frac{n-1}{n}\}$. In this case, it
+  can be proved that
+  \[
+    \bigcup_{m=n}^\infty B_m = \mathbb{Q}\cap[0,1]
+  \]
+  and therefore,
+  \[
+    \limsup_{n\rightarrow\infty}{B_n} = \mathbb{Q}\cap[0,1].
+  \]
+  It can also be seen that
+  \[
+    \bigcap_{m=n}^\infty B_m = \{0,1\}
+  \]
+  and thus,
+  \[
+    \liminf_{n\rightarrow\infty}{B_n} = \{0,1\}
+  \]
+  Therefore, $\{B_n\}_{n\in\mathbb{n}}$ is divergent.
+  \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise b)}
+\begin{question}
+  Prove that any open ball is an open set.
+\end{question}
+
+\begin{proof}
+  Let $(X, d)$ be a metric space. Let $x\in X$, the open ball with radius $r_x$
+  is defined as the set
+  \[
+    B(x, r_x)=\{y\in X\ |\ d(x, y)<r_x\}.
+  \]
+  Let us see that $B(x, r_x)$ is an open set as well. For that we must prove
+  that $\forall y\in B(x, r_x)$, $\exists r_y\in \mathbb{R}_+$ such that
+  $B(y,r_y)\subseteq B(x, r_x)$.
+
+  Let $y\in B(x, r_x)$ and let $r_y\in\mathbb{R}_+$ such that
+  \begin{equation}\label{eq:radius}
+    d(x,y) + r_y < r_x
+  \end{equation}
+
+  Let $y'\in B(y, r_y)$, since $d(\cdot,\cdot)$ is a metric, it must satisfy the
+  triangle inequality. Therefore, $d(x,y')\leq d(x,y)+d(y, y')$. Considering
+  this with (\ref{eq:radius}), we get $d(x,y')<r_x-r_y+r_y=r_x$. Hence,
+  $y'\in B(x, r_x) \implies B(y,r_y)\subseteq B(x, r_x)$. Consequently,
+  $B(x, r_x)$ is an open set.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise c)}
+
+\begin{question}
+  The finite sum of metrics is a metric. Is the infinite sum of metrics a
+  metric?
+\end{question}
+\begin{proof}
+  Let $d_{i}: V \times V \rightarrow \R^{+}$ be metrics, for $i = 1,\ldots,n$.
+  Let's show that the sum of all the metrics is a metric, i.e.
+  %
+  \begin{equation*}
+    d(x, y) = \sum_{i=1}^{n}d_{i}(x,y)
+  \end{equation*}
+  %
+  \begin{itemize}
+    \item Let's show that $d(x,y) = 0 \iff x = y$.
+
+      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in V$.. In
+      this manner, it is seen that:
+      %
+      \begin{equation*}
+        d(x,y) = \sum_{i = 1}^{n} d_{i}(x,y) = 0
+      \end{equation*}
+      %
+      As all $d_{i}$ are metrics then it is clear that
+      %
+      \begin{equation*}
+        d_{i}(x,y) \ge 0
+      \end{equation*}
+      %
+      Hence, for the sum to be 0 each of the components must be equal to 0.
+      Therefore, for all $i$:
+      %
+      \begin{equation*}
+        d_{i}(x, y) = 0 \quad x = y
+      \end{equation*}
+      %
+      As $d_{i}$ is a metric.
+
+      ($\Leftarrow$) Let's suppose that $x = y$. As $d_{i}$ are metric, it
+      occurs that if $x = y$, $d_{i}(x, y) = 0$. In this manner:
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i = 1}^{n}d_{i}(x, y) \\
+               &= \sum_{i=1}^{n} 0 \\
+               &= 0
+      \end{align*}
+      %
+      Hence, by the previous two proofs it is seen that
+      $d_{i}(x,y) = 0 \iff x = y$.
+
+    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in V$. It is known
+      that for all $i$ it happens that $d_{i}(x,y) = d_{i}(y,x)$ as their are
+      metrics. Then
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i=1}^{n} d_{i}(x, y) \\
+               &= \sum_{i=1}^{n} d_{i}(y, x) \\
+               &= d(y, x)
+      \end{align*}
+      %
+      Therefore, it is symmetric.
+
+    \item Let's show that $d(x,y) \le d(x, z) + d(z, y)$, for all
+      $x, y, z \in V$. Similarly to previous proofs, it is known that for all
+      $i$, $d_{i}(x,y) \le d_{i}(x,z) + d_{i}(z, y)$ as their are metrics. Hence
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i=1}^{n}d(x,y) \\
+               &\le \sum_{i=1}^{n}\left(d_{i}(x,z) + d_{i}(z, y)\right) \\
+               &= \sum_{i=1}^{n} d_{i}(x,z) + \sum_{i=1}^{n}d_{i}(z,y) \\
+               &= d(x, z) + d(z, y)
+      \end{align*}
+      %
+      Therefore, the triangular inequality holds.
+  \end{itemize}
+
+  For all the three proofs done, it is concluded that the finite sum of metrics
+  is also a metric.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise d)}
+\begin{question}
+  Show that a convex linear combination of metric is a metric.
+\end{question}
+
+\begin{proof}
+  Let $d_{i}: V \times V \rightarrow \R^{+}$ be metrics, for $i = 1,\ldots,n$.
+  Let's show that for $\lambda_{i} \in [0, 1]$ such that:
+  \begin{equation*}
+    \sum_{i=1}^{n}\lambda_{i} = 1
+  \end{equation*}
+
+  the linear combination is also a metric, i.e.
+  \begin{equation*}
+    d(x, y) = \sum_{i=1}^{n}\lambda_{i}d_{i}(x,y)
+  \end{equation*}
+
+  \begin{itemize}
+    \item Let's show that $d(x,y) = 0 \iff x = y$.
+
+      ($\Rightarrow$) Let's suppose that $d(x,y) = 0$, for a $x,y \in V$.. In
+      this manner, it is seen that:
+      %
+      \begin{equation*}
+        d(x,y) = \sum_{i = 1}^{n} \lambda_{i}d_{i}(x,y) = 0
+      \end{equation*}
+      %
+      As all $d_{i}$ are metrics and all $\lambda_{i}$ are positives then it is
+      clear that
+      %
+      \begin{equation*}
+        \lambda_{i}d_{i}(x,y) \ge 0
+      \end{equation*}
+      %
+      Hence, for the sum to be 0 each of the components must be equal to 0.
+      Therefore, for all $i$:
+      %
+      \begin{equation*}
+        \lambda_{i}d_{i}(x, y) = 0
+      \end{equation*}
+      %
+      As the sum of all $\lambda_{i}$ is equal to 1, there must be at least one
+      $\lambda_{j}$ such that $\lambda_{j} > 0$. In this manner, for $i = j$:
+      %
+      \begin{align*}
+        \lambda_{j}d_{j}(x, y) &= 0 \\
+        d_{j}(x, y) &= 0 \\
+        x &= y, \text{ As } d_{j} \text{ is a metric.}
+      \end{align*}
+
+      ($\Leftarrow$) Let's suppose that $x = y$. As $d_{i}$ are metric, it
+      occurs that if $x = y$, $d_{i}(x, y) = 0$. In this manner:
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i = 1}^{n}\lambda_{i}d_{i}(x, y) \\
+               &= \sum_{i=1}^{n} \lambda_{i} \cdot 0 \\
+               &= 0
+      \end{align*}
+      %
+      Hence, by the previous two proofs it is seen that
+      $d_{i}(x,y) = 0 \iff x = y$.
+
+    \item Let's show that $d(x,y) = d(y, x)$ for all $x, y \in V$. It is known
+      that for all $i$ it happens that $d_{i}(x,y) = d_{i}(y,x)$ as their are
+      metrics. Then
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i=1}^{n} \lambda_{i}d_{i}(x, y) \\
+               &= \sum_{i=1}^{n} \lambda_{i}d_{i}(y, x) \\
+               &= d(y, x)
+      \end{align*}
+      %
+      Therefore, it is symmetric.
+
+    \item Let's show that $d(x,y) \le d(x, z) + d(z, y)$, for all
+      $x, y, z \in V$. Similarly to previous proofs, it is known that for all
+      $i$, $d_{i}(x,y) \le d_{i}(x,z) + d_{i}(z, y)$ as their are metrics. Hence
+      %
+      \begin{align*}
+        d(x,y) &= \sum_{i=1}^{n}\lambda_{i}d(x,y) \\
+               &\le \sum_{i=1}^{n}\lambda_{i}\left(d_{i}(x,z) + d_{i}(z, y)\right) \\
+               &= \sum_{i=1}^{n} \lambda_{i}d_{i}(x,z) + \sum_{i=1}^{n}\lambda_{i}d_{i}(z,y) \\
+               &= d(x, z) + d(z, y)
+      \end{align*}
+      %
+      Therefore, the triangular inequality holds.
+  \end{itemize}
+
+  For all the three proofs done, it is concluded that a convex linear
+  combination of metrics is also a metric.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Excercise e)}
+
+\begin{question}
+  Show that Mahalanobis distance is a metric.
+\end{question}
+
+Mahalanobis distance can be defined as a dissimilarity measure between two
+random vectors $\vec{x}$ and $\vec{y}$ of the same distribution with the
+covariance matrix $S$:
+\[
+  d(\vec{x},\vec{y}) = \sqrt{(\vec{x} - \vec{y})^{T}S^{-1}(\vec{x}-\vec{y})}
+\]
+
+\begin{proof}
+  In order to prove that $d(\vec{x},\vec{y}) \geq 0$ we have to show that
+  $(\vec{x} - \vec{y})^{T}S^{-1}(\vec{x}-\vec{y})\geq 0$. Note that this holds
+  if we prove that $S^{-1}$ is definite positive. Let's consider a sample of
+  vector $x_{i} = (x_{i1},\ldots,x_{ik})^{T}$, with $i = 1,\ldots,n$, the sample
+  mean vector is
+  \[
+    \overline{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i},
+  \]
+  and the sample covariance matrix is
+  \[
+    S = \dfrac{1}{n} \sum_{i = 1}^{n} (x_{i} - \overline{x})(x_{i}- \overline{x})^{T}
+  \]
+  Then, for a nonzero vector $y \in \mathbb{R}^{n}$, we have
+  \begin{align*}
+    y^{T}S y &= y^{T} \left ( \dfrac{1}{n} \sum_{i = 1}^{n} (x_{i} - \overline{x})(x_{i}- \overline{x})^{T} \right) y \\
+             &= \dfrac{1}{n} \sum_{i = 1}^{n} y^{T} (x_{i} - \overline{x})(x_{i} - \overline{x})^{T} y \\
+             &= \dfrac{1}{n} \sum_{i = 1}^{n} ((x_{i} - \overline{x})^{T}y)^{2} \geq 0 \quad \textbf{*}
+  \end{align*}
+  By this, $S$ is always positive semi-definite. Now, we have to show that $S$
+  is definite. Let's define $z_{i} = (x_{i} - \overline{x})$, for
+  $i = 1,\ldots,n$. For any nonzero $y \in \mathbb{R}^{n}$, \textbf{(*)} is zero
+  iff $z_{i}^{T}y = 0$, for each $i = 1,\ldots,n$. Let's suppose now that the
+  set $\{z_{1},\ldots,z_{n}\}$ spans over $\mathbb{R}^{n}$. Then there are real
+  numbers $\alpha_{1},\ldots,\alpha_{n}$ such hat
+  $y = \alpha_{1}z_{1} + \ldots + \alpha_{n}z_{n}$. But then we have
+  $y^{T}y = \alpha_{1}z_{1}^{T}y + \ldots + \alpha_{n}z_{n}^{T}y = 0$, which
+  yields that $y = 0$, a contradiction. Hence, if the $z_{i}$ spans over
+  $\mathbb{R}^{n}$, then $S$ is positive definite.
+
+  We conclude that $S$ is a definite positive matrix, hence
+  \[
+    d(\vec{x},\overline{x}) \geq 0
+  \]
+  We have to prove now that $d(\vec{x},\vec{y}) = 0$ iff $\vec{x} = \vec{y}$.
+  This is obvious from the definition of the mahalanobis distance, because
+  \[
+    d(\vec{x},\vec{y}) = \sqrt{(\vec{x} - \vec{y})^{T}S^{-1}(\vec{x}-\vec{y})} = \sqrt{(\vec{x} - \vec{x})^{T}S^{-1}(\vec{x}-\vec{x})}
+  \]
+  since $\vec{x}$ and $\vec{y}$ have the same dimensions. \\
+
+  We continue with the proof that $d(\vec{x},\vec{y}) = d(\vec{y},\vec{x})$.
+  This holds because of $S$ is a symmetric matrix, and hence we have finish.
+
+  At last, we have to prove the triangle inequality. Let $S$ be a symmetric
+  $n \times n$ matrix (This because the definition of covariance matrix). And
+  let's rename the mahalanobis norm as
+  \[
+    \norm{x}_{S} = \sqrt{x^{T}Sx}
+  \]
+  We have shown that $S$ is positive-definite. By spectral theorem for symmetrix
+  matrices, there are a diagonal $n \times n$ matrix
+  $\Lambda = diag(\lambda_{1},\ldots,\lambda_{n})$ and an orthogonal
+  $n \times n$ matrix $Q$ (i.e. $Q^{T}Q = I$), such that $Q^{T} = Q^{-1}$ and:
+  \[
+    S = Q^{T} \Lambda Q
+  \]
+  Because of the matrix $S$ is positive-definite we have that
+  \begin{align*}
+    \lambda_{1} &> 0 \\
+    \lambda_{2} &> 0 \\
+    \ldots \\
+    \lambda_{n} &> 0
+  \end{align*}
+  Let the matrix
+  \[
+    U = diag(\sqrt{\lambda_{1}},\sqrt{\lambda_{2}},\ldots,\sqrt{\lambda_{n}})Q,
+  \]
+  note that:
+  \[
+    S = U^{T}U
+  \]
+  set now $\overline{x} = Ux$ and $\overline{y} = Uy$. Let
+  $\norm{v}_{E} = \sqrt{v_{1}^{2} + v_{2}^{2} + \ldots + v_{n}^{n}}$ the usual
+  euclidean distance. Then is clearly that
+  \begin{align*}
+    \norm{x}_{S} &= \norm{\overline{x}}_{E} \\
+    \norm{y}_{S} &= \norm{\overline{y}}_{E} \\
+    \norm{x + y}_{S} &= \norm{\overline{x} + \overline{y}}_{E} \quad \textbf{(**)}
+  \end{align*}
+  By usual triangular inequality we have:
+  \[
+    \norm{\overline{x} + \overline{y}}_{E} \leq \norm{\overline{x}}_{E} + \norm{\overline{y}}_{E}
+  \]
+  By the equality \textbf{(**)} we have
+  \[
+    \norm{x + y}_{S} \leq \norm{x}_{S} + \norm{y}_{S}
+  \]
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise f)}
+
+\begin{question}
+  Prove that if $d:X\times X\rightarrow\mathbb{R}$ is a metric, then so is
+  $\bar{d}(x,y)=\frac{d(x,y)}{1+d(x,y)}$.
+\end{question}
+\begin{proof}
+  Let $(X,d)$ be a metric space. Let us prove that $\bar{d}(\cdot,\cdot)$ also
+  satisfy the conditions to be metric. For the following steps, assume that
+  $x,y,z\in X$.
+  \begin{enumerate}
+    \item Since $d(\cdot,\cdot)$ is a metric, it satisfies that $d(x,y)\geq 0$.
+      Then, $d(x,y)+1\geq 1 > 0$ and finally
+      $\bar{d}(x,y)=\frac{d(x,y)}{1+d(x,y)}\geq 0$.
+    \item Since $d(\cdot,\cdot)$ is a metric, it satisfies that $d(x,y)=d(y,x)$.
+      Then
+      $\bar{d}(x,y)=\frac{d(x,y)}{1+d(x,y)}=\frac{d(y,x)}{1+d(y,x)}=\bar{d}(y,x)$.
+    \item ``$\implies$'' Suppose $\bar{d}(x,y)=0=\frac{d(x,y)}{1+d(x,y)}$, hence
+      $d(x,y)=0$ and as $d(\cdot,\cdot)$ is metric, $x=y$. ``$\impliedby$''
+      Suppose that $x=y$, then $d(x,y)=0$ since it is a metric; now,
+      $\bar{d}(x,y)=\frac{d(x,y)}{1+d(x,y)}=\frac{0}{1+0}=0$. Consequently,
+      $\bar{d}(x,y)=0 \iff x=y$.
+    \item Consider the function $f(t)=\frac{t}{1+t}$ on $[0, \infty)$. Note that
+      $\bar{d}(x,y)=f(d(x,y))$. It is clear that $f'(t)=\frac{1}{(t+1)^2}$, and
+      hence $f(t)$ is a positive increasing function on $[0,\infty)$. Now, as
+      $d(x,y)=0$ is a metric, it satisfies the triangle inequality, hence
+      $d(x,y)\leq d(x,z)+d(z,y)$. As $f(t)$ increases on $[0,\infty)$, the
+      inequality is preserved when applied to this last expression:
+      $f(d(x,y))\leq f(d(x,z)+d(z,y))$. This yields
+      \[
+      \begin{split}
+        f(d(x,z)+d(z,y))=&\,\dfrac{d(x,z)+d(z,y)}{1+d(x,z)+d(z,y)}\leq \dfrac{d(x,z)}{1+d(x,z)} + \dfrac{d(z,y)}{1+d(z,y)}\\
+        \leq&\,\bar{d}(x,z)+\bar{d}(z,y)
+      \end{split}
+      \]
+      and finally,
+      \[
+      \bar{d}(x,y)=f(d(x,y))\leq f(d(x,z)+d(z,y))\leq\bar{d}(x,z)+\bar{d}(z,y).
+      \]
+  \end{enumerate}
+\end{proof}
+
+\subsection*{Exercise i)}
+\begin{question}
+  Prove that the Frobenius norm satisfy the properties for a matrix norm.
+\end{question}
+\begin{proof}
+  Let $A\in\mathbb{R}^{m\times n}$. Recall that the Frobenius norm of $A$ is
+  given by
+  \[
+    \norm{A}_F=\sqrt{\sum_{i=1}^m\sum_{j=1}^n(a_{ij})^2}=\sqrt{\mathrm{tr}(A^TA)}.
+  \]
+  For the following proofs, assume $A,B\in\mathbb{R}^{m\times n}$ and
+  $\alpha\in\mathbb{R}$.
+  \begin{enumerate}
+    \item
+      \[
+      \norm{A}_F=\sqrt{\sum_{i=1}^m\sum_{j=1}^n(a_{ij})^2}\geq 0,\ \forall a_{ij}\in\mathbb{R}.
+      \]
+    \item
+      \[
+      \norm{\alpha A} = \sqrt{\sum_{i=1}^m\sum_{j=1}^n(\alpha a_{ij})^2}=\sqrt{\alpha^2}\sqrt{\sum_{i=1}^m\sum_{j=1}^n(a_{ij})^2}=|\alpha|\norm{A}_F
+      \]
+    \item ``$\implies$''
+      \[
+      \norm{A}_F = 0 \implies \sqrt{\sum_{i=1}^m\sum_{j=1}^n(a_{ij})^2} = 0
+      \]
+      which directly implies that each $a_{ij}=0$, since it is a positive sum.
+
+      ``$\impliedby$''
+      \[
+      A = 0 \implies a_{ij}=0,\ \forall i,j \implies \sqrt{\sum_{i=1}^m\sum_{j=1}^n(a_{ij})^2} = 0 \implies \norm{A}_F=0.
+      \]
+      Then, $\norm{A}_F=0\iff A=0$.
+    \item For the triange inequality, we may use the trace definition
+      \[
+      \norm{A}_F=\sqrt{\mathrm{tr}(A^TA)}
+      \]
+      and use the fact that the Frobenius norm comes from the inner product
+      defined as
+      \[
+      \langle A,B\rangle = \mathrm{tr}(A^TB).
+      \]
+      Let us work with the inner product as follows:
+      \[
+      \begin{split}
+        \langle A+B, A+B\rangle =& \langle A,A\rangle + 2\langle A, B\rangle +\langle B,B\rangle\\
+        \norm{A+B}_F^2 =& \norm{A}_F^2 + 2\langle A, B\rangle + \norm{B}_F^2,
+      \end{split}
+      \]
+      using the Cauchy-Schwarz inequality
+      $\langle A, B\rangle\leq\norm{A}_F\norm{B}_F$, we get
+      \[
+      \begin{split}
+        \norm{A+B}_F^2 \leq& \norm{A}_F^2 + 2\norm{A}_F\norm{B}_F + \norm{B}_F^2\\
+        \norm{A+B}_F^2 \leq& (\norm{A}_F + \norm{B}_F)^2\\
+        \norm{A+B}_F \leq& \norm{A}_F + \norm{B}_F
+      \end{split}
+      \]
+  \end{enumerate}
+  With the 4 points above proven, $\norm{A}_F$ is a norm for matrices.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Exercise g)}
+
+\begin{question}
+  If $d : X \times X \to \mathbb{R}$ is a metric, then
+  $\overline{d}(x,y) = \min{\{1,d(x,y)\}}$ also is.
+\end{question}
+\begin{proof}
+  Let's show that $\overline{d}(x,y) = \min{\{1,d(x,y)\}}$ is a metric
+  \begin{itemize}
+    \item $\overline{d}(x,y) \geq 0$. We have three cases.
+      \begin{itemize}
+        \item If $1 = d(x,y)$ then $\min{\{1,d(x,y)\}} = 1$, therefore
+          $\overline{d}(x,y) \geq 0$.
+        \item If $1 < d(x,y)$ then $\min{\{1,d(x,y)\}} = 1$, therefore
+          $\overline{d}(x,y) \geq 0$.
+        \item If $d(x,y) < 1$ then $\min{\{1,d(x,y)\}} = d(x,y)$. We have that
+          $d(x,y)$ is a metric, $d(x,y) \geq 0$, therefore
+          $\overline{d}(x,y) \geq 0$
+      \end{itemize}
+    \item $\overline{d}(x,y) = 0$ iff $x = y$.
+      \begin{itemize}
+        \item $\overline{d}(x,y) = 0 \Rightarrow x = y$. \\
+
+          We have that $\overline{d}(x,y) = 0$, but this means
+          $\min{\{1,d(x,y)\}} = 0$. Clearly $1 \neq 0$. Then $d(x,y) = 0$ iff
+          $x = y$, but $d$ is a metric. Therefore $x = y$.
+          \item $x = y \Rightarrow \overline{d}(x,y) = 0$. \\
+
+          Let's suppose that $x = y$, then
+          $\overline{d}(x,y) = \min{\{1,d(x,y)\}} = 0$. This because $d$ is a
+          metric, and therefore $d(x,y) = 0$ if $x = y$ hence
+          $\overline{d}(x,y) = 0$.
+    \end{itemize}
+    \item $\overline{d}(x,y) = \overline{d}(y,x)$.
+
+      $\overline{d}(x,y) = \min{\{1,d(x,y)\}}$, because $d$ is a metric
+      $d(x,y) = d(y,x)$, then
+      $\overline{d}(x,y) = \min{\{1,d(x,y)\}} = \min{\{1,d(y,x)\}} = \overline{d}(y,x)$.
+
+    \item $\overline{d}(x,z) \leq \overline{d}(x,y) + \overline{d}(y,z)$.
+
+      $\overline{d}(x,z) = \min{\{1,d(x,z)\}}$. Because $d$ is a metric we have
+      $d(x,z) \leq d(x,y) + d(y,z)$. Therefore
+    \begin{align*}
+      \overline{d}(x,z) &\leq \min{\{1,d(x,y) + d(y,z)\}} \\
+                        &\leq \min{\{1,d(x,y)\}} + \min{\{1,d(y,z)\}} \\
+                        &= \overline{d}(x,y) + \overline{d}(y,z)
+    \end{align*}
+\end{itemize}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise h)}
+\begin{question}
+  If $A \subset B$, both subsets of $\mathbb{R}^{n}$, then for any
+  $x \in \mathbb{R}^{n}$ and $d$ a metric, we have that $d(x,A) \geq d(x,B)$.
+\end{question}
+
+\begin{proof}
+  By the definition of distance between sets we know that
+  %
+  \[d(x,B) = \inf \{ d(x,b) : x \in \mathbb{R}^{n}, b \in B \} \]
+  %
+  Let's denote $\Gamma(x, A) = \{d(x,a) : x \in \R^{n}, a \in A\}$. Therefore,
+  by definition $d(x, A) = \inf \Gamma(x, A)$. It is easily seen that for every
+  other lower bound $\lambda$ of $\Gamma(x, A)$ it happens that:
+  %
+  \begin{equation}
+    \label{eq:lb}
+    \lambda \le d(x, A)
+  \end{equation}
+  %
+  as the infimum is the largest lower bound of the set. On the other hand, it is
+  clear that for all $b \in B$:
+  %
+  \begin{equation*}
+    d(x, B) \le d(x, b)
+  \end{equation*}
+  %
+  In particular, for all $b \in A$ as $A \subset B$. Therefore $d(x, B)$ is a
+  lower bound for $\Gamma(x, A)$. In this manner, by Equation \ref{eq:lb} it
+  occurs that:
+  %
+  \begin{equation*}
+    d(x, B) \le d(x, A)
+  \end{equation*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise j)}
+
+\begin{question}
+  Show that the 2-norm of a real-valued matrix $A$ of size $n \times n$ defined
+  as
+  \begin{equation*}
+    \norm{A}_{2} = \max_{\norm{x}_{2} \neq 0}\frac{\norm{Ax}_{2}}{\norm{x}_{2}}
+  \end{equation*}
+  is the maximum eigen value of $A$.
+\end{question}
+
+\begin{proof}
+  Let $\lambda_{i}$ be the eigen values of the matrix $B = A^{T}A$ for
+  $i=1,..,n$ and $v_{i}$ be non-null vectors such that
+  %
+  \begin{equation*}
+    (A^{T}A)v_{i} = \lambda_{i} v_{i}
+  \end{equation*}
+  %
+  It is seen that $B$ is a Hermitian matrix, therefore it's eigen vectors are
+  orthonormal ang generate a basis for the vector space. Therefore, for all
+  vector $x$ there exists $a_{i}$ such that
+  %
+  \begin{equation*}
+    x = \sum_{i=1}^{n}a_{i}v_{i}
+  \end{equation*}
+  %
+  Let $j \in \{1,...,n\}$ such that $j = \max_{i} \abs{\lambda_{i}}$.
+
+  ($\le$) Let's show that $\norm{A}_{2} \le \sqrt{\abs{\lambda_{j}}}$.
+  Hence:
+  \begin{align*}
+    \norm{Ax}_{2}^{2} &= \langle Ax, Ax \rangle> \\
+                      &= \langle x, A^{T}Ax \rangle \\
+                      &= \langle x, Bx \rangle \\
+                      &= \langle \sum_{i=1}^{n}a_{i}v_{i}, B\sum_{i=1}^{n}a_{i}v_{i} \rangle \\
+                      &= \langle \sum_{i=1}^{n}a_{i}V_{i}, \sum_{i=1}^{n}\lambda_{i}^{2}a_{i}V_{i} \rangle \\
+                      &= \sum_{i=1}^{n}a_{i}^{2}\lambda_{i} \\
+                      &\le \lambda_{j} \sum_{i=1}^{n}a_{i}^{2} \\
+                      &= \lambda_{j} \norm{x}_{2}^{2}
+  \end{align*}
+  %
+  Therefore, $\norm{Ax}_{2} \le \sqrt{\lambda_{j}} \norm{x}_{2}$. Hence,
+  $\norm{A}_{2} \le \sqrt{\lambda_{j}}.$
+
+  ($\ge$) Let's show that $\norm{A}_{2} \ge \sqrt{\abs{\lambda_{j}}}$. Using the
+  obtained previous result it can be seen that for $v_{j}$
+  %
+  \begin{align*}
+    \norm{A}_{2}^{2} &\ge \frac{\langle v_{j}, Bv_{j}\rangle}{\norm{v_{j}}_{2}} \\
+                     &= \frac{\langle v_{j}, \lambda_{j}v_{j}\rangle}{\norm{v_{j}}_{2}} \\
+                     &= \lambda_{j}
+  \end{align*}
+  %
+  Therefore, $\norm{A}_{2} \le \sqrt{\lambda_{j}}$. Then, it must happen that
+  $\norm{A}_{2} = \sqrt{\lambda_{j}}$.
+\end{proof}
+
+\section*{Exercise 2}
+
+\begin{question}
+  Define what it is a pseudometric and show a few examples of pseudometrics.
+\end{question}
+
+\begin{definition}
+  A pseudometrix space $(E,d)$ is a set $E$ together with a non-negative
+  real-valued function $d : E \times E \to \mathbb{R}_{\geq 0}$ (called a
+  \textbf{pseudometric}) such that for every $x,y,z \in E$,
+  \begin{enumerate}
+    \item $d(x,y) \geq 0$
+    \item $d(x,x) = 0$
+    \item $d(x,y) = d(y,x)$
+    \item $d(x,z) \leq d(x,y) + d(y,z)$
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  For a set $E$, define $d(x,y) = 0$ for all $x,y \in E$. We call $d$ the
+  trivial pseudometric on $E$: all distancs are $0$.
+\end{example}
+
+\begin{example}
+  Every measure space $\Omega,\mathcal{A},\mu)$ can be viewed as a pseudometric
+  space by defining
+  \[
+    d(A,B) := \mu(A \bigtriangleup B)
+  \]
+  for all $A,B \in \mathcal{A}$, where the triangle denotes symmetric
+  difference.
+\end{example}
+
+\begin{example}
+  For vector spaces $V$, a seminorm $p$ induces a pseudometric on $V$, as
+  \[
+    d(x,y) = p(x - y)
+  \]
+\end{example}
+
+\end{document}
