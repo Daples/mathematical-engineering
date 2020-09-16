@@ -1,0 +1,570 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=2.5cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% PARAGRAPH SETTINGS
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+% https://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
+\setlength{\parskip}{5pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{proof}
+\newtheorem{lemma}{Lemma}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% PERSONAL COMMANDS
+\usepackage{amssymb}
+
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Usual operations
+\newcommand{\pow}[2]{#1^{#2}}
+\newcommand{\expp}[1]{e^{#1}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
+
+%%%% Lambda Calculus
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Ordinal Lambda Calculus
+\newcommand{\ordAlph}{\Sigma_{\text{Ord}}}
+\newcommand{\termOrd}{\text{Term}_\text{Ord}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\sk}{\mathrm{sk}}
+
+%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+
+%%%% Statistics
+\NewDocumentCommand{\E}{o m}{
+  \IfNoValueTF{#1}
+  {\mathbb{E}\left[#2\right]}
+  {\mathbb{E}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\V}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{Var}\left[#2\right]}
+  {\mathrm{Var}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\cov}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{cov}\left(#2\right)}
+  {\mathrm{cov}^{#1}\left( #2\right)}
+}
+\RenewDocumentCommand{\P}{o o m}{
+  \IfNoValueTF{#1}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}\left(#3\right)}
+    {\mathrm{P}^{#2}\left(#3\right)}}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}_{#1}\left(#3\right)}
+    {\mathrm{P}_{#1}^{#2} \left(#3\right)}}
+}
+
+%%%% Lambda Calculus
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%% Create absolute value function
+% https://tex.stackexchange.com/questions/43008/absolute-value-symbols
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% FLOAT SPECIFIER
+% https://www.overleaf.com/learn/latex/Errors/LaTeX_Error:_Unknown_float_option_%60H%27
+\usepackage{float}
+
+%%%%%%%% TO USE SHORT COMMANDS FOR VECTOR LINES
+\usepackage{esvect}
+
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
+%%%%%%%% DIFFERENT FONTS FOR MATH
+\usepackage{mathrsfs}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+%%%%%%%% START DOCUMENT
+\title{Theoretic Exercises}
+\author{Andrés Felipe Tamayo \\
+  \scalebox{0.7}{aftamayoa@eafit.edu.co} \and
+  David Plazas Escudero \\
+  \scalebox{0.7}{dplazas@eafit.edu.co} \and
+  Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{jscardenar@eafit.edu.co} \\ \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+
+\begin{question}
+  Prove computationally or theoretically that for all $x \in \mathbb{R}^{n}$ it
+  is given that $x^{T}Cx \geq 0$.
+\end{question}
+
+\begin{proof}
+
+  Let $Y = (Y_{1},\ldots,Y_{p})^{T}$ be a p-dimensional random vector with the
+  mean vector
+  \[
+    \mu = \E{Y} = (\mu_{1},\ldots,\mu_{p})^{T},
+  \]
+  where $\mu_{i} = \E{Y_{i}}$ is the mean of the \textit{i}-th component. Its
+  covariance matrix is defined as the $p \times p$ matrix
+  \[
+    \Sigma = \E{(Y - \mu)(Y - \mu)^{T}} = (\sigma_{ij})
+  \]
+
+  where $\sigma_{ij} = \E{(Y_{i} - \mu_{i})(Y_{j} - \mu_{j})}$ is, indeed, the
+  covariance between two random variables $Y_{i}$ and $Y_{j}$ for $i \neq j$,
+  and $\sigma_{ii}$ is simply the variance of the \textit{i}-th component of
+  $Y$.
+
+  It's going to be shown in Excercise 3 that, a matrix $\Sigma$ is a covariance
+  matrix if and only if it is of the form $A^{T}*A$ for some matrix $A$. In the
+  present exercise, we have that $C = A^{T}*A$ and by so, the covariance matrix
+  is nonnegative in the following sense:
+
+  Let's consider any vector $x = (x_{1},\ldots,x_{n})T$. Then
+  \[
+    x^{T}Cx = \sum_{i = 1}^{n}\sum_{j = 1}^{n} x_{i}x_{j}\sigma_{ij} = \E{x^{T}(Y - \mu)}^{2} = \V{x^{T}(Y - \mu)} \geq 0
+  \]
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3} \label{Ex3}
+\begin{question}
+  Investigate if given any matrix $A$, then $C = A^{T}*A$ can be considered as a
+  covariance matrix. Also, see if given a covariance matrix $C$, there exists
+  $A$ such that $C = A^{T} * A$.
+\end{question}
+
+Let's consider the following lemma
+
+\begin{lemma}
+  For $Y$ a $p \times 1$ random vector with covariance matrix $\cov{Y}$, and
+  suitable (nonrandom) matrices $A$, $B$, $C$ and $D$, we have
+\begin{enumerate}
+  \item $\E{AY + B} = A\E{Y} +B$,
+  \item $\cov{AY + B} = A\cov{Y}A^{T}$,
+  \item $\cov{AY + B, \,CY + D} = A\V{Y}C^{T}$
+\end{enumerate}
+\end{lemma}
+
+The result in part $2$ suggests a way to construct more elaborate covariance
+matrices from the simpler ones. For example, starting from a $Y$ with the
+identity covariance matrix, \textit{it follows that $AA^{T}$ in a genuine
+  covariace matrix for any matrix $A$}. In fact, all covariance matrices turn
+out to hace this form. In other words, a matrix $\Sigma$ is a covariance matrix,
+if and only if it is of the form $AA^{T}$ for some matrix $A$.
+
+Now, consider the fact that the covariance matrix is a symmetrix and nonnegative
+definite matrix. With this fact, the following theorem guarantee that, given a
+covariance matrix $C$, there exists $A$ such that $C = A^{T}*A$.
+
+\begin{theorem}
+  For a $p \times p$ symmetrix matrix $\Sigma = (\sigma_{ij})$, the following
+  are equivalent:
+\begin{enumerate}
+  \item $\Sigma$ is nonnegative definite
+  \item there exists a matrix $A$ such that
+    \[
+    \Sigma = A*A^{T}
+    \]
+\end{enumerate}
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 6}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 8}
+\subsection*{Exercise a}
+
+\begin{question}
+  The rank of the data matrix is $p$.
+\end{question}
+\begin{proof}
+  This statement is not completely accurate and we believe it should be changed
+  to ``the rank of the data matrix is at most $p$''. First, the rank of a matrix
+  $A\in\mathbb{R}^{n\times p}$ satisfies
+  \[
+    \mathrm{rank}(A)\leq \min\{n, p\}.
+  \]
+  Additionally, it is well known that most of the statistical analysis and
+  methods are based on the premise of the number of observations (samples) being
+  significantly larger than the number of variables in the dataset ($n\gg p$).
+  One good example of the issue while working under $n<p$ is the covariance
+  matrix: Let $S$ be the covariance matrix of the dataset; if $n<p$ then
+  $\mathrm{rank}(S)<p$, thus the covariance matrix is singular and it is clear
+  that a lot of statistical methods relay on the inverse of the covariance
+  matrix. Therefore, is always desirable that $n\gg p$.
+
+  Finally, it is possible to have an unnoticed multicollinearity situation
+  between the variables of the dataset; in this scenario, one (or more)
+  variables can be, approximately, written as a linear combination of the other
+  variables which directly implies that the matrix is not full-rank and it will
+  be ill-conditioned. Hence, with these arguments, the rank of the data matrix
+  should be at most $p$.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise b}
+\begin{question}
+  The operation $A^{T}1_{n}$ where $1_{n}$ is a vector $n \times 1$ with all its
+  components equal to one provides a vector $p \times 1$ whose components are
+  the sum of the values of each variable.
+\end{question}
+
+\begin{proof}
+  This is correct, indeed, if $A$ is a matrix $(n \times p)$, then $A^{T}$ is a
+  matrix $(p \times n)$, then $A^{T}1_{n}$ is a vector $p \times 1$. Now, all
+  the components of this matrix are the sum of the values of each variable. This
+  is,
+  \[
+    A^{T}1_{n} = \begin{bmatrix}
+      a_{11} & a_{21} & a_{31} & \ldots & a_{n1}\\
+      a_{12}& a_{22}  & a_{32} & \ldots & a_{n2} \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      a_{1p} & a_{2p} & a_{3p} & \cdots & a_{np}
+    \end{bmatrix} * \begin{bmatrix}
+      1\\
+      1 \\
+      \vdots\\
+      1
+    \end{bmatrix} = \begin{bmatrix}
+      a_{11} + a_{21} + a_{31} + \ldots + a_{n1}\\
+      a_{12} + a_{22} + a_{32} + \ldots + a_{n2} \\
+      \vdots \\
+      a_{1p} + a_{2p} + a_{3p} + \ldots + a_{np}
+    \end{bmatrix}
+  \]
+  Therefore
+  \begin{equation*}
+    A^{T}1_{n} =
+    \begin{bmatrix}
+      \displaystyle\sum_{i=1}^{n}a_{i1} \\
+      \displaystyle\sum_{i=1}^{n}a_{i2} \\
+      \vdots \\
+      \displaystyle\sum_{i=1}^{n}a_{ip} \\
+    \end{bmatrix}
+  \end{equation*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise c}
+\begin{question}
+  Show that $\frac{1}{n}A^{T}1_{n}$ is a vector with the means of the $p$
+  variables.
+\end{question}
+
+\begin{proof}
+  As seen in the previous exercise:
+  %
+  \begin{equation*}
+    A^{T}1_{n} =
+    \begin{bmatrix}
+      \displaystyle\sum_{i=1}^{n}a_{i1} \\
+      \displaystyle\sum_{i=1}^{n}a_{i2} \\
+      \vdots \\
+      \displaystyle\sum_{i=1}^{n}a_{ip} \\
+    \end{bmatrix}
+  \end{equation*}
+  %
+  Therefore
+  \begin{equation*}
+    \frac{1}{n}A^{T}1_{n} =
+    \begin{bmatrix}
+      \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{i1} \\
+      \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{i2} \\
+      \vdots \\
+      \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{ip} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \mu_{1} \\
+      \mu_{2} \\
+      \vdots \\
+      \mu_{p}
+    \end{bmatrix}
+  \end{equation*}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise d}
+\begin{question}
+  Show that $\frac{1}{n}1_{n}1_{n}^{T}A$ is a matrix for which the columns
+  contains the mean of each variable.
+\end{question}
+
+\begin{proof}
+  It is seen that
+  %
+  \begin{align*}
+    1_{n}1_{n}^{T}A
+    &=\begin{bmatrix}
+      1 \\
+      \vdots \\
+      1
+    \end{bmatrix}
+    \begin{bmatrix}
+      1 & \ldots & 1
+    \end{bmatrix}
+                   \begin{bmatrix}
+                     a_{11} & \ldots & a_{1p} \\
+                     \vdots & \ddots & \vdots \\
+                     a_{n1} & \ldots & a_{np}
+                   \end{bmatrix} \\
+    &=
+      \begin{bmatrix}
+        1 & \ldots & 1 \\
+        \vdots & \ddots & \vdots \\
+        1 & \ldots & 1
+      \end{bmatrix}
+                     \begin{bmatrix}
+                       a_{11} & \ldots & a_{1p} \\
+                       \vdots & \ddots & \vdots \\
+                       a_{n1} & \ldots & a_{np}
+                     \end{bmatrix} \\
+    &=
+      \begin{bmatrix}
+        a_{11} + \ldots + a_{n1} & \ldots & a_{1p} + \ldots + a_{np} \\
+        \vdots & \ddots & \vdots \\
+        a_{11} + \ldots + a_{n1} & \ldots & a_{1p} + \ldots + a_{np}
+      \end{bmatrix} \\
+    &=
+      \begin{bmatrix}
+        \displaystyle\sum_{i=1}^{n}a_{i1} & \ldots & \displaystyle\sum_{i=1}^{n}a_{ip} \\
+        \vdots & \ddots & \vdots \\
+        \displaystyle\sum_{i=1}^{n}a_{i1} & \ldots & \displaystyle\sum_{i=1}^{n}a_{ip}
+      \end{bmatrix}
+  \end{align*}
+  %
+  Therefore, it is obtained that:
+  \begin{equation*}
+    \frac{1}{n}1_{n}1_{n}^{T}A =
+      \begin{bmatrix}
+        \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{i1} & \ldots & \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{ip} \\
+        \vdots & \ddots & \vdots \\
+        \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{i1} & \ldots & \displaystyle\frac{1}{n}\sum_{i=1}^{n}a_{ip}
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        \mu_{1} & \ldots & \mu_{p} \\
+        \vdots & \ddots & \vdots \\
+        \mu_{1} & \ldots & \mu_{p}
+      \end{bmatrix}
+  \end{equation*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise e}
+\begin{question}
+  Explain the meaning of the matrix $\tilde{A}=A-\frac{1_n1_n^TA}{n}$ and the
+  matrix $S=\frac{\tilde{A}^T\tilde{A}}{n}$.
+\end{question}
+\begin{proof}
+  The matrix $\tilde{A}$ can be rewritten as
+  $\tilde{A}=\left(I_n-\frac{1_n1_n^T}{n}\right)A$ and the matrix inside the
+  parenthesis is known as the centering matrix, which subtracts the mean vector
+  to the each of the observations in the dataset $A$. Hence, $\tilde{A}$ is the
+  centered dataset.
+
+  Furthermore, the matrix $S$ is an equivalent definition of the Maximum
+  Likelihood Estimation (MLE) of the covariance matrix (since it is divided by
+  $n$). The product of $\tilde{A}^T$ and $\tilde{A}$ corresponds to the pairwise
+  sum of centered data points for two variables and it is divided by $n$, which
+  is the exact MLE for the covariance.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercise g}
+\begin{question}
+  Explain how the eigenvalues of $\widetilde{A}$ are related to those of
+  $\widetilde{A} + I$, being $I$ the identity of $p \times p$. Explain now the
+  relation with $\widetilde{A} +kI$, $k >0$ and related it to the result of
+  Ledoit and Wolf.
+\end{question}
+
+\begin{proof}
+  If $\lambda$ is an eigenvalue of $\widetilde{A}$ and $x$ is the corresponding
+  eigenvector, then $1 + \lambda$ is an eigenvalue of $I + \widetilde{A}$ and
+  $1 - \lambda$ is an eigenvalue of $I - \widetilde{A}$. In either case, $x$ is
+  the corresponding eigenvetor. Thus, for $I + \widetilde{A}$ we have
+  \begin{align*}
+    \widetilde{A}x &= \lambda x \\
+    x + \widetilde{A}x &= x + \lambda x \\
+    (I + \widetilde{A})x &= (1 + \lambda)x
+  \end{align*}
+
+  Now, if $\lambda_{1},\lambda_{2}, \ldots$ are the eigenvalues of the
+  $n \times n$ matrix $\widetilde{A}$, $I$ is the $n \times n$ identity matrix
+  and $k$ is a single numbers, them the eigenvalues of the matrix
+  $\widetilde{A} + kI$ are $\lambda_{1 + k}, \lambda_{2 + k}, \ldots$. To see
+  this, If $\lambda$ is any eigenvalie of $\widetilde{A}$, then
+  $\widetilde{A}X = \lambda X$, hence
+  \[
+    (\widetilde{A} +kI)X = AX + KX = \lambda X + kX = (\lambda + k) X
+  \]
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 9}
+\begin{question}
+  See what the Kronecker product consists of and verify computationally that if
+  $A$ and $B$ are squares of orders $n$ and $p$, the $np$ eigenvalues of its
+  Kronecker product, $A \otimes B$ are the Kronecker product of the eigenvalues
+  of $A$ and $B$. Show two applications of the Kronecker product.
+\end{question}
+
+\begin{proof}
+  Given an $m \times n$ matrix $A$ and a $p \times q$ matrix $B$, their
+  kronecker product $C = A \otimes B$ is an $(m \cdot n) \times (n \cdot q)$
+  matrix with elements defined by
+  \[
+    c_{\alpha \beta} = a_{ij}b_{kl}
+  \]
+  where
+  \begin{align*}
+    \alpha &= p(i-j)+k \\
+    \beta &= q(i-j) + l
+  \end{align*}
+
+  Kronecker product can be used in order to solve the Lyapunov equation and
+  verify stability of discrete time systems. Kronecker product is also useful
+  for representing 2D image processing operations in matrix-vector form.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 10}
+\begin{question}
+  Discuss how the spectral decomposition of $A$ is related to the spectral
+  decomposition for $A^{-1}$ and $A^{T}$.
+\end{question}
+
+\begin{proof}
+  The spectral decomposition for $A$ is given by the matrix that contains in
+  it's columns the eigen vectors of $A$ noted by $Q$ and a diagonal matrix that
+  contains in the diagonal the eigen values $\Lambda$. This decomposition
+  satisfies that:
+  %
+  \begin{equation*}
+    A = Q\Lambda Q^{-1}
+  \end{equation*}
+  %
+  In this manner, it is seen that:
+  %
+  \begin{align*}
+    A^{-1} &= \left(Q \Lambda Q^{-1}\right)^{-1} \\
+           &= \left(\Lambda Q^{-1}\right)^{-1} Q^{-1} \\
+           &= Q \Lambda^{-1} Q^{-1}
+  \end{align*}
+  %
+  As $\Lambda$ is a diagonal matrix, then the inverse of the matrix is given by
+  each of the diagonal values inverted. Therefore, it is seen that the
+  decomposition of the inverse matrix is given by the same matrix $Q$ and the
+  inverse of $\Lambda$ given by:
+  \begin{equation*}
+    \Lambda^{-1} =
+    \begin{bmatrix}
+      \frac{1}{\lambda_{1}} & 0 & \ldots & 0 \\
+      0 & \frac{1}{\lambda_{2}} & \ldots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \ldots & \frac{1}{\lambda_{n}}
+    \end{bmatrix}
+  \end{equation*}
+  %
+  On the other hand, for $A^{T}$ it is seen that
+  \begin{align*}
+    A^{T} &= \left(Q \Lambda Q^{-1}\right)^{T} \\
+          &= \left(\Lambda Q^{-1}\right)^{T} Q^{T} \\
+          &= \left(Q^{-1}\right)^{T} \Lambda^{T} Q^{T} \\
+          &= \left(Q^{T}\right)^{-1} \Lambda Q^{T}
+  \end{align*}
+  %
+  Therefore, the spectral decomposition for the transpose is given by the same
+  eigen values matrix $\Lambda$ and their eigen vector matrix $\hat{Q}$ such
+  that:
+  \begin{equation*}
+    \hat{Q}^{-1} = Q^{T}
+  \end{equation*}
+\end{proof}
+\end{document}
