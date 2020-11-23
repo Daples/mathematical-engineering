@@ -1,2 +1,10 @@
 \subsection{Advection-Diffusion-Reaction Equations}
-\aframe{}
+\aframe{
+\begin{align*}
+  &\int_\Omega\dfrac{1}{\Delta t}\sum_{i=1}^3\left[(u_i^{n+1}-u_i^n)v_i
+  +w\cdot\nabla u_i^{n+1}v_i+\epsilon\nabla u_i^{n+1}\cdot\nabla v_i\right]dx\\
+  +&\int_\Omega K\left(u_1^{n+1}u_2^{n+1}v_1+u_1^{n+1}u_2^{n+1}v_2-
+  u_1^{n+1}u_2^{n+1}v_3+u_3^{n+1}v_3\right)dx\\
+  -&\int_\Omega\sum_{i=1}^3f_iv_idx=0
+\end{align*}
+}
