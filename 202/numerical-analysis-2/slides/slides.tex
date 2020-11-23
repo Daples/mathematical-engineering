@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage[english]{babel}
+\usefonttheme{professionalfonts}
 \input{commands.tex}
 
 %%%%%%%% HYPERREF PACKAGE
@@ -25,7 +26,7 @@
             citestyle=authoryear,
             hyperref=true,
             backend=biber]{biblatex}
-\addbibresource{} % Bibliography file
+\addbibresource{ref.bib} % Bibliography file
 
 %%%%%%%% ICONS FOR CITES
 % https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
@@ -132,7 +133,7 @@
 
 
 %%%%%%%% START DOCUMENT
-\title{Title here}
+\title{System of Advection-Diffusion-Reaction Equations}
 
 \author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
   David Plazas Escudero\\
@@ -145,29 +146,34 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-  \hypersetup{linkcolor=black}
-  \tableofcontents
-\end{frame}
-
 %%%%%%%%%% SLIDES %%%%%%%%%%%%%%%
-\section{First section}
-\subsection{First subsection}
-\aframe{Content for first slide
-  \begin{example}
-    Example here
-  \end{example}
-  \begin{remark}
-    Remark here\footnote{Footnote here}
-  \end{remark}
+\input{inputs/introduction.tex}
+
+\section{Problem Definition}
+\aframe{According to \textcite{langtangen2017}, the formulation of the problem
+  is given by the following equations:
+  \begin{align*}
+    \varrho \left(\frac{\partial w}{\partial t} + w \cdot \nabla w\right)
+    &= \nabla \cdot \sigma(w, p) + f \\
+    \nabla \cdot w &= 0 \\
+    \frac{\partial u_{1}}{\partial t} + w \cdot \nabla u_{1} - \nabla \cdot
+    (\epsilon \nabla u_{1}) &= f_{1} - Ku_{1}u_{2} \\
+    \frac{\partial u_{2}}{\partial t} + w \cdot \nabla u_{2} - \nabla \cdot
+    (\epsilon \nabla u_{2}) &= f_{2} - Ku_{1}u_{2} \\
+    \frac{\partial u_{3}}{\partial t} + w \cdot \nabla u_{3} - \nabla \cdot
+    (\epsilon \nabla u_{3}) &= f_{3} + Ku_{1}u_{2} - Ku_{3} \\
+  \end{align*}
 }
 
-\section*{Not numbered section}
-\subsection*{Not numbered subsection}
-\aframe{
-  \begin{definition}
-    Definition by
-  \end{definition}}
+\section{Weak Formulation}
+\subsection{Navier-Stokes Equations}
+\aframe{}
+
+\subsection{Advection-Diffusion-Reaction Equations}
+\aframe{}
+
+\section{Results}
+\aframe{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]{References}
