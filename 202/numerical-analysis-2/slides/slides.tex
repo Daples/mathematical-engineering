@@ -1,0 +1,190 @@
+\documentclass{beamer}
+\usepackage[english]{babel}
+\input{commands.tex}
+
+%%%%%%%% HYPERREF PACKAGE
+\hypersetup{colorlinks=true}
+\hypersetup{citecolor=orange}
+\hypersetup{urlcolor=orange}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\let\definition\relax
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\let\remark\relax
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{example}
+\newtheorem{question}{Question}
+
+%%%%%%%% BIB-LATEX STUFF
+\usepackage[style=authoryear,
+            bibstyle=authoryear,
+            citestyle=authoryear,
+            hyperref=true,
+            backend=biber]{biblatex}
+\addbibresource{} % Bibliography file
+
+%%%%%%%% ICONS FOR CITES
+% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+  \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+    {\setbeamertemplate{bibliography item}[book]}
+    {\ifentrytype{online}
+       {\setbeamertemplate{bibliography item}[online]}
+       {\setbeamertemplate{bibliography item}[article]}}
+  \usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+  {\list{}
+     {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}
+      \setlength{\leftmargin}{\labelwidth}
+      \setlength{\labelsep}{\biblabelsep}
+      \addtolength{\leftmargin}{\labelsep}
+      \setlength{\itemsep}{\bibitemsep}
+      \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}
+
+%%%%%%%% BRACKETS AROUND CITE
+% https://bit.ly/3iSxP2u
+\makeatletter
+
+\newrobustcmd*{\parentexttrack}[1]{
+  \begingroup
+  \blx@blxinit
+  \blx@setsfcodes
+  \blx@bibopenparen#1\blx@bibcloseparen
+  \endgroup}
+
+\AtEveryCite{
+  \let\parentext=\parentexttrack
+  \let\bibopenparen=\bibopenbracket
+  \let\bibcloseparen=\bibclosebracket}
+
+\makeatother
+
+%%%%%%%% THEME SLIDES
+\usetheme{default}
+
+%%%%%%%% BEAMER STUFF
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{navigation symbols}{}
+
+% Not enumerate frame breaks
+% https://bit.ly/34Rc6TG
+\setbeamertemplate{frametitle continuation}[from second][]
+
+%%%%%%%% FRAME TITLES AND SUBTITLES
+% https://bit.ly/2FqgWP2
+\newif\ifinsection
+\newif\ifinsubsection
+
+\let\oldsection\section
+\renewcommand{\section}{
+  \global\insectiontrue
+  \global\insubsectionfalse
+  \oldsection}
+\let\oldsubsection\subsection
+\renewcommand{\subsection}{
+  \global\insubsectiontrue
+  \oldsubsection}
+
+\newcommand {\aframe}[1] {
+  \begin{frame}
+    \ifinsection\frametitle{\secname}\fi
+    \ifinsubsection\framesubtitle{\subsecname}\fi
+  #1
+  \end{frame}
+}
+
+% Blue line after title
+% https://bit.ly/33P6hXm
+\setbeamertemplate{frametitle}{%
+    \usebeamerfont{frametitle}\insertframetitle\strut%
+    \vskip.0\baselineskip%
+    \leaders\vrule width 0.85\paperwidth\vskip0.4pt%
+    \vskip2pt%
+    \usebeamerfont{framesubtitle}\insertframesubtitle
+}
+
+% Footnote without symbol
+% https://tex.stackexchange.com/questions/30720/footnote-without-a-marker
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+%%%%%%%% CENTER OF SLIDE THANK YOU
+\usepackage{tikz}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+
+%%%%%%%% START DOCUMENT
+\title{Title here}
+
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+
+\begin{document}
+
+% Plain so is not numbered
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \hypersetup{linkcolor=black}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%% SLIDES %%%%%%%%%%%%%%%
+\section{First section}
+\subsection{First subsection}
+\aframe{Content for first slide
+  \begin{example}
+    Example here
+  \end{example}
+  \begin{remark}
+    Remark here\footnote{Footnote here}
+  \end{remark}
+}
+
+\section*{Not numbered section}
+\subsection*{Not numbered subsection}
+\aframe{
+  \begin{definition}
+    Definition by \parencite{set1999}
+  \end{definition}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography
+\end{frame}
+
+\begin{frame}
+  \begin{tikzpicture}[overlay, remember picture]
+     \node[anchor=center] at (current page.center) {
+     \Huge{\emph{Thank you!}}};
+\end{tikzpicture}
+  \begin{minipage}[t][.8\textheight]{\textwidth}
+    \vfill
+    \begin{center}
+        \scalebox{0.7}{Juan Sebasti\'an C\'ardenas-Rodríguez} \\
+        \scalebox{0.7}{jscardenar@eafit.edu.co} \\
+    \end{center}
+  \end{minipage}
+\end{frame}
+
+\end{document}
