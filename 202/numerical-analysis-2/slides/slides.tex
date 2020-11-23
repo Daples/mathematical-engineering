@@ -150,12 +150,10 @@
 \input{inputs/introduction.tex}
 
 \section{Problem Definition}
-\aframe{According to \textcite{langtangen2017}, the formulation of the problem
+\aframe{According to\textcite{langtangen2017}, the formulation of the problem
   is given by the following equations:
+  %
   \begin{align*}
-    \varrho \left(\frac{\partial w}{\partial t} + w \cdot \nabla w\right)
-    &= \nabla \cdot \sigma(w, p) + f \\
-    \nabla \cdot w &= 0 \\
     \frac{\partial u_{1}}{\partial t} + w \cdot \nabla u_{1} - \nabla \cdot
     (\epsilon \nabla u_{1}) &= f_{1} - Ku_{1}u_{2} \\
     \frac{\partial u_{2}}{\partial t} + w \cdot \nabla u_{2} - \nabla \cdot
@@ -163,14 +161,44 @@
     \frac{\partial u_{3}}{\partial t} + w \cdot \nabla u_{3} - \nabla \cdot
     (\epsilon \nabla u_{3}) &= f_{3} + Ku_{1}u_{2} - Ku_{3} \\
   \end{align*}
+  %
+  \begin{overlayarea}{\textwidth}{0.05\textheight}
+    \vspace{-1cm}
+
+    \only<2>{We assume that the species $a$, $b$ and $c$ diffuse throughout the
+      domain with diffusivity $\epsilon$, are advected with velocity $w$.}
+
+    \only<3->{We assume that the species $a$, $b$ and $c$ diffuse throughout the
+      domain with diffusivity $\epsilon$, \textbf{are advected with velocity}
+      $\pmb{w}$.}
+  \end{overlayarea}
+}
+
+\subsection{Navier-Stokes Sub-System}
+\aframe{The Navier-Stokes equations for an incompressible fluid for the velocity
+  $w$ and a pressure $p$ are given by:
+  \begin{align*}
+    \varrho \left(\frac{\partial w}{\partial t} + w \cdot \nabla w\right)
+    &= \nabla \cdot \sigma(w, p) + f \\
+    \nabla \cdot w &= 0
+  \end{align*}
 }
 
 \section{Weak Formulation}
-\subsection{Navier-Stokes Equations}
-\aframe{}
+\input{inputs/weak-adr.tex}
 
-\subsection{Advection-Diffusion-Reaction Equations}
-\aframe{}
+\subsection{Navier-Stokes Equations}
+\aframe{Let
+  \begin{equation*}
+    \langle v, w \rangle = \int_{\Omega} vw dx, \quad
+    \langle v, w \rangle_{\partial \Omega} = \int_{\partial \Omega} vw ds.
+  \end{equation*}
+  Let $u^{*}$ the tentative velocity. The Navier-Stokes weak-formulation is given by
+  \begin{align*}
+    x
+  \end{align*}
+}
+
 
 \section{Results}
 \aframe{}
