@@ -177,11 +177,22 @@
 \subsection{Navier-Stokes Sub-System}
 \aframe{The Navier-Stokes equations for an incompressible fluid for the velocity
   $w$ and a pressure $p$ are given by:
+  %
   \begin{align*}
     \varrho \left(\frac{\partial w}{\partial t} + w \cdot \nabla w\right)
     &= \nabla \cdot \sigma(w, p) + f \\
     \nabla \cdot w &= 0
-  \end{align*}
+  \end{align*} \pause
+  %
+  With $f$ is a given force per unit volume and $\sigma(w, p)$ denotes the
+  stress tensor given by:
+  %
+  \begin{equation*}
+    \sigma(w, p) = 2\mu\epsilon(w) - pI, \quad
+    \epsilon(w) = \frac{1}{2}\left(\nabla w + (\nabla w)^{T}\right)
+  \end{equation*}
+  %
+  $\mu$ is the dynamic viscosity and $I$ is the identity tensor.
 }
 
 \section{Weak Formulation}
@@ -189,14 +200,43 @@
 
 \subsection{Navier-Stokes Equations}
 \aframe{Let
+  %
   \begin{equation*}
     \langle v, w \rangle = \int_{\Omega} vw dx, \quad
     \langle v, w \rangle_{\partial \Omega} = \int_{\partial \Omega} vw ds.
   \end{equation*}
-  Let $u^{*}$ the tentative velocity. The Navier-Stokes weak-formulation is given by
+  %
+  The Navier-Stokes is solved using a multi-step technique proposed
+  by\textcite{goda1979}. \vspace{0.5cm} \pause
+
+  First a tentative velocity $w^{*}$ is calculated by the following
+  \textbf{discrete} variational problem:
+  %
   \begin{align*}
-    x
+    &\langle\varrho\Delta t^{-1}(w^{*} - w^{n}), v\rangle +
+      \langle\varrho w^{n} \cdot \nabla w^{n}, v \rangle +
+      \langle \sigma(w^{n + 0.5}, p^{n}), \epsilon(v) \rangle \\
+    &+\langle p^{n}n, v \rangle_{\partial \Omega} -
+      \langle \mu n\nabla w^{n + 0.5}, v \rangle_{\partial \Omega}
+      = \langle f^{n + 1}, v \rangle
   \end{align*}
+  %
+  with $v \in \mathcal{H}_{0}^{1}(\Omega)$.
+}
+
+\aframe{On the second step, the tentative velocity $w^{*}$ is used to calculate
+  the new pressure $p^{n + 1}$
+  \begin{equation*}
+    \langle p^{n+1}, \nabla q \rangle = \langle \nabla p^{n}, \nabla q \rangle
+    - \Delta t^{-1} \langle \nabla \cdot w^{*}, q \rangle
+  \end{equation*}
+  with $q \in \mathcal{H}_{0}^{1}(\Omega)$. \vspace{0.5cm} \pause
+
+  Lastly the corrected velocity $w^{n+1}$ is calculated by
+  \begin{equation*}
+    \langle w^{n+1}, v \rangle = \langle w^{*}, v \rangle - \Delta t
+    \langle \nabla (p^{n+1} - p^{n}), v \rangle
+  \end{equation*}
 }
 
 
