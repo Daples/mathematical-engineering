@@ -1,5 +1,17 @@
 \subsection{Advection-Diffusion-Reaction Equations}
 \aframe{
+\begin{itemize}
+  \item Partition the interval $[0,T]$ as $0=t_0<t_1<\ldots<t_N=T$ uniformly
+  with a fixed $\Delta t$.
+  \item $u_i^n$ denotes the $i$-th concentration at time $t_n$, $n=0,1,\ldots,
+  N$.
+  \item The partial derivative w.r.t. $t$ is approximated as
+  \[
+  \dfrac{\partial u_i^n}{\partial t} \approx \dfrac{u^{n+1}_i-u_i^{n}}{\Delta t}
+  \quad\text{(Backward Euler Approx.)}
+  \]
+\end{itemize}
+The weak formulation is
 \begin{align*}
   &\int_\Omega\dfrac{1}{\Delta t}\sum_{i=1}^3\left[(u_i^{n+1}-u_i^n)v_i
   +w\cdot\nabla u_i^{n+1}v_i+\epsilon\nabla u_i^{n+1}\cdot\nabla v_i\right]dx\\
