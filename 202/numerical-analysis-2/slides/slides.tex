@@ -179,20 +179,15 @@
   $w$ and a pressure $p$ are given by:
   %
   \begin{align*}
-    \varrho \left(\frac{\partial w}{\partial t} + w \cdot \nabla w\right)
-    &= \nabla \cdot \sigma(w, p) + f \\
+    \frac{\partial w}{\partial t} + w \cdot \nabla w - \nu \nabla^2w +
+    \nabla p &= f \\
     \nabla \cdot w &= 0
   \end{align*} \pause
   %
-  With $f$ is a given force per unit volume and $\sigma(w, p)$ denotes the
-  stress tensor given by:
-  %
-  \begin{equation*}
-    \sigma(w, p) = 2\mu\epsilon(w) - pI, \quad
-    \epsilon(w) = \frac{1}{2}\left(\nabla w + (\nabla w)^{T}\right)
-  \end{equation*}
-  %
-  $\mu$ is the dynamic viscosity and $I$ is the identity tensor.
+  \begin{itemize}
+    \item $\nu$ is the kinematic viscosity.
+    \item $f$ is a given source.
+  \end{itemize}
 }
 
 \section{Weak Formulation}
@@ -206,19 +201,17 @@
     \langle v, w \rangle_{\partial \Omega} = \int_{\partial \Omega} vw ds.
   \end{equation*}
   %
-  The Navier-Stokes is solved using a multi-step technique proposed
-  by\textcite{goda1979}. \vspace{0.5cm} \pause
+  The Navier-Stokes is solved using a splitting technique proposed
+  by\textcite{chorin1968} and\textcite{temam1969}. \vspace{0.5cm} \pause
 
-  First a tentative velocity $w^{*}$ is calculated by the following
+  First a tentative velocity $w^{*}$ is calculated by ignoring the
+  pressure in the momentum, using the following
   \textbf{discrete} variational problem:
   %
   \begin{align*}
-    &\langle\varrho\Delta t^{-1}(w^{*} - w^{n}), v\rangle +
-      \langle\varrho w^{n} \cdot \nabla w^{n}, v \rangle +
-      \langle \sigma(w^{n + 0.5}, p^{n}), \epsilon(v) \rangle \\
-    &+\langle p^{n}n, v \rangle_{\partial \Omega} -
-      \langle \mu n\nabla w^{n + 0.5}, v \rangle_{\partial \Omega}
-      = \langle f^{n + 1}, v \rangle
+    &\Delta t^{-1}\langle w^*_h-w^{n-1}, v\rangle +
+      \langle w^{n-1}\cdot\nabla w^{n-1}, v\rangle +
+      \langle\nu\nabla w^{n},\nabla v\rangle=\langle f,v\rangle
   \end{align*}
   %
   with $v \in \mathcal{H}_{0}^{1}(\Omega)$.
@@ -227,21 +220,46 @@
 \aframe{On the second step, the tentative velocity $w^{*}$ is used to calculate
   the new pressure $p^{n + 1}$
   \begin{equation*}
-    \langle p^{n+1}, \nabla q \rangle = \langle \nabla p^{n}, \nabla q \rangle
-    - \Delta t^{-1} \langle \nabla \cdot w^{*}, q \rangle
+    \langle \nabla p^{n},\nabla q\rangle = -\Delta t^{-1}\langle\nabla
+      w^*\cdot w^*, q\rangle
   \end{equation*}
   with $q \in \mathcal{H}_{0}^{1}(\Omega)$. \vspace{0.5cm} \pause
 
   Lastly the corrected velocity $w^{n+1}$ is calculated by
   \begin{equation*}
-    \langle w^{n+1}, v \rangle = \langle w^{*}, v \rangle - \Delta t
-    \langle \nabla (p^{n+1} - p^{n}), v \rangle
+    \langle w^{n}, v \rangle = \langle w^{*}, v \rangle - \Delta t
+    \langle \nabla p^n, v \rangle
   \end{equation*}
 }
 
 
 \section{Results}
-\aframe{}
+\aframe{
+Let \[\Lambda=\left\{(x,y)\in\mathbb{R}^2:(x-0.2)^2 + (y-0.2)^2 <
+ 0.05^2\right\},\] and let \[\Omega=(0,x_f)
+ \times(0,y_f) - \Lambda,\] where $y_f=0.41$ and $x_f=2.2$.
+ \vspace{0.5cm}
+ \begin{figure}
+   \centering
+   \includegraphics[scale=1]{figs/region.pdf}
+ \end{figure}
+}
+
+\aframe{
+  For the Navier-Stokes part, the boundary conditions are given as
+  \begin{align*}
+    w(t, 0, y)& = \dfrac{6}{y_f^2}\cdot y(y_f-y),\\
+    w(t, x, 0)& = w(t, x, y_f) = w(t, x_f, y) = 0\\
+    w(t, x, y)& = 0,\quad \text{over }\partial\Lambda.
+  \end{align*}
+  The simulation parameters are
+  \begin{itemize}
+    \item $T=5$.
+    \item $N=500$.
+    \item $\Delta t=T/N=0.01$.
+    \item 
+  \end{itemize}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]{References}
