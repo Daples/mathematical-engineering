@@ -5,6 +5,8 @@ from fenics import *
 import numpy as np
 
 def get_navier_stokes_sol(dt, T, nu, mesh):
+    parameters["std_out_all_processes"] = False;
+
     # Define function spaces (P2-P1)
     V = VectorFunctionSpace(mesh, "Lagrange", 2)
     Q = FunctionSpace(mesh, "Lagrange", 1)
