@@ -204,9 +204,8 @@
   The Navier-Stokes is solved using a splitting technique proposed
   by\textcite{chorin1968} and\textcite{temam1969}. \vspace{0.5cm} \pause
 
-  First a tentative velocity $w^{*}$ is calculated by ignoring the
-  pressure in the momentum, using the following
-  \textbf{discrete} variational problem:
+  First a tentative velocity $w^{*}$ is calculated by ignoring the pressure in
+  the momentum, using the following \textbf{discrete} variational problem:
   %
   \begin{align*}
     &\Delta t^{-1}\langle w^*_h-w^{n-1}, v\rangle +
@@ -214,14 +213,13 @@
       \langle\nu\nabla w^{n},\nabla v\rangle=\langle f,v\rangle
   \end{align*}
   %
-  with $v \in \mathcal{H}_{0}^{1}(\Omega)$.
-}
+  with $v \in \mathcal{H}_{0}^{1}(\Omega)$. }
 
 \aframe{On the second step, the tentative velocity $w^{*}$ is used to calculate
   the new pressure $p^{n + 1}$
   \begin{equation*}
     \langle \nabla p^{n},\nabla q\rangle = -\Delta t^{-1}\langle\nabla
-      w^*\cdot w^*, q\rangle
+    w^*\cdot w^*, q\rangle
   \end{equation*}
   with $q \in \mathcal{H}_{0}^{1}(\Omega)$. \vspace{0.5cm} \pause
 
@@ -235,18 +233,15 @@
 
 \section{Results}
 \aframe{
-Let \[\Lambda=\left\{(x,y)\in\mathbb{R}^2:(x-0.2)^2 + (y-0.2)^2 <
- 0.05^2\right\},\] and let \[\Omega=(0,x_f)
- \times(0,y_f) - \Lambda,\] where $y_f=0.41$ and $x_f=2.2$.
- \vspace{0.5cm}
- \begin{figure}
-   \centering
-   \includegraphics[scale=1]{figs/region.pdf}
+  Let \[\Lambda=\left\{(x,y)\in\mathbb{R}^2:(x-0.2)^2 + (y-0.2)^2 < 0.05^2\right\},\]
+  and let \[\Omega=(0,x_f) \times(0,y_f) - \Lambda,\] where $y_f=0.41$ and
+  $x_f=2.2$. \vspace{0.5cm}
+  \begin{figure}
+    \centering \includegraphics[scale=1]{figs/region.pdf}
  \end{figure}
 }
 
-\aframe{
-  For the Navier-Stokes part, the boundary conditions are given as
+\aframe{ For the Navier-Stokes part, the boundary conditions are given as
   \begin{align*}
     w(t, 0, y)& = \dfrac{6}{y_f^2}\cdot y(y_f-y),\\
     w(t, x, 0)& = w(t, x, y_f) = w(t, x_f, y) = 0\\
