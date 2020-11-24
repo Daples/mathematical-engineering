@@ -1,9 +1,12 @@
 from fenics import *
 from navier_stokes import get_navier_stokes_sol
+from matplotlib import rc
 from matplotlib.animation import FuncAnimation
 
 import matplotlib.pyplot as plt
 import numpy as np
+
+rc('text', usetex=True)
 
 # Do not print
 set_log_level(False)
@@ -82,6 +85,27 @@ for n in range(num_steps):
 center = np.array([0.2, 0.2])
 radius = 0.05
 
+def calculate_z(xx, yy, last=False):
+    # Calculate zs
+    zs = []
+    iterator = timeseries_u
+    if last:
+        iterator = timeseries_u[-1:]
+
+    for u in iterator:
+        zs.append([np.zeros(xx.shape), np.zeros(xx.shape), np.zeros(xx.shape)])
+        for i in range(xx.shape[0]):
+            for j in range(xx.shape[1]):
+                x = xx[i, j]
+                y = yy[i, j]
+                if (x - center[0]) ** 2 + (y - center[1]) ** 2 >= radius ** 2:
+                    zs[-1][0][i, j] = u(x, y)[0]
+                    zs[-1][1][i, j] = u(x, y)[1]
+                    zs[-1][2][i, j] = u(x, y)[2]
+    if last:
+        return zs[-1]
+    return zs
+
 def get_animation():
     # Plot animation
     fig = plt.figure(figsize=(12, 5))
@@ -93,19 +117,7 @@ def get_animation():
     xl = np.linspace(0, 2.2, 50)
     yl = np.linspace(0, 0.41, 50)
     xx, yy = np.meshgrid(xl, yl)
-
-    # Calculate zs
-    zs = []
-    for u in timeseries_u:
-        zs.append([np.zeros(xx.shape), np.zeros(xx.shape), np.zeros(xx.shape)])
-        for i in range(xx.shape[0]):
-            for j in range(xx.shape[1]):
-                x = xx[i, j]
-                y = yy[i, j]
-                if (x - center[0]) ** 2 + (y - center[1]) ** 2 >= radius ** 2:
-                    zs[-1][0][i, j] = u(x, y)[0]
-                    zs[-1][1][i, j] = u(x, y)[1]
-                    zs[-1][2][i, j] = u(x, y)[2]
+    zs = calculate_z(xx, yy)
 
     # Animations
     def animate(i, uj=0):
@@ -136,4 +148,45 @@ def get_animation():
                         interval=int(dt*1000*desired_time/T))
     ani.save("c-chemical.mp4")
 
-get_animation()
+
+def plot_last():
+    # Meshgrid
+    xl = np.linspace(0, 2.2, 50)
+    yl = np.linspace(0, 0.41, 50)
+    xx, yy = np.meshgrid(xl, yl)
+    zs = calculate_z(xx, yy, last=True)
+    names = ["a-chemical", "b-chemical", "c-chemical"]
+    save = lambda x: plt.savefig("../slides/figs/" + str(x), bbox_inches='tight')
+    azimuth = [105, None, 215]
+
+    i = 0
+    for z in zs:
+        # 3D plot
+        fig = plt.figure()
+        ax = plt.axes(projection='3d')
+        pcm = ax.plot_surface(xx, yy, z, rstride=1, cstride=1, edgecolor='none',
+                              cmap='plasma')
+        ax.set_xlabel('$x$')
+        ax.set_ylabel('$y$')
+        ax.set_zlabel('$u(x,y)$')
+        fig.colorbar(pcm, ax=ax)
+        ax.view_init(azim=azimuth[i])
+        save(names[i] + "-3d.pdf")
+        plt.clf()
+
+        # 2D plot
+        fig = plt.figure()
+        ax = plt.axes()
+        pcm = ax.contourf(xx, yy, z, 50, cmap='plasma')
+        circle = plt.Circle(center, radius, facecolor="w", edgecolor="w")
+        ax.add_artist(circle)
+        ax.set_xlabel('$x$')
+        ax.set_ylabel('$y$')
+        fig.colorbar(pcm, ax=ax)
+        save(names[i] + "-2d.pdf")
+        plt.clf()
+
+        # Update index
+        i += 1
+
+plot_last()
