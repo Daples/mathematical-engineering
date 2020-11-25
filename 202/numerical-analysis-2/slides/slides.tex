@@ -165,11 +165,11 @@
   \begin{overlayarea}{\textwidth}{0.05\textheight}
     \vspace{-1cm}
 
-    \only<2>{We assume that the species $a$, $b$ and $c$ diffuse throughout the
-      domain with diffusivity $\epsilon$, are advected with velocity $w$.}
+    \only<2>{We assume that the chemicals $A$, $B$ and $C$ diffuse throughout the
+      domain with diffusivity $\epsilon$ and are advected with velocity $w$.}
 
-    \only<3->{We assume that the species $a$, $b$ and $c$ diffuse throughout the
-      domain with diffusivity $\epsilon$, \textbf{are advected with velocity}
+    \only<3->{We assume that the chemicals $A$, $B$ and $C$ diffuse throughout the
+      domain with diffusivity $\epsilon$ and \textbf{are advected with velocity}
       $\pmb{w}$.}
   \end{overlayarea}
 }
@@ -216,7 +216,7 @@
   with $v \in \mathcal{H}_{0}^{1}(\Omega)$. }
 
 \aframe{On the second step, the tentative velocity $w^{*}$ is used to calculate
-  the new pressure $p^{n + 1}$
+  the new pressure $p^{n}$
   %
   \begin{equation*}
     \langle \nabla p^{n},\nabla q\rangle = -\Delta t^{-1}\langle\nabla
@@ -225,7 +225,7 @@
   %
   with $q \in \mathcal{H}_{0}^{1}(\Omega)$. \vspace{0.5cm} \pause
 
-  Lastly the corrected velocity $w^{n+1}$ is calculated by
+  Lastly, the corrected velocity $w^{n}$ is calculated by
   %
   \begin{equation*}
     \langle w^{n}, v \rangle = \langle w^{*}, v \rangle - \Delta t
@@ -343,6 +343,7 @@
   \begin{minipage}[t][.8\textheight]{\textwidth}
     \vfill
     \begin{center}
+      \href{https://bit.ly/33eKCXQ}{Source code}
       \begin{multicols}{2}
         \scalebox{0.7}{Juan Sebasti\'an C\'ardenas-Rodríguez} \\
         \scalebox{0.7}{jscardenar@eafit.edu.co} \\
