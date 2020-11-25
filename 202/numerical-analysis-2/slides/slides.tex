@@ -150,8 +150,8 @@
 \input{inputs/introduction.tex}
 
 \section{Problem Definition}
-\aframe{According to\textcite{langtangen2017}, the formulation of the problem
-  is given by the following equations:
+\aframe{According to\textcite{langtangen2017}, the formulation of the problem is
+  given by the following equations:
   %
   \begin{align*}
     \frac{\partial u_{1}}{\partial t} + w \cdot \nabla u_{1} - \nabla \cdot
@@ -217,13 +217,16 @@
 
 \aframe{On the second step, the tentative velocity $w^{*}$ is used to calculate
   the new pressure $p^{n + 1}$
+  %
   \begin{equation*}
     \langle \nabla p^{n},\nabla q\rangle = -\Delta t^{-1}\langle\nabla
     w^*\cdot w^*, q\rangle
   \end{equation*}
+  %
   with $q \in \mathcal{H}_{0}^{1}(\Omega)$. \vspace{0.5cm} \pause
 
   Lastly the corrected velocity $w^{n+1}$ is calculated by
+  %
   \begin{equation*}
     \langle w^{n}, v \rangle = \langle w^{*}, v \rangle - \Delta t
     \langle \nabla p^n, v \rangle
@@ -233,26 +236,28 @@
 
 \section{Results}
 \subsection{Simulation Parameters}
-\aframe{
-  Let
+\aframe{ Let
+  %
   \begin{align*}
     \Lambda&=\left\{(x,y)\in\mathbb{R}^2:(x-0.2)^2 + (y-0.2)^2 < 0.05^2\right\}\\
     \Omega&=(0,x_f) \times(0,y_f) - \Lambda,
   \end{align*}
+  %
   where $y_f=0.41$ and $x_f=2.2$. \vspace{0.5cm}
   \begin{figure}
-    \centering
-    \includegraphics[scale=1]{figs/region.pdf}
+    \centering \includegraphics[scale=1]{figs/region.pdf}
     \caption{Visualization of domain.}
- \end{figure}
+  \end{figure}
 }
 
 \aframe{For the Navier-Stokes part, the boundary conditions are given as
+  %
   \begin{align*}
     w(t, 0, y)& = \dfrac{6}{y_f^2}\cdot y(y_f-y),\\
     w(t, x, 0)& = w(t, x, y_f) = w(t, x_f, y) = 0\\
     w(t, x, y)& = 0,\quad \text{over }\partial\Lambda.
   \end{align*}
+  %
   The simulation parameters are
   \begin{itemize}
     \item $T=5$.
@@ -262,75 +267,67 @@
   \end{itemize}
 }
 
-\aframe{
-  For the ADR system, no boundary conditions are fixed. The parameters are set
-  at $K=10$ and $\epsilon=0.01$.\\\vspace{0.5cm}\pause
-  Let
+\aframe{ For the ADR system, no boundary conditions are fixed. The parameters
+  are set at $K=10$ and $\epsilon=0.01$.\\\vspace{0.5cm}\pause Let
+  %
   \begin{align*}
     \Lambda_1&=\left\{(x,y)\in\mathbb{R}^2:(x-0.1)^2+(y-0.1)^2<0.05^2\right\}\\
     \Lambda_2&=\left\{(x,y)\in\mathbb{R}^2:(x-0.1)^2+(y-0.3)^2<0.05^2\right\}
   \end{align*}
-
+  %
   The sources of chemicals $A$, $B$ and $C$ are respectively
   \[
-  f_1(t,x,y)=0.1\cdot\pmb{1}_{\Lambda_1},\quad f_2(t,x,y)=0.1\cdot\pmb{1}_{\Lambda_2},
-    \quad f_3(t,x,y)=0.
+    f_1(t,x,y)=0.1\cdot\pmb{1}_{\Lambda_1},\quad f_2(t,x,y)=0.1\cdot
+    \pmb{1}_{\Lambda_2}, \quad f_3(t,x,y)=0.
   \]
   \begin{figure}
-    \centering
-    \includegraphics[scale=1]{figs/region2.pdf}
+    \centering \includegraphics[scale=1]{figs/region2.pdf}
   \end{figure}
 }
 
 \subsection{Numerical Results: Chemical $A$}
 \aframe{
-\begin{figure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/a-chemical-2d.pdf}
-    \caption{2D contour plot.}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.53\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/a-chemical-3d.pdf}
-    \caption{3D surface plot.}
-  \end{subfigure}
-  \caption{Results for $t=T$.}
-\end{figure}
+  \begin{figure}
+    \begin{subfigure}[b]{0.45\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/a-chemical-2d.pdf}
+      \caption{2D contour plot.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.53\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/a-chemical-3d.pdf}
+      \caption{3D surface plot.}
+    \end{subfigure}
+    \caption{Results for $t=T$.}
+  \end{figure}
 }
 
 \subsection{Numerical Results: Chemical $B$}
 \aframe{
-\begin{figure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/b-chemical-2d.pdf}
-    \caption{2D contour plot.}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.53\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/b-chemical-3d.pdf}
-    \caption{3D surface plot.}
-  \end{subfigure}
-  \caption{Results for $t=T$.}
-\end{figure}
+  \begin{figure}
+    \begin{subfigure}[b]{0.45\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/b-chemical-2d.pdf}
+      \caption{2D contour plot.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.53\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/b-chemical-3d.pdf}
+      \caption{3D surface plot.}
+    \end{subfigure}
+    \caption{Results for $t=T$.}
+  \end{figure}
 }
 
 \subsection{Numerical Results: Chemical $C$}
 \aframe{
-\begin{figure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/c-chemical-2d.pdf}
-    \caption{2D contour plot.}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.53\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figs/c-chemical-3d.pdf}
-    \caption{3D surface plot.}
-  \end{subfigure}
-  \caption{Results for $t=T$.}
-\end{figure}
+  \begin{figure}
+    \begin{subfigure}[b]{0.45\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/c-chemical-2d.pdf}
+      \caption{2D contour plot.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.53\textwidth}
+      \centering \includegraphics[width=\textwidth]{figs/c-chemical-3d.pdf}
+      \caption{3D surface plot.}
+    \end{subfigure}
+    \caption{Results for $t=T$.}
+  \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
