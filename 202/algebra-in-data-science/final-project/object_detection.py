@@ -362,7 +362,7 @@ class Cov:
         return cov
 
     # Calculate comedian matrix
-    def calculate_com(sample):
+    def calculate_com(self, sample):
         medians = np.quantile(sample, 0.5, axis=0)
         data_sb = sample - medians
 
