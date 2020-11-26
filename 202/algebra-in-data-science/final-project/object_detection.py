@@ -361,21 +361,16 @@ class Cov:
 
         return cov
 
-    # Calculate comedian for two vectors
-    def comedian(u, v):
-        median_u = np.quantile(u, 0.5)
-        median_v = np.quantile(v, 0.5)
-
-        aux = (u - median_u) * (v - median_v)
-
-        return np.quantile(aux, 0.5)
-
     # Calculate comedian matrix
     def calculate_com(sample):
-        com = np.zeros((sample.shape[1], sample.shape[1]))
-        for i in range(sample.shape[1]):
-            for j in range(sample.shape[1]):
-                com[i, j] = Cov.comedian(sample[:, i], sample[:, j])
+        medians = np.quantile(sample, 0.5, axis=0)
+        data_sb = sample - medians
+
+        # Pairwise column multiplication
+        data_mult = data_sb[..., None] * data_sb[:, None]
+
+        # Comedian
+        com = np.quantile(data_mult, 0.5, axis=0)
 
         return com
 
@@ -476,32 +471,3 @@ class ImageProcessor:
 
         imagetp.show(output_dir=output_file, rect=True)
 
-
-#################################################
-recons = {1: 3, 2: 3, 3: 3, 4: 4, 5: 3, 6: 5, 7: 5}
-methods = {0: "nr", 1: "com", 2: "sp", 3: "k", 4: "sh"}
-
-for key in tqdm(recons):
-    og_name = "exp-pics/og{}.jpeg".format(key)
-    folder_output = "outputs/picture-{}".format(key)
-    recon_file = "recon{}".format(key)
-    folder_input = "exp-pics/" + recon_file
-    input_dir = (folder_output + "/og{}.jpeg").format(key)
-    time_file = folder_output + "/" + recon_file + ".txt"
-    file_t = open(time_file, "w")
-
-    for method in tqdm(range(5)):
-        img = ImageProcessor(og_name, method=method)
-        img.image.show(rect=True, output_dir=input_dir)
-
-        for num in range(1, recons[key]):
-            recon_dir = (folder_input + "{}.jpeg").format(num)
-            file_out = ("/" + methods[method] + "-" + recon_file + "{}.jpeg")
-            output = (folder_output + file_out).format(num)
-
-            time0 = time.time()
-            img.search_objects(recon_dir, output)
-            time1 = time.time()
-
-            file_t.write(methods[method] + "\t" + str(time1 - time0) + "\n")
-    file_t.close()
