@@ -324,22 +324,6 @@ class Cov:
     def __init__(self, method):
         self.method = method
 
-    def distance(c1, c2):
-        if np.isnan(c1.sum()) or np.isnan(c2.sum()):
-            return np.inf
-
-        eig_vals = eigvals(c1, c2)
-
-        nans = eig_vals[np.isnan(eig_vals)]
-        if nans.size > 0:
-            d = np.inf
-        else:
-            try:
-                d = np.sqrt((np.log(eig_vals) ** 2).sum())
-            except:
-                d = np.inf
-        return d
-
     def fetch(self, sample):
         if self.method == 0:
             return np.cov(sample.transpose())
@@ -401,13 +385,43 @@ class Cov:
     def calculate_cov_shrinkages(sample):
         return LedoitWolf().fit(sample).covariance_
 
+#################################################
+class Distance:
+    def __init__(self, method=0):
+        self.method = method
+        self.distances = ['fro', 1, 2, np.inf]
+
+    def fetch(self, c1, c2):
+        if self.method == 0:
+            return Distance.author_distance(c1, c2)
+        elif self.method - 1 in range(len(self.distances)):
+            return np.linalg.norm(c2 - c1, ord=self.distances[self.method - 1])
+        return 0
+
+    @staticmethod
+    def author_distance(c1, c2):
+        if np.isnan(c1.sum()) or np.isnan(c2.sum()):
+            return np.inf
+
+        eig_vals = eigvals(c1, c2)
+
+        nans = eig_vals[np.isnan(eig_vals)]
+        if nans.size > 0:
+            d = np.inf
+        else:
+            try:
+                d = np.sqrt((np.log(eig_vals) ** 2).sum())
+            except:
+                d = np.inf
+        return d
 
 #################################################
 class ImageProcessor:
-    def __init__(self, directory, method=0, method_mat=0):
+    def __init__(self, directory, method=0, method_dist=0):
         self.image = ImageHandler(directory)
         self.image.read_info()
         self.cov = Cov(method)
+        self.dist = Distance(method_dist)
 
         # Scale changes
         scale1 = [0.85 ** j for j in range(4, 0, -1)]
@@ -429,7 +443,7 @@ class ImageProcessor:
             index += 1
 
         # 1000 best regions
-        key = lambda x: Cov.distance(c1, x.get_c1(self.cov))
+        key = lambda x: self.dist.fetch(c1, x.get_c1(self.cov))
         best_locations = list(sorted(locations, key=key))[:1000]
 
         # Covariances
@@ -453,7 +467,7 @@ class ImageProcessor:
             sum_0 = 0
             ds = []
             for i in range(len(c2s)):
-                distance = Cov.distance(cs[i], c2s[i])
+                distance = self.dist.fetch(cs[i], c2s[i])
                 sum_0 += distance
                 ds.append(distance)
 
