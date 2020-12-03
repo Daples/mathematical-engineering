@@ -345,24 +345,16 @@ class Cov:
             return np.cov(sample.transpose())
         elif self.method == 1:
             return Cov.calculate_com(sample)
-        elif self.method in range(2, 4):
-            return Cov.calculate_cov_corr(sample, method=(self.method-2))
+        elif self.method == 2:
+            return Cov.calculate_spearman(sample)
+        elif self.method == 3:
+            return Cov.calculate_kendall(sample)
         else:
             return Cov.calculate_cov_shrinkages(sample)
 
-    # Correlation matrix to cov
-    def corr_to_cov(data, correlation):
-        stds = data.std(axis=0, ddof=1)
-
-        cov = np.zeros(correlation.shape)
-        for i in range(correlation.shape[0]):
-            for j in range(correlation.shape[1]):
-                cov[i, j] = correlation[i, j] * stds[i] * stds[j]
-
-        return cov
-
     # Calculate comedian matrix
-    def calculate_com(self, sample):
+    @staticmethod
+    def calculate_com(sample):
         medians = np.quantile(sample, 0.5, axis=0)
         data_sb = sample - medians
 
@@ -374,20 +366,38 @@ class Cov:
 
         return com
 
-    # method =
-    #    0 -> Spearman
-    #    1 -> Kendall
-    def calculate_cov_corr(sample, method=0):
-        if method == 0: # Calculate Spearman
-            spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
-            cov = Cov.corr_to_cov(sample, spearman)
-        else:
-            # Calculate Kendall
-            kendall = pd.DataFrame(sample).corr(method="kendall").to_numpy()
-            cov = Cov.corr_to_cov(sample, kendall)
-        return cov
+    @staticmethod
+    def calculate_spearman(sample):
+        corrs, _ = st.spearmanr(sample)
+        stds = np.reshape(sample.std(axis=0, ddof=1), (-1, 1))
+
+        # Std mat
+        std_mat = stds @ stds.T
+
+        return corrs  * std_mat
+
+    @staticmethod
+    def calculate_kendall(sample):
+        n = sample.shape[0]
+        m = sample.shape[1]
+
+        # Method based on matlab implementation
+        indexes = np.argwhere(np.tril(np.ones(n), -1))
+        i1, i2 = indexes[:, 0], indexes[:, 1]
+
+        tau = np.sign(sample[i2, :] - sample[i1, :])
+        aux = tau.T @ tau
+        diagonal = np.resize(np.diag(aux), (m, 1))
+        corr = aux / np.sqrt(diagonal @ diagonal.T)
+
+        # Std mat
+        stds = np.reshape(sample.std(axis=0, ddof=1), (-1, 1))
+        std_mat = stds @ stds.T
+
+        return corr * std_mat
 
     # Calculate covariance of shrinkages
+    @staticmethod
     def calculate_cov_shrinkages(sample):
         return LedoitWolf().fit(sample).covariance_
 
