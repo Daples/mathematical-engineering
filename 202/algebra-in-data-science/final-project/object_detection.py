@@ -324,7 +324,82 @@ class Cov:
     def __init__(self, method):
         self.method = method
 
-    def distance(c1, c2):
+    def fetch(self, sample):
+        if self.method == 0:
+            return np.cov(sample.transpose())
+        elif self.method == 1:
+            return Cov.calculate_com(sample)
+        elif self.method == 2:
+            return Cov.calculate_spearman(sample)
+        elif self.method == 3:
+            return Cov.calculate_kendall(sample)
+        else:
+            return Cov.calculate_cov_shrinkages(sample)
+
+    # Calculate comedian matrix
+    @staticmethod
+    def calculate_com(sample):
+        medians = np.quantile(sample, 0.5, axis=0)
+        data_sb = sample - medians
+
+        # Pairwise column multiplication
+        data_mult = data_sb[..., None] * data_sb[:, None]
+
+        # Comedian
+        com = np.quantile(data_mult, 0.5, axis=0)
+
+        return com
+
+    @staticmethod
+    def calculate_spearman(sample):
+        corrs, _ = st.spearmanr(sample)
+        stds = np.reshape(sample.std(axis=0, ddof=1), (-1, 1))
+
+        # Std mat
+        std_mat = stds @ stds.T
+
+        return corrs  * std_mat
+
+    @staticmethod
+    def calculate_kendall(sample):
+        n = sample.shape[0]
+        m = sample.shape[1]
+
+        # Method based on matlab implementation
+        indexes = np.argwhere(np.tril(np.ones(n), -1))
+        i1, i2 = indexes[:, 0], indexes[:, 1]
+
+        tau = np.sign(sample[i2, :] - sample[i1, :])
+        aux = tau.T @ tau
+        diagonal = np.resize(np.diag(aux), (m, 1))
+        corr = aux / np.sqrt(diagonal @ diagonal.T)
+
+        # Std mat
+        stds = np.reshape(sample.std(axis=0, ddof=1), (-1, 1))
+        std_mat = stds @ stds.T
+
+        return corr * std_mat
+
+    # Calculate covariance of shrinkages
+    @staticmethod
+    def calculate_cov_shrinkages(sample):
+        return LedoitWolf().fit(sample).covariance_
+
+#################################################
+class Distance:
+    def __init__(self, method=0):
+        self.method = method
+        self.distances = ['fro', 1, 2, np.inf]
+
+    def fetch(self, c1, c2):
+        if self.method == 0:
+            return Distance.author_distance(c1, c2)
+        elif self.method - 1 in range(len(self.distances)):
+            return np.linalg.norm(c2 - c1, ord=self.distances[self.method - 1])
+        return 0
+
+    @staticmethod
+    def author_distance(c1, c2):
         if np.isnan(c1.sum()) or np.isnan(c2.sum()):
             return np.inf
 
@@ -340,64 +415,13 @@ class Cov:
                 d = np.inf
         return d
 
-    def fetch(self, sample):
-        if self.method == 0:
-            return np.cov(sample.transpose())
-        elif self.method == 1:
-            return Cov.calculate_com(sample)
-        elif self.method in range(2, 4):
-            return Cov.calculate_cov_corr(sample, method=(self.method-2))
-        else:
-            return Cov.calculate_cov_shrinkages(sample)
-
-    # Correlation matrix to cov
-    def corr_to_cov(data, correlation):
-        stds = data.std(axis=0, ddof=1)
-
-        cov = np.zeros(correlation.shape)
-        for i in range(correlation.shape[0]):
-            for j in range(correlation.shape[1]):
-                cov[i, j] = correlation[i, j] * stds[i] * stds[j]
-
-        return cov
-
-    # Calculate comedian matrix
-    def calculate_com(self, sample):
-        medians = np.quantile(sample, 0.5, axis=0)
-        data_sb = sample - medians
-
-        # Pairwise column multiplication
-        data_mult = data_sb[..., None] * data_sb[:, None]
-
-        # Comedian
-        com = np.quantile(data_mult, 0.5, axis=0)
-
-        return com
-
-    # method =
-    #    0 -> Spearman
-    #    1 -> Kendall
-    def calculate_cov_corr(sample, method=0):
-        if method == 0: # Calculate Spearman
-            spearman = pd.DataFrame(sample).corr(method="spearman").to_numpy()
-            cov = Cov.corr_to_cov(sample, spearman)
-        else:
-            # Calculate Kendall
-            kendall = pd.DataFrame(sample).corr(method="kendall").to_numpy()
-            cov = Cov.corr_to_cov(sample, kendall)
-        return cov
-
-    # Calculate covariance of shrinkages
-    def calculate_cov_shrinkages(sample):
-        return LedoitWolf().fit(sample).covariance_
-
-
 #################################################
 class ImageProcessor:
-    def __init__(self, directory, method=0, method_mat=0):
+    def __init__(self, directory, method=0, method_dist=0):
         self.image = ImageHandler(directory)
         self.image.read_info()
         self.cov = Cov(method)
+        self.dist = Distance(method_dist)
 
         # Scale changes
         scale1 = [0.85 ** j for j in range(4, 0, -1)]
@@ -419,7 +443,7 @@ class ImageProcessor:
             index += 1
 
         # 1000 best regions
-        key = lambda x: Cov.distance(c1, x.get_c1(self.cov))
+        key = lambda x: self.dist.fetch(c1, x.get_c1(self.cov))
         best_locations = list(sorted(locations, key=key))[:1000]
 
         # Covariances
@@ -443,7 +467,7 @@ class ImageProcessor:
             sum_0 = 0
             ds = []
             for i in range(len(c2s)):
-                distance = Cov.distance(cs[i], c2s[i])
+                distance = self.dist.fetch(cs[i], c2s[i])
                 sum_0 += distance
                 ds.append(distance)
 
