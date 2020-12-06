@@ -1,3 +1,4 @@
+import bisect
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,7 +6,7 @@ import pandas as pd
 import scipy.stats as st
 import time
 
-from PIL import Image
+from PIL import Image, ImageOps
 from scipy.linalg import eigvals
 from scipy.ndimage import sobel
 from sklearn.covariance import LedoitWolf
@@ -71,19 +72,10 @@ class Region:
 
     # Create feature matrix
     def create_matrix(self):
-        self.matrix = []
         parent_matrix = self.parent.get_matrix()
-        for x in range(self.vertex0[0], self.vertex1n[0]):
-            for y in range(self.vertex0[1], self.vertex1n[1]):
-                self.matrix.append(parent_matrix[:, x, y].copy())
-
-                # Transform coordinates
-                x_t = x - self.vertex0[0]
-                y_t = y - self.vertex0[1]
-
-                self.matrix[-1][:2] = [y_t, x_t]
-
-        self.matrix = np.array(self.matrix)
+        self.matrix = parent_matrix[:, self.vertex0[0]:self.vertex1n[0],
+                                    self.vertex0[1]:self.vertex1n[1]]
+        self.matrix = self.matrix.reshape(-1, 9)
 
     def create_derivatives(self):
         intensity = self.get_intensity()
@@ -140,8 +132,18 @@ class Region:
         return self.c4, self.c5
 
 #################################################
+class InputImage (Region):
+    def __init__(self, directory_input):
+        parent = ImageHandler(directory_input)
+        vertex0 = (0, 0)
+        vertex1 = list(parent.get_intensity().shape)
+        vertex1[0] -= 1
+        vertex1[1] -= 1
+        super().__init__(vertex0, vertex1, parent)
+
+#################################################
 class ImageHandler:
-    def __init__(self, directory):
+    def __init__(self, directory, input_img=None):
         self.image = Image.open(directory)
         self.directory = directory
 
@@ -159,8 +161,13 @@ class ImageHandler:
         # Features
         self.matrix = None
 
-        # Regions information
+        # Input information
+        self.input_img = input_img
         self.regions = []
+
+    # Adds a region to the regions
+    def add_region(self, vertex0, vertex1):
+        self.regions.append(Region(vertex0, vertex1, self))
 
     # Calculates derivatives of an image
     def create_derivatives(self):
@@ -182,56 +189,38 @@ class ImageHandler:
     def create_intensity(self):
         self.intensity = np.array(self.image.convert("L"))
 
-    def create_hsv(self):
-        self.hsv = np.array(self.image.convert("HSV"))
-
     # Calculate matrix of features
     def create_matrix(self):
         intensity = self.get_intensity()
-        self.matrix = np.zeros((9, intensity.shape[0], intensity.shape[1]))
-        for x in range(intensity.shape[0]):
-            for y in range(intensity.shape[1]):
-                self.matrix[:, x, y] = self.pixel_feature(x, y)[:, 0]
+
+        create_mat = lambda i, j, k: self.pixel_feature(int(j), int(k), int(i))
+        self.matrix = np.fromfunction(np.vectorize(create_mat), (9,
+                                                                 intensity.shape[0],
+                                                                 intensity.shape[1]))
 
     # Calculates the feature for a pixel given it's position in the array
-    def pixel_feature(self, pos_x, pos_y):
+    def pixel_feature(self, pos_x, pos_y, k_feat):
         if self.der_imagex is None:
             self.create_derivatives()
 
         rgb = self.get_rgb()
-        f_xy = np.zeros((9, 1))
-
-        f_xy[0, 0] = pos_y
-        f_xy[1, 0] = pos_x
-
-        f_xy[2:5, 0] = rgb[pos_x, pos_y, :]
-
-        f_xy[5, 0] = np.abs(self.der_imagex[pos_x, pos_y])
-        f_xy[6, 0] = np.abs(self.der_imagey[pos_x, pos_y])
-
-        f_xy[7, 0] = np.abs(self.der2_imagex[pos_x, pos_y])
-        f_xy[8, 0] = np.abs(self.der2_imagey[pos_x, pos_y])
-
-        return f_xy
-
-    # Adds a region to the regions
-    def add_region(self, vertex0, vertex1):
-        self.regions.append(Region(vertex0, vertex1, self))
-
-    # Read regions from a file generates by export_regions
-    def read_info(self, directory=None):
-        if directory is None:
-            new_directory = self.directory.split(".")[0]
-            directory = new_directory + ".imgh"
-
-        file = open(directory, "r").readlines()
-        for line in file:
-            vertex0, vertex1 = line.split("\t")
-            vertex0 = vertex0[1:-1]
-            vertex1 = vertex1[1:-2]
-            vertex0 = tuple(map(int, vertex0.split(', ')))
-            vertex1 = tuple(map(int, vertex1.split(', ')))
-            self.add_region(vertex0[::-1], vertex1[::-1])
+        if k_feat == 0:
+            return pos_y
+        elif k_feat == 1:
+            return pos_x
+        elif k_feat == 2:
+            return rgb[pos_x, pos_y, 0]
+        elif k_feat == 3:
+            return rgb[pos_x, pos_y, 1]
+        elif k_feat == 4:
+            return rgb[pos_x, pos_y, 2]
+        elif k_feat == 5:
+            return np.abs(self.der_imagex[pos_x, pos_y])
+        elif k_feat == 6:
+            return np.abs(self.der_imagey[pos_x, pos_y])
+        elif k_feat == 7:
+            return np.abs(self.der2_imagex[pos_x, pos_y])
+        return np.abs(self.der2_imagey[pos_x, pos_y])
 
     # Getters
     def get_matrix(self):
@@ -259,12 +248,12 @@ class ImageHandler:
         return self.hsv
 
     # Array of square for given scale
-    def get_regions(self, region, scale, index):
+    def get_regions(self, scale, index, best_cs, locations, key):
         rgb = self.get_rgb()
 
         # Calculate width and height
-        vertex0 = region.vertex0
-        vertex1 = region.vertex1
+        vertex0 = self.input_img.vertex0
+        vertex1 = self.input_img.vertex1
 
         width = int(scale*(vertex1[0] - vertex0[0]))
         height = int(scale*(vertex1[1] -  vertex0[1]))
@@ -274,7 +263,6 @@ class ImageHandler:
 
         # Find all regions
         step = int(1.15 ** index * 3)
-        locations = []
         for x in range(0, rgb.shape[0], step):
             if x + width >= rgb.shape[0]:
                 break
@@ -284,7 +272,7 @@ class ImageHandler:
                 vertex1 = (x, y)
                 vertex2 = (x+width, y+height)
                 region_aux = Region(vertex1, vertex2, self)
-                locations.append(region_aux)
+                ImageHandler.add_to_locs(best_cs, key, region_aux, locations)
 
         for x in range(0, rgb.shape[0], step):
             if x + height >= rgb.shape[0]:
@@ -295,8 +283,27 @@ class ImageHandler:
                 vertex1 = (x, y)
                 vertex2 = (x+height, y+width)
                 region_aux = Region(vertex1, vertex2, self)
-                locations.append(region_aux)
+                ImageHandler.add_to_locs(best_cs, key, region_aux, locations)
         return locations
+
+    @staticmethod
+    def add_to_locs(best_cs, key, elem, locations):
+        c_elem = key(elem)
+        if best_cs[0] == -1:
+            best_cs[0] = c_elem
+            locations[0] = elem
+            return
+        if best_cs[-1] != -1:
+            max_cs = np.max(best_cs)
+            if c_elem > max_cs:
+                return
+
+        index_to_change = np.argmax(best_cs > c_elem)
+        best_cs[(index_to_change + 1):] = best_cs[index_to_change:-1]
+        best_cs[index_to_change] = c_elem
+
+        locations[(index_to_change + 1):] = locations[index_to_change:-1]
+        locations[index_to_change] = elem
 
     # Show image in pyplot
     def show(self, output_dir="", rect=False):
@@ -385,6 +392,23 @@ class Cov:
     def calculate_cov_shrinkages(sample):
         return LedoitWolf().fit(sample).covariance_
 
+    @staticmethod
+    def all_covariances():
+        return range(5)
+
+    @staticmethod
+    def covariances_names(index):
+        if index == 0:
+            return "Usual"
+        elif index == 1:
+            return "Comedian"
+        elif index == 2:
+            return "Spearman"
+        elif index == 3:
+            return "Kendall"
+        elif index == 4:
+            return "LW"
+
 #################################################
 class Distance:
     def __init__(self, method=0):
@@ -393,7 +417,7 @@ class Distance:
 
     def fetch(self, c1, c2):
         if self.method == 0:
-            return Distance.author_distance(c1, c2)
+            return np.real(Distance.author_distance(c1, c2))
         elif self.method - 1 in range(len(self.distances)):
             return np.linalg.norm(c2 - c1, ord=self.distances[self.method - 1])
         return 0
@@ -415,36 +439,56 @@ class Distance:
                 d = np.inf
         return d
 
+    @staticmethod
+    def all_distances():
+        return range(2)
+
+    @staticmethod
+    def distances_names(index):
+        if index == 0:
+            return "Author"
+        elif index == 1:
+            return "Frobenius"
+        elif index == 2:
+            return "Norm 1"
+        elif index == 3:
+            return "Norm 2"
+        elif index == 4:
+            return "Norm Inf"
+
 #################################################
 class ImageProcessor:
-    def __init__(self, directory, method=0, method_dist=0):
-        self.image = ImageHandler(directory)
-        self.image.read_info()
+    def __init__(self, directory_input, method=0, method_dist=0):
+        self.image = InputImage(directory_input)
         self.cov = Cov(method)
         self.dist = Distance(method_dist)
 
         # Scale changes
-        scale1 = [0.85 ** j for j in range(4, 0, -1)]
-        scale2 = [1.15 ** j for j in range(0, 5)]
+        scale1 = [0.85 ** j for j in range(5, -1, -1)]
+        scale2 = []
 
         self.scales = np.array(scale1 + scale2)
 
     # Find object for a defined region
-    def process_image_for_region(self, imagep, index_region):
+    def process_image_for_region(self, imagep):
         # Image to process
-        region = self.image.regions[index_region]
+        region = self.image
         c1 = region.get_c1(self.cov)
 
         # Regions
         index = 0
-        locations = []
+        fixedsize = 1000
+
+        locations = np.empty(fixedsize, dtype=object)
+        best_cs = -np.ones(fixedsize)
+
+        key = lambda x: self.dist.fetch(c1, x.get_c1(self.cov))
         for scale in self.scales:
-            locations += imagep.get_regions(region, scale, index)
+            locations = imagep.get_regions(scale, index, best_cs,
+                                           locations, key)
             index += 1
 
-        # 1000 best regions
-        key = lambda x: self.dist.fetch(c1, x.get_c1(self.cov))
-        best_locations = list(sorted(locations, key=key))[:1000]
+        best_locations = locations
 
         # Covariances
         c2, c3 = region.get_c2_c3(self.cov)
@@ -457,6 +501,8 @@ class ImageProcessor:
         min_choice = None
         first = True
         for choice in best_locations:
+            if choice is None:
+                break
             # Partition
             c11 = choice.get_c1(self.cov)
             c22, c23 = choice.get_c2_c3(self.cov)
@@ -483,15 +529,93 @@ class ImageProcessor:
                 min_choice = choice
 
         # Extract the best region
-        return min_choice
+        return min_choice, min_dis
 
-    def search_objects(self, dir_process, output_file):
-        imagetp = ImageHandler(dir_process)
+    def search_objects(self, dir_process, output_image):
+        imagetp = ImageHandler(dir_process, input_img=self.image)
+        region, obj_func = self.process_image_for_region(imagetp)
+        imagetp.add_region(region.vertex0, region.vertex1)
+        imagetp.show(output_dir=output_image, rect=True)
 
-        for i in range(len(self.image.regions)):
-            region = self.process_image_for_region(imagetp, i)
+        return region, obj_func
 
-            imagetp.add_region(region.vertex0, region.vertex1)
 
-        imagetp.show(output_dir=output_file, rect=True)
+#################################################
+class ResultManager:
+    def __init__(self, number_of_objs=5, test_per_objs=5, noises=["impulse"]):
+        self.output_dir = "results/"
+        self.perfomance_file = "results/performance.csv"
 
+        self.images_dirs = []
+        for i in range(number_of_objs):
+            self.images_dirs.append("img{}/".format(i + 1))
+        self.prefix = "images70/"
+
+        self.test_cases = []
+        for i in range(test_per_objs):
+            self.test_cases.append("test_case{}.jpg".format(i + 1))
+
+        noises = list(map(lambda x: "-" + x, noises))
+        noises.append("")
+        self.inputs = []
+        for noise in noises:
+            self.inputs.append("input" + noise + ".jpg")
+
+        self.runs = {}
+
+    def run_test_case(self, img_dir):
+        noise = 0
+        for input_file in self.inputs:
+            for cov in tqdm(Cov.all_covariances()):
+                for dist in Distance.all_distances():
+                    imgh = ImageProcessor(self.prefix + img_dir + input_file,
+                                          method=cov, method_dist=dist)
+
+                    for i in range(len(self.test_cases)):
+                        dir_test_case = self.prefix + img_dir + self.test_cases[i]
+                        dir_real_case = self.prefix + img_dir + \
+                                        "real{}.jpg".format(i + 1)
+                        dir_image_out = self.output_dir + img_dir + str(noise) + \
+                                        "-" + str(cov) + "-" + str(dist) + "-" + \
+                                        self.test_cases[i]
+
+                        region, obj = imgh.search_objects(dir_test_case,
+                                                          dir_image_out)
+
+                        real_img = InputImage(dir_real_case)
+                        dist_c1 = Distance.author_distance(region.get_c1(imgh.cov),
+                                                           real_img.get_c1(imgh.cov))
+                        self.add_to_csv(cov, dist, noise, (obj, dist_c1))
+            noise += 1
+
+    def print_csv(self):
+        csv = open(self.perfomance_file, "w")
+        for key in self.runs:
+            cov, dist, noise = key.split("-")
+            csv.write(cov + "," + dist + "," + noise + "\n")
+            csv.write("Obj Function,Distance to Og\n")
+            for obj, dist in self.runs[key]:
+                csv.write(str(obj) + "," + str(dist) + "\n")
+
+        csv.close()
+
+
+    def add_to_csv(self, index_cov, index_dist, index_noise, run_info):
+        cov = Cov.covariances_names(index_cov)
+        dist = Distance.distances_names(index_dist)
+        nameExp = cov + "-" + dist + "-" + \
+                  ["impulse", "normal"][index_noise]
+
+        if nameExp not in self.runs:
+            self.runs[nameExp] = [run_info]
+        else:
+            self.runs[nameExp].append(run_info)
+
+    def get_results(self):
+        for img_dir in self.images_dirs:
+            self.run_test_case(img_dir)
+        self.print_csv()
+
+
+# rm = ResultManager()
+# rm.get_results()
