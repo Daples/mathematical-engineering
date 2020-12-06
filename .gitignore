@@ -33,3 +33,4 @@ _*
 **/.auctex-auto
 **/.idea
 **/.ipynb_checkpoints
+**/results
