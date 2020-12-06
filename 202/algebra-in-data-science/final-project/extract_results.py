@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 
-from matplotlib import rc
+from matplotlib import rc, colors, cm
 
 rc("text", usetex = True)
 plt.rcParams.update({'font.size': 15})
 
 # ============ Functions ============ #
-def linear_regression(cov, noises, distances, results):
+def linear_regression(covariances, noises, distances, results):
     time_series = []
     for cov in covariances:
         for noise in noises:
@@ -41,6 +41,82 @@ def linear_regression(cov, noises, distances, results):
     plt.ylabel(distances[1])
     plt.savefig("figs/linear.pdf", bbox_inches='tight')
     plt.show()
+
+def pareto_curve(covariances, noises, distances, results):
+    # Pareto curve
+    points_author = {}
+    points_fro = {}
+    points_noise = {}
+    for cov in covariances:
+        points_cov_author = []
+        points_cov_fro = []
+        points_noise_cov_a = []
+        points_noise_cov_f = []
+        for dist in distances:
+            for noise in noises:
+                key = cov + "-" + dist + "-" + noise
+                if dist == distances[0]:
+                    points_cov_author += results[key]
+                    if noise == "impulse":
+                        points_noise_cov_a += results[key]
+                elif dist == distances[1]:
+                    points_cov_fro += results[key]
+                    if noise == "impulse":
+                        points_noise_cov_f += results[key]
+
+
+        points_cov_author = np.array(points_cov_author)
+        points_cov_fro = np.array(points_cov_fro)
+        points_author[cov] = points_cov_author
+        points_fro[cov] = points_cov_fro
+
+        points_noise_cov_a = np.array(points_noise_cov_a)
+        points_noise_cov_f = np.array(points_noise_cov_f)
+        points_noise[cov] = points_noise_cov_a
+
+    # Plotting 1
+    color1 = plt.get_cmap('gnuplot')
+    color_norm = colors.Normalize(vmin=0, vmax=len(points_author))
+    scalar_map = cm.ScalarMappable(norm=color_norm, cmap=color1)
+
+    i = 0
+    for cov in points_author:
+        color = scalar_map.to_rgba(i)
+        plt.scatter(points_author[cov][:, 0], points_author[cov][:, 1], color=color,
+                    s=12, label=cov)
+        i += 1
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.xlabel("$\lambda$")
+    plt.ylabel("Distance to original")
+    plt.savefig("figs/author-scatter.pdf", bbox_inches='tight')
+
+    plt.clf()
+
+    # Plotting 2
+    i = 0
+    for cov in points_fro:
+        color = scalar_map.to_rgba(i)
+        plt.scatter(points_fro[cov][:, 0], points_fro[cov][:, 1], color=color, s=12,
+                    label=cov)
+        i += 1
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.xlabel("$\lambda$")
+    plt.ylabel("Distance to original")
+    plt.savefig("figs/fro-scatter.pdf", bbox_inches='tight')
+
+    plt.clf()
+
+    # Plotting 3
+    i = 0
+    for cov in points_noise:
+        color = scalar_map.to_rgba(i)
+        plt.scatter(points_noise[cov][:, 0], points_noise[cov][:, 1],
+                    color=color, s=12, label=cov)
+        i += 1
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.xlabel("$\lambda$")
+    plt.ylabel("Distance to original")
+    plt.savefig("figs/noise-scatter.pdf", bbox_inches='tight')
 
 # ============ Main ============ #
 # File CSV
@@ -76,3 +152,4 @@ while i < len(lines):
     key = cov + "-" + dist + "-" + noise
     results[key] = res
 
+pareto_curve(covariances, noises, distances, results)
