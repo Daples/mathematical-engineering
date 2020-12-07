@@ -1,0 +1,114 @@
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% PERSONAL COMMANDS
+\usepackage{amssymb}
+
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Usual operations
+\newcommand{\pow}[2]{#1^{#2}}
+\newcommand{\expp}[1]{e^{#1}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
+
+%%%% Lambda Calculus
+\newcommand{\dneq}{\,\, \# \,\,}
+\newcommand{\prm}[1]{\mathrm{\mathbf{#1}}}
+\renewcommand{\S}{\prm{S}}
+\newcommand{\I}{\prm{I}}
+\newcommand{\K}{\prm{K}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Ordinal Lambda Calculus
+\newcommand{\ordAlph}{\Sigma_{\text{Ord}}}
+\newcommand{\termOrd}{\text{Term}_\text{Ord}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\sk}{\mathrm{sk}}
+
+%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+%%%% Make optional parameter
+% https://bit.ly/3jVGRwQ
+\usepackage{xparse}
+
+%%%% Statistics
+\NewDocumentCommand{\E}{o m}{
+  \IfNoValueTF{#1}
+  {\mathbb{E}\left[#2\right]}
+  {\mathbb{E}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\V}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{Var}\left[#2\right]}
+  {\mathrm{Var}^{#1}\left[ #2\right]}
+}
+\RenewDocumentCommand{\P}{o o m}{
+  \IfNoValueTF{#1}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}\left(#3\right)}
+    {\mathrm{P}^{#2}\left(#3\right)}}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}_{#1}\left(#3\right)}
+    {\mathrm{P}_{#1}^{#2} \left(#3\right)}}
+}
+
+%%%% Lambda Calculus
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%% Create absolute value function
+% https://bit.ly/33Rkq6H
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://bit.ly/33P1OUM
+\allowdisplaybreaks
+
+%%%%%%%% FLOAT SPECIFIER
+% https://bit.ly/30Wi4BC
+\usepackage{float}
+
+%%%%%%%% TO USE SHORT COMMANDS FOR VECTOR LINES
+\usepackage{esvect}
+
+%%%%%%%% DIFFERENT FONTS FOR MATH
+\usepackage{mathrsfs}
+
+%%%%%%%% FOOTNOTE STUFF
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
