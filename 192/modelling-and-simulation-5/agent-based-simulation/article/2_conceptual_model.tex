@@ -1,0 +1,79 @@
+\section{CONCEPTUAL MODEL}
+\subsection{Generalities}
+\subsubsection{Model Objective}
+The principal idea of this research is to explore the influence of relationships on diabetes, through eating habits.
+
+\subsubsection{Entities and State Variables}
+We consider individuals as agents, which have different state variables: diagnosis, BMI, glucose level and marital status. The diagnosis can be healthy, risky and diabetic. The BMI is measured in $kg/m^2$. The glucose in $mg/dL$. Finally, marital status is a boolean.
+
+
+\subsubsection{Time Management}
+As changes in glucose and BMI are not immediate, as they have gradual changes over time, it was decided to measure this state variables each 6 months.
+
+\subsection{Design Concepts}
+\subsubsection{Basic Principles}
+As the model links different topics, each connection is supported by an article.
+
+For the marriage dynamics, we refer to \cite{billari2007wedding}. This work developed an agent-based model (ABM) to characterize the marriage based on social interaction. They consider the complete life cycle of each individual, where the marriage is influenced by the social pressure of their relatives and their age.
+
+As previously mentioned, the work from \cite{jeffery2002cross} presents how marriage alters the BMI of the couple. This work found an association between change in participant BMI and change in marital status. Additionally, it affirms that the BMI cannot predict the likelihood of marriage or divorce, highlighting the importance of the work from \cite{billari2007wedding}.
+
+In the same way, \cite{bays2007relationship} presents results regarding the probabilities of individuals having diabetes given a certain BMI.
+
+Some simplifications were made: agents have a fixed age, between 21 and 33; the model does not include birth and death rates, the population is constant; however, marriage has a random predefined duration, which can be interpreted as death and therefore two new individuals arise; finally, we do not strictly consider heterosexual relationships, marriage is created only by physical distance and social pressure.
+
+\subsubsection{Emergence}
+We consider four different outputs: the number of individuals with each type of diagnosis, and the married population. All outputs emerge as results of the interaction between the agents and the defined decision rules. 
+
+\subsubsection{Adaptation}
+The agents change their eating habits depending on the type of patch or their diagnosis. Each patch represents an eating habit, they are classified into two different kinds: pink patches symbolize healthy eating habits and black patches bad habits.
+ 
+Moreover, eating habits can also be modified depending on marital status, and marriages depend on the number of married relatives. The relatives are chosen randomly at the beginning of the simulation.
+
+\subsubsection{Objectives}
+The agents pursue marrying other people, regulated by the social pressure they feel by their relatives, which regulates their desire to pursue the objective. The social pressure is calculated by \cref{eq:sp}.
+
+\begin{equation}\label{eq:sp}
+    \mathrm{sp}=\dfrac{1}{1+e^{-\beta(\mathrm{pom}-\alpha)}}
+\end{equation}
+
+Furthermore, they marry agents only in a certain age range. If $x$ is the age of the individual, the range for the desired age of their partner is calculated in \cref{eq:age}.
+
+\begin{equation}\label{eq:age}
+    \text{desired age} \in x \pm c \times a_i \times \mathrm{sp}
+\end{equation}
+
+Also, they search for a partner in a certain radius calculated in \cref{eq:rad}.
+\begin{equation}\label{eq:rad}
+    d=a_i\times\mathrm{sp}\times \dfrac{50^2}{N}
+\end{equation}
+
+Lastly, healthy individuals pursue that other people have unhealthy habits. Similarly, diabetic and risky population desire that other agents eat healthy.
+
+
+\subsubsection{Learning}
+ We consider the model without learning since agents do not acquire information from previous states. The unique factor that can be considered as learning is that they change their eating habits based on their diagnosis, but it is not long-term knowledge.
+ 
+ \subsubsection{Prediction}
+ The model does not consider prediction by agents.
+ 
+ \subsubsection{Sensing}
+ From the environment, agents sense the patch, as previously mentioned, to change the eating habits. From themselves, they know their diagnosis to also modify the food habits. Explicitly, agents sense the patches; implicitly, they know their relatives that influence the marital status.
+ 
+ 
+ \subsubsection{Interaction}
+ Agents interact only with their relatives and the person they married. Previously we specified that these interactions affect their marital status and eating habits respectively. The social pressure occurs only when an agent is not married.
+ \subsubsection{Stochasticity}
+ The model considers randomness in several factors: 
+ \begin{itemize}
+     \item Gender: the gender is assigned with equal probability to each agent once it is created.
+     \item BMI: the initial BMI for each agent is assigned randomly depending on their diagnosis.
+     \item Relatives: each individual has $\floor{N/10}$ which are selected randomly.
+     \item Diagnosis update: given a BMI, the patient is label as diabetic with a certain probability.
+     \item Physical movement: agents move randomly in a 2-dimensional space.
+     \item Initial glucose: random number between 80 and 100 for healthy, between 105 and 120 for risky and between 120 and 130 for diabetic.
+ \end{itemize}
+ 
+ \subsubsection{\hspace{0.2cm}Collectives}
+ Clearly, there are different kinds of collectives. First, the relatives of each individual and, second, the partner of each agent. These first two collectives influence the dynamics as described in previous sections. Lastly, the three diagnoses can be interpreted as collectives as well.
+
