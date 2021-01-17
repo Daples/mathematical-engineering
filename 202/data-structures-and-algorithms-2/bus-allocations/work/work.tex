@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\input{commands.tex}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=3cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% PARAGRAPH SETTINGS
+% https://bit.ly/36WrtN4
+\setlength\parindent{0pt}
+
+% https://bit.ly/371dvto
+\setlength{\parskip}{5pt}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+\usepackage{minted}
+\usemintedstyle{vs}
+
+%%%%%%%% START DOCUMENT
+
+\title{UVa: 11389 - The Bus Driver Problem}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+It is important to remark that this algorithm was written in \texttt{C++},
+compiled using \texttt{g++ 10.2.0} in Arch Linux x86\_64. Furthermore, the time
+of execution given by the online judge is 0.000 and it passes all of the tests
+that uDebug gives.
+
+To test the code write the input in a file and pipe it to the executable.
+
+\section{Problem Solving}
+
+The minimum distance for which the travel is payed is given by $d$, the rate of
+pay is given by $r$ and the number of buses is $n$. The distance of each travel
+in the morning is given by $d_{i}$ and the distance of each travel in the
+afternoon is given by $b_{i}$ for $i = 0,\ldots, n-1$.
+
+\subsection{Data Structures}
+
+Both $d_{i}$ and $b_{i}$ are represented by the data type \texttt{vector}. This
+data type represents an array that can be modified in size. Furthermore, each
+instance of the problem is represented by an custom class \texttt{BusProblem}.
+
+\subsection{Algorithm}
+The algorithm to solving this exercise is straightforward.
+\begin{enumerate}
+  \item The problem is read by standard input. Each of the $d_{i}$ and $b_{i}$
+        are stored in the vector sorted. Both vectors where sorted in the same
+        way to simplify coding.
+  \item Then the following is calculated:
+        \begin{equation*}
+          c_i = d_i + b_{n - i + 1}, \text{ for } i=0,\ldots, n-1
+        \end{equation*}
+  \item Lastly, the minimum cost to realize the travels $c$ is given by the
+        following formula:
+        \begin{equation*}
+          c = \sum_{i=0}^{n-1} r\cdot c_i H(c_i - d)
+        \end{equation*}
+        with $H(\cdot)$ the Heaviside function.
+\end{enumerate}
+
+The implementation of this algorithm is seen in the following code.
+\inputminted[frame=lines, linenos, firstline=51,
+lastline=61]{cpp}{../src/bus-allocations.cpp}
+
+\subsection{Why Does it Work?}
+
+The solution is found by grouping the smaller morning travels with the largest
+afternoon travels. In this manner, let's show that any other grouping would
+preserve or worsen the objective function. For this proof it will be shown that
+any pairwise exchange does not improve the objective function; this is enough to
+show that any other exchange is not good as it is a multiple of pairwise
+exchanges.
+
+Let $d_{i}$ and $b_{i}$ be the morning and afternoon travels such that for all
+$j > i$ it occurs that $d_{j} \ge d_{i}$ and $b_{j} \le b_{i}$. Let's show that
+if an exchange of afternoon travels between $i^{*}$ and $j^{*}$ does not
+improve the objective function with $i^{*} < j^{*}$.
+
+In first place, the extra cost for driver $i^{*}$ by the original
+order $\lambda_{1}$ and the exchanged order $\lambda_{2}$ are given by:
+%
+\begin{align*}
+  \lambda_1 &= r(d_{i^*} + b_{i^*})H(d_{i^*} + b_{i^*} - d) \\
+  \lambda_2 &= r(d_{i^*} + b_{j^*})H(d_{i^*} + b_{j^*} - d)
+\end{align*}
+%
+Similarly, for $j^{*}$ the costs are given by:
+%
+\begin{align*}
+  \sigma_1 &= r(d_{j^*} + b_{j^*})H(d_{j^*} + b_{j^*} - d) \\
+  \sigma_2 &= r(d_{j^*} + b_{i^*})H(d_{j^*} + b_{i^*} - d)
+\end{align*}
+%
+Let's suppose that $d_{i^{*}} + b_{j^{*}} - d > 0$. In this manner:
+%
+\begin{align*}
+  d_{i^{*}} + b_{j^{*}} - d > 0 &\Rightarrow d_{j^*} + b_{j^*} - d > 0
+                                  \text{, as } d_{i^*} \le d_{j^*} \\
+  d_{i^{*}} + b_{j^{*}} - d > 0 &\Rightarrow d_{i^*} + b_{i^*} - d > 0
+                                  \text{, as } b_{j^*} \le b_{i^*} \\
+  d_{i^*} + b_{i^*} - d > 0 &\Rightarrow d_{j^*} + b_{i^*} - d > 0
+                              \text{, as } d_{i^*} \le d_{j^*}
+\end{align*}
+%
+Therefore its obtained that:
+%
+\begin{align*}
+  \lambda_1 &= r(d_{i^*} + b_{i^*}) \\
+  \lambda_2 &= r(d_{i^*} + b_{j^*}) \\
+  \sigma_1 &= r(d_{j^*} + b_{j^*}) \\
+  \sigma_2 &= r(d_{j^*} + b_{i^*})
+\end{align*}
+%
+In this manner it is clear that
+$\lambda_{1} + \sigma_{1} = \sigma_{2} + \lambda_{2}$. Therefore, the objective
+function stays the same. Now let's suppose the other case for which
+$d_{i^{*}} + b_{j^{*}} - d < 0$. In this case it is seen that:
+%
+\begin{equation*}
+  \lambda_2 = 0
+\end{equation*}
+%
+Therefore for we obtain both extra costs as:
+%
+\begin{align*}
+  c_1 &= r(d_{i^*} + b_{i^*})H(d_{i^*} + b_{i^*} - d) +
+         r(d_{j^*} + b_{j^*})H(d_{j^*} + b_{j^*} - d) \\
+  c_2 &= r(d_{j^*} + b_{i^*})H(d_{j^*} + b_{i^*} - d)
+\end{align*}
+%
+If $d_{j^{*}} + b_{i^{*}} - d < 0$ therefore both $c_{1}$ and $c_{2}$ will be
+zero using a similar reasoning as before. In this manner, in this case the
+objective function is not affected.
+
+Lastly, suppose that $d_{j^{*}} + b_{i^{*}} - d > 0$. In this case, note that it
+is impossible that $d_{i^{*}} + b_{i^{*}} - d > 0$ and
+$d_{j^{*}} + b_{j^{*}} - d > 0$ because $d_{i^{*}} + b_{j^{*}} < 0$. Therefore,
+only one condition, at most, can be satisfied. Therefore it trivially shown that
+the cost function gets worst in this case.
+
+
+\end{document}
