@@ -1,0 +1,577 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+\newcommand{\ri}{\rightarrow}
+\newcommand{\fOrd}{\O \ri \O}
+
+%%%%%%%% START DOCUMENT
+
+\title{Notes Real Analysis}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\ \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section{Homework 3}
+\subsection{Problem 27}
+\begin{question}
+  Let $S$ be a non-empty subset of R bounded from above that has no
+  greatest element. Prove that the $\sup S$ is a cluster point
+  of $S$.
+\end{question}
+
+\begin{proof}
+  Let's suppose that $s = \sup S$ is not a cluster point of that
+  set. Then, it happens that it exists a $\epsilon > 0$ such that:
+
+  \begin{equation}
+    |B(s, \epsilon) \cap S| < \infty
+  \end{equation}
+
+  There are two possibilities, that $|B(s, \epsilon) \cap S| = 0$ or
+  $|B(s, \epsilon) \cap S| > 0$.
+
+  \begin{itemize}
+  \item Let's suppose that $|B(s, \epsilon) \cap S| = 0$
+    In this manner, as $\epsilon > 0$ then it happens that:
+    \begin{equation}
+      s - \epsilon < s
+    \end{equation}
+
+    Then, because $s$ is the supremum of the set it happens that
+    there exists a $x \in S$ such that:
+
+    \begin{equation}
+      s - \epsilon < x \le s < s + \epsilon
+    \end{equation}
+
+    Then, it is clear that $x \in B(s, \epsilon)$. But
+    $|B(s, \epsilon) \cap S| = 0$. Contradiction.
+
+  \item $|B(s, \epsilon) \cap S| > 0$
+    Let's define the set:
+
+    \begin{equation}
+      A = \{|s - x| \text{ such that } x \in B(s, \epsilon) \cap S\}
+    \end{equation}
+
+    It is clear, that this set is different from empty, as the
+    condition stated. And, furthermore, every element in $A$ is
+    bigger than zero; as the absolute value is positive and
+    $s \notin A$.
+
+    Hence, let's define $r = (\min A)/2$. As $r > 0$, then by construction it is clear that:
+
+    \begin{equation}
+      |B(s, r) \cap S| = 0
+    \end{equation}
+
+    But, as shown before, this leads to a contradiction.
+  \end{itemize}
+
+  Then, $\sup S$ is a cluster point of $S$.
+\end{proof}
+
+\subsection{Problem 28}
+\begin{question}
+  Prove that a subset of a metric space is closed if and only if it
+  contains all its cluster points.
+\end{question}
+
+\begin{proof}
+  ($\rightarrow$) Let's suppose that $S$ is a closed subset of a metric
+  space that does not contain all of its cluster points. Then, there
+  exists a cluster point $x$ of $S$ such that $x \in S^c$. Also,
+  as $S$ is a closed subset then $S^c$ is a open set.
+
+  Furthermore, as $S^c$ is open it must occur that it exists a
+  $\epsilon > 0$ such that:
+
+  \begin{equation}
+    B(x, \epsilon) \subset S^c
+  \end{equation}
+
+  Which implies that this ball does not contain any element of
+  $S$. Then, $x$ is not a cluster point of $S$. Contradiction.
+
+  ($\leftarrow$) Let's suppose that a set contains all of its cluster
+  points and it is a open subset of a metric space. As $S$ is a open
+  subset then for a point $x \in S$ it exists $\epsilon > 0$ that:
+
+  \begin{equation}
+    B(x, \epsilon) \subset S
+  \end{equation}
+
+  Then, let's suppose that $x$ is a cluster point of $S$. Now it is
+  clear that $S^c \ne \emptyset$ because $S$ is a subset of the
+  metric space, therefore it can not be the entire metric
+  space. Furthermore, let $y \in S^c$ and let's define:
+
+  \begin{equation}
+    r = d(x, y) + \epsilon
+  \end{equation}
+
+  Now it is clear that $B(x, \epsilon) \subset B(y, r)$. This happens
+  because for every $x' \in B(x, \epsilon)$ it happens that
+  $d(x,x') < \epsilon$. Furthermore, it also happens that
+  $d(y,x') \le d(y, x) + d(x,x')$. Then,
+  $d(y,x') < d(y,x) + \epsilon$ so $x' \in B(y, r)$.
+
+  And, as $x$ is a cluster point of $S$ then $B(x, \epsilon)$
+  contains infinite points of $S$. But then $B(y, r)$ contains
+  infinite points of $S$, hence $y$ is a cluster point. But $S$
+  contains all of its cluster points. Contradiction.
+\end{proof}
+
+\subsection{Problem 33}
+\begin{question}
+  Let $E$ be a compact metric space, $\{U_i\}_{i \in I}$ a collection
+  of a open subsets of E whose union is E. Show that there exists a
+  real number $\epsilon > 0 $ such that any closed ball in $E$ of
+  radius $\epsilon$ is entirely contained in at least one set $U_i$
+\end{question}
+
+\begin{proof}
+  Let's suppose that then that for every $\epsilon > 0$ it exists a
+  closed ball such that this ball is not entirely contained in any
+  $U_i$. Then, the closed balls $\bar{B}(p_1, 1)$,
+  $\bar{B}(p_2, 1/2)$, $\bar{B}(p_3, 1/3)$, \dots such that they are
+  not entirely contained in any $U_i$ exist.
+
+  In this manner, if we make the set $S = \{p_1, p_2, p_3, ...\}$. As
+  it is a infinite subset of a compact metric space then it has at
+  least one cluster point $p$. As $p \in E$, then this point must be
+  in $U_j$ for some $j \in I$. And, as $U_j$ is open there exists a
+  ball with radius $r$ such that:
+
+  \begin{equation}
+    B(p, r) \subset U_j
+  \end{equation}
+
+  And as $p$ is a cluster point of $S$ then this ball contains
+  infinite points of that set. Because of Bolzano Weirtrass theorem,
+  one could argue that a convergent sub-sequence of $S$ exists and
+  converges to $p$. Therefore, one could select a $n$ big enough such
+  that:
+
+  \begin{equation}
+    \frac{1}{n} < \frac{r}{2} \text{ with } d(p, p_n)< \frac{r}{2}
+  \end{equation}
+
+  In this manner, it is clear that
+  $\bar{B}(p_n, 1/n) \subset B(p, r)$. This happens because for an
+  $x \in \bar{B}(p_n, 1/n)$ it occurs that $d(p_n, x) <
+  1/n$. Therefore:
+
+  \begin{equation}
+    \begin{split}
+      d(p, x) &\le d(p, p_n) + d(p_n, x) \\
+      &< \frac{r}{2} + \frac{1}{n} \\
+      &< \frac{r}{2} + \frac{r}{2} = r
+    \end{split}
+  \end{equation}
+
+  Therefore, $x \in B(p, r)$. Hence,
+  $\bar{B}(p_n, \frac{1}{n}) \subset U_j$. But this ball was not
+  entirely contained in any $U_i$. Contradiction.
+\end{proof}
+
+\subsection{Problem 36}
+\begin{question}
+  Call a metric space \textit{totally bounded} if, for every
+  $\epsilon > 0$, the metric space is the union of a finite number of
+  closed balls of radius $\epsilon$. Prove that a metric space is
+  totally bounded if and only if every sequence has a Cauchy
+  sub-sequence.
+\end{question}
+
+\begin{proof}
+  ($\rightarrow$) Let's suppose that the metric space is totally
+  bounded and that here exists a sequence that has no Cauchy
+  sub-sequence. In this manner for some $\{x_i\}_{i \in \N}$ it must
+  happen that for every $\epsilon > 0$ it exists an $N$ such
+  that for every $m, n > N$ it occurs that
+  $d(x_{i_n}, x_{i_m}) \ge \epsilon$.
+
+  Furthermore, as $E$ is totally bounded one could argue that for
+  some $\epsilon > 0$ it exists a finite set of points
+  $Y = \{y_1, y_2, \dots, y_k\}$ such that:
+
+  \begin{equation}
+    E = \bigcup_{i=1}^kB(y_i, \epsilon)
+  \end{equation}
+
+  As there are more points of $x_i$ than $y_i$ and as $E$ is equal to
+  the union of all of those open balls, then it must happen that at
+  least one of those open balls must have infinite many points of
+  $x_i$.
+
+  Then, it can be selected a $N$ such that for every $m, n > N$ it
+  occurs that $d(x_{i_m}, x_{i_n}) > 2\epsilon$ that
+  $x_{i_m}, x_{i_n}$ are contained in a open ball $B(y_i,
+    \epsilon)$. Hence:
+
+  \begin{equation}
+    \begin{split}
+      d(x_{i_m}, d_{i_n}) &\le d(x_{i_m}, y_i) + d(y_i, x_{i,n}) \\
+      &< \epsilon + \epsilon = 2\epsilon
+    \end{split}
+  \end{equation}
+
+  Therefore, we got a set of two points that happens that
+  $d(x_{i_m}, x_{i_n}) > 2\epsilon$ and
+  $d(x_{i_m}, x_{i_n}) < 2\epsilon$. Contradiction.
+
+  ($\leftarrow$) Suppose that in a metric space every sequence has a
+  Cauchy sub-sequence and that $E$ is not totally bounded. In this
+  manner, we can construct a finite set of points such that it occurs
+  that $X = \{x_1, x_2, \dots, x_n\}$:
+
+  \begin{equation}
+    E \ne \bigcup_{i=1}^nB(x_i, \epsilon)
+  \end{equation}
+
+  Then, there must exist a point $y_0 \in X$ such that it occurs that
+  $y_0 \notin \bigcup_{i=1}^nB(x_i, \epsilon)$. Then, we could keep
+  constructing the distinct points $\{y_i\}_{i \in \N}$ in this way:
+
+  \begin{equation}
+    y_i \notin \bigcup_{j=1}^nB(x_j, \epsilon) \cup \bigcup_{j=0}^{i-1}B(y_j, \epsilon)
+  \end{equation}
+
+  As it is not totally bounded. Hence, the sequence
+  $\{y_i\}_{i \in \N}$ must have a Cauchy sub-sequence. Hence, for
+  some $k,m > N$ it must occur that:
+
+  \begin{equation}
+    d(y_k, y_m) < \epsilon
+  \end{equation}
+
+  Hence, it can be argued that $y_m \in B(y_k, \epsilon)$ and
+  $y_k \in B(y_m, \epsilon)$. But, one of $y_m$ or $y_k$ by
+  construction cannot be in one of those balls as the sequence is
+  constructed by excluding the balls of the previous points in the
+  sequence. Contradiction.
+\end{proof}
+
+\section{Homework 4}
+\subsection{Problem 17}
+\begin{question}
+  Is the function $x^2$ uniformly continuous on $\R$? The function
+  $\sqrt{|x|}?$
+\end{question}
+
+\begin{proof}
+  \begin{enumerate}
+  \item $x^2$ is not UC. Let's suppose that is, then let $\epsilon = 1$, $y = x_0 + \delta / 2$, then:
+
+    \begin{equation*}
+      |x_0^2 - (x_0 + \delta/2)^2| = |x_0\delta + \delta^2/4|
+    \end{equation*}
+
+    Which, we could then select $x$ arbitrarily large enough and that
+    would not be less than $1$. Contradiction.
+
+  \item $\sqrt{|x|}$ is UC. Let $\epsilon > 0$ and
+    $\delta = \epsilon^2$ then if $|x-y| < \delta$ then:
+    \begin{equation*}
+      |\sqrt{|x|} - \sqrt{|y|}| = \sqrt{|x - y|} < \epsilon
+    \end{equation*}
+
+    Hence, it is UC.
+  \end{enumerate}
+\end{proof}
+
+\subsection{Problem 27}
+\begin{question}
+  Proof that a polynomial with an odd degree, then $f(\R) = \R$.
+\end{question}
+
+\begin{proof}
+  Let $P_n(x)$ with $n$ odd.
+
+  \begin{equation*}
+    P_n(x) = \sum_{i=0}^na_ix^i
+  \end{equation*}
+
+  with $a_n > 0$. Clearly:
+
+  \begin{equation*}
+    \lim_{x \ri \infty}P_n(x) = \infty \text{ and } \lim_{x \ri -\infty}P_n(x) = -\infty
+  \end{equation*}
+
+  Hence, it is always possible to find a value $[-M, M]$ such that
+  $f(-M) < y$ and $f(M) > y$. Then, by the middle value theorem it
+  exists a value such that $f(x) = y$. Then, for all $y \in \R$ it is
+  defined. Hence, $f(\R) = \R$
+\end{proof}
+
+\subsection{Problem 32}
+\begin{question}
+  Show that the sequence of functions:
+  \begin{equation*}
+    \sqrt{x}, \sqrt{x + \sqrt{x}}, \sqrt{x + \sqrt{x + \sqrt{x}}},
+    \dots
+  \end{equation*}
+  on $\{x \in \R: x \ge 0\}$ is convergent and find the limit
+  function.
+\end{question}
+\begin{proof}
+
+  It is clear that for $x=0$ the sequence is constant with it's limit
+  being 0. Furthermore, this sequence of functions can be written by
+  the following recursion formula:
+
+  \begin{equation*}
+    f_0(x) = \sqrt{x} \quad f_{n+1}(x) = \sqrt{x + f_n(x)}
+  \end{equation*}
+
+  Then, for a $x > 0$ let's show that the sequence is increasing and
+  bounded.
+  \begin{enumerate}
+  \item Increasing:
+    \begin{itemize}
+    \item It is clear that $f_0(x) < f_1(x)$. This happens because:
+      \begin{equation*}
+        \begin{split}
+          \sqrt{x} &< \sqrt{x + \sqrt{x}} \ri x < x + \sqrt(x) \\
+          0 &< \sqrt{x}
+        \end{split}
+      \end{equation*}
+
+      Which is true.
+    \item Let's show that if $f_{n-1}(x) < f_n(x)$ then
+      $f_n(x) < f_{n+1}(x)$. Let's proceed by direct proof:
+      \begin{equation*}
+        \begin{split}
+          f_{n-1}(x) &< f_n(x) \ri x + f_{n-1}(x) < x + f_n(x) \\
+          \sqrt{x + f_{n-1}(x)} &< \sqrt{x + f_n(x)} \ri f_n(x) <
+          f_{n+1}(x)
+        \end{split}
+      \end{equation*}
+    \end{itemize}
+
+  \item Bounded by $x + 1$
+    \begin{itemize}
+    \item Let's show that $f_0(x) < x + 1$
+      \begin{equation*}
+        \begin{split}
+          f_0(x) &< x + 1 \ri \sqrt(x) < x + 1 \ri x < (x+1)^2 \\
+          x &< x^2+2x+1 \ri 0 < x^2 + x + 1
+        \end{split}
+      \end{equation*}
+      Which is true, as every element is positive.
+    \item Let's show that $f_n(x) < x + 1$ then $f_{n+1}(x) < x + 1$.
+      \begin{equation*}
+        \begin{split}
+          &f_n(x) < x + 1 \ri x + f_n(x) < 2x + 1 \\
+          \ri& \sqrt{x + f_n(x)} < \sqrt{2x+1} \ri f_{n+1}(x) <
+          \sqrt{2x+1} \\
+          & \text{ and now} \\
+          &\sqrt{2x + 1} < x + 1 \ri 2x+1 < (x+1)^2 \\
+          &2x+1 < x^2+2x+1 \ri 0 < x^2
+        \end{split}
+      \end{equation*}
+      Which is true.
+    \end{itemize}
+  \end{enumerate}
+  Now, as the sequence is increasing and bounded it is convergent and
+  has a unique limit. Then, by fix point we obtain that:
+  \begin{equation*}
+    \begin{split}
+      &f(x) = \sqrt{x + f(x)} \ri f^2(x) = x + f(x) \\
+      &f^2(x) - f(x) - x = 0 \\
+      &f(x) = \frac{1 + \sqrt{1+4x}}{2}
+    \end{split}
+  \end{equation*}
+  As the $x$ value was selected randomly, then the function converges
+  for all $x > 0$. Hence, the sequence of function converges to:
+  \begin{equation*}
+    \lim_{n \ri \infty} f_n(x) =
+    \begin{cases}
+      0, &x=0 \\
+      \frac{1 + \sqrt{1+4x}}{2}, &x > 0
+    \end{cases}
+  \end{equation*}
+\end{proof}
+
+\subsection{Problem 34}
+\begin{question}
+  Is the sequence of functions $\{f_n\}_{n \in \N}$ on $[0, 1]$
+  uniformly convergent if:
+  \begin{equation*}
+    \begin{split}
+      f_n(x) &= \frac{x}{1 + nx^2} \\
+      f_n(x) &= \frac{nx}{1 + nx^2} \\
+      f_n(x) &= \frac{nx}{1 + n^2x^2}
+    \end{split}
+  \end{equation*}
+\end{question}
+
+\begin{proof}
+  Let's proof each case individually.
+  \begin{enumerate}
+  \item In this case, it is clear that $\lim_{n \ri \infty}
+    f_n(x)=0$. Let's show that $|f_n(x) - 0| < \frac{1}{2\sqrt{n}}$.
+
+    \begin{equation*}
+      \begin{split}
+        |f_n(x) - 0| &< \frac{1}{2\sqrt{n}} \\
+        \frac{x}{1+nx^2} &< \frac{1}{2\sqrt{n}} \\
+        2x\sqrt{n} &< 1 + nx^2 \\
+        0 &< nx^2 - 2x\sqrt{n} + 1 \\
+        0 &< (x\sqrt{n} - 1)^2
+      \end{split}
+    \end{equation*}
+
+    Which is true. Hence, that distance to the limit is bounded by
+    the given equation, which then for every $\epsilon > 0$ we could
+    choose an $n$ big enough that $\frac{1}{2\sqrt{n}} < \epsilon$.
+    In conclusion, these sequence uniformly converges.
+
+  \item In this manner, solving the limit we would obtain that
+    $\lim_{n \ri \infty} f_n(x)=x^{-1}$ if $x = 0$; on the last case,
+    it is clear that the sequence is always 0 which would not present
+    any problem. Then, supposing $x \in (0,1]$ then, we can obtain
+    that limit. Let's show that this sequence is not uniformly
+    convergent. Hence, it is sufficient to proof that it exists
+    $\epsilon >0$, $x \in (0,1]$ such that for every
+    $N \in \N$ it exists a $n > N$ such that
+    $|f_n(x) - x^{-1}| > \epsilon$.
+
+    Now let's pick a $N \in \N$, $n = N + 1$,
+    $x = \frac{1}{\sqrt{n}}$ and $\epsilon = 0.25$. Then:
+
+    \begin{equation*}
+      \begin{split}
+        \left|\frac{nx}{1 + nx^2} - x^{-1}\right| &=
+        \left|\frac{\sqrt{n}}{2} - \sqrt{n}\right| \\
+        &= \frac{\sqrt{n}}{2} > \frac{1}{2} > 0.25 = \epsilon
+      \end{split}
+    \end{equation*}
+
+    Then, it is not uniformly convergent.
+
+  \item As done before, the limit is $\lim_{n \ri \infty}
+    f_n(x)=0$. Let's show, as in the previous proof, that these
+    function does not uniformly converge. Let $N \in \N$, $n = N + 1$,
+    $x = \frac{1}{n}$ and $\epsilon = 0.25$. Then:
+
+    \begin{equation*}
+      \begin{split}
+        |f_n(x) - 0| &= \left|\frac{nx}{1 + n^2x^2}\right| \\
+        &= \frac{1}{2} > \epsilon.
+      \end{split}
+    \end{equation*}
+
+    Then, it is not uniformly convergent.
+  \end{enumerate}
+\end{proof}
+\subsection{Problem 36}
+\begin{question}
+  Does the sequence of functions $\{\frac{x}{n}\}_{n \in \N}$ converge
+  uniformly in $\R$.
+\end{question}
+\begin{proof}
+  It is clear that these sequence of functions converge to $0$. Let's
+  prove it is not uniformly convergent. Then let $N \in \N$,
+  $n = N + 1$, $x = n + 1$ and $\epsilon = 1$. Then:
+  \begin{equation*}
+    \begin{split}
+      \left|\frac{x}{n} - 0\right| &= \frac{n + 1}{n} \\
+       &> 1 > \epsilon.
+    \end{split}
+  \end{equation*}
+
+  Hence, it is not uniformly continuous.
+\end{proof}
+
+\subsection{Problem 40}
+\begin{question}
+  Let $a, b \in \R$, $a < b$, and for $n = 1, 2, 3, \dots$ let
+  $f_n:[a,b] \ri \R$ be an increasing function. Prove that if the
+  sequence $f_1, f_2, \dots$ converges to $f$ then $f$ is increasing,
+  and that if $f$ is continuous then the convergence is uniform.
+\end{question}
+
+\begin{proof}
+  \begin{enumerate}
+  \item Let's proof that if the sequence is increasing then the limit
+    is increasing. Let $x,y \in [a, b]$ with $x \ge y$. There are
+    $\epsilon > 0$ and $N, M$ such that:
+
+    \begin{equation*}
+      |f_n(x)-f(x)| < \epsilon \text{ and } |f_m(x) - f(x)| <
+      \epsilon
+    \end{equation*}
+
+    whenever $n > N$ and $m > M$. If we choose $k > \min(N,M)$ then
+    we have:
+
+    \begin{equation*}
+      \begin{split}
+        f_k(x) - f(x) &<\epsilon \\
+        f(y) - f_k(y) &< \epsilon
+      \end{split}
+    \end{equation*}
+
+    thus, $0 \le f_k(x) - f_k(y) < f(x) - f(y) + 2\epsilon$. Since,
+    we can make $\epsilon$ arbitrarily small, $f(x) \ge f(y)$. Hence,
+    $f$ is increasing.
+  \item Let's proof that if $f$ is continuous then the convergence is
+    uniform. Let's proceed by contradiction. Then, it exists
+    $\epsilon > 0$, such that for all $N \in \N$, it exists
+    $x_N \in [a,b]$, with $n \ge N$ such that
+    $|f_m(x_N) - f(x_N)| \ge \epsilon$.
+
+    Note that the sequence $x_N$ must have a converging sub-sequence,
+    which as $E$ is compact. Hence, as this converging sub-sequence
+    must converge also using each element and applying $f$ to it as
+    it is continuous. Hence, for some $x_i$ it must happen that:
+
+    \begin{equation*}
+      |f_n(x_i) - f(x_i)| < \epsilon
+    \end{equation*}
+
+    Contradiction.
+  \end{enumerate}
+\end{proof}
+
+\end{document}
