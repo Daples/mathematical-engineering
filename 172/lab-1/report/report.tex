@@ -27,7 +27,7 @@
 \fancyhead[C]{%
           \begin{tabular}{|m{3.0cm}|m{10.0cm}|m{2.5cm}|}
           \hline
-          \centering\vspace{1.75mm}\includegraphics[scale=0.275]{logo.pdf} &
+          \centering\vspace{1.75mm}\includegraphics[scale=0.275]{figs/logo.pdf} &
           \centering
           {\footnotesize {\sf UNIVERSIDAD EAFIT\\ SCHOOL OF ENGINEERING\\
           \vspace{-1mm}DEPARTMENT OF SYSTEMS AND INFORMATICS}} &
@@ -59,6 +59,9 @@
 
 \titleformat{\subsection}[hang]
 {\normalsize\bfseries\itshape\color{black}}{\bfseries\color{Eblue}\thesection.\alph{subsection}.}{2.5mm}{}
+
+% Graphics path
+\graphicspath{{figs/}}
 
 %==============Title==============
 
@@ -489,5 +492,5 @@ takes the two options: to choose or not to choose the number at \texttt{start}.
 
     \newpage
     \bibliographystyle{plain}
-    \bibliography{Lab.bib}
+    \bibliography{ref.bib}
 \end{document}
