@@ -1,0 +1,59 @@
+\section{Factorial Design $\pmb{2^k}$}
+\subsection{Yates Notation}
+\begin{frame}{Factorial Design $\pmb{2^k}$}
+\framesubtitle{Yates Notation}
+    This notation can be extended for any value of $k$.
+\begin{table}[H]
+\begin{tabular}{lccc}
+\hline
+      & Factor $A$ & Factor $B$ & Factor $C$ \\ \hline
+$(1)$ & Low        & Low        & Low        \\
+$a$   & High       & Low        & Low        \\
+$b$   & Low        & High       & Low        \\
+$c$   & Low        & Low        & High       \\
+$ab$  & High       & High       & Low        \\
+$ac$  & High       & Low        & High       \\
+$bc$  & Low        & High       & High       \\
+$abc$ & High       & High       & High       \\ \hline
+\end{tabular}
+\end{table}
+    Normally we are interested in treatment with a singular or double factor.
+\end{frame}
+
+\subsection{The Best ANOVA}
+\begin{frame}{Factorial Design $\pmb{2^k}$}
+    \framesubtitle{The Best ANOVA}
+It's necessary to make first ANOVA to select which factors don't have a significant impact.\\ \pause
+
+Let $\chi^*$ be the selected factors and $k^*$ the number of selected factor. Then, the \textbf{best ANOVA} test is made:
+
+\begin{align*}
+    T_{0\chi^*} &= \dfrac{\text{Effect } \chi^*}{\sqrt{\dfrac{\text{AS}_e}{n2^{k^*-2}}}}, \quad T \sim t_{(\alpha,2^{k^*}(n-1))}\\ \vspace{0.5cm}
+    P_{0\chi^*} &= \mathrm{P}(T>T_{0\chi^*})\\\vspace{0.5cm}
+\end{align*}
+The null hypothesis ($H_0$) is rejected if $P_{0\chi^*} < \alpha$
+
+\end{frame}
+
+\begin{frame}{Factorial Design $\pmb{2^k}$}
+\framesubtitle{Non-Replicated $\pmb{2^k}$ Factorial Design}
+\begin{itemize}
+    \item For $k\geq5$, the experimentation can be unmanageable (e.g. $2\times2^5=64$ runs).
+    \item Only one replica is desirable for $k\geq4$.
+    \item Make fractions of the complete experiments, analyze them separately and decide if it is necessary to continue the experimentation.
+    \item Take samples to estimate the error and apply an approximated ANOVA procedure.
+\end{itemize}
+\begin{table}[]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Design} & \textbf{Replicas}                        & \textbf{Runs} \\ \hline
+$2^2$           & 3 or 4                                   & 12, 16        \\
+$2^3$           & 2                                        & 16            \\
+$2^4$           & 1 or 2                                   & 16, 32        \\
+$2^5$           & fraction $2^{5-1}$ or 1                  & 16, 32        \\
+$2^6$           & fraction $2^{6-2}$ or fraction $2^{6-1}$ & 16, 32        \\
+$2^7$           & fraction $2^{7-3}$ or fraction $2^{7-2}$ & 16, 32        \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
