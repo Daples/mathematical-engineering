@@ -1,0 +1,99 @@
+\documentclass[fleqn]{article}
+\input{commands.tex}
+
+%%%%%%%% MARGIN
+\usepackage[left=1in, right=1in, top=0.8in, bottom=0.8in]{geometry}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+\usepackage{minted}
+\usemintedstyle{vs}
+
+%%%%%%%% EXAM PACKAGE
+\usepackage{mathexam}
+
+%%%%%%%% START DOCUMENT
+\ExamClass{ANÁLISIS NUMÉRICO 2}
+\ExamName{EXAMEN 3}
+\ExamHead{\today}
+
+\let\ds\displaystyle
+
+\begin{document}
+\vspace{0.3cm}
+   % Information of the student
+\begin{itemize}[leftmargin=6.25cm, labelsep=0.5cm]
+
+  \item[\textit{Nombre}] \scalebox{1.2}{Juan Sebastián Cárdenas
+    Rodríguez} % Name
+  \item[\textit{Código}] 201710008101 % Code
+
+\end{itemize}
+\vspace{0.3cm}
+
+% Each of the items to solve
+\begin{enumerate}
+  \item Pregunta.
+        \begin{enumerate}
+          \item Para hallar la fórmula débil, sea $v \in \mathcal{H}_{0}^{1}$.
+                \begin{figure}[H]
+                  \centering \includegraphics[scale=.5]{figs/1a}
+                \end{figure}
+
+          \item Esta aproximación, ya dada la formulación variacional, se estimó
+                utilizando el paquete \texttt{FEniCS}. El código se puede
+                encontrar a continuación:
+
+                \inputminted{python}{../exercises/exam.py}
+                %
+                De esta manera, se encuentran dos gráficas principalmente, una
+                que muestra la aproximación de $u$ para diferentes $x$ y $y$; y
+                la otra que muestra la proyección de $u$ en el plano
+                duodimensional. Ambas gráficas se pueden encontrar a
+                continuación:
+                %
+                \begin{figure}[H]
+                  \begin{subfigure}[b]{0.45\textwidth}
+                    \centering \includegraphics[scale=.7]{figs/plot3d}
+                    \caption{Aproximación 3D.}
+                  \end{subfigure}
+                  %
+                  \begin{subfigure}[b]{0.45\textwidth}
+                    \centering \includegraphics[scale=.5]{figs/plot2d}
+                    \caption{Proyección de la aproximación 2D.}
+                  \end{subfigure}
+                \end{figure}
+        \end{enumerate}
+  \item Pregunta.
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.3]{figs/21}
+        \end{figure}
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.8]{figs/22}
+        \end{figure}
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.8]{figs/23}
+        \end{figure}
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.3]{figs/24}
+        \end{figure}
+  \item Pregunta.
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.4]{figs/31}
+        \end{figure}
+        \begin{figure}[H]
+          \centering \includegraphics[scale=.4]{figs/32}
+        \end{figure}
+\end{enumerate}
+\end{document}
