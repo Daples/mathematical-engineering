@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% START DOCUMENT
+
+\title{Procesos Estocásticos}
+\author{Juan Sebastián Cárdenas}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\section{Matriz de transición}
+La estimación de la matriz de transición es muy sencilla, lo que se
+hace es calcular cuantas personas tomaron cierta bebida el dia
+anterior y al siguiente día tomaron cierta bebida al dia siguiente. De
+esa manera, uno construye la matriz:
+
+\begin{equation}
+  \label{eq:1}
+  \hat{N} =
+  \begin{bmatrix}
+    \hat{N}(\text{PS}_{i-1} \cap \text{PS}_i) && \hat{N}(\text{PS}_{i-1} \cap \text{CC}_i) \\
+    \hat{N}(\text{CC}_{i-1} \cap \text{PS}_i) && \hat{N}(\text{CC}_{i-1} \cap \text{CC}_i) \\
+  \end{bmatrix}
+\end{equation}
+
+Y, ya que tenemos esta matriz sumamos por fila y dividimos a cada
+elemento de la respectiva fila. Esto se hace en pro de hacer una
+aproximación de las probabilidades condicionales, dado que por ejemplo
+en la fila 1 obtenemos:
+\begin{equation}
+  \label{eq:2}
+  \hat{N_1} = \hat{N}(\text{PS}_{i-1} \cap \text{PS}_i) + \hat{N}(\text{PS}_{i-1} \cap \text{CC}_i) = \hat{N}(\text{PS}_{i-1})
+\end{equation}
+
+De esta forma, cuando dividimos por fila claramente obtenemos una
+aproximación de la matriz de transición. Así, haciendo esto nos da
+que:
+
+\begin{equation}
+  \label{eq:3}
+  \hat{P} =
+  \begin{bmatrix}
+    0.596 && 0.404 \\
+    0.198 && 0.802
+  \end{bmatrix}
+\end{equation}
+
+\subsection{Vector $\pi$}
+En primer lugar, es claro que la cadena es aperiódica dado que el
+conjunto de todos los estados es cerrado e irreducible. De esta
+manera, se asegura la existencia de este valor. Al mismo tiempo,
+resolviendo el siguiente sistema de ecuaciones:
+
+\begin{equation}
+  \label{eq:4}
+  \pi \hat{P} = \pi
+\end{equation}
+
+Con la restricción que $\pi_1 + \pi_2 = 1$. Así, hallamos los valores
+lo cual nos da:
+\begin{equation}
+  \label{eq:5}
+  \pi =
+  \begin{bmatrix}
+    0.329 && 0.671
+  \end{bmatrix}
+\end{equation}
+
+\section{Cercanía a estado estacionario}
+Dado que ya tenemos una aproximación de la matriz de transición y, se
+sabe que los datos son tomados para 100 familias en cuestión de 365
+días es posible evidenciar que tan cerca está por medio de calcular el
+valor de la matriz de transición cuando se toman 365 pasos.
+
+De esta manera, si calculamos esta matriz obtenemos:
+\begin{equation}
+  \label{eq:6}
+  \hat{P}^{365} =
+  \begin{bmatrix}
+    0.329 && 0.671 \\
+    0.329 && 0.671
+  \end{bmatrix}
+\end{equation}
+
+Así, notamos que la cadena debe estar muy cerca al estado
+estacionario, dado que esta matriz ya es independiente del estado
+inicial (como se observa que independiente de si está tomando Coca
+Cola o Pepsi tiene la misma probabilidad de cambiar al mismo
+estado). Por lo tanto, \textbf{la cadena está cerca al estado
+  estacionario}.
+
+\section{Problema aplicado}
+Supongamos dos casos, el caso 1 es cuando Pepsi no decide contratar a
+la empresa y el caso 2 es cuando Pepsi decide contratarla. Para el
+resto de los cálculos considérese que $n = 100 \cdot 10^6$, $g = 1 \$$
+y $c = 500 \cdot 10^6$.
+
+En el primer caso, tenemos entonces que la utilidad esperada sería:
+
+\begin{equation}
+  \label{eq:7}
+  E(W_1) = 365ng \pi_1 = 1.2015258843 \cdot 10^{10}
+\end{equation}
+
+En el segundo caso, si la empresa que estos contratan cumple su
+promesa tendríamos una nueva matriz de transición la cual sería:
+\begin{equation}
+  \label{eq:8}
+  \dot{P} =
+  \begin{bmatrix}
+    0.646 && 0.354 \\
+    0.198 && 0.802
+  \end{bmatrix}
+\end{equation}
+
+Esta nueva matriz de transición, tiene una nueva distribución
+estacionaria la cual es:
+
+\begin{equation}
+  \label{eq:9}
+  \dot{\pi} =
+  \begin{bmatrix}
+    0.359 && 0.641
+  \end{bmatrix}
+\end{equation}
+
+Lo cual, esto nos da una nueva utilidad esperada de:
+\begin{equation}
+  \label{eq:10}
+  E(W_2) = 365ng \dot{\pi}_1 - c = 1.3103869495 \cdot 10^{10}
+\end{equation}
+
+Como obtuvimos que la utilidad esperada en el caso 2 es mayor a la
+utilidad esperada en el caso 1 entonces concluimos que Pepsi debería
+contratar a esta compañía.
+\end{document}

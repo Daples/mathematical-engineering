@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+\usepackage[british]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{linkcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Apunte}
+
+\theoremstyle{remark}
+\newtheorem{question}{Pregunta}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Teorema}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% BIB-LATEX STUFF
+\usepackage[style=numeric,
+            bibstyle=numeric,
+            citestyle=numeric,
+            hyperref=true,
+            backend=biber]{biblatex}
+\addbibresource{} %Put relative path to ref
+
+%%%%%%%% START DOCUMENT
+
+\title{Procesos Estocásticos}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez\\ Código 201710008101 \\ \scalebox{0.7}{Ingeniería Matemática, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\section{Problema}
+En la data se registró la hora que fueron atendidos 106 pacientes de
+un hospital. ¿Existe evidencia suficiente para decir que los pacientes
+llegan según un proceso de Poisson? ¿Cuál es la intensidad del
+proceso?.
+
+\section{Solución}
+Dado que tenemos los datos en que cada uno de los pacientes llega
+podemos calcular el tiempo entre llegadas de cada uno de los
+clientes. Así, podríamos evaluar si estos tiempos se distribuyen
+exponencial; lo cual, si asumimos independencia por el teorema
+\ref{theo:1} podemos demostrar que estas llegadas siguen un proceso de
+poisson.
+
+\begin{theorem}
+  \label{theo:1}
+  Sean $t_1$, $t_2$, $\dots$ variables aleatorias i.i.d. que
+  distribuyen $\text{Exp}(\lambda)$. Entonces ocurre que, con
+  $T_n = \sum_{i=1}^nt_i$, $\text{N}(s)= \max\{n: T_n \le s\}$ y
+  $T_0 = 0$:
+
+  \begin{itemize}
+  \item $\text{N}(0) = 0$
+  \item
+    $\text{N}(t' + s) - \text{N}(t') \sim \text{Poisson}(\lambda s)$
+  \item $\text{N}(s)$ tiene incrementos independientes.
+  \end{itemize}
+\end{theorem}
+
+Como en este caso, los datos comienzan cuando el primer paciente
+llega, entonces se debe suponer una hora inicial donde el sistema esté
+vacío para cumplir con la condición que el sistema empieza sin ninguna
+persona. Lo cual, para este trabajo se ausmió que el sistema comienza
+a las 12:00:00 a.m. dado que la primera persona llegó 55 segundos
+después.
+
+En primer lugar, es importante aclarar que se dice que si una variable
+aleatoria distribuye Exp$(\lambda)$ entonces es porque su función de
+densidad está dada por:
+\begin{equation*}
+  f(x) =
+  \begin{cases}
+    \lambda e^{-\lambda x}, \text{ si } x \ge 0 \\
+    0, \text{ en otro caso.}
+  \end{cases}
+\end{equation*}
+
+Así, para observar si los tiempos entre llegadas distribuye
+exponencial debemos realizar el test de Kolmogorov-Smirnov. Este test,
+confirma si hay evidencia o no para rechazar que los datos distribuyen
+una cierta distribución. Los tiempos entre llegadas, fueron calculados en minutos. Así, seleccionando el $\lambda$ así:
+
+\begin{equation*}
+  \lambda = \frac{106}{D} \approx 0.075
+\end{equation*}
+
+donde $D$ es el tiempo transcurrido entre el timepo inicial
+seleccionado y el tiempo en que llegó la última persona al sistema.
+
+El test hecho en el lenguaje de programación \textit{Python} 3.7.4,
+con la librería \textit{SciPy}. Así se realizó el test con la
+distribución exponencial, con su parametro seleccionado como explicado
+anteriormente. El valor $p$ para este test es de:
+
+\begin{equation*}
+  p = 0.89
+\end{equation*}
+
+El nivel de significancia de la prueba fue seleccionado como
+$\alpha = 0.05$. Lo cual, como $p > \alpha$, no hay evidencia para
+rechazar que los datos distribuyen exponencial con la tasa dada. Así,
+la intensidad de este proceso es el~$\lambda$ calculado, el cual sería
+en horas de:
+
+\begin{equation}
+  \lambda \approx 4.5 \quad \frac{\text{pacientes}}{\text{hora}}
+\end{equation}
+
+Lo cual, por el teorema se confirma que es un proceso de Poisson.
+\end{document}
