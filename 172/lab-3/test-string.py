@@ -1,7 +1,7 @@
 import random
 import string
 import time
-from DataStructures import LinkedList
+from data-structures import LinkedList
 
 def random_string(N):
 	return ''.join(random.choices('abcd[ef]ghi', k=N))

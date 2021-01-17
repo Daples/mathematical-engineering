@@ -1,5 +1,5 @@
-from DataStructures import LinkedList, ArrayList, Stack
-from Classes import Fridge, Order
+from data-structures import LinkedList, ArrayList, Stack
+from classes import Fridge, Order
 
 
 def list_product(nums):
