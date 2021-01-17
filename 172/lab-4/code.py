@@ -1,4 +1,4 @@
-from DataStructures import LinkedList, Stack
+from data-structures import LinkedList, Stack
 
 class bcolors:
     HEADER = '\033[95m'

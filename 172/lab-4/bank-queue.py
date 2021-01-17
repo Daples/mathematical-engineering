@@ -1,4 +1,4 @@
-from DataStructures import LinkedList, Queue
+from data-structures import LinkedList, Queue
 
 class Bank:
 
