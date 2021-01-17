@@ -1,0 +1,168 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[hmargin=2cm,top=4cm,headheight=65pt,footskip=45pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{floatrow}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{multicol}
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+\definecolor{customGray}{RGB}{128,128,128}
+\definecolor{Eblue}{rgb}{0.0, 0.18, 0.39}
+%==============Header & Footnote==============
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C,CO,L,LO,R,RO]{}
+\fancyhead[C]{%
+          \begin{tabular}{|m{3.0cm}|m{10.0cm}|m{2.5cm}|}
+          \hline
+          \centering\vspace{1.75mm}\includegraphics[scale=0.275]{figs/logo.pdf} &
+          \centering
+          {\footnotesize {\sf UNIVERSIDAD EAFIT\\ SCHOOL OF ENGINEERING\\
+          \vspace{-1mm}DEPARTMENT OF SYSTEMS AND INFORMATICS}} &
+          \centering
+          \footnotesize{Page \thepage\ de \pageref{LastPage}\\
+          ST245\\
+          \vspace{-0.75mm}Data Structures
+          }\tabularnewline
+          \hline
+          \end{tabular}
+}
+\fancyfoot[C,CO,L,LO,R,RO]{}
+\fancyfoot[C]{
+          \begin{centering}
+            \textcolor{customGray}{{\footnotesize {\sf Professor Mauricio Toro Bermúdez\\
+            Phone: $(+57) (4) 261 95 00$ Ext. $9473$. Office: $19 - 627$\\
+            \vspace{-1mm}E-mail: mtorobe@eafit.edu.co}}}
+        \end{centering}
+}
+
+%=============CustomEnumItem===========
+
+\setlist[enumerate]{label=\color{Eblue}\textbf{\roman*.}}
+
+%=============CustomSecSubSec==========
+
+\titleformat{\section}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\itshape\color{Eblue}\thesection)}{2.5mm}{}
+
+\titleformat{\subsection}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\color{Eblue}\thesection.\alph{subsection}.}{2.5mm}{}
+
+%==============Title==============
+
+\title{\color{Eblue}\textbf{Laboratory practice No. 5: Binary Trees}}
+\author{
+  \textbf{Juan S. Cárdenas Rodríguez}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  jscardenar@eafit.edu.co
+\and
+  \textbf{David Plazas Escudero}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  dplazas@eafit.edu.co
+}
+
+%=============Document=============
+\begin{document}
+  \maketitle
+  \thispagestyle{fancy}
+
+  \section{CODE FOR DELIVERING ON GITHUB}
+  The source code can be found in \texttt{ParentsTree.java} inside the \texttt{codigo} folder;
+  everything is tested in the main method.
+
+  \section{ONLINE EXERCISES}
+  The source code can be found in \texttt{Code.java} inside the \texttt{codigo} folder.
+
+  \section{SIMULATION OF PROYECT PRESENTATION QUESTIONS}
+    \subsection{Parents Tree??????????}
+      You can find binary tree in \texttt{ParentsTree.java}, for David's family.
+      Here's the original tree, you can find it implemented in the \texttt{.java} file.
+      \begin{Verbatim}
+                        David
+                      /      \
+                     /        \
+                    /          \
+                   /            \
+            Claudia              Gustavo
+          /        \              /     \
+        /           \            /       \
+      Ilva       Efrain    Astrid         Jose
+                          /     \
+                   Leonilde     Epaminondas
+      \end{Verbatim}
+
+    \subsection{Is it possible to implement a better binary tree for parentsTree?}
+
+    \subsection{How does exercise 2.1 work?}
+    This exercise is really straight-forward because, when we write a tree in
+    pre-order, we immediately know that the first integer is the root, the next
+    integers are the left ones and, then the right ones. So, first we insert the
+    first integer which is the root; then, as the tree is a binary search tree (BST)
+    we know that if we insert them in another BST, it will insert them in the right
+    order if and only if we insert them in the order they are given. So, just
+    inserting them as the user passes them solves this problem.
+
+    \subsection{What's the complexity of exercise 2.1?}
+      \begin{Verbatim}
+        public class Code {
+            public static void main(String[] args) {
+                Scanner sc = new Scanner(System.in); //c1
+                System.out.println("Write quit to end the program"); //c2
+                String input = sc.next(); //c3
+                BinaryTree bt = new BinaryTree(); //c4
+                while(!input.equals("quit")) { // c5*n
+                    int node = Integer.parseInt(input); // c6*n
+                    bt.insert(node); // c7*n*logn
+                    input = sc.next(); //c8*n
+                }
+                bt.posOrder(); // O(n)
+            }
+        }
+      \end{Verbatim}
+      Therefore, exercise 2.1 is $O(k_0+k_1n+kn\log{n})$. When the sum and product
+      properties of the Big-O notation are applied, exercise 2.1 is $O(n\log{n})$.
+
+  \section{TEST SIMULATION}
+    \begin{multicols}{2}
+    \begin{enumerate}
+      \item \begin{enumerate}
+        \item \texttt{altura(raiz.izq)+1}
+        \item \texttt{altura(raiz.der)+1}
+    \end{enumerate}
+      \item c) 3
+      \item \begin{enumerate}
+          \item $1 == 2$
+          \item 0
+          \item \texttt{a.izq, suma-a.dato}
+          \item \texttt{a.der, suma-a.dato}
+    \end{enumerate}
+      \item \begin{enumerate}
+        \item c) $T(n)=2T(n/2)+C$
+        \item a) $O(n)$
+        \item d)
+        \item a)
+    \end{enumerate}
+      \item \begin{enumerate}
+          \item $p.data == toInsert$
+          \item $p.data > toInsert$
+    \end{enumerate}
+    \end{enumerate}
+  \end{multicols}
+
+\end{document}

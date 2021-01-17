@@ -1,0 +1,155 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[hmargin=2cm,top=4cm,headheight=65pt,footskip=45pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{floatrow}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{caption}
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+\definecolor{customGray}{RGB}{128,128,128}
+\definecolor{Eblue}{rgb}{0.0, 0.18, 0.39}
+%==============Header & Footnote==============
+%
+\graphicspath{{figs/}}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C,CO,L,LO,R,RO]{}
+\fancyhead[C]{%
+          \begin{tabular}{|m{3.0cm}|m{10.0cm}|m{2.5cm}|}
+          \hline
+          \centering\vspace{1.75mm}\includegraphics[scale=0.275]{logo.pdf} &
+          \centering
+          {\footnotesize {\sf UNIVERSIDAD EAFIT\\ SCHOOL OF ENGINEERING\\
+          \vspace{-1mm}DEPARTMENT OF SYSTEMS AND INFORMATICS}} &
+          \centering
+          \footnotesize{Page \thepage\ de \pageref{LastPage}\\
+          ST245\\
+          \vspace{-0.75mm}Data Structures
+          }\tabularnewline
+          \hline
+          \end{tabular}
+}
+\fancyfoot[C,CO,L,LO,R,RO]{}
+\fancyfoot[C]{
+          \begin{centering}
+            \textcolor{customGray}{{\footnotesize {\sf Professor Mauricio Toro Bermúdez\\
+            Phone: $(+57) (4) 261 95 00$ Ext. $9473$. Office: $19 - 627$\\
+            \vspace{-1mm}E-mail: mtorobe@eafit.edu.co}}}
+        \end{centering}
+}
+
+%=============CustomEnumItem===========
+
+\setlist[enumerate]{label=\color{Eblue}\textbf{\roman*.}}
+
+%=============CustomSecSubSec==========
+
+\titleformat{\section}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\itshape\color{Eblue}\thesection)}{2.5mm}{}
+
+\titleformat{\subsection}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\color{Eblue}\thesection.\alph{subsection}.}{2.5mm}{}
+
+%==============Title==============
+
+\title{\color{Eblue}\textbf{Laboratory practice No. 3: LinkedList and ArrayList}}
+\author{
+  \textbf{Juan S. Cárdenas Rodríguez}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  jscardenar@eafit.edu.co
+\and
+  \textbf{David Plazas Escudero}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  dplazas@eafit.edu.co
+}
+
+%=============Document=============
+\begin{document}
+  \maketitle
+  \thispagestyle{fancy}
+
+  \section{CODE FOR DELIVERING ON GITHUB}
+  The source code can be found in \texttt{Code.py} inside the \texttt{codigo} folder.
+
+  \section{ONLINE EXERCISES}
+  The source code can be found in \texttt{Code.py} inside the \texttt{codigo} folder.
+
+  \section{SIMULATION OF PROYECT PRESENTATION QUESTIONS}
+    \subsection{Complexity of algorithms using ArrayList and LinkedList}
+      \begin{table}[H]
+      \centering
+      \caption{Complexity for algorithms for ArrayList and LinkedList}
+        \begin{tabular}{ccc}
+        \hline
+          \textbf{}             & \textbf{ArrayList} & \textbf{LinkedList} \\ \hline
+          \textbf{Exercise 1.1} & $O(n)$             & $O(n)$              \\
+          \textbf{Exercise 1.2} & $O(n)$             & $O(n)$              \\
+          \textbf{Exercise 1.3} & $O(n^2)$           & $O(n^3)$            \\
+          \textbf{Exercise 1.4} & $O(n^2m)$          & $O(nm)$             \\ \hline
+        \end{tabular}
+      \end{table}
+    \subsection{How does exercise 2.1 work?}
+      Exercise 2.1 is simple. First, every time that it finds the character '[', it assigns 0
+      to the variable \texttt{index}; representing that it will insert in the beginnig from that point.
+      On the other hand, if it finds a ']', \texttt{index} is assigned with the end of the array.
+
+      In any other case, when it finds a character different from '[' and ']', it just adds this characters
+      at the \texttt{index} position; therefore, it adds 1 to the \texttt{index} to keep it at the end or at the start.
+
+    \subsection{What's the complexity of exercise 2.1?}
+      \begin{Verbatim}
+        def manage_string(string):              # c0
+            ll = LinkedList()                   # c1
+            array = string.split("\n")          # c2
+            resp = ""                           # c3
+            for line in array:                  # c4*m
+                ll.clear()                      # c5*m
+                index = 0                       # c6*m
+                for char in line:               # c7*m*n
+                    if char == "[":             # c8*m*n
+                        index = 0               # c9*m*n
+                    elif char == "]":           # c10*m*n
+                        index = ll.size()       # c11*m*n
+                    else:                       # c12*m*n
+                        ll.insert(char, index)  # c13*m*n
+                        index += 1              # c14*m*n
+                for item in ll:                 # c15*n
+                    resp += item                # c16*n
+                resp += "\n"                    # c17
+            return resp                         # c18
+      \end{Verbatim}
+      Therefore, \texttt{manage\_string} is $O(c_{k1}+c_{k2}m+c_{k3}n+c_{k4}mn)$.
+      When the product and sum properties are applied, \texttt{manage\_string} is $O(mn)$,
+      where n is the length of the string and m is the number of lines.
+
+
+
+  \section{TEST SIMULATION}
+    \begin{enumerate}
+      \item c)
+      \item c)
+      \item \begin{itemize}
+        \item q.size()
+        \item <=
+        \item q.remove()
+        \item q.remove()
+    \end{itemize}
+    \end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,86 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{diagbox}
+
+\usepackage[hidelinks]{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+
+    \newtheorem{theorem}{Theorem}
+    \newtheorem{corollary}{Corollary}
+    \newtheorem{lemma}{Lemma}
+    \newtheorem{definition}{Definition}
+    \newtheorem{remark}{Remark}
+    \newtheorem{example}{Example}
+    %
+    \newcommand{\N}{{\mathbb{N}}}
+    \newcommand{\LL}{{\mathbb{L}}}
+    \newcommand{\Z}{{\mathbb{Z}}}
+    \newcommand{\Q}{{\mathbb{Q}}}
+    \newcommand{\R}{{\mathbb{R}}}
+    \newcommand{\W}{{\mathbb{W}}}
+    \newcommand{\AC}{{\mathbb{AC}}}
+    \newcommand{\C}{{\mathbb{C}}}
+    \newcommand{\HH}{{\mathbb{H}}}
+    \newcommand{\F}{{\mathbb{F}}}
+    \newcommand{\PP}{{\mathbb{P}}}
+    %
+    \newcommand{\qed}{\hspace*{\fill}$\Box$}
+    \newcommand{\prf}{\noindent{\it {Proof.}}\ }
+
+    % INSERTE LINK  PUES PRRO
+    \newcommand{\shorteq}{%
+    \settowidth{\@tempdima}{-}% Width of hyphen
+    \resizebox{\@tempdima}{\height}{=}%
+    }
+
+\begin{document}
+
+\title{Kalman Filter for Observer-ARMA Model with Parameter Estimation\\}
+
+\author{\IEEEauthorblockN{Juan Sebastián C\'ardenas-Rodríguez}
+\IEEEauthorblockA{\textit{Mathematical Engineering} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia\\
+jscardenar@eafit.edu.co}
+\and
+\IEEEauthorblockN{David Plazas Escudero}
+\IEEEauthorblockA{\textit{Mathematical Engineering} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia \\
+dplazas@eafit.edu.co}
+}
+
+\maketitle
+
+\begin{abstract}
+In this work we suggest a novel extension of the standard Kalman-Filter (KF), applied to parameter estimation and output-ARMA models. The procedure includes an extended KF for the bilinear form whilst estimating parameters and applying instrumental variables to eliminate state correlation, which can be reduced to a re-sample of the available data and apply the known KF. We include a short discussion regarding this method and some future work suggestions.
+\end{abstract}
+
+\begin{IEEEkeywords}
+  State and parameter estimation, Kalman-Filter, instrumental variables, ARMA, extended Kalman-Filter.
+\end{IEEEkeywords}
+\input{1_introduction}
+\input{2_theoretical_approach}
+\input{3_conclusions}
+
+\bibliography{ref}
+\bibliographystyle{IEEEtran}
+\end{document}

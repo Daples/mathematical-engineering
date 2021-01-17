@@ -1,0 +1,10 @@
+\section{Design Criteria of the Data Structure}
+\begin{frame}{Design Criteria of the Data Structure}
+	\begin{itemize}
+	\item The NashTable is based on hash tables and doubly linked lists; searching files is the priority.
+    \item Although this first approach to solve the problem is not optimized for low memory consumption, it has been developed for optimize searching with different options.
+    \item Hash tables were used since they are able to search for files in constant time.
+    \item Double linked lists because insertion in the last position is achieved in constant time and also because they do not have a fixed size (unlike arrays), allowing the NashTable to add objects depending on the files indexed.
+    \item Searching for files is independent from the amount of files indexed inside the structure. It just depends on the number of characters on the name.
+	\end{itemize}
+\end{frame}
