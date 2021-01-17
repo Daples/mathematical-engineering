@@ -1,4 +1,4 @@
-from DataStructures import DigraphAL
+from data-strucutres import DigraphAL
 
 class City:
     class nodeObj:

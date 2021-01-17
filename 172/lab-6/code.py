@@ -1,5 +1,5 @@
-from DataStructures import LinkedList as Ll
-from DataStructures import DigraphAM, DigraphAL
+from data-structures import LinkedList as Ll
+from data-structures import DigraphAM, DigraphAL
 import math as mt
 
 class GraphAlgorithms:
