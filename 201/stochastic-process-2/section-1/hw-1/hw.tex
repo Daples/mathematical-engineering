@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Anotación}
+
+\theoremstyle{remark}
+\newtheorem{question}{Pregunta}
+
+\newtheorem{theorem}{Teorema}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+\newcommand{\ri}{\rightarrow}
+\newcommand{\fOrd}{\O \ri \O}
+
+%%%%%%%% START DOCUMENT
+
+\title{Tarea Procesos Estocásticos}
+\author{Juan Sebasti\'an C\'ardena Rodríguez \\ \scalebox{0.7}{Ingeniería Matemática, Universidad EAFIT} \\ \scalebox{0.7}{201710008101}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\section*{Primera Bonificación}
+\begin{question}
+  Si $X$ es una variable aleatoria la cual ocurre que: $X \sim N(\mu, \sigma^2)$, probar que su
+  función característica es:
+
+  \begin{equation*}
+    \Phi_X(\theta) = e^{i\mu\theta - \frac{\sigma^2\theta^2}{2}}
+  \end{equation*}
+\end{question}
+
+\begin{proof}
+  Tenemos que:
+  \begin{equation*}
+    \Phi_X(\theta) = E\left[e^{i\theta X}\right] = \int_{-\infty}^\infty
+    e^{\i \theta x} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}
+      {2\sigma^2}}dx = \frac{1}{\sqrt{2\pi\sigma^2}}
+    \int_{-\infty}^\infty e^{-\frac{(x-\mu)^2}{2\sigma^2} + i\theta x}dx
+  \end{equation*}
+  Utilizando solamente el exponente, podemos organizarlo de esta
+  manera:
+  \begin{equation*}
+    \begin{split}
+      -\frac{(x - \mu)^2}{2\sigma^2} + i\theta x &= \frac{2i\theta
+        \sigma^2x - x^2 + 2x\mu - \mu^2}{2\sigma^2} \\
+      &= \frac{-x^2 + 2(\mu + i\theta\sigma^2)x - \mu^2}{2\sigma^2} \\
+      &= \frac{-(x^2 - 2(\mu + i\theta\sigma^2)x + (\mu + i\theta
+        \sigma^2)^2) + (\mu + i\theta\sigma^2)^2 - \mu^2}{2\sigma^2}
+      \\
+      &= \frac{-(x - (\mu + i\theta\sigma^2))^2 + 2i\mu\theta\sigma^2
+      - \theta^2\sigma^4}{2\sigma^2}
+    \end{split}
+  \end{equation*}
+  De esta manera, la integral se puede reescribir como:
+  \begin{equation*}
+    = \frac{1}{\sqrt{2\pi\sigma^2}}e^{i\mu\theta -\frac{\theta^2
+        \sigma^2}{2}}\int_{-\infty}^\infty e^{-\frac{(x - \alpha)^2}
+      {2\sigma^2}}dx
+  \end{equation*}
+  Con $\alpha = \mu + i\theta\sigma^2$. Ahora, si sustituimos
+  haciendo:
+  \begin{equation*}
+    z = \frac{x - \alpha}{\sqrt{2}\sigma} \quad dz = \frac{dx}
+    {\sqrt{2}\sigma}
+  \end{equation*}
+  Lo cual, obtenemos:
+  \begin{equation*}
+    = \frac{e^{i\mu\theta -\frac{\theta^2\sigma^2}{2}}}{\sqrt{\pi}}
+    \int_{-\infty}^\infty e^{-z^2}dz
+  \end{equation*}
+
+  Lo cual, es claro que la integral de la derecha es igual a
+  $\sqrt{\pi}$; esta es una integral muy conocida. Así, obtenemos
+  que:
+
+  \begin{equation*}
+    \Phi_X(\theta) = e^{i\mu\theta -\frac{\theta^2\sigma^2}{2}}
+  \end{equation*}
+\end{proof}
+
+\begin{question}
+  Probar que si $X$ es una variable aleatoria que distribuye
+  $N(0, t)$, entonces ocurre que:
+  \begin{equation*}
+    E\left[X^{2k}\right] = \frac{(2k)!}{2^kk!}t^k, \text{ with }
+    k \in \N
+  \end{equation*}
+\end{question}
+
+\begin{proof}
+  Se tiene que:
+  \begin{equation*}
+    E\left[X^{2k}\right] = \int_{-\infty}^{\infty}x^{2k}\frac{1}
+    {\sqrt{2\pi t}}e^{-\frac{x^2}{2t}}dx
+  \end{equation*}
+  Si sustituimos de tal forma que:
+  \begin{equation*}
+    z = \frac{x}{\sqrt{2t}} \quad dz = \frac{dx}{\sqrt{2t}}
+  \end{equation*}
+  Obtenemos que:
+  \begin{equation*}
+    = \frac{(2t)^k}{\sqrt{\pi}} \int_{-\infty}^\infty z^{2k}e^{-z^2}dz
+  \end{equation*}
+  Lo cual, podemos integrar por partes así:
+  \begin{equation*}
+    \begin{split}
+      &u = z^{2k - 1} \quad dv = ze^{-z^2}dz \\
+      &du = (2k - 1)z^{2k-2}dz \quad v = \frac{-e^{-z^2}}{2} \\
+      &= \frac{(2t)^k}{\sqrt{\pi}} \left(-z^{2k - 1}\frac{-e^{-z^2}}
+        {2}\Bigg|_{-\infty}^\infty + \int_{-\infty}^\infty
+        \frac{-e^{-z^2}}{2}(2k - 1)z^{2k-2}dz\right)
+    \end{split}
+  \end{equation*}
+  Es claro, que el término que queda es igual a 0. Lo cual obtenemos:
+  \begin{equation*}
+    = \frac{(2t)^k}{2\sqrt{\pi}}(2k-1)\int_{-\infty}^{\infty}z^{2(k-1)}
+    e^{-z^2}dz
+  \end{equation*}
+  Claramente, la integral restante es semejante a la integral inicial. Así, si aplicamos el mismo proceso $k$ veces llegaríamos a:
+  \begin{equation*}
+    = \frac{(2t)^k}{2^k\sqrt{\pi}}(2k - 1)\cdot(2k - 3) \dots 3
+    \cdot 1 \int_{-\infty}^{\infty}e^{-z^2}dz
+  \end{equation*}
+  Lo cual, como establecí anteriormente, la integral restante es
+  $\sqrt{pi}$. Por otro lado, la multiplicación de los números
+  impares se conoce como el doble factorial. Y este tiene que:
+  \begin{equation*}
+    (2k - 1)!! = \frac{(2k)!}{2^kk!}
+  \end{equation*}
+  De esta manera:
+  \begin{equation*}
+    E\left[X^{2k}\right]= \frac{(2k)!}{2^kk!}t^k
+  \end{equation*}
+\end{proof}
+\begin{remark}
+  La simulación se encuentra en el código adjunto.
+\end{remark}
+\end{document}
