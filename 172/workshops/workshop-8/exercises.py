@@ -1,4 +1,4 @@
-from DataStruct import Stack
+from data-structures import Stack
 from collections import deque
 import re
 
