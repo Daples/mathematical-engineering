@@ -1,0 +1,106 @@
+\maketitle
+\section{Estimación Matriz de Transición}
+La matriz de transición se estimó calculando cada probabilidad por separado. Sea $\hat{P}(\cdot)$ el estimador de la probabilidad de un evento; sea $X_n$ la variable aleatoria ``gaseosa consumida en el día $n$'' definida sobre el espacio de estados $\xi$, donde $\xi=\{PS,\,CC\}$ con $PS$: Pepsi y $CC$: Coca-Cola. A continuación se describirá el proceso para uno de los cuatro eventos posibles y el resto se hace de manera análoga.
+
+Para estimar la probabilidad, dígase, $P(X_n=PS|X_{n-1}=CC)$ se calcularon primero todas las frecuencias de los eventos y se hizo el cociente entre la frecuencia del evento y todas las ocurrencias del evento respecto a día anterior, es decir, para este caso, sería el cociente entre la frecuencia de que una familia tome PS en el día $n$ dado que en el día $n-1$ tomaron CC, y esto dividido por el total de personas que tomaron CC en el día $n-1$.
+
+Sea $f(\cdot)$ la frecuencia de ocurrencia de un evento en todos los datos. Para este caso particular, la probabilidad fue estimada con
+\[
+\hat{P}(X_n=PS|X_{n-1}=CC)=\dfrac{f(X_n=PS|X_{n-1}=CC)}{f(X_n=PS|X_{n-1}=CC)+f(X_n=CC|X_{n-1}=CC)}
+\]
+pero claramente este proceso se puede extender para calcular las 4 probabilidades requeridas para la matriz de transición. Por lo tanto, la estimación de la matriz de transición $\hat{P}$ fue construida como
+\[
+\hat{P}=\begin{blockarray}{ccc}
+& CC & PS \\
+\begin{block}{c(cc)}
+  CC & \hat{P}(X_n=CC|X_{n-1}=CC) & \hat{P}(X_n=PS|X_{n-1}=CC) \\
+  PS & \hat{P}(X_n=CC|X_{n-1}=PS) & \hat{P}(X_n=PS|X_{n-1}=PS) \\
+\end{block}
+\end{blockarray}.
+\]
+Al aplicar este proceso, se obtiene la siguiente estimación:
+\[
+\hat{P}=\begin{blockarray}{ccc}
+& CC & PS \\
+\begin{block}{c(cc)}
+  CC & 0.802 & 0.198 \\
+  PS & 0.404 & 0.596 \\
+\end{block}
+\end{blockarray}
+\]
+\section{Cálculo de Distribución Estacionaria \boldmath{$\pi$}}\label{sec:pi}
+
+Sea $\pi:=(\pi(CC),\,\pi(PS))^T$. Veamos que que $(\pi(x),\,x\in\xi)$ es una medida de probabilidad sobre $\xi$ que cumple \[\pi^T\hat{P}=\pi^T.\]
+Por lo tanto, se tiene
+\[
+(\pi(CC),\,\pi(PS))
+\begin{pmatrix}
+0.802 & 0.198 \\
+0.404 & 0.596
+\end{pmatrix}
+=(\pi(CC),\,\pi(PS))
+\]
+lo que es equivalente al sistema 
+\[
+\begin{cases}
+0.802\pi(CC)+0.404\pi(PS)=\pi(CC)&\\
+0.198\pi(CC)+0.596\pi(PS)=\pi(PS)&
+\end{cases}
+\]
+y además, para que sea medida de probabilidad sobre $\xi$, el sistema queda
+\[
+\begin{cases}
+0.802\pi(CC)+0.404\pi(PS)=\pi(CC)&\\
+0.198\pi(CC)+0.596\pi(PS)=\pi(PS)&\\
+\pi(CC)+\pi(PS)=1
+\end{cases}
+\]
+de donde se obtiene $\pi=(0.671,\,0.329)^T$.
+
+Se puede probar la convergencia de la cadena a esta medida por garantizando que la cadena es irreducible y a periódica. Es aperiódica ya que $P(x,x)>0$ $\forall x\in\xi$, por lo que el periodo de todos sus estados es 1. Es irreducible ya que $\forall x,y\in\xi$ se cumple $x\rightarrow y$. Luego,
+\[
+P^n(x,y)\xrightarrow{n\uparrow\infty}\pi(y).
+\]
+Teniendo en cuenta los datos del problema y la matriz de transición P, se puede determinar si la cadena está cerca o no de alcanzar su distribución estacionaria. Para esto, se debe calcular qué tan lejos está la probabilidad a $n$ pasos, dígase, $P^n$. En este caso, los datos están para $n=365$, luego, si la probabilidad a 365 pasos está ``cerca'' de la distribución estacionaria $\pi$, entonces la cadena está cerca de alcanzar el estado estable.
+
+Las probabilidades a 365 pasos son
+\[
+\hat{P}^{365}=\begin{blockarray}{ccc}
+& CC & PS \\
+\begin{block}{c(cc)}
+  CC & 0.671 & 0.329 \\
+  PS & 0.671 & 0.329 \\
+\end{block}
+\end{blockarray}
+\]
+y para medir qué tan cerca la cadena de la medida $\pi$, se utilizará la variación total:
+\[
+\nu=\sup_y|P^{365}(x,y)-\pi(y)|
+\]
+De donde se obtiene una variación total de $\nu=1.332\times10^{-15}$, lo que claramente indica que la cadena está muy cerca del estado estable (con los datos acá mostrados pareciera que está exactamente en $\pi$, pero los valores fueron truncados a tres cifras decimales).
+
+\section{Problema}
+{\it ``Suponga que hay 100 millones de posibles clientes que consumen alguna de las dos gaseosas. A la compañía le cuesta 1 dólar producir la gaseosa y 2 dólares es el precio de venta. Por USD500 millones al año una empresa publicitaria garantiza disminuir en un 5\% la fracción de clientes que pasan de consumir Pepsi a Coca-cola. ¿Debe la compañía contratar a la empresa publicitaria?''}
+
+Para resolver este problema, se debe calcular la ganancia esperada en un año para Pepsi sin contratar la empresa publicitaria y contratándola. Sin contratarla, la utilidad esperada sin contratar ($U_s$) es
+\[
+E[U_s] = (100\times10^6)(2-1)(365)\pi(PS)=1.20152588\times10^{10}.
+\]
+
+Al contratar la empresa publicitaria se disminuye en un 5\% las personas que pasan de PS a CC, luego la nueva probabilidad de transición es $\tilde{P}(PS,CC)=\hat{P}(PS,CC) - 0.05$, luego la probabilidad de que la persona se quede en PS aumenta en 5\%. Por lo tanto, se tiene la nueva matriz de transición $\tilde{P}$:
+\[
+\tilde{P}=\begin{blockarray}{ccc}
+& CC & PS \\
+\begin{block}{c(cc)}
+  CC & 0.802 & 0.198 \\
+  PS & 0.354 & 0.646 \\
+\end{block}
+\end{blockarray}
+\]
+de donde se puede resolver un sistema de ecuaciones parecido al resuelto en la sección \ref{sec:pi} y se obtiene una nueva distribución estacionaria asociada a $\tilde{P}$. La medida $\tilde{\pi}$ es $(0.641,\,0.359)^T$. Ahora, se procede a calcular la nueva utilidad esperada al contratar la empresa de marketing ($U_c$):
+\[
+E[U_c]=(100\times10^6)(2-1)(365)\tilde{\pi}(PS) - 500\times10^6 = 1.26038695\times10^{10}
+\]
+
+Por lo tanto, como $E[U_s]<E[U_c]$, sería deseable que la compañía contrate la empresa publicitaria, ya que se obtienen mayores ganancias esperadas.
+
