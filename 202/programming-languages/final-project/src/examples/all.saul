@@ -1,0 +1,32 @@
+codigo
+
+funcion principal ( )
+real x
+real y
+real z
+real w
+
+leer x
+leer y
+
+z = 2 * x + y * ( x * x + 385 )
+llamar func1 ( z )
+
+w = x * y + x * z
+llamar func2 ( z w )
+llamar func1 ( 3.45 )
+
+finfuncion
+
+funcion func1 ( real x )
+mostrar x
+finfuncion
+
+funcion func2 ( real x real y )
+real z
+z = x * y
+mostrar z
+
+finfuncion
+
+fincodigo

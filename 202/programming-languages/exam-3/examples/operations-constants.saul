@@ -1,0 +1,23 @@
+codigo
+
+funcion principal ( real x  real y )
+real z
+leer z
+algo = x + 6
+algo1 = ( x + y ) / z * x - algo
+algo2 = ( ( ( x * y ) / x  + y ) / algo1 )
+algo3 = ( ( ( 3.45 * y ) / 3  + y ) / algo1 )
+llamar ecuacion1 ( x 2.71 z )
+mostrar algo
+mostrar 3.456
+finfuncion
+
+funcion ecuacion1 ( real x real y real z )
+entero p
+leer h123
+algo1 = x / y + z
+algo2 = x * y - z + h123
+algo3 = x * y * z - x - y - z
+finfuncion
+
+fincodigo
