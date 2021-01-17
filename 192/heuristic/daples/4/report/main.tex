@@ -1,0 +1,167 @@
+\documentclass[10pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage[]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{xfrac}
+% Idioma
+\usepackage[english]{babel}
+
+\usepackage[none]{hyphenat}
+
+\usepackage[Alg.]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\ignore}[1]{}
+
+
+\title{Hybrid Algorithm for Heterogeneous Cumulative Capacitated Vehicle Routing Problem}
+\author{\emph{David Plazas Escudero}\\
+\vspace{0.3cm}
+\small{\tt{dplazas@eafit.edu.co}}\\
+Departamento de Ciencias Matemáticas\\
+Escuela de Ciencias\\
+Universidad EAFIT\\
+Medellín -- Colombia}
+\date{}
+
+\usepackage{anysize}
+\marginsize{2.5cm}{2cm}{2cm}{2.5cm}
+
+% Configurar encabezado y pie de página
+\pagestyle{fancy}
+\lfoot[\date{\today}]{\date{\today}}
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\rhead[Plazas (2019)]{Hybrid Algorithm for Heterogeneous Cumulative Capacitated Vehicle Routing Problem}
+\lhead[]{}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{Last updated: November 18, 2019}
+}
+
+\sloppy
+
+
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{firststyle}
+
+% \begin{abstract}
+% Buenas
+% \vspace{0.2cm}\\
+% %
+% \noindent \textbf{Keywords:}
+% Heuristic, constructive algorithm, vehicle routing problem, heterogeneous-fleet.
+% \end{abstract}
+
+\section{Algorithm Description}\label{sec_intro}
+This work proposes an hybrid algorithm for the Heterogeneous Cumulative Capacitated Vehicle Routing Problem (HCCVRP), where a simple genetic algorithm is mixed with a Variable Neighborhood Descent (VND). In the following sections, a more detailed description of each algorithm will be made. The genetic algorithm is executed first and the VND is applied to $t$ solutions from the resulting population.
+
+\subsection{Genetic Algorithm}
+Genetic algorithms were originally proposed by \cite{holland1975adaptation}; genetic algorithms are usually divided into subroutines and each of them will be explained:
+\begin{itemize}
+ \item \textbf{Initialization:} The initial population considered was obtained using the same procedure from the random search work \citep{random}. The initial constructive algorithm \citep{constr} was used, but some random factors were added in order to obtain a set of ``random'' initial solutions. The algorithm is executed until $K$ solutions are obtained (population size).
+ \item \textbf{Selection:} Based on selection by tournament, see \citep[p. 181]{baeck2018evolutionary}. The selection process takes two randomly chosen solutions from the population and evaluates their objective function. The one with the lowest value is chosen and included in the next generation. This process is performed until half of the population size is filled.
+ \item \textbf{Crossover:} Based on the general description by \cite{umbarkar2015crossover}, the one-point crossover is performed \textbf{between routes of the same solution}, in order to ensure feasibility in an easier manner. Given that the initial solution is already feasible, the resulting crossover is more likely to be feasible than other crossover between two solutions. 
+ 
+ A random solution is chosen from the population and two ``parent'' routes are chosen randomly; then a fragmentation point is chosen and two child solutions are created, splitting the two chosen routes. Then the feasibility test is done evaluating the two possibilities of vehicles in the resulting child, if a feasible solution is found, it is automatically included in the population and the other child is ignored. If none of them is feasible, two new routes are selected. This process is repeated $l$ times. If the whole process fails, a new solution is chosen, two new parent routes are selected and so forth. Finally, this process is repeated until the population size is fulfilled.
+ \item \textbf{Mutation:} The mutation process is simple. If the probability of mutation $p_M$ is satisfied, two routes in the solution are selected and two nodes are swapped (if it is feasible), the attempt is repeated $m$ times.\end{itemize}
+ 
+ Therefore, on each generation half of the population is filled by tournament and the other half is filled by crossover as explained above. The procedure is performed making 5 generations in the genetic algorithm.
+ \subsection{Local Search}
+ The VND scheme discussed in \cite{ls} is used in this work. The procedure is based on three neighborhood operators: 2-opt, inter-route one-one exchange and move. Refer to the mentioned work for more details.
+
+ 
+\section{Results}
+The chosen parameters for the procedures described in Section \ref{sec_intro} are: $K=60$, $l=3$, $p_M=0.4$, $m=5$ and $t=7$. The obtained results are presented in Table \ref{tab:res}. The header \textbf{E.T. (s)} stands for ``execution time'' in seconds and \textbf{z\_hyb} stands for the value of the objective function for the hybrid algorithm. The results were obtained for all data sets, except for data sets 17 and 20. As discussed in \cite{random}, data set 17 is unfeasible, since the total demand in the nodes is higher than the total available capacity in the vehicles; on the other hand, for unknown reason to the author, data set 20 does not halt. Hence, these data sets were excluded from the result section.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+\textbf{Instance} & \textbf{Nodes} & \textbf{E.T. (s)} & \textbf{z\_hyb} \\ \hline
+1                 & 51             & 9.49              & 50105.5        \\
+2                 & 51             & 12.16             & 8091.11        \\
+3                 & 51             & 12.86             & 9492.09        \\
+4                 & 76             & 19.19             & 57884.97       \\
+5                 & 76             & 20.43             & 10749.8        \\
+6                 & 76             & 22.3              & 11169.6        \\
+7                 & 101            & 93.32             & 110105.61      \\
+8                 & 101            & 57.75             & 17407.0        \\
+9                 & 101            & 112.57            & 23059.79       \\
+10                & 151            & 270.86            & 136657.17      \\
+11                & 151            & 276.11            & 29163.77       \\
+12                & 151            & 306.44            & 29823.25       \\
+13                & 200            & 381.72            & 304899.26      \\
+14                & 200            & 405.16            & 139030.58      \\
+15                & 200            & 354.6             & 28278.85       \\
+16                & 121            & 160.28            & 147392.51      \\
+18                & 121            & 151.86            & 26977.09       \\
+19                & 101            & 61.06             & 118745.71      \\
+21                & 101            & 53.81             & 15428.69       \\ \hline
+\end{tabular}
+\caption{Results for hybrid algorithm.}
+\label{tab:res}
+\end{table}
+
+The algorithm results were compared with the initial constructive algorithm \citep{constr} and the best results obtained in previous works \citep{ls,random}. In Table \ref{tab:compar}, these results are presented. The following conventions for the header in the objective functions (columns 3 to 6) are used: \textbf{z\_hyb} is the same as the above table; \textbf{z\_grasp} are the results obtained with the GRASP from \citep{random}; \textbf{z\_vnd} are the results when the VND from \cite{ls} is applied; finally, the last column \textbf{z\_const}, are the initial objective function values when the constructive algorithm from \cite{constr} is applied.
+\begin{table}
+\centering
+\begin{tabular}{cccccc}
+\hline
+\textbf{Instance} & \textbf{Nodes} & \textbf{z\_hyb} & \textbf{z\_grasp} & \textbf{z\_vnd} & \textbf{z\_const} \\ \hline
+1                 & 51             & 50105.5         & 52132.74          & 48614.5         & 97596.7           \\
+2                 & 51             & 8091.11         & 10343.99          & 9926.39         & 18409.89          \\
+3                 & 51             & 9492.09         & 12063.15          & 9525.74         & 18338.96          \\
+4                 & 76             & 57884.97        & 64552.57          & 70245.22        & 124655.47         \\
+5                 & 76             & 10749.8         & 11106.45          & 13933.61        & 22771.86          \\
+6                 & 76             & 11169.6         & 12718.02          & 11948.32        & 25074.22          \\
+7                 & 101            & 110105.61       & 91289.04          & 113735.48       & 224646.61         \\
+8                 & 101            & 17407           & 20442.17          & 21854.16        & 47888.63          \\
+9                 & 101            & 23059.79        & 23480.99          & 22008.76        & 51096.46          \\
+10                & 151            & 136657.17       & 131932.16         & 145624.36       & 324414.27         \\
+11                & 151            & 29163.77        & 29031.85          & 37348.96        & 73577.11          \\
+12                & 151            & 29823.25        & 31201.42          & 32249.91        & 63785.01          \\
+13                & 200            & 304899.26       & 237612.47         & 270287.85       & 655387.58         \\
+14                & 200            & 139030.58       & 175366.04         & 160596.62       & 369043.37         \\
+15                & 200            & 28278.85        & 30570.19          & 28047.23        & 62990.86          \\
+16                & 121            & 147392.51       & 188360.8          & 168556.45       & 549961.39         \\
+18                & 121            & 26977.09        & 28652.63          & 30196.6         & 79373.31          \\
+19                & 101            & 118745.71       & 108653.33         & 111269.86       & 184103.51         \\
+21                & 101            & 15428.69        & 16778.04          & 18226.72        & 30260             \\ \hline
+\end{tabular}
+\caption{Objective function values comparison.}
+\label{tab:compar}
+\end{table}
+
+
+
+\section{Conclusions}
+The presented algorithm and the results from Table \ref{tab:compar} show that the implemented hybrid algorithm offers better solution than the previous implementation of VND and GRASP in 11 of 19 data sets. However, the algorithm is much slower than the previous works, since it has to evaluate the VND for 7 different solutions, therefore the complete hybrid algorithm is at least 7 times slower than the original. This can be observed from the results obtained in Table \ref{tab:res}, where some execution times were above 5mins. 
+
+The author considers that a further study can be made, mainly in two aspects. The first is the parameterization of the presented algorithm, since it has a total of 6 parameters and the algorithm is affected by all of them; the selection of the parameters is out of the scope of this work. All parameters were chosen by the author's command. On the other hand, an exploration of the randomness of some steps can be developed and maybe construct confidence intervals for the objective function and the execution time. 
+
+In conclusion, the implemented algorithm is good for both diversification and intensification and, as expected, paying the price by its slow execution time. It is suggested to review the implementation to reduce its complexity and take into consideration different types of data structures.
+
+
+
+{\small
+\bibliographystyle{authordate1}
+
+\bibliography{bibs}}
+
+
+\end{document}
