@@ -1,0 +1,24 @@
+\begin{comment}
+
+\addcontentsline{toc}{section}{\small\protect\numberline{}{\vspace{9pt}Bibliography}} % Separated from other contents, for small number of contents
+%\addcontentsline{toc}{section}{\small Bibliography} % Closer from other contents, for large number of contents
+%\nocite{*} % All citations showed
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Bibliography}
+\begin{frame}{Bibliography} % [allowframebreaks] and put before {referen...}
+\begingroup % Group for changing the color
+\renewcommand{\color}[1]{} % Allows to have black bibs and white footnote bibs
+\footnotesize{\bibliographystyle{icontec_beamer}} % Size of text; % acm o gatech-thesis o ieeetr o ieeetran o icontec
+\bibliography{bibs.bib}
+\endgroup % Group for changing the color
+\end{frame}
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thank-slide
+\begin{frame}[plain,noframenumbering] % No frame number
+	\begin{beamercolorbox}[ht=\paperheight,wd=\paperwidth, center]{Portada}
+		\begin{center}\Huge\textbf{Thank you}\end{center} % Or Thanks; leave the next space mandatorily
+		
+		\vspace{0.44\paperheight}
+    \end{beamercolorbox}
+\end{frame}

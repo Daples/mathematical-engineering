@@ -1,0 +1,29 @@
+\section{Time and Memory Consumption}
+\begin{frame}{Time and Memory Consumption}
+	
+  \begin{table}
+  \centering
+  \caption{Execution time for each operation}
+  \label{tab:exTime}
+  \begin{tabular}{cccc}
+  \hline
+  \multirow{2}{*}{\textbf{Operation}} & \multicolumn{3}{c}{\textbf{Average Time}}                    \\ \cline{2-4} 
+                                      & \textbf{DataSet 1} & \textbf{DataSet 2} & \textbf{DataSet 3} \\ \hline
+  Create                              & $213.355ms$        & $5453.520ms$       & $29177.054ms$      \\
+  Insert                              & $0.623ms$          & $0.046ms$          & $0.050ms$          \\
+  Search                              & $0.026ms$          & $0.022ms$          & $0.023ms$          \\
+  Remove                              & $0.018ms$          & $0.020ms$          & $0.020ms$          \\ \hline
+  \end{tabular}
+  \end{table}
+
+  \begin{table}[h]
+    \centering
+    \caption{Memory consumption.}
+    \label{table:mem}
+    \begin{tabular}{cccc}
+      \hline\rule{0pt}{2ex}
+      \textbf{Memory Consumption} & \textbf{DataSet1} & \textbf{DataSet2} & \textbf{DataSet3} \\ \hline\rule{0pt}{2ex}
+      Memory                     & 96.72MB & 475.136MB & 1638.4MB           \\ \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
