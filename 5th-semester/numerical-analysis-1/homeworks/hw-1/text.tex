@@ -1,0 +1,92 @@
+\maketitle
+\section{}
+Sea $x=0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n$ un número en notación punto flotante en base 2. Se desea hallar un valor máximo para el error relativo, dada una aproximación con k cifras significativas. Se sabe que el valor se ve afectado por el tipo de redondeo, así que se hará un análisis con redondeo simétrico y redondeo por corte.
+\begin{enumerate}
+    \item Redondeo simétrico.\\Si $d_{k+1} = 0$:\\
+$$\hat{x}=0.d_1d_2...d_k\times2^n$$
+\begin{align*}
+|\varepsilon| &= \left|\frac{x - \hat{x}}{x}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n - 0.d_1d_2...d_k\times2^n}{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}... - 0.d_1d_2...d_k}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{0.d_{k+1}d_{k+2}...\times2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{0.0d_{k+2}...\times2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{0.d_{k+2}...\times2^{-k-1}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|
+\end{align*}
+Ahora, para escoger una cota superior para el error relativo, se busca el mayor numero posible, el cual se obtiene con el mayor numerador y el menor numerador. Para el numerador, ese numero es $0.11111...$ el cual es equivalente a $1$. Para el denominador, ese numero es $0.1000...$ dado que al estar en notación punto flotante, $d_1\neq0$. Por lo tanto,
+\begin{align*}
+    |\varepsilon| &< \left| \frac{1\times2^{-k-1}}{0.1} \right|\\
+    |\varepsilon| &< 2^{-k}
+\end{align*}
+Si $d_{k+1} = 1$:
+$$ \hat{x} = 0.d_1d_2...(d_k+1)\times2^n$$
+\begin{align*}
+|\varepsilon| &= \left|\frac{x - \hat{x}}{x}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n - 0.d_1d_2...(d_k+1)\times2^n}{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}... - 0.d_1d_2...(d_k+1)}{0.d_1d_2...d_kd_{k+1}d_{k+2}...}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}... - 0.d_1d_2...d_k -2^{-k} }{0.d_1d_2...d_kd_{k+1}d_{k+2}...}\right|\\ 
+&=\left| \frac{0.d_{k+1}d_{k+2}...\times2^{-k}-2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{(0.d_{k+1}d_{k+2}...-1)\times2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{(1-0.d_{k+1}d_{k+2}...)\times2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+&=\left| \frac{(1-0.1d_{k+2}...)\times2^{-k}}{0.d_1d_2...d_k1d_{k+2}...} \right|
+\end{align*}
+Nuevamente, buscamos una cota superior buscando el mayor numerador y el menor denominador. Para el numerador, se obtiene buscando el valor mínimo para $0.1d_{k+2}...$, el cual es $0.1000...$ . Para el denominador, ese valor es $0.00...0100...$, por lo que nos sirve $0.1$ para la cota, puesto que es menor. Por lo tanto,
+\begin{align*}
+    |\varepsilon| &< \left| \frac{(1-0.1)\times2^{-k}}{0.1} \right|\\
+    |\varepsilon| &< \left| \frac{0.1\times2^{-k}}{0.1} \right|\\
+    |\varepsilon| &< 2^{-k}
+\end{align*}
+
+\item Redondeo por corte.\\
+$$\hat{x}=0.d_1d_2...d_k\times2^n$$
+\begin{align*}
+|\varepsilon| &= \left|\frac{x - \hat{x}}{x}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n - 0.d_1d_2...d_k\times2^n}{0.d_1d_2...d_kd_{k+1}d_{k+2}...\times2^n}\right|\\
+&= \left|\frac{0.d_1d_2...d_kd_{k+1}d_{k+2}... - 0.d_1d_2...d_k}{0.d_1d_2...d_kd_{k+1}d_{k+2}...}\right|\\
+&=\left| \frac{0.d_{k+1}d_{k+2}...\times2^{-k}}{0.d_1d_2...d_kd_{k+1}d_{k+2}...} \right|\\
+\end{align*}
+De la misma manera, buscamos una cota superior, hallando un valor máximo en el numerador y un valor mínimo en el denominador. Para el numerador, ese valor es $0.111...$, que es equivalente a $1$. Para el denominador, ese valor es $0.1000...$, puesto que $x$ esta en notación punto flotante.  
+\begin{align*}
+    |\varepsilon| &< \left| \frac{1\times2^{-k}}{0.1} \right|\\
+    |\varepsilon| &< 2^{-k+1}
+\end{align*}
+\end{enumerate}
+
+\section{}
+
+\begin{equation*}
+x=\frac{4}{5}=0.8
+\end{equation*}
+\begin{align*}
+0.8\times2&=\boxed{1}.6\\
+0.6\times2&=\boxed{1}.2\\
+0.2\times2&=\boxed{0}.4\\
+0.4\times2&=\boxed{0}.8\\
+\vdots
+\end{align*}
+\begin{equation*}
+x=\frac{4}{5}=0.8_{10}=0.\overline{1100}_{2}
+\end{equation*}
+Para un computador de 32 bits, supongamos que la distribución de los 32 bits se realiza de la siguiente forma (como se mostró en la presentación):
+\begin{equation*}
+    \pm 0.d_1\underset {\text{23 bits físicos}}{\underbrace{d_2d_3...d_24}}\pm \underset {\text{7 bits exponente}}{\underbrace{e_1e_2...e_7}}
+\end{equation*}
+Primero, escribamos el número en notación punto flotante normalizada:
+\begin{align*}
+    x=\left(\frac{4}{5}\right)_{10}=\left(+0.11001100...\times2^{+0}\right)_2
+\end{align*}
+Por lo tanto, la representación de este número en el computador de 32 bits sería
+\begin{equation*}
+    \underset {\text{signo}}{\underbrace{1}}\underset {\text{mantisa}}{\underbrace{10011001100110011001100}}\underset{\text{signo exponente}}{\underbrace{1}}\underset{\text{ exponente}}{\underbrace{0000000}}\rightarrow 11001100110011001100110010000000
+\end{equation*}
+Para calcular el error absoluto, se determinará el número representado por el computador y se calculará la diferencia entre éste y $0.8$. Luego,
+\begin{align*}
+    11001100110011001100110010000000&\longrightarrow0.110011001100110011001100\\
+    \hat{x}=(0.110011001100110011001100)_2&=(1\times2^{-1}+1\times2^{-2}+0\times2^{-3}+...+0\times2^{-24})_{10}\\
+    &=0.799999952316284
+\end{align*}
+Ahora
+\begin{align*}
+    E &=x-\Hat{x}= 0.8-0.799999952316284=4.768371608676603\times10^{-8}\\\varepsilon&=\frac{E}{x}=\frac{4.768371608676603\times10^{-8}}{0.8}=5.960464510845753\times10^{-8}
+\end{align*}
+\section{}
+Junto a este documento está el código en Matlab para calcular el épsilon y el número más grande del computador, junto con un toolbox \cite{vpi} que fue utilizado para simplificar los cálculos. Se puede instalar directamente.
