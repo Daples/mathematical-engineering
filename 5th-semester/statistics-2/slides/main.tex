@@ -1,0 +1,222 @@
+%-------------------------------------------------------------
+% Language
+% Use the option "language=EN" to set the beamer theme in English. Use
+% the option "language=ES" to set the beamer theme in Spanish.
+
+% Colors
+% Use the option "color=white" to set the background in white and the
+% bottom bar in blue. Use the option "color=blue" to set the
+% background in blue and the bottom bar in white. Use the option
+% "color=blue2" to set the background in blue and the bottom bar in
+% blue.
+
+% Font Color
+% Use the option "fontc=black" to set the font color in black. If this
+% argument is not given the default color is set depending of the
+% color scheme selected.
+
+% Notes:
+% Do not use \large inside multicols
+% Enumerate require \justifying command
+% Tables captions bellow the tabular
+% With citations, note = {} may only work for @misc
+
+% Credits: https://github.com/alejogm0520 & Samuel Plazas Escudero
+%-------------------------------------------------------------
+
+%--Principal packages
+\documentclass[xcolor=table, aspectratio=43,8pt]{beamer} % 4:3; can be 16:9; [...,8pt,t] in order to start text of all frames on the upper part; add: draft to not compile figures.
+\usetheme[language=ES, color=white]{EAFIT}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amsfonts,amssymb,cancel}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-0.5mu#1\mkern-0.5mu}\mkern 1.5mu}
+
+% Equations; physics is optional and sometimes problematic!
+\usepackage{verbatim} % Environments, \begin{comment}
+%--Arial
+\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault} % It's ok
+%--David Plazas recommended
+%\usepackage{libertine} % Normal
+%--Carlos Cuartas 
+%\usepackage[T1]{fontenc}\usepackage{lmodern} % Best
+%--Beamer packages
+\usepackage{tikz} % For making vectorized figures, arrows
+\usepackage{ifthen} % For specifying conditionals for sections
+\usepackage{ragged2e}\justifying % Whole text justified, except enumerate: add \justifying
+\usepackage{multicol} % Multiple columns in one frame
+%--Tables-Figures
+
+
+\usepackage{booktabs,multirow} % Bookstyle tables
+\usepackage{array} % Custom width and centered
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}} % horizontal centering but use custom width
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} % horizontal and vertical centering but use custom width
+%-Figure label
+\usepackage[labelsep=period,justification=justified,format=plain]{caption} % Dot instead of colon and justified caption
+%--Figure
+\usepackage{graphicx,subcaption} % Figures and subfigures
+\usepackage{media9} % video and audio
+%-Figure-Table on top
+\usepackage{float} % Allows to put H instead of ht
+\setbeamertemplate{caption}[numbered] % Numbered captions
+%---------TOC
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamerfont{section in toc}{size=\small}
+\setbeamerfont{subsection in toc}{size=\footnotesize}
+\setbeamertemplate{subsection in toc}{\leavevmode\leftskip=3.2em\rlap{\hskip-2em\inserttocsectionnumber.\inserttocsubsectionnumber}\inserttocsubsection\par} % Indented subsection
+\setcounter{tocdepth}{2} % Toc depth, put 1 for only showing there the sections and 2 to include sections
+%---------Cite
+\usepackage{bibentry} % Full cite foot
+\nobibliography* % Full cite foot
+\setbeamertemplate{bibliography item}[triangle]% [online][book][article][triangle][text]; Or: \setbeamertemplate{bibliography item}{\insertbiblabel} 
+\usepackage{etoolbox} % Package for using justified bibliography 
+\apptocmd{\thebibliography}{\justifying}{}{} % Justified bibliography 
+%---------Footnotes
+\setbeamercolor{footnote}{fg=white} % Footnote white 
+\setbeamercolor{footnote mark}{fg=.} % Takes the color depending on the circumpstance
+\setbeamercolor{bibliography entry author}{fg=white} % Allows to have white footnote bibs
+\setbeamertemplate{footnote}
+{
+  \hspace*{-1cm} % Horizontal movement
+  \vspace*{-3.12cm} % Vertical movement
+  \parbox[c][3.64cm]{10.6cm}{\tiny\noindent\insertfootnotemark\insertfootnotetext} % b: bottom, height: 3.3cm, horizontal length: 10.6cm (max horizontal)
+% If there are problems, put \vspace*{-2.87cm} and \parbox[c][3.3cm]
+% or \vspace*{-2.88cm} and \parbox[c][3.4cm]
+% or \vspace*{-3.05cm} and \parbox[c][3.6cm]
+% or \vspace*{-3.12cm} and \parbox[c][3.64cm]
+}
+\renewcommand{\footnoterule}{\kern -3pt \hrule width \textwidth height 0pt\kern 3pt} % No footnoterule
+\usepackage{perpage}\MakePerPage{footnote} % Footnote numbered per frame
+\renewcommand{\thefootnote}{\Roman{footnote}} % Roman number in footnote
+                                              % Cutom: \fnsymbol{footnote}
+%------------------------------------
+%---------Numbered Slides and Sections
+\setbox0=\hbox{\subsecname\unskip}\ifdim\wd0=0pt\else%
+ ~--~\insertsubsectionhead
+\fi
+%------Numbering section: title in bold, centered and with a line
+\newcommand{\numb} 
+{
+  \setbeamertemplate{frametitle}
+  {
+    \ifx\insertsubsection\empty % No subsection
+         \bfseries\thesection.~\insertframetitle~\color{black}\par\vskip-5pt\hrulefill % \centering
+    \else % subsection
+         \bfseries\thesection.~\insertframetitle~\color{black}\par\vskip-9pt\hrulefill\par\vskip3pt{\large\thesection.\thesubsection~\insertframesubtitle} % Subsection with smaller size;
+    \fi
+  }
+}
+%------No numbering section: title in bold, centered and with a line
+\newcommand{\nonumb}
+{
+  \setbeamertemplate{frametitle}{\bfseries\color{black}\centering\insertframetitle\par\vskip-6pt\hrulefill}
+}
+%------------------------------------
+%--No hyphenation on text
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+%------------------------
+%---------Itemize justified in beamer
+\makeatletter
+\renewcommand{\itemize}[1][]{
+  \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth % Sets \beameritemnestingprefix
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{
+          {
+            \hss\llap{{
+                \usebeamerfont*{itemize \beameritemnestingprefix item}
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}
+          }
+        }
+      }
+  \fi
+  \beamer@cramped
+  \justifying % Justified itemize
+  \beamer@firstlineitemizeunskip
+}
+\makeatother
+%------------------------
+%---------get current section name for showing it at its begining
+\usepackage{nameref}
+\makeatletter
+\newcommand*{\currentname}{\@currentlabelname}
+\makeatother
+%---------Shows in which section we are at the begining of each one
+\begin{comment}
+\AtBeginSection[]
+{
+\begin{frame}[plain,noframenumbering]
+  \begin{beamercolorbox}[ht=\paperheight,wd=\paperwidth, center]{Portada}
+    \begin{center}\textbf{\LARGE \currentname}\end{center} % Leave the next space mandatorily
+
+    \vspace{0.44\paperheight}
+  \end{beamercolorbox}
+\end{frame}
+}
+\end{comment}
+
+%-------------------(CONSTANTLY BEING EDITED)------------------
+%---------TEXTBLOCKS-GRID 
+\usepackage[absolute,overlay,showboxes]{textpos}
+%\usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic} % Helping grids, comment when publishing
+%---------NOTES IN BEAMER
+\AtBeginNote{\Huge}\newcommand{\notei}[1]{\note[item]{\Huge{\textcolor{blue}{#1}}}} % Use \notei{text} everywhere % [1] means one parameter located in #1 (input). 
+\setbeamertemplate{note page}[plain] % Plain style for notes page
+\setbeameroption{show notes} % {show notes} or {hide notes}
+% \setbeameroption{show notes on second screen=right}
+% as well you can use \documentclass[notes=only] at the beginning of the code
+%-----------More elaborated notes
+%\setbeamercolor{note page}{bg=white!90!black, fg=black}
+%\setbeamercolor{note title}{bg=white!30!red, fg=black}
+%\setbeamercolor{note date}{parent=note title}
+%---------Itemize, enumberate and lists inside them
+%\setbeamertemplate{itemize/enumerate body begin}{\LARGE} % Body
+\setbeamertemplate{itemize/enumerate subbody begin}{\Large} % Subbody
+%---------COLOR DEFINITIONS
+\definecolor{azure(colorwheel)}{rgb}{0.0, 0.5, 1.0} % Define colors here
+\definecolor{blue(ryb)}{rgb}{0.01, 0.28, 1.0}
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+%%%%%%%%%%%%%%%%%%%%%%%
+%Start of the Document%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------COVER PAGE
+  \title{ANÁLISIS DE CLASIFICACIÓN}
+\author{\normalfont\texorpdfstring{Presentado por:\\Mateo Restrepo S.\\Juan S. Cárdenas R. \\David Plazas E.\\[1ex]Prof.:\\ Francisco I. Zuluaga D.}{}}
+
+\def\eafit{Universidad EAFIT}
+\def\materia{Estadística II}
+\def\fecha{2019} % or put the exact date
+% to add more def, search for "Dirección" in beamerthemeEAFIT.sty
+
+%\includeonly{Slides/0_cover_title,ex_beamer,Slides/refs_thanks}
+\begin{document}
+\nonumb % Not numbered titles
+\include{slides/0_cover_title}
+\numb % Numbered titles
+%\begin{comment}
+\include{slides/1_theory}
+\include{slides/2_Examples}
+
+\nonumb % Not numbered titles
+\include{slides/refs_thanks}
+
+\end{document}
