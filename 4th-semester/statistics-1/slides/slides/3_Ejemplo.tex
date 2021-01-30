@@ -1,0 +1,133 @@
+\section{EJEMPLOS}
+\subsection{Para 4 muestras}
+\begin{frame}{EJEMPLOS}
+    \framesubtitle{Para 4 muestras\footnote{\bibentry{stat}}}
+    
+    Cuatro grupos de estudiantes se someten a diferentes técnicas de enseñanza y se examinan al final de un periodo especificado. Como consecuencia de las deserciones de los grupos experimentales (por enfermedad, transferencia, etc.), el número de estudiantes varió de un grupo a otro. ¿Los datos mostrados en la Tabla \ref{tab:ejem1} presentan suficiente evidencia para indicar una diferencia en el éxito medio para las cuatro técnicas de enseñanza?
+    
+    \begin{table}[H]
+        \begin{tabular}{ccccc}
+        \hline
+                    & 1      & 2      & 3        & 4     \\ \hline
+                    & 65     & 75     & {\ul 59} & 94    \\
+                    & 87     & 69     & 78       & 89    \\
+        {\ul }      & 73     & 83     & 67       & 80    \\
+                    & 79     & 81     & 62       & 88    \\
+                    & 81     & 72     & 83       &       \\
+                    & 69     & 79     & 76       &       \\
+                    &        & 90     &          &       \\ \hline
+        $y_i$       & 454    & 549    & 425      & 351   \\
+        $n_i$       & 6      & 7      & 6        & 4     \\
+        $\Bar{y}_i$ & 75.667 & 78.429 & 70.833   & 87.750 \\ \hline
+        \end{tabular}
+        \caption{}
+        \label{tab:ejem1}
+    \end{table}
+\end{frame}
+
+\begin{frame}{EJEMPLOS}
+    \framesubtitle{Para 4 muestras\footnote{\bibentry{stat}}}
+    Para el estadístico de prueba, se requiere el SST y SSE:
+    \begin{equation*}
+        \begin{split} \text{SST}=&\sum_{i=1}^{k}\dfrac{Y_i^2}{n_i}-n\Bar{Y}^2\approx712.586 \\\text{SSE}=&\sum_{i=1}^{k}\sum_{j=1}^{n_i}\left(Y_{ij}-\Bar{Y}_i\right)^2\approx1196.631
+        \end{split}
+    \end{equation*}
+    Por lo tanto,
+    \begin{equation*}
+        F=\dfrac{SST\Big/k-1}{SSE\Big/n-k}\approx3.771
+    \end{equation*}
+    
+\end{frame}
+
+\begin{frame}{EJEMPLO}
+\framesubtitle{Para 4 muestras\footnote{\bibentry{stat}}}
+    Para un nivel de significancia del 5\% (i.e. $\alpha=0.05$), se debe calcular $F_\alpha$. Utilizando el comando
+    
+    \begin{center}
+    \texttt{F\_alpha <- qf(0.05, k-1, n-k, lower.tail = FALSE)}
+    \end{center}
+    
+    Que retorna un valor de $F_\alpha\approx3.127$. Por lo tanto, la RR es
+    \begin{equation*}
+        RR:\left\{F>3.127\right\}
+    \end{equation*}
+    
+    Como $3.771>3.127$, se puede rechazar $H_0$, ya que hay suficiente evidencia para afirmar esto; por lo tanto, existe una diferencia significativa entre las medias de las 4 poblaciones.
+\end{frame}
+
+\begin{frame}{EJEMPLOS}
+    \framesubtitle{Para 4 muestras\footnote{\bibentry{stat}}}
+    Este resultado también se puede comprobar con el $valor-p$ ($V_p$); como se rechazó $H_0$, el $V_p$ debería ser menor o igual al nivel de significancia de la prueba. Para esto, utilizamos los comandos
+    
+    \begin{center}
+        \texttt{F <- (SST/(k-1))/(SSE/(n-k))\\
+        p\_value <- pf(F, k-1, n-k, lower.tail = FALSE)}
+    \end{center}
+    
+    Que resulta en $V_p\approx0.028$, que efectivamente es menor al nivel de la prueba ($\alpha=0.05$) y se comprueba que el resultado previo.
+\end{frame}
+
+\subsection{Para 2 muestras}
+\begin{frame}{EJEMPLOS}
+    \framesubtitle{Para 2 muestras\footnote{\bibentry{stat}}}
+    Los valores codificados para una medida de elasticidad de un plástico preparado por dos procesos diferentes se proporcionan en la Tabla \ref{tab:ejem2}. Las muestras independientes, ambas de tamaño 6, se tomaron de la producción de cada uno de los procesos. ¿Los datos presentan suficiente evidencia para indicar una diferencia en elasticidad media en los dos procesos?
+    \begin{table}[H]
+        \begin{tabular}{ccc}
+        \hline
+                     & \textbf{A}    & \textbf{B}    \\ \hline
+                     & 6.1  & 9.1  \\
+                     & 7.1  & 8.2  \\
+                     & 7.8  & 8.6  \\
+                     & 6.9  & 6.9  \\
+                     & 7.6  & 7.5  \\
+                     & 8.2  & 7.9  \\ \hline
+        $y_i$        & 43.7 & 48.2 \\
+        $n_i$        & 6    & 6    \\
+        $\Bar{y_i}$ & 7.28 & 8.03 \\ \hline
+        \end{tabular}
+        \caption{}
+        \label{tab:ejem2}
+    \end{table}
+\end{frame}
+
+\begin{frame}{EJEMPLOS}
+\framesubtitle{Para 2 muestras\footnote{\bibentry{stat}}}
+    Para el estadístico de prueba, se requiere el SST y SSE:
+    \begin{equation*}
+        \begin{split} \text{SST}=&\sum_{i=1}^{k}\dfrac{Y_i^2}{n_i}-n\Bar{Y}^2\approx1.688 \\\text{SSE}=&\sum_{i=1}^{k}\sum_{j=1}^{n_i}\left(Y_{ij}-\Bar{Y}_i\right)^2\approx 5.862
+        \end{split}
+    \end{equation*}
+    Por lo tanto,
+    \begin{equation*}
+        F=\dfrac{SST\Big/k-1}{SSE\Big/n-k}\approx 2.879
+    \end{equation*}
+    
+\end{frame}
+
+\begin{frame}{EJEMPLO}
+\framesubtitle{Para 2 muestras\footnote{\bibentry{stat}}}
+    Para un nivel de significancia del 5\% (i.e. $\alpha=0.05$), se debe calcular $F_\alpha$. Utilizando el comando
+    
+    \begin{center}
+    \texttt{F\_alpha <- qf(0.05, k-1, n-k, lower.tail = FALSE)}
+    \end{center}
+    
+    Que retorna un valor de $F_\alpha\approx4.964$. Por lo tanto, la RR es
+    \begin{equation*}
+        RR:\left\{F>4.964\right\}
+    \end{equation*}
+    
+    Como $2.879<4.964$, no se puede rechazar $H_0$, ya que no hay suficiente evidencia a favor de $H_1$; por lo tanto, no existe una diferencia significativa entre las medias de las 2 poblaciones.
+\end{frame}
+
+\begin{frame}{EJEMPLOS}
+    \framesubtitle{Para 2 muestras\footnote{\bibentry{stat}}}
+    Este resultado también se puede comprobar con el $valor-p$ ($V_p$); como se no rechazó $H_0$, el $V_p$ debería ser mayor al nivel de significancia de la prueba. Para esto, utilizamos los comandos
+    
+    \begin{center}
+        \texttt{F <- (SST/(k-1))/(SSE/(n-k))\\
+        p\_value <- pf(F, k-1, n-k, lower.tail = FALSE)}
+    \end{center}
+    
+    Que resulta en $V_p\approx0.12$, que efectivamente es mayor al nivel de la prueba ($\alpha=0.05$) y se comprueba que el resultado previo.
+\end{frame}
