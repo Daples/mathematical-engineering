@@ -1,0 +1,57 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\usepackage[hidelinks]{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Linear Analysis of Rössler System based on Circuits\\}
+
+\author{\IEEEauthorblockN{Juan S. C\'ardenas R.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia\\
+jscardenar@eafit.edu.co}
+\and
+\IEEEauthorblockN{David Plazas E.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia \\
+dplazas@eafit.edu.co}
+}
+
+\maketitle
+
+\begin{abstract}
+In this work, the Rössler system is studied: a short introduction about the history of the system is given, as well as some state-of-the-art applications; a circuit implementation is presented based on the literature and translated to a state equation. The first part of this document is focused on give some basic theory, concepts and procedures to make a successful analysis of a linear system, which are applied and presented in the results section: a preliminary validation of the linear system obtained is performed making a comparison with the original Rössler system and an stability analysis is performed based on transfer functions and Bode diagrams. The simulations and the findings showed that the linear system in the selected operation point is stable, likewise intervals for one of the parameters that make the nonlinear and linear model stable as well; furthermore, the closed-loop stability was analyzed and properly validated. A linear approximation to Rössler equations was found with success (under some conditions).
+\end{abstract}
+
+\begin{IEEEkeywords}
+Rössler system, simulation, state equation, dynamic system, transfer function, Bode diagram, stability analysis, linearization, order reduction, discrete dynamics, non-minimum phase system.
+\end{IEEEkeywords}
+
+\input{1_introduction}
+\input{2_results}
+\input{3_analysis}
+\input{4_conc}
+
+\nocite{*}
+\bibliography{ref}
+\bibliographystyle{IEEEtran}
+\end{document}
