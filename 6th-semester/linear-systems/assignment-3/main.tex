@@ -1,0 +1,58 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{diagbox}
+
+\usepackage[hidelinks]{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Linear Discrete Control of Rössler System based on Circuits\\}
+
+\author{\IEEEauthorblockN{Juan S. C\'ardenas R.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia\\
+jscardenar@eafit.edu.co}
+\and
+\IEEEauthorblockN{David Plazas E.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia \\
+dplazas@eafit.edu.co}
+}
+
+\maketitle
+
+\begin{abstract}
+In this work, the Rössler system is studied: a short introduction about the history of the system is given, as well as some state-of-the-art applications; a circuit implementation is presented based on the literature and translated to a state equation. The first part of this document is focused on give some basic theory, concepts and procedures to design a successful digital linear control system mainly for achieving absolute stability and remove steady-state error. This work treats with discrete PID controllers and discrete linear feedback controllers; these control system are then applied to the nonlinear Rössler system and then an uncertainty analysis is performed to find intervals where the controllers work properly.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Rössler system, simulation, state equation, dynamic system, absolute stability, linearization, discrete PID controller, state feedback controller, tuning methods, steady-state error, time-response properties.
+\end{IEEEkeywords}
+\bstctlcite{IEEEexample:BSTcontrol}
+\input{1_introduction}
+\input{2_results}
+\input{3_analysis}
+\input{4_conc}
+
+\nocite{*}
+\bibliography{ref}
+\bibliographystyle{IEEEtran}
+\end{document}
