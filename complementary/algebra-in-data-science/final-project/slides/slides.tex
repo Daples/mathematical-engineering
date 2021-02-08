@@ -21,35 +21,13 @@
 \newtheorem{question}{Question}
 
 %%%%%%%% BIB-LATEX STUFF
+\setbeamertemplate{bibliography item}{text}
 \usepackage[style=numeric,
             bibstyle=numeric,
             citestyle=numeric,
             hyperref=true,
             backend=biber]{biblatex}
 \addbibresource{ref.bib} % Bibliography file
-
-%%%%%%%% ICONS FOR CITES
-% https://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
-\setbeamertemplate{bibliography item}{%
-  \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
-    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
-    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
-    {\setbeamertemplate{bibliography item}[book]}
-    {\ifentrytype{online}
-       {\setbeamertemplate{bibliography item}[online]}
-       {\setbeamertemplate{bibliography item}[article]}}
-  \usebeamertemplate{bibliography item}}
-
-\defbibenvironment{bibliography}
-  {\list{}
-     {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}
-      \setlength{\leftmargin}{\labelwidth}
-      \setlength{\labelsep}{\biblabelsep}
-      \addtolength{\leftmargin}{\labelsep}
-      \setlength{\itemsep}{\bibitemsep}
-      \setlength{\parsep}{\bibparsep}}}
-  {\endlist}
-  {\item}
 
 %%%%%%%% BRACKETS AROUND CITE
 % https://bit.ly/3iSxP2u
