@@ -1,0 +1,14 @@
+#+TITLE: Mathematical Engineering
+#+AUTHOR: Daivd Plazas Escudero and Juan Sebastián Cárdenas Rodríguez
+
+In this repository, most of the exams, presentations and works can be found for
+most of the subjects of the Mathematical Engineering program of EAFIT. They are
+ordered by semester as given by the following study plan:
+
+[[./assets/study-plan.png]]
+
+For simplicity, only the latex source code was added as it is more helpful for
+any other student that would like to have some guide in the different works. On
+the other hand, it is important to realize that the plans for each of the
+subjects may differ and this repository will not be updated with the new plans
+as both of the authors already graduated from the program.
