@@ -1,0 +1,41 @@
+\documentclass[12pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage{pst-all}
+\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{subcaption}
+
+\setlength{\belowcaptionskip}{-0.2cm}
+\title{Bayesian Statistical Analysis in PacMan}
+\let\iif\leftrightarrow
+\author[1]{Juan S. C\'ardenas Rodr\'iguez}
+\author[2]{David Plazas Escudero}
+\affil[1]{Universidad EAFIT, jscardenar@eafit.edu.co, Student, Medell\'in, Colombia}
+\affil[2]{Universidad EAFIT, dplazas@eafit.edu.co, Student, Medell\'in, Colombia}
+\usepackage{multicol}
+
+\keywords{Bayesian Analysis, empirical distributions, PacMan.}
+
+ \begin{abstract}
+	On this paper, we use Bayesian inference and Markov chains to make the ghosts in the famous PacMan game to have more difficulty. This was done by calculating the probability of the most likely node that the player is going to be and, in this manner, making the ghost go to that node instead of following the player as the game does. It was achieved to code this algorithm and, it was proven that this probabilistic method did made more difficult the game, making people lose 10 seconds earlier (on average) than before. Therefore, we found that this types of method could be really useful for games with most complexity due to the fact that this allowed better ways to teach behavior to a character and, to add better ways to predict to make it more challenging to the gamer.
+ \end{abstract}
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\thispagestyle{empty}
+
+\input{text/1_intro}
+\input{text/2_theory}
+\input{text/3_contribution}
+\input{text/4_results}
+\input{text/5_conc}
+
+\nocite{*}
+\bibliographystyle{ieeetran}
+\bibliography{ref}
+
+
+\end{document}

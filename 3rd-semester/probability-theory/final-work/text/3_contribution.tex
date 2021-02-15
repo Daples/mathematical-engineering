@@ -1,0 +1,42 @@
+\section{Contributions \& Application}
+As it was discussed in the introduction, Bayesian statistical analysis is very useful in video games to make bots learn certain behavior, specially in complex behavior such as bots in first person shooters, where they have to take into account many variables (it's health, weapon, position in the map, etc.). Therefore, the idea is to apply this concepts and methods in a simpler video game, to see how can it improve the experience playing more directly. Consequently, we chose the video game PacMan to suit this needs.
+
+\subsection{Why Pac-Man?}
+
+PacMan was a video game released in 1979 by Toru Iwatani. Nowadays is considered one of the most influential video games in culture and, was the second game, after Pong, to have such a big visibility reaching to audiences worldwide \cite{pac}. On the other hand, although its massive impact it has had all over the world it does not mean that the game is flawless. As the video game industry was at a very early stage, PacMan's developers lacked algorithms to improve aspects of the game; players have criticized how unresponsive the controls can be, the ghosts don't present much difficulty to the player and more. 
+
+Hence, applying the algorithms of Bayesian Inference in this type of game can illustrate in a very easy manner the benefits of this algorithm. On the other hand, as the game is so simple it allows for the methods to be quite easy, as there are not as much variables as in more complex games. On the other hand, the ghosts in the game are handled using finite state machines (\ref{subsec:finite}) so it has room to be improved upon by this methods. For this reason, we will use this methods to improve the difficulty of the ghosts in the game. The original code in Python can be found in \cite{pac1}.
+
+\subsection{Bayesian Application in Pac-Man}
+In this manner, we will use Bayesian inference and Markov chains to make the ghost go to the place that the player will more likely be. The real code, just solves a graph problem by searching for the shortest route to reach where the player is; but, this type of algorithm has problem to difficult the things for the player. On first glance, most of the time you are just being followed by the ghosts and it is very easy to escape them; more often than not, you lose by accident because of the controls are not very good. In second place, all the ghosts, have a very similar behavior due to that they tend to coincide in similar places.
+
+
+It is important to highlight that PacMan's map is handled as nodes that are every edge in which the player can change it's direction; so, what the ghosts will do is search what is the most likely node that the player is going to go next given its coordinates in the map and its velocity. This is where the uncertainty comes from since, knowing this data allows us to know where exactly is the player going to go in the next time; in this order, thats why we consider at what node will he go at some time plus a random constant. On the other hand, as we are considering nodes and not coordinates  it has another level of uncertainty.
+
+Therefore, we'll have the next variables to make our model:
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{l p{8cm}}
+\hline
+ $N_{t+k}$ & This is the node that the player is going to be in the time $t+k$.  We don't consider the node in $t+1$ because, as it was expressed earlier, this is deterministic. This will be the variables we'll be interested in to decide the trajectory of the ghost.\\
+ $P_t$ &  This is a pair of coordinates $(x,y)$ of the place where the pacman is at time $t$.\\
+ $V_t$ &  This is a vector of velocities $(velX,velY)$ that represents the velocity that the pacman has at time $t$. It is important to acknowledge that the velocity at every time has only one dimension, due to that the player can not move diagonally.\\ \hline
+\end{tabular}
+\caption{Model variables.}
+\end{table}
+
+
+
+Hence, it is obvious that the behavior that the ghost is going to have is represented by a Markov Chain, with the probabilities calculated respect to the position on the player.
+
+Consequently, the behavior will, when the level begins, each ghost will move randomly to a node so each ghost has a different time to reach the player. On the second hand, when each ghost reaches that random node they will calculate what is the most probable node in which the pacman will go next and, find the shortest path to that node; it's important to notice that if we calculated this node very time the player moves, the game would be impossible to play as every move will be very slow. Therefore, to solve this problem, the ghost will choose a path to the most probable node and follow that even if the player changes it's direction; finally, when they reach the end of the path, they will do the same process and so forth.
+
+In particular, we will need to calculate the probability with Bayes theorem, which in our case is:
+
+\begin{equation}
+P({ N }_{ t+k }=n\mid { P }_{ t }=p\wedge { V }_{ t}=v)=\frac{P({ P }_{ t }=p\wedge { V }_{ t}=v\mid{ N }_{ t+k }=n)P({ N }_{ t+k }=n)}{P({ P }_{ t }=p\wedge { V }_{ t}=v)}
+\end{equation}
+
+The important tasks to make this model work to calculate accurately this probability is, in first place, to find the model for the posterior distribution. This requires to find the joint distribution of both random variables $P_t$ and $V_t$ that we'll consider both are independent of each others, making it easier to calculate the probability of the random vector of this two variables. On the other hand, it is indispensable to find the likelihood distribution. Lastly, it is necessary to find a probability model that represents the prior.
