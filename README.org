@@ -26,6 +26,14 @@ are disorganized as the author were starting and therefore did not had any
 notion of organization.
 
 * Authors
-This repository was possible thanks to:
+This repository was mainly possible thanks to:
 - [[https://github.com/Daples][David Plazas Escudero]]
 - [[https://github.com/juanscr][Juan Sebastián Cárdenas Rodríguez]]
+
+Other contributors:
+- [[https://www.linkedin.com/in/mateo-restrepo-sierra-669a28197/][Mateo Restrepo Sierra]]
+- Mariana Escobar Quiceno
+- Andrés Felipe Tamayo
+- Juan Pablo Vidal Correa
+- Alejandra Ossa Yepes
+- Manuela Gallego Gómez
