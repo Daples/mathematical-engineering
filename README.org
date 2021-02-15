@@ -2,8 +2,9 @@
 #+AUTHOR: Daivd Plazas Escudero and Juan Sebastián Cárdenas Rodríguez
 
 In this repository, most of the exams, presentations and works can be found for
-most of the subjects of the Mathematical Engineering program of EAFIT. They are
-ordered by semester as given by the following study plan:
+most of the subjects of the Mathematical Engineering program of EAFIT. In most
+cases, both authors' work is given. They are ordered by semester as given by the
+following study plan:
 
 [[./assets/study-plan.png]]
 
@@ -12,3 +13,19 @@ any other student that would like to have some guide in the different works. On
 the other hand, it is important to realize that the syllabus for each of the
 subjects may differ and this repository will not be updated with the new plans
 as both of the authors already graduated from the program.
+
+It is important to remark, that not all the works given in this repository are
+perfect therefore some mistakes will be found for each work. If any notorious
+mistake is found, you can create a pull request or contact us directly for the
+change.
+
+Lastly, for future work many of the latex source code files will be cleaned of
+trailing white space and tabs characters; furthermore, each file will be fitted
+to an 80 column width. It is important to notice that many of the early codes
+are disorganized as the author were starting and therefore did not had any
+notion of organization.
+
+* Authors
+This repository was possible thanks to:
+- [[https://github.com/Daples][David Plazas Escudero]]
+- [[https://github.com/juanscr][Juan Sebastián Cárdenas Rodríguez]]
