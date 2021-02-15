@@ -34,6 +34,6 @@ Other contributors:
 - [[https://www.linkedin.com/in/mateo-restrepo-sierra-669a28197/][Mateo Restrepo Sierra]]
 - Mariana Escobar Quiceno
 - Andrés Felipe Tamayo
-- Juan Pablo Vidal Correa
+- [[https://github.com/Jvidalco/][Juan Pablo Vidal Correa]]
 - Alejandra Ossa Yepes
 - Manuela Gallego Gómez
