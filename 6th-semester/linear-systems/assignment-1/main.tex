@@ -1,0 +1,55 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{dsfont}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Simulation and Analysis of Chaotic Rössler System based on Circuits\\}
+
+\author{\IEEEauthorblockN{Juan S. C\'ardenas R.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia\\
+jscardenar@eafit.edu.co}
+\and
+\IEEEauthorblockN{David Plazas E.}
+\IEEEauthorblockA{\textit{Student} \\
+\textit{Universidad EAFIT}\\
+Medell\'in, Colombia \\
+dplazas@eafit.edu.co}
+}
+
+\maketitle
+
+\begin{abstract}
+In this work, the Rössler system is studied: a short introduction about the history of the system is given, as well as some state-of-the-art applications; a circuit implementation is presented based on previous work; a simulation diagram is proposed for the obtained dynamic equation and used to acquire results. A validation is done with known results in the literature and then proceeded to tweak the system, in both input and parameters, in order to analyze its response through time and determine intervals for the parameters such that the system remains chaotic. The results obtained only allowed us to determine enclosing intervals for these parameters, since a more detailed study must be done in order to determine exact values.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Rössler attractor, chaos, numerical solution, simulation, state equation, dynamic system, chaotic circuit.
+\end{IEEEkeywords}
+
+\input{1_introduction}
+\input{2_results}
+\input{3_analysis}
+\input{4_conc}
+
+\nocite{*}
+\bibliography{ref}
+\bibliographystyle{IEEEtran}
+\end{document}

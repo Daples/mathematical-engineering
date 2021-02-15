@@ -1,0 +1,186 @@
+%-------------------------------------------------------------
+% Language
+% Use the option "language=EN" to set the beamer theme in English. Use
+% the option "language=ES" to set the beamer theme in Spanish.
+
+% Colors
+% Use the option "color=white" to set the background in white and the
+% bottom bar in blue. Use the option "color=blue" to set the
+% background in blue and the bottom bar in white. Use the option
+% "color=blue2" to set the background in blue and the bottom bar in
+% blue.
+
+% Font Color
+% Use the option "fontc=black" to set the font color in black. If this
+% argument is not given the default color is set depending of the
+% color scheme selected.
+
+% Credits: https://github.com/alejogm0520 & Samuel Plazas Escudero
+%-------------------------------------------------------------
+
+%--Principal packages
+\documentclass[aspectratio=43,8pt]{beamer} % 4:3, can be 16:9
+\usetheme[language=ES, color=white]{EAFIT}
+\usepackage[spanish]{babel}
+\decimalpoint % All decimal numbers with point
+\usepackage[utf8]{inputenc}
+\selectlanguage{spanish}
+\usepackage{amsmath,amsfonts,amssymb,cancel,physics} % Equations
+\usepackage{verbatim} % Environments, \begin{comment}
+%--Arial
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+%--Beamer packages
+\usepackage{tikz} % For making vectorized figures, arrows
+\usepackage{ifthen} % For specifying conditionals for sections
+\usepackage{ragged2e}\justifying % Whole text justified, except enumerate: add \justifying
+\usepackage{xcolor}
+\usepackage{multicol} % Multiple columns in one frame
+%--Tables-Figures
+\renewcommand\spanishtablename{Tabla}
+\usepackage{booktabs,multirow} % Bookstyle tables
+%-Figure label
+\usepackage[labelsep=period,justification=justified,format=plain]{caption} % Dot instead of colon and justified caption
+%--Figure
+\usepackage{graphicx,subcaption} % Figures and subfigures
+\graphicspath{{media/}} % Media rute
+%-Figure-Table on top
+\usepackage{float} % Allows to put H instead of ht
+\setbeamertemplate{caption}[numbered] % Numbered captions
+%---------TOC
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamerfont{section in toc}{size=\small}
+\setbeamerfont{subsection in toc}{size=\footnotesize}
+\setbeamertemplate{subsection in toc}{\leavevmode\leftskip=3.2em\rlap{\hskip-2em\inserttocsectionnumber.\inserttocsubsectionnumber}\inserttocsubsection\par} % Indented subsection
+\setcounter{secnumdepth}{1}
+%---------Cite
+\usepackage{bibentry} % Full cite foot
+\nobibliography* % Full cite foot
+% Or: \setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+%---------Footnotes
+\setbeamercolor{footnote}{fg=white}
+\setbeamercolor{footnote mark}{fg=.} % Takes the color depending on the circumpstance
+\setbeamercolor{bibliography entry author}{fg=white} % Allows to have white footnote bibs
+\setbeamertemplate{footnote}
+{
+  \hspace*{-1cm} % Horizontal movement
+  \vspace*{-2.88cm} % Vertical movement
+  \parbox[c][3.4cm]{10.6cm}{\tiny\noindent\insertfootnotemark\insertfootnotetext} % b: bottom, height: 3.3cm, horizontal length: 10.6cm (max horizontal)
+% If there are problems, put -2.87cm and 3.3cm
+}
+\renewcommand{\footnoterule}{\kern -3pt \hrule width \textwidth height 0pt\kern 3pt} % No footnoterule
+%------------------------------------
+%---------Numbered Slides and Sections
+\setbox0=\hbox{\subsecname\unskip}\ifdim\wd0=0pt\else%
+ ~--~\insertsubsectionhead
+\fi
+%------Numbering section: title in bold, centered and with a line
+\newcommand{\numb} 
+{
+  \setbeamertemplate{frametitle}
+  {
+    \ifx\insertsubsection\empty % No subsection
+         \bfseries\thesection.~\insertframetitle~\color{black}\par\vskip-5pt\hrulefill % \centering
+    \else % subsection
+         \bfseries\thesection.~\insertframetitle~\color{black}\par\vskip-9pt\hrulefill\par\vskip3pt{\large\thesection.\thesubsection~\insertframesubtitle} % Subsection with smaller size;
+    \fi
+  }
+}
+%------No numbering section: title in bold, centered and with a line
+\newcommand{\nonumb}
+{
+  \setbeamertemplate{frametitle}{\bfseries\color{black}\centering\insertframetitle\par\vskip-6pt\hrulefill}
+}
+%------------------------------------
+%--No hyphenation on text
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+%------------------------
+%---------Itemize justified in beamer
+\makeatletter
+\renewcommand{\itemize}[1][]{
+  \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth % Sets \beameritemnestingprefix
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{
+          {
+            \hss\llap{{
+                \usebeamerfont*{itemize \beameritemnestingprefix item}
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}
+          }
+        }
+      }
+  \fi
+  \beamer@cramped
+  \justifying % Justified itemize
+  \beamer@firstlineitemizeunskip
+}
+\makeatother
+%------------------------
+%---------Get current section name for showing it at its begining
+\usepackage{nameref}
+\makeatletter
+\newcommand*{\currentname}{\@currentlabelname}
+\makeatother
+%---------Shows in which section we are at the begining of each one
+\AtBeginSection[]
+{
+\begin{frame}[plain,noframenumbering]
+  \begin{beamercolorbox}[ht=\paperheight,wd=\paperwidth, center]{Portada}
+    \begin{center}\textbf{\LARGE \currentname}\end{center} % Leave the next space mandatorily
+
+    \vspace{0.44\paperheight}
+  \end{beamercolorbox}
+\end{frame}
+}
+%-------------------(constantly being edited)------------------
+
+%---------TEXTBLOCKS-GRID 
+\usepackage[absolute,overlay,showboxes]{textpos}
+%\usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic} % Helping grids, comment when publishing
+%---------COLOR DEFINITIONS
+\definecolor{azure(colorwheel)}{rgb}{0.0, 0.5, 1.0} % Define colors here
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%Start of the Document%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------COVER PAGE
+
+\title{CRIPTOGRAFÍA{}}
+\author{\normalfont\large\texorpdfstring{Presentado por:\\ Juan S. Cárdenas Rodríguez\\  David Plazas Escudero}{}} % PA
+\def\carrera{Ingeniería Matemática}
+\def\departamento{Departamento de Ciencias Matemáticas}
+\def\escuela{Escuela de Ciencias}
+\def\materia{Modelación y Simulación II}
+\def\eafit{Universidad EAFIT}
+\def\fecha{2017}
+% to add more def, search for "Dirección" in beamerthemeEAFIT.sty
+
+
+
+%\includeonly{c/ex}
+\begin{document}
+
+\nonumb % Not numbered titles
+\include{slides/0_cover_title}
+\numb % Numbered titles
+\include{slides/1_Def}
+\include{slides/2_General_History}
+\include{slides/3_PrimeT}
+\include{slides/4_Modern}
+\nonumb % Not numbered titles
+\include{slides/refs_thanks}
+
+\end{document}

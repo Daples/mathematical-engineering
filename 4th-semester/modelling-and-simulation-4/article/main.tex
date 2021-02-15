@@ -1,0 +1,70 @@
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage{pst-all}
+\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage{longtable}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{url}
+\usepackage{bbm}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{mwe}
+\usepackage{breqn}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+
+\makeatletter
+\renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols #1}}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\lstset{
+  basicstyle=\ttfamily,
+  mathescape
+}
+\setlength{\belowcaptionskip}{-0.2cm}
+\arraycolsep=1.4pt
+\def\arraystretch{2} 
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\title{Analysis of fractional-order system for financial dynamics}
+\let\iif\leftrightarrow
+\author[1]{Mateo Restrepo Sierra}
+\author[2]{Juan S. C\'ardenas Rodr\'iguez}
+\author[3]{David Plazas Escudero}
+\affil[1]{Universidad EAFIT, mrestrepos@eafit.edu.co, Student, Medell\'in, Colombia}
+\affil[2]{Universidad EAFIT, jscardenar@eafit.edu.co, Student, Medell\'in, Colombia}
+\affil[3]{Universidad EAFIT, dplazas@eafit.edu.co, Student, Medell\'in, Colombia}
+\keywords{Macroeconomic financial system, fractional-order system, chaos, stability, feedback control, Adams-Bashforth-Moulton algorithm.}
+
+ \begin{abstract}
+	This work studies the Huang-Li financial nonlinear dynamic system, based on Chen's generalization: the given system can be also studied for non-integer order differential equations. This approach is based on two main facts that involves financial systems: chaos and memory. In one hand, it can be shown that the dynamic system in study is indeed a chaotic system; on the other hand, as financial systems are highly correlated with previous events, memory is essential, hence the use of fractional derivatives. A stability analysis and control were performed. This work is intended to give a more detailed version of the procedure mentioned in Chen's paper, since all simulation parameters for the system are specified and we include a short comparison between the numerical procedures. It was found that the system is highly controllable in both equilibrium points and periodic orbits; the stability of some points is strongly dependent on the system's order. On the other hand, a sensitivity analysis was done based on methods described on the literature and it was found that the system is sensitive to different parameters depending on the order.
+ \end{abstract}
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\thispagestyle{empty}
+
+\input{text/1_intro}
+\input{text/2_method}
+\input{text/3_result}
+\input{text/4_stability_control}
+\input{text/5_sensitivity}
+\input{text/6_conc}
+%Bibs
+\bibliographystyle{ieeetran}
+\bibliography{ref}
+
+
+\end{document}

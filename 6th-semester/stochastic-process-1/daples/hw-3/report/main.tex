@@ -1,0 +1,133 @@
+\documentclass[11pt,letterpaper]{article}%5mm=1line in word
+\usepackage[spanish]{babel}
+\decimalpoint
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}%eq
+%-arial
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+%-blank page
+%\usepackage{afterpage}
+%\newcommand\blankpage{\null\thispagestyle{empty}\addtocounter{page}{-1}\newpage}
+%-toc
+\usepackage{multirow}
+\usepackage{multicol}
+%\usepackage{fancyhdr}
+\usepackage{tocloft}
+\renewcommand{\cftdot}{}%no dots
+\setcounter{tocdepth}{1}%1st grade titles
+\renewcommand{\cftsecfont}{\mdseries}%pag numb bold
+\renewcommand{\cftsecpagefont}{\mdseries}%sec bold
+\renewcommand\cftsecafterpnum{\vskip5mm}%space entre sec
+\setlength\cftaftertoctitleskip{10mm}%space aft title
+\setlength{\cftbeforesecskip}{10mm}%space entre pag y sec
+\usepackage[hidelinks]{hyperref}%interact with toc
+%-lot/lof
+\renewcommand\spanishtablename{Tabla}
+%\setcounter{lotdepth}{1}
+\setlength\cftafterlottitleskip{10mm}
+\setlength{\cftbeforetabskip}{10mm}
+%\setcounter{lofdepth}{1}
+\setlength\cftafterloftitleskip{10mm}
+\setlength{\cftbeforefigskip}{10mm}
+%-figurelabel
+%\newlength{\mylen}
+%\renewcommand{\cftfigpresnum}{\figurename\enspace}
+%\settowidth{\mylen}{\cftfigpresnum\cftfigaftersnum}
+%\addtolength{\cftfignumwidth}{\mylen}
+%-tablelabel
+%\renewcommand{\cfttabpresnum}{\tablename\enspace}
+%\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}
+%\addtolength{\cfttabnumwidth}{\mylen}
+%-margins
+\usepackage{vmargin}
+\setmarginsrb
+ { 2.0cm}  % left marg
+ { 1.0cm}  % top marg
+ { 2.0cm}  % right marg
+ { 1.0cm}  % bottom marg
+ {  13.6pt}  % head height
+ {0.25cm}  % head sep
+ {  0cm}  % foot height
+ {2cm}  % foot sep
+%-cite
+\usepackage{bibentry}%full cite foot
+%\nobibliography*%full cite foot
+\usepackage{url}%urls recognized
+\urlstyle{same}%normal
+%-footnote
+\addtolength{\footnotesep}{0.1mm}%space entre foot
+\renewcommand{\thefootnote}{\textbf{\arabic{footnote}}}%numb in bold
+\setlength{\footskip}{15pt}%space entre foot y pag numb
+\usepackage[bottom]{footmisc}%foot abajo
+\usepackage{scrextend}%foot sin sangría
+\deffootnote[0mm]{0mm}{0mm}{\textsuperscript{\thefootnotemark}\,}%foot sin sangría
+
+\usepackage{graphicx}%Figures
+\graphicspath{{img/}}%img rute
+%-figure-table on top
+\usepackage{caption}
+%\floatsetup[table]{capposition=top}
+%\floatsetup[figure]{capposition=top}
+%-space
+\setlength{\parindent}{10pt}%no indentation
+\setlength{\parskip}{4mm}%space entre paragr.
+\renewcommand{\baselinestretch}{1}%text space
+\usepackage[compact]{titlesec}%all closer
+%--no-hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\usepackage{sectsty}
+
+\sectionfont{\fontsize{13}{15}\selectfont}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumerate}
+\usepackage{lscape}
+\usepackage{blkarray} % around array
+\usepackage{mathtools} % arrow thing
+\usepackage{float}
+
+\newtheorem{theorem}{Teorema}
+
+
+%%%%%%%% R %%%%%%%%%%%%%%
+
+\usepackage[svgnames]{xcolor}
+\usepackage{listings}
+\lstset{language=R,
+    basicstyle=\small\ttfamily,
+    stringstyle=\color{DarkGreen},
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{DarkGreen},
+    %caption=Descriptive Caption Text, 
+    basicstyle=\footnotesize, 
+    %frame=tb, https://stackoverflow.com/questions/3106419/center-latex-lstlisting
+    xleftmargin=0\textwidth, xrightmargin=.2\textwidth
+} % https://tex.stackexchange.com/questions/374001/insert-r-code-in-latex
+
+
+%\includeonly{c/ex,c/cover}
+\title{\vspace{-1cm}Taller 3}
+\author{David Plazas E. \\dplazas@eafit.edu.co}
+\date{\vspace{-0.5cm}Procesos Estocásticos\\Universidad EAFIT\\2019}
+\begin{document}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{}
+%\include{c/cover}
+\input{text}
+%\include{c/ex}
+\begin{center}
+\bibliographystyle{myieeetran}
+\bibliography{bibs}
+\end{center}
+
+\end{document}

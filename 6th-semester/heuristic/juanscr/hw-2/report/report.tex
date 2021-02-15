@@ -1,0 +1,275 @@
+\documentclass[10pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+
+% Idioma
+\usepackage[english]{babel}
+
+\usepackage[none]{hyphenat}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\ignore}[1]{}
+
+
+\title{Taboo Search and Variable-Neighborhood Search for Heterogeneous Cumulatitive Capacitated Vehicle Routing Problem}
+\author{\emph{Juan Sebastián Cárdenas}\\
+\vspace{0.3cm}
+\small{\tt{jscardenar@eafit.edu.co}}\\
+Mathematical Science Department\\
+School of Science\\
+Universidad EAFIT\\
+Medellín -- Colombia}
+\date{\today}
+
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{2cm}{3cm}
+
+% Configurar encabezado y pie de página
+\pagestyle{fancy}
+\lfoot[\date{\today}]{\date{\today}}
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\rhead[Cárdenas (2019)]{Heterogeneous Taboo Search and VNS}
+\lhead[]{}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{Last update: August of 2019}
+}
+
+\sloppy
+
+
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{firststyle}
+
+\section{Solution Algorithms}\label{sec_alg}
+For this work, different algorithms where used to solve the
+problem. In first place, an adaptation of taboo search (TS)
+\citep{glover1977} was used. Lastly, a variable-neighborhood search
+(VNS) algorithm was used with three different types of operators:
+2-opt between routes \citep{croes1958}, 2h-opt in the same route
+\citep{bentley1992} and swap.
+
+The initial solution for the implemented algorithms was a modification
+of the \cite{clarke1964} algorithm. This code was implemented in a
+previous worked. Lastly, the lower bound used was supposing that there
+was an infinite amount of the fastest vehicle with unlimited capacity.
+
+The 2h-opt operator uses two routes and two consecutive nodes of
+each routes. Let that the nodes in the first route are $(i, i+1)$ and
+the nodes in the second route are $(j, j + 1)$. Therefore, this
+operator draws an edge between nodes $(i, j + 1)$ and $(i + 1, j)$;
+additionally, it tries an other move drawing an edge between $(i, j)$
+and $(i + 1, j + 1)$.
+
+As for the 2-opt neighborhood two routes are needed, the centroid of
+each route is calculated and for every route it is chosen the route
+with the closest centroid. This was due to executing every possible
+combination of two routes generated long execution times; furthermore,
+this change still creates good solutions that improves the objective
+function.
+
+The 2.5-opt operator picks two pairs of consecutive nodes between the
+same route and makes 3 possible moves to improve the objective
+function. Using the same notation as before, the first move is trying
+drawing an edge between $(i, j)$ and $(i + 1, j + 1)$. In second
+place, it attempts to insert the node $j$ between $(i, i+1)$. Finally,
+it attempts to insert the node $i + 1$ between $(j, j + 1)$.
+
+For this operator, it is picked every pair of nodes that does not
+include the base depot and it is compared with every pair of nodes
+that are at least 4 positions away. This assures that moves that the
+swap is going to execute, this operator does not repeat it so
+execution time can be diminish.
+
+Finally, the swap operator picks two pair of nodes and swaps
+them. This operator does every possible pair of swaps, as it does not
+present a mayor computational effort and, it is assured with this that
+the best solution can be picked using this operation.
+
+In this manner, taboo search takes advantage of the operations defined
+above. In first place, it finds the best solution in the neighborhood
+using the 2-opt operation as explained above. Furthermore, as pair of
+routes were compared in this operation, it is tagged as taboo using
+these pair of routes for 2 iterations. In this manner, Lastly, to intensify the
+search for better solutions the swap operation is done
+afterwards. This search stops when the algorithm has run for 15
+iterations and it has not found a better solution than the best
+solution found.
+
+Finally, the VNS algorithm is easily done. In first place, it calls
+the 2-opt operator and finds the best solution. This is done because,
+is the only operator which operates between routes; therefore, doing
+it first and then applying the other operators should yield a better
+solution. In second place, it does the other two operators but
+changing order of this operations. It starts by using swap first and
+then 2h-opt, then it switches the order every iteration. This
+algorithm stops as soon as it makes 5 iterations; this number was
+chosen to reduce execution time.
+
+\section{Computational Results}\label{sec_results}
+
+In table \ref{tab:lsvns} it can be found a comparison of execution
+times and objective value functions using the VNS and TS algorithm;
+the best and worst case scenario for both algorithms are shown in bold
+in the table.. It is important to notice that there is not a
+predominant one, despite VNS having a lower objective function for
+most of the cases.
+
+Furthermore, although VNS for instances 16, 17 had a bigger execution
+time the difference could be considered negligible as for every other
+case this algorithm has the lowest execution time by far.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llllll}
+\hline
+Instance & Nodes & Z Taboo    & Z VNS      & Time Taboo (s) & Time VNS (s) \\ \hline
+1        & 50    & 48617.603  & 46848.122  & 1.23           & 0.83         \\
+2        & 50    & \textbf{8079.274}   & 8079.274   & 1.1            & 0.87         \\
+3        & 50    & 8188.127   & \textbf{7994.871}   & 1.71           & 1.16         \\
+4        & 75    & 64610.015  & 62322.676  & 0.65           & 0.39         \\
+5        & 75    & 11095.207  & 11348.977  & 0.71           & 0.46         \\
+6        & 75    & 10572.525  & 10337.824  & 0.96           & 0.54         \\
+7        & 100   & 85850.941  & 80977.093  & 5.47           & 3.51         \\
+8        & 100   & 16481.176  & 15577.674  & 5.56           & 3.62         \\
+9        & 100   & 16289.528  & 16217.551  & 10.26          & 4.81         \\
+10       & 150   & 102838.607 & 107380.047 & 7.86           & 5.13         \\
+11       & 150   & 22953.536  & 22835.773  & 9.31           & 5.58         \\
+12       & 150   & \textbf{24909.707}  & 24149.597  & 11.15          & 6.36         \\
+13       & 199   & 243441.659 & \textbf{231977.566} & 3.43           & 2.57         \\
+14       & 199   & 151022.868 & 144220.052 & 3.57           & 2.97         \\
+15       & 199   & 23132.397  & 23842.019  & 2.86           & 1.52         \\
+16       & 120   & 148092.648 & 141177.565 & \textbf{19.41}          & \textbf{20.76}        \\
+17       & 120   & 26888.726  & 26289.352  & 5.35           & 6.34         \\
+18       & 120   & 25483.606  & 25666.333  & 4.04           & 4.15         \\
+19       & 100   & 85931.899  & 88359.89   & 5.04           & 1.94         \\
+20       & 100   & 11800.365  & 13133.084  & 2.59           & 1.57         \\
+21       & 100   & 12938.639  & 13646.083  & 2.76           & 1.5          \\ \hline
+\end{tabular}
+\caption{Comparison of objective function and time of execution for TS and VNS.}
+\label{tab:lsvns}
+\end{table}
+
+In this manner, it could be partially considered that the implemented
+VNS algorithm works better as for the it generally outperformed the TS
+algorithm. Furthermore, it is important to find a bigger data set to
+test this as this is not sufficient data to make any meaningful
+conclusions.
+
+\subsection{Constructive Algorithm Comparison}
+In table \ref{tab:cons} it can be found a comparison of the constructive algorithm and how much did the solution change with both algorithms. The percentages in the last two columns where calculated by using the equation:
+\begin{equation}
+  \begin{split}
+    \text{ZTC} &= (Z_\text{c} - Z_{\text{TS}})/Z_\text{c} * 100\% \\
+    \text{ZVC} &= (Z_\text{c} - Z_{\text{VNS}})/Z_\text{c} * 100\%
+  \end{split}
+\end{equation}
+
+It is important to notice than, as expected, the solution given by
+both algorithms is smaller than the one that the constructive
+algorithm gave. This confirms that the algorithm was successfully
+created the manner that at least solutions are getting better.
+
+\begin{table}[]
+\centering
+\begin{tabular}{llll}
+\hline
+Instance & Z Constructive & ZTC    & ZVC    \\ \hline
+1        & 59332.81       & 18.1\% & 21.0\% \\
+2        & 9523.71        & 15.2\% & 15.2\% \\
+3        & 8689.384       & 5.8\%  & 8.0\%  \\
+4        & 71435.922      & 9.6\%  & 12.8\% \\
+5        & 12930.801      & 14.2\% & 12.2\% \\
+6        & 12762.878      & 17.2\% & 19.0\% \\
+7        & 100106.215     & 14.2\% & 19.1\% \\
+8        & 19829.366      & 16.9\% & 21.4\% \\
+9        & 20341.601      & 19.9\% & 20.3\% \\
+10       & 131668.171     & 21.9\% & 18.4\% \\
+11       & 27959.171      & 17.9\% & 18.3\% \\
+12       & 29764.186      & 16.3\% & 18.9\% \\
+13       & 304886.044     & 20.2\% & 23.9\% \\
+14       & 185074.361     & 18.4\% & 22.1\% \\
+15       & 29353.426      & 21.2\% & 18.8\% \\
+16       & 159004.997     & 6.9\%  & 11.2\% \\
+17       & 28566.496      & 5.9\%  & 8.0\%  \\
+18       & 28401.365      & 10.3\% & 9.6\%  \\
+19       & 113912.299     & 24.6\% & 22.4\% \\
+20       & 15417.25       & 23.5\% & 14.8\% \\
+21       & 15755.619      & 17.9\% & 13.4\% \\ \hline
+\end{tabular}
+\caption{Comparison constructive algorithm with TS and VNS.}
+\label{tab:cons}
+\end{table}
+
+\subsection{Lower Bound Comparison}\label{sec_lbc}
+In table \ref{tab:lbc} can be found the comparison to the lower bound explained in the algorithm solutions. The percentages where calculated similarly to the previous comparison.
+
+\begin{table}[]
+\centering
+\begin{tabular}{llll}
+\hline
+Instance & Z LB      & ZTC     & ZVC     \\ \hline
+1        & 18103.263 & 168.6\% & 158.8\% \\
+2        & 3354.104  & 140.9\% & 140.9\% \\
+3        & 3354.104  & 144.1\% & 138.4\% \\
+4        & 32178.306 & 100.8\% & 93.7\%  \\
+5        & 5452.104  & 103.5\% & 108.2\% \\
+6        & 5452.104  & 93.9\%  & 89.6\%  \\
+7        & 36910.475 & 132.6\% & 119.4\% \\
+8        & 6927.287  & 137.9\% & 124.9\% \\
+9        & 6927.287  & 135.2\% & 134.1\% \\
+10       & 54911.404 & 87.3\%  & 95.6\%  \\
+11       & 11174.822 & 105.4\% & 104.4\% \\
+12       & 11174.822 & 122.9\% & 116.1\% \\
+13       & 76505.005 & 218.2\% & 203.2\% \\
+14       & 76505.005 & 97.4\%  & 88.5\%  \\
+15       & 13501.271 & 71.3\%  & 76.6\%  \\
+16       & 71620.463 & 106.8\% & 97.1\%  \\
+17       & 15813.791 & 70.0\%  & 66.2\%  \\
+18       & 15813.791 & 61.1\%  & 62.3\%  \\
+19       & 55021.459 & 56.2\%  & 60.6\%  \\
+20       & 7514.282  & 57.0\%  & 74.8\%  \\
+21       & 7514.282  & 72.2\%  & 81.6\%  \\ \hline
+\end{tabular}
+\caption{Comparison of lower bound with TS and VNS.}
+\label{tab:lbc}
+\end{table}
+
+It is important to remark that although the lower bound chosen for
+this problem is really small compared to the best possible value it
+was possible to construct solutions below the 100\% mark. These means,
+that his algorithms reduced the lower bound gap in a noticeable way.
+
+\section{Conclusions}\label{sec_conclusions}
+It was successfully implemented a taboo search and
+variable-neighborhood search algorithm to solve the heterogeneous
+capacitated cumulative vehicle routing problem. This algorithms obtain
+a better solution, given an initial solution. Furthermore, it is
+hypothesized that the VNS works better but a bigger data set is needed
+to verify this claim.
+
+{\small
+\bibliographystyle{authordate1}
+
+\bibliography{ref.bib}}
+
+
+\end{document}

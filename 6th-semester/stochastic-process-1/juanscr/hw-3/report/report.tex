@@ -1,0 +1,135 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Anotación}
+
+\theoremstyle{remark}
+\newtheorem{question}{Pregunta}
+
+\newtheorem{theorem}{Teorema}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% BIB-LATEX STUFF
+\usepackage[style=numeric,
+            bibstyle=numeric,
+            citestyle=numeric,
+            hyperref=true,
+            backend=biber]{biblatex}
+\addbibresource{~/juanscr/bibliography/ref.bib}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+\newcommand{\ri}{\rightarrow}
+\newcommand{\fOrd}{\O \ri \O}
+
+%%%%%%%% START DOCUMENT
+
+\title{Simulación de Cola}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\ \scalebox{0.7}{Ingeniería Matemática, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section{Problema}
+Se desea estimar los parámetros $L_s$ y $T_s$ de una cola de tipo
+\textbf{M/M/7/7} con $\lambda=2$ y $\mu = 4$.
+
+\section{Solución}
+Para estimar estos parámetros, se decidió simular este tipo de cola
+en el lenguaje de progrmación \textit{R}. La idea era correr la
+simulación un tiempo lo suficientemente largo, para que pudiera
+converger a los valores teóricos.
+
+El número promedio de personas en el sistema, fue estimado de la
+siguiente forma: cada vez que pasaba una unidad de tiempo en la
+simulación, se guardaba en una lista el número de personas que había
+en el sistema en ese instante; luego, sacando el promedio de todos
+estos elementos obteníamos nuestro estimador $\hat{L_s}$. Se puede
+encontrar la evolución de este promedio en la simulación en la Figura
+\ref{fig:num}.
+
+El tiempo promedio en el sistema fue calculado de forma análoga pero, en este caso, cada vez que una persona salía del sistema se guardaba en una lista el tiempo que esta persona estuvo adentro. Luego, se sacaba el promedio de los elementos de esta lista para obtener el estimador $\hat{T_s}$. Se puede encontrar la evolución de este promedio en la simulación en la Figura \ref{fig:time}.
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{num.pdf}
+    \caption{ST para número de personas promedio en el sistema.}
+    \label{fig:num}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{time.pdf}
+    \caption{ST para promedio de tiempo en el sistema.}
+    \label{fig:time}
+  \end{subfigure}
+  \caption{Series de tiempo}
+\end{figure}
+
+Los valores teóricos para estos parámetros fueron calculados, con
+$\rho = \frac{\lambda}{\mu}$, como:
+
+\begin{equation}
+  \begin{split}
+    &\pi_0 = \left(\sum_{i=0}^c \frac{\rho^n}{n!}\right)^{-1} \quad \pi_n = \frac{\rho^n}{n!} \pi_0 \\
+    &L_s = \rho(1 - \pi_c) \quad T_s = \frac{1}{\mu}
+  \end{split}
+\end{equation}
+
+En la Tabla \ref{tab:1} puede encontrarse una comparación entre los
+resultados de la simulación y de los valores teóricos. El error fue
+calculado por medio de la ecuación:
+
+\begin{equation}
+  \text{Error } = \frac{|X - \hat{X}|}{X} \cdot 100\%
+\end{equation}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+      & Teórico & Simulado & Error \\ \hline
+$L_s$ & 0.5     & 0.494    & 1.2\% \\
+$T_s$ & 0.25    & 0.249    & 0.6\% \\ \hline
+\end{tabular}
+\caption{Comparación simulación y valores teóricos.}
+\label{tab:1}
+\end{table}
+
+En conclusión, se halló exitosamente una estimación para el número
+promedio de personas en el sistema y tiempo en el sistema
+promedio. Así, confirmando la utilidad de fórmulas como las de Little
+y de una herramienta como la de simulación.
+\end{document}

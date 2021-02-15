@@ -1,0 +1,369 @@
+\documentclass[10pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+
+% Idioma
+\usepackage[english]{babel}
+
+\usepackage[none]{hyphenat}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\ignore}[1]{}
+
+
+\title{Clark Wright Algorithm Modification for Heterogeneous Cumulatitive Capacitated Vehicle Routing Problem}
+\author{\emph{Juan Sebastián Cárdenas}\\
+\vspace{0.3cm}
+\small{\tt{jscardenar@eafit.edu.co}}\\
+Mathematical Science Department\\
+School of Science\\
+Universidad EAFIT\\
+Medellín -- Colombia}
+\date{\today}
+
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{2cm}{3cm}
+
+% Configurar encabezado y pie de página
+\pagestyle{fancy}
+\lfoot[\date{\today}]{\date{\today}}
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\rhead[Cárdenas (2019)]{Heterogeneous Clark Wright Algorithm}
+\lhead[]{}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{Last update: August of 2019}
+}
+
+\sloppy
+
+
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{firststyle}
+
+\section{Solution Algorithm}\label{sec_alg}
+The \cite{clarke1964} algorithm is a classical method to solve the
+Homogeneous Vehicle Routing Problem (VRP), considering an infinite
+number of vehicles. This procedure is one of the
+better constructive algorithms for this problem, as it has a
+polynomial complexity of $O(n^2)$, it solves the problem
+effectively and it is extremely flexible. In this manner, adaptations
+of this algorithm for different variants of the VRP have been done by
+\cite{golden1984}, \cite{caccetta2013} and more. A pseudo-code for this algorithm can be found in Algorithm \ref{a_cw}.
+
+\begin{algorithm}[H]
+\caption{Clark And Wright Algorithm}\label{a_cw}
+\begin{algorithmic}[1]
+  \Procedure{CW}{$b$, nodes, dem, cap}
+  \State Initialize $n \gets $ \text{length(nodes)}; \text{routes} $\gets$ [ ]
+  \For{$i \gets 0, n$}
+    \State Create route with only one node $i$. Add that route to routes.
+    \For{$j \gets i + 1, n$} \Comment{Calculate savings}
+       \State $s_{ij} \gets d_{bi} + d_{bj} - d_{ij}$ \Comment{$d_{ij}$ is the distance between $i$ and $j$}
+    \EndFor
+   \EndFor
+   \State \text{Sort savings in a decreasing manner.}
+   \ForAll{$s_{ij}$}\Comment{Iterate over ordered savings.}
+      \State $r1 \gets$ Route that has node $i$.
+      \State $r2 \gets$ Routes that has node $j$.
+      \State $ed1 \gets$ True if $i$ is first or last element of r1.
+      \State $ed2 \gets$ True if $j$ is first or last element of r2.
+      \State $d1 \gets$ demand of $(r1) + $demand of$(r2) < $ cap
+      \If{$ed1$ and $ed2$ and $d1$}
+        \State Join $r1$ and $r2$ by joining nodes $i$ and $j$ and add the new route to list routes.
+        \State Remove $r1$ and $r2$ of list routes.
+      \EndIf
+   \EndFor
+   \State \textbf{return} routes
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+What the Clark and Wright algorithm do is, initially, calculate the
+savings for each pair of nodes and generate a route for each node;
+this route is the simplest one, as it goes from the base to the node
+and back to the base. Then, it iterates over the sorted savings and
+joins routes depdending if the nodes associated to that saving are at
+the start or end of their respective routes. At the same time, it is
+neccessary that the demands of both routes that are joining are less
+than the capacity of the bus.
+
+The variation proposed in this work is pretty straight foward. For
+each type of bus, run the savings algorithm supposing an infinite
+amount of vehicles. Then, select the routes that have more nodes
+satisfying the quantity of each type of bus. Furthermore, remove nodes
+that are in the chosen routes. If at the end there are nodes not in a
+route, they are added to a feasible route. A pseudo-code for this
+algorithm can be found in Algorithm \ref{a_mcw}.
+
+\begin{algorithm}[H]
+\caption{Modificated Clark Wright}\label{a_mcw}
+\begin{algorithmic}[1]
+  \Procedure{MCW}{$b$, nodes, dem, buses}
+  \State Initialize $n \gets $ \text{length(nodes)}; routes $\gets$ [ ]
+  \State Sort the list buses by capacity in an increasing manner.
+  \ForAll{buses}
+    \State $q \gets$ quantity of the type of bus.
+    \State routes1 $\gets$ CW($b$, nodes, dem, capacity of bus)
+    \State Sort routes1 by number of nodes in a decreasing manner.
+    \State Save in routes the first $q$ elements of routes1.
+  \EndFor
+  \ForAll{not used nodes}
+    \ForAll{routes}
+      \If{dem(node) + demand of route $<$ capacity of bus}
+        \State Add not used node to start or end of route, depending on which is closer.
+        \State Continue to next node.
+      \EndIf
+    \EndFor
+  \EndFor
+   \State \textbf{return} routes
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+This modification does not alter greatly the complexity of the
+algorithm, as it has a complexity of $O(n^2m)$. At the same time, it
+is important to remark that the buses have to be picked in increasing
+manner. This is due to attempt to use the buses with lower capacity
+the best way possible as they are the quickest ones. Also, so when the
+largest buses are used it is more likely to find a
+solution. Furthermore, an improvement to this algorithm could be done
+by trying to evaluate the best feasible route for the not used nodes.
+
+\subsection{Lower Bound}\label{sec_lb}
+For the lower bound of this problem, it was chosen a similar problem
+but changing the distances and bus constraints so that it represents a
+problem with an exact solution and with an objective function much
+smaller than the one needed.
+
+In this manner, it supposed that all the nodes are distributed equally
+on a circunference that has a perimeter equal to the sum of the lowest
+$n$ distances of the original problem, concentric to the base. At the
+same time, it is supposed that all the nodes have the same demand but
+preserving the total demand $td$. Finally, it is supposed that the
+problem can only use the type of bus with the smallest capacity
+$c_{min}$ and has an amount of $\left \lceil{td/c_{min}} \right \rceil$.
+
+This problem is good for finding a lower bound for several reasons. In
+first place, as the demand is equally distributed there is not a real
+distinction between any pair of nodes, so constructing the routes is
+easy. In second place, the optimal value is easily found as the
+geometric shape of the graph allows to find routes that pass through
+all nodes. Lastly, as the total distance is the sum of the lowest
+distance it assures that the nodes are closer than in the original
+problem.
+
+On the other hand, although it seems that the objective function of
+the optimal solution for the problem proposed is always lower than the
+one for the original problem a formal proof is not known. This is
+important for further work, as it would allow to be certain that this
+is actually a lower bound. At the same time, with the data set of
+problems provided a contradiction was not found therefore it is
+purposed for further work.
+
+The objective function for this lower bound can be calculated using the pseudo-code found in Algorithm \ref{a_lb}.
+
+\begin{algorithm}[H]
+  \caption{Calculate lower bound} \label{a_lb}
+  \begin{algorithmic}[1]
+    \Procedure{LB}{nodes, buses, dem}
+      \State Initialize $lb \gets$ 0; routes $\gets$ [ ]
+      \State bus $\gets$ Select the bus with the lowest capacity.
+      \State $p \gets$ Sum the $n$ lowest distances.
+      \State $td \gets$ Sum of all the demands in dem.
+      \State $n \gets$ length(nodes)
+      \State $d \gets \frac{p}{2\pi}\sqrt{2(1 - \cos{\left(\frac{2\pi}{n}\right)})}$
+      \State $de \gets \left \lceil{\frac{td}{n}} \right \rceil$
+      \ForAll{nodes}
+        \If{de + demand of route $\le$ capacity of bus}
+          \State Append to route the node.
+          \Else
+          \State Start new route.
+        \EndIf
+      \EndFor
+      \ForAll{routes}
+        \For{node in route}
+          \State $lb = lb + de \cdot d \cdot \text{Velocity of bus} \cdot \text{Number of nodes ahead of route}$
+        \EndFor
+        \State $lb = lb + de \cdot d \cdot \text{Velocity of bus} \cdot \text{Number of nodes in route}$
+      \EndFor
+    \EndProcedure
+  \end{algorithmic}
+
+\end{algorithm}
+
+\section{Computational results}\label{sec_results}
+This algorithm was programmed in Python, using the integrated
+development evironment PyCharm developed by JetBrains. It was run in a
+computer with a processor of $2.2$ GHz and a RAM memory of $8$
+Gb. The problem was tested with 21 problems, with different nodes and
+types of vehicles. Only one of the 21 problems don't have a feasible
+solution. This data set was given by Juan Carlos Rivera.
+
+With the lower bound calculated for each problem, the lower bound
+comparison (LBC) was calculated using the equation \ref{eq:er}. This measure allows to calculate how far is the objective function compared to the lower bound percent wise.
+
+\begin{equation}
+  \label{eq:er}
+  \text{LBC} = \frac{z - lb}{lb} * 100\%
+\end{equation}
+
+The results for LBC and the time of computation (TC) in seconds can be
+found in table Table \ref{t_cp}.
+
+\begin{table}[]
+\centering
+\begin{tabular}{llll}
+\hline
+Problem & Nodes & LBC       & TC      \\ \hline
+1       & 50    & 120.66\%  & 0.01613 \\
+2       & 50    & 178.723\% & 0.01549 \\
+3       & 50    & 152.225\% & 0.01512 \\
+4       & 75    & 37.703\%  & 0.03466 \\
+5       & 75    & 74.923\%  & 0.03448 \\
+6       & 75    & 72.748\%  & 0.03706 \\
+7       & 100   & 60.148\%  & 0.06178 \\
+8       & 100   & 107.347\% & 0.05721 \\
+9       & 100   & 108.602\% & 0.0629  \\
+10      & 150   & 31.021\%  & 0.14909 \\
+11      & 150   & 22.666\%  & 0.16225 \\
+12      & 150   & 37.852\%  & 0.14949 \\
+13      & 199   & 134.67\%  & 0.32369 \\
+14      & 199   & 40.087\%  & 0.35164 \\
+15      & 199   & 35.57\%   & 0.31384 \\
+16      & 120   & 422.168\% & 0.09116 \\
+17      & 120   & 372.659\% & 0.11881 \\
+18      & 120   & 484.049\% & 0.08868 \\
+19      & 100   & 102.357\% & 0.05478 \\
+20      & 100   & 272.661\% & 0.05941 \\
+21      & 100   & 265.137\% & 0.05318 \\ \hline
+\end{tabular}
+\caption{Lower bound comparison and time of computation (seconds)}
+\label{t_cp}
+\end{table}
+
+In first place, it is important to notice that the algorithm did had
+reasonable time of computations for different size of nodes. In the
+same manner, it founded a feasible solution for the problem if it
+exists. Furthermore, although for some problems the solution was far
+from the lower bound calculated, for problems such as $4$, $11$ and
+more the algorithm successfully found a solution considerably
+close. In this manner, this algorithm should have some cases in which
+it performs better.
+
+In conclusion, it is seen that the algorithm effectively solves the
+presented problem as it always returned a feasible solution that can
+be sufficiently close to a lower bound. Moreover, it is seen that the
+time of computations is reasonable enough compared to the size of the
+problem.
+
+\subsection{Algorithm comparison}\label{sec_comp}
+The comparison is going to be used a colleague's work, to have a
+better perspective of how good of a solution the algorithm presented
+works. Specially, it is going to be compared to David Plazas E.'s
+work. This work used to contrast the solutions is an adaptation of the
+sweep algorithm \citep{renaud2002}. This comparison was done by
+comparing the value of the two objective functions.
+
+This comparison, similar to the one made for the lower bound, was made
+by equation \ref{eq:pl} with $z_1$ being the value of the objective
+function for this article and $z_2$ the value of the objective
+function for colleague's work. This equation is used to compare how
+distant the solution presented from the solution that David made.
+
+\begin{equation}
+  \label{eq:pl}
+  \text{Comparison} = \frac{z_2 - z_1}{z_2}
+\end{equation}
+
+The results of the comparison for each problem can be found in table
+Table \ref{t_pl}.
+
+\begin{table}[]
+\centering
+\begin{tabular}{ll}
+\hline
+Problem & Comparison \\ \hline
+1       & 17.616\%   \\
+2       & 24.181\%   \\
+3       & 36.222\%   \\
+4       & 25.055\%   \\
+5       & 29.911\%   \\
+6       & 28.051\%   \\
+7       & 45.344\%   \\
+8       & 38.774\%   \\
+9       & 37.36\%    \\
+10      & 41.864\%   \\
+11      & 46.271\%   \\
+12      & 32.55\%    \\
+13      & 34.026\%   \\
+14      & 30.06\%    \\
+15      & 38.768\%   \\
+16      & 52.372\%   \\
+17      & 51.792\%   \\
+18      & 40.852\%   \\
+19      & 47.827\%   \\
+20      & 39.114\%   \\
+21      & 42.589\%   \\ \hline
+\end{tabular}
+\caption{Comparison between objective functions between David Plazas work and the algorithm presented}
+\label{t_pl}
+\end{table}
+
+In first place, it is seen that the algorithm presented in this
+article outperformed in results the colleague's work, as a positive
+percentage means a better solution as it shows that the obtained value
+is smaller. Furthermore, it presents solutions at least $15\%$ smaller
+than the ones presented in David's work. This shows that this
+algorithm successfully outperforms algorithms with similar purposes.
+
+On the other hand, time comparisons weren't made. As it is known,
+Sweep algorithm has a smaller algorithmic complexity so perhaps, that
+algorithm outperforms in time of computation the one
+presented. Furthermore, even if time of computation is bigger than the
+comparison, it does not mean that this algorithm is slow as it has
+some really small times of computations.
+
+\section{Conclusions}\label{sec_conclusions}
+It was successfully designed a Clark and Wright algorithm modification
+for the Heterogeneous Cumulative Capacitated Vehicle Routing Problem,
+that solves in polynomial complexity. Furthermore, it was found that
+the results by this algorithm are good compared to a colleague's work
+and a defined lower bound. Finally, the time of computation for this
+algorithm is good enough for the size of the problem as it allowed for
+solving the problem in less than a second.
+
+For further work, it is important to formally proof that the lower
+bound used in this article is a lower bound for the problem. Moreover,
+it is important to find improvements to the time of computation of
+this algorithm as it would be desired to be smaller.
+\section*{Acknowledgments}
+The author thanks his colleague David Plazas E. for giving the results
+of his algorithm for comparison.
+
+
+{\small
+\bibliographystyle{authordate1}
+
+\bibliography{ref.bib}}
+
+
+\end{document}

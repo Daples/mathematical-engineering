@@ -1,0 +1,46 @@
+\section{MODEL INPUTS}\label{sec:data}
+\subsection{Inputs}
+The implementation uses as input the initial population for each diagnosis: it is modeled by a slider in NetLogo.
+
+\subsection{Parameters}
+
+The implementation uses as input the initial population for each diagnosis: it is modeled by a slider in NetLogo. As for parameters:
+\begin{itemize}
+\item Number of relatives: it is modeled in the form $\floor{N/k}, \ k\in\mathbb{N}$.
+\item Gender probability.
+\item Initial glucose.
+\item $\alpha$ and $\beta$ from social pressure (\cref{eq:sp}).
+\item $c$ and $a_i$ from the radius (\cref{eq:rad}).
+\item Number of ticks before updating BMI.
+\item Probabilities relating BMI and diabetes (\cref{tab:probs}), based on the work from \cite{bays2007relationship}. In this table, $D$ is the event of a person getting diabetic, and $x_0<\text{BMI}<x_1$ is the event of the BMI being in the specified interval.
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+             $(x_0, x_1)$ & $P(D|x_0 < \text{BMI} < x_1)$ & $P(x_0 < \text{BMI} < x_1|D)$ \\ \hline
+(15, 18.5)   & 0.005                         & 0.032                         \\
+(18.6, 24.9) & 0.122                         & 0.134                         \\
+(25, 26.9)   & 0.103                         & 0.044                         \\
+(27, 27.9)   & 0.178                         & 0.057                         \\
+(30, 34.9)   & 0.261                         & 0.111                         \\
+(35, 39.9)   & 0.155                         & 0.165                         \\
+(40, 60)     & 0.176                         & 0.461                         \\ \hline
+\end{tabular}
+\caption{Probabilities.}
+\label{tab:probs}
+\end{table}
+
+\item Changes of BMI according to marriage and gender (\cref{tab:bmi}) from \cite{jeffery2002cross}.
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\hline
+\textbf{Marital status} & \textbf{Men}     & \textbf{Women}   \\ \hline
+Became unmarried        & $-0.27 \pm 0.33$ & $-0.63 \pm 0.27$ \\
+Became married          & $0.70 \pm 0.24$  & $0.96 \pm 0.30$  \\ \hline
+\end{tabular}
+\caption{BMI range of changes.}
+\label{tab:bmi}
+\end{table}
+
+\end{itemize}

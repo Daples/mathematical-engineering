@@ -1,0 +1,15 @@
+codigo
+
+funcion principal ( real x  real y )
+real z
+leer z
+algo = x y
+llamar ecuacion1 ( x y z )
+mostrar algo
+finfuncion
+
+funcion ecuacion1 ( real x real y real z )
+entero p
+finfuncion
+
+fincodigo

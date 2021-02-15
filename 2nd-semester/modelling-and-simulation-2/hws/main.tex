@@ -1,0 +1,362 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{vmargin}
+\setmarginsrb
+ { 2.0cm}  % left marg
+ { 1.0cm}  % top marg
+ { 2.0cm}  % right marg
+ { 2.0cm}  % bottom marg
+ {  13.6pt}  % head height
+ {0.25cm}  % head sep
+ {  13.6pt}  % foot height
+ { 0.3cm}  % foot sep
+\begin{document}
+	\title{Tareas Modelación y Simulación II}
+    \author{Juan S. Cárdenas R.\\ David Plazas E.}
+    \maketitle
+    \section{Distribuciones de Probabilidad}
+    	\subsection{Binomial}
+            Demuestre que la media $\mu$ y la varianza $Var (x)$ para la distribución binomial están dadas por:
+            \begin{equation}
+                \mu = np
+            \end{equation}
+            \begin{equation}
+                Var(X) = npq
+            \end{equation}
+            \subsubsection{Media}
+            	La media para la distribución binomial es	
+                \begin{equation*}
+                	\mu =\sum _{ x=0 }^{ n }{ x\left( \begin{matrix} n \\ x \end{matrix} \right) { p }^{ x }{ q }^{ n-x } } 
+                \end{equation*}
+                Cuando x=0, se anula la sumatoria. Luego
+                \begin{equation*}
+                	\mu =\sum _{ x=1 }^{ n }{ x\left( \begin{matrix} n \\ x \end{matrix} \right) { p }^{ x }{ q }^{ n-x } } 
+                \end{equation*}
+                Teniendo en cuenta que
+                \begin{equation*}
+                	\left( \begin{matrix} i \\ j \end{matrix} \right) =\frac { i }{ j } \left( \begin{matrix} i-1 \\ j-1 \end{matrix} \right) 
+                \end{equation*}
+                Se tiene
+                \begin{equation*}
+                	\mu =\sum _{ x=1 }^{ n }{ n\left( \begin{matrix} n-1 \\ x-1 \end{matrix} \right) { p }^{ x }{ q }^{ n-x } }
+                \end{equation*}
+                Sea $x'=x-1$, $n'=n-1$, luego
+                \begin{equation*}
+                	\mu =n\sum _{ x'=0 }^{ n }{ \left( \begin{matrix} n' \\ x' \end{matrix} \right) { p }^{ x'+1 }{ q }^{ n'-x' } }
+                \end{equation*}
+				\begin{equation*}
+                	\mu =np\sum _{ x'=0 }^{ n }{ \left( \begin{matrix} n' \\ x' \end{matrix} \right) { p }^{ x' }{ q }^{ n'-x' } }
+                \end{equation*}
+                \newpage Ahora, el teorema binomial nos dice que 
+                \begin{equation}
+                	{ \left( \lambda +\gamma  \right)  }^{ \delta  }=\sum _{ r=0 }^{ \delta  }{ \left( \begin{matrix} \delta  \\ r \end{matrix} \right) { \lambda  }^{ r }{ \gamma  }^{ \delta -r } } 
+                \end{equation}
+                Luego,
+                \begin{equation*}
+                	\mu =np(p+q)^{n'}
+                \end{equation*}
+                Teniendo en cuenta que es una distribución binomial, $p+q=1$. Por lo tanto, la media está dada por la ecuación
+                \begin{equation}
+                	\mu=np
+                \end{equation}
+                
+            \subsubsection{Varianza}
+              Sabemos que la varianza se puede escribir como:
+              \begin{equation*}
+              V(X)=E({ X }^{ 2 })-{ \left[ \mu \right]  }^{ 2 }
+              \end{equation*}
+              Además, por propiedades de la esperanza matemática podemos hallar que $E({X}^{2})$ es igual a:
+              \begin{equation*}
+              E({ X }^{ 2 }-X)+E(X)=E({ X }^{ 2 })
+              \end{equation*}
+              Por otro lado, tenemos estas fórmulas que aplican debido a que son una distribución binomial:
+              \begin{equation*}
+              P(X=x)= (nCx){ p }^{ x }{ q }^{ n-x }
+              \end{equation*}
+              \begin{equation*}
+              \mu =np
+              \end{equation*}
+              Para hallar $E({ X }^{ 2 }-X)$ aplicamos la definción de esperanza obteniendo:
+              \begin{equation*}
+              E({ X }^{ 2 }-X)=\sum _{ x=0 }^{ n }{ x(x-1)\frac { n! }{ (n-x)!x! } { p }^{ x }{ q }^{ n-x } }
+              \end{equation*}
+              Aplicando propiedades del factorial obtenemos que:
+              \begin{equation*}
+              E({ X }^{ 2 }-X)=\sum _{ x=2 }^{ n }{ \frac { n! }{ (n-x)!(x-2)! } { p }^{ x }{ q }^{ n-x } }
+              \end{equation*}
+              \begin{equation*}
+               E({ X }^{ 2 }-X)={ p }^{ 2 }n(n-1)\sum _{ x=2 }^{ n-2 }{ \frac { (n-2)! }{ (n-x)!(x-2)! } { p }^{ x-2 }{ q }^{ n-x } } 
+              \end{equation*}
+              Obsérvese que si hacemos dos cambios de variable $m =n-2$ y $z=x-2$ obtenemos la fórmula:
+              \begin{equation*}
+              E({ X }^{ 2 }-X)={ p }^{ 2 }n(n-1)\sum _{ z=0 }^{ m }{ \frac { m! }{ (m-z)!z! } { p }^{ z }{ q }^{ m-z } } 
+              \end{equation*}
+              Así, el término de la sumatoria es análogo a la suma de todos los términos de una distribución binomial de tamaño $m$ y con una variable aleatoria $z$. Por lo tanto, dicho término es equivalente a $1$. Así, concluimos que:
+              \begin{equation*}
+              E({ X }^{ 2 })={ p }^{ 2 }n(n-1)+np
+              \end{equation*}
+              \newpage Por lo tanto, la varianza es:
+              \begin{equation*}
+              Var(X)={ p }^{ 2 }n(n-1)+np-{ (np) }^{ 2 }
+              \end{equation*}
+              \begin{equation*}
+              Var(X)={ p }^{ 2 }{ n }^{ 2 }-{ p }^{ 2 }n+np-{ (np) }^{ 2 }
+              \end{equation*}
+              \begin{equation*}
+              Var(X)=np(1-p)
+              \end{equation*}
+              \begin{equation*}
+              Var(X)=npq
+              \end{equation*}
+          
+		\subsection{Hipergeométrica}
+       		Demuestre que la media $\mu (x)$ y la varianza $\sigma^2 (x)$ para la distribución hipergeométrica están dadas por:
+            \begin{equation}
+            	\mu = \frac{nm}{N}
+            \end{equation}
+            \begin{equation}
+				Var(X)=\left( \frac{N-m}{N-1} \right)\left( \frac{nm}{N} \right)\left( 1-\frac{m}{N} \right)
+            \end{equation}
+            
+            \subsubsection{Media}
+             Sabemos que la esperanza se define como:
+          \begin{equation*}
+           E(X)=\sum _{ x=0 }^{ n }{ xp(x) }
+          \end{equation*} 
+
+           Así, si sustituimos la probabilidad para algún $x$ dado que es una distribución hipergeométrica llegamos a la ecuación:
+           \begin{equation*}
+           E(X)=\sum _{ x=0 }^{ n }{ \frac { (dCx)\left( \left[ N-d \right] C\left[ n-x \right]  \right)  }{ NCn } x } 
+           \end{equation*}
+
+           Además, como propiedad de la combinatoria podemos demostrar que:
+           \begin{equation*}
+           pCq=\frac { p }{ q } (p-1)C(q-1)
+           \end{equation*}
+
+           Así, remplazando dicha identidad para el término $dCx$ y para el término $NCn$ llegamos a:
+           \begin{equation*}
+           E(X)=\frac { nd }{ N } \sum _{ x=1 }^{ n-1 }{ \frac { ((d-1)C(x-1))\left( \left[ N-d \right] C\left[ n-x \right]  \right)  }{ (N-1)C(n-1) }  } 
+           \end{equation*}
+
+           De esta manera, si hacemos un cambio de variable $N'=N-1$, $n'=n-1$, $d'=d-1$, $x'=x-1$ llegamos a que:
+           \begin{equation*}
+           E(X)=\frac { nd }{ N } \sum _{ x'=0 }^{ n' }{ \frac { (d'Cx')\left( \left[ N'-d' \right] C\left[ n'-x' \right]  \right)  }{ N'Cn' }  } 
+           \end{equation*}
+
+           Y, podemos observar, que el término de la sumatoria es exactamente análogo a la sumatoria de todos los términos de una distribución hipergeométrica con parámetros $d'$, $N'$, $n'$, $x'$; por lo tanto, esta sumatoria debe ser igual a 1. Así, concluimos que:
+
+           \begin{equation*}
+           E(X)=\frac { nd }{ N } 
+           \end{equation*}
+            
+            \subsubsection{Varianza}
+            	Sabemos que la varianza se puede calcular como
+                \begin{equation}
+                \label{eq:var1}
+                	Var\left( X \right)=\mbox{E}\left( X^{2} \right)-\left[ \mbox{E}\left( X \right) \right]^{2}
+                \end{equation}
+                Ya sabemos que $E(X) = \frac{nm}{N}$, calculemos $E(X^2)$
+                \begin{equation*}
+                	E(X^2)= \sum _{ x=0 }^{ n }{ \frac { \left( \begin{matrix} m \\ x \end{matrix} \right) \left( \begin{matrix} N-m \\ n-x \end{matrix} \right)  }{ \left( \begin{matrix} N \\ n \end{matrix} \right)  } { x }^{ 2 } } 
+                \end{equation*}
+                Aplicando la siguiente propiedad del coeficiente binomial
+                \begin{equation*}
+                	\left( \begin{matrix} i \\ j \end{matrix} \right) =\frac { i }{ j } \left( \begin{matrix} i-1 \\ j-1 \end{matrix} \right) 
+                \end{equation*}
+            	Se tiene
+                \begin{equation*}
+                	E(X^2)=\frac { mn }{ N } \sum _{ x=1 }^{ n }{ \frac { \left( \begin{matrix} m-1 \\ x-1 \end{matrix} \right) \left( \begin{matrix} N-m \\ n-x \end{matrix} \right)  }{ \left( \begin{matrix} N-1 \\ n-1 \end{matrix} \right)  } { x } } 
+                \end{equation*}
+                Sea $x'=x-1$, $m'=m-1$, $N'=N-1$, $n'=n-1$, reemplazando se obtiene
+                \begin{equation*}
+                	E(X^2)=\frac { mn }{ N } \sum _{ x=0 }^{ n }{ \frac { \left( \begin{matrix} m' \\ x' \end{matrix} \right) \left( \begin{matrix} N'-m' \\ n'-x' \end{matrix} \right)  }{ \left( \begin{matrix} N' \\ n' \end{matrix} \right)  } { (x'+1) } } 
+                \end{equation*}
+                \begin{equation*}
+                	E(X^2)=\frac { mn }{ N } \left[ \sum _{ x=0 }^{ n }{ \frac { \left( \begin{matrix} m' \\ x' \end{matrix} \right) \left( \begin{matrix} N'-m' \\ n'-x' \end{matrix} \right)  }{ \left( \begin{matrix} N' \\ n' \end{matrix} \right)  } { x } } + \sum _{ x=0 }^{ n }{ \frac { \left( \begin{matrix} m' \\ x' \end{matrix} \right) \left( \begin{matrix} N'-m' \\ n'-x' \end{matrix} \right)  }{ \left( \begin{matrix} N' \\ n' \end{matrix} \right)  } } \right]
+                \end{equation*}
+                El primer término es la media para la distribución hipergeométrica; el segundo es la suma de las probabilidades para la misma distribución. Al ser una distribución de probabilidad, debe dar 1. Luego
+                \begin{equation*}
+                	E(X^2)=\frac{mn}{N}\left(\frac{m'n'}{N'}+1\right)
+                \end{equation*}
+                \begin{equation*}
+                	E(X^2)=\frac{mn}{N}\left[\frac{(m-1)(n-1)}{N-1}+1\right]
+                \end{equation*}
+                Reemplazando en la ecuación \ref{eq:var1}, se tiene
+                \begin{equation*}
+                	Var(X)=\frac{mn}{N}\left[\frac{(m-1)(n-1)}{N-1}+1\right]-\left( \frac{mn}{N}\right)^2
+                \end{equation*}
+                \begin{equation*}
+                	Var(X)=\frac{mn}{N}\left[\frac{mnN-mN-nN+N^2-mnN+mn}{N(N-1)}\right]
+                \end{equation*}
+                \begin{equation*}
+                	Var(X)=\frac{mn}{N}\left[\frac{N^2-(m+n)N+mn}{N(N-1)}\right]
+                \end{equation*}
+                \begin{equation*}
+                	Var(X)=\frac{mn}{N}\left[\frac{(N-m)(N-n)}{N(N-1)}\right]
+                \end{equation*}
+                \newpage Entonces, la varianza para la distribución hipergeométrica está dada para por la ecuación
+                \begin{equation}
+                	Var(X)=\left( \frac{mn}{N}\right)\left( \frac{N-n}{N-1}\right)\left( 1-\frac{m1}{N}\right)
+                \end{equation}
+      	\subsection{Normal}
+        	\subsubsection{Varianza}
+        	Hallar la varianza para la distribución normal a partir de la fórmula para varianza en distribuciones de probabilidad continuas:
+            \begin{equation}
+            	Var(X)=\int_{-\infty }^{\infty }{\left( x-\mu  \right)^{2}f\left( x \right)dx}
+            \end{equation}
+            En particular, se tiene que
+            \begin{equation*}
+            	Var(X) = \int_{-\infty}^{\infty}(x-\mu)^2\frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx
+            \end{equation*}
+			Haciendo $z = x-\mu$ y $dz = dx$, se tiene
+            \begin{equation*}
+            	\int_{-\infty}^{\infty}(x-\mu)^2\frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx = \int_{-\infty}^{\infty}z^2\frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{z^2}{2\sigma^2}}dz
+            \end{equation*}
+            Sustituyendo $z=\sigma\sqrt{2}w$ y $dz = \sigma\sqrt{2}dw$, se obtiene que
+            \begin{equation*}
+            	\int_{-\infty}^{\infty}z^2\frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{z^2}{2\sigma^2}}dz = \sigma \sqrt{2}\int_{-\infty }^{\infty }{\left( \sigma \sqrt{2}w \right)^{2}\frac{1}{\sigma \sqrt{2\pi }}e^{-\frac{\left( \sigma \sqrt{2}w \right)^{2}}{2\sigma ^{2}}}}dw
+            \end{equation*}     
+            Luego
+            \begin{equation*}
+            	\sigma \sqrt{2}\int_{-\infty }^{\infty }{\left( \sigma \sqrt{2}w \right)^{2}\frac{1}{\sigma \sqrt{2\pi }}e^{-\frac{\left( \sigma \sqrt{2}w \right)^{2}}{2\sigma ^{2}}}}dw = \sigma ^{2}\frac{4}{\sqrt{\pi }}\int_{0}^{\infty }{w^{2}e^{-w^{2}}dw}
+            \end{equation*}
+            Ahora, sustituyendo $t = x^2$ y $dx = (2\sqrt{t})^{-1}dt$, se tiene
+            \begin{equation*}
+            	\begin{split}\sigma ^{2}\frac{4}{\sqrt{\pi }}\int_{0}^{\infty }{w^{2}e^{-w^{2}}dw} &= \sigma ^{2}\frac{4}{\sqrt{\pi }}\int_{-\infty }^{\infty }{\left( \sqrt{t} \right)^{2}\left( 2\sqrt{t} \right)^{-1}e^{-t}dt} \\
+                \sigma ^{2}\frac{4}{\sqrt{\pi }}\int_{-\infty }^{\infty }{\left( \sqrt{t} \right)^{2}\left( 2\sqrt{t} \right)^{-1}e^{-t}dt} &= \sigma ^{2}\frac{2}{\sqrt{\pi }}\int_{0}^{\infty }{t^{\frac{3}{2}-1}e^{-t}dt} \\
+                \sigma ^{2}\frac{2}{\sqrt{\pi }}\int_{0}^{\infty }{t^{\frac{3}{2}-1}e^{-t}dt}&=\sigma ^{2}\frac{2}{\sqrt{\pi }}\Gamma\left( \frac{3}{2} \right) = \sigma^2\frac{2}{\sqrt{\pi}} \frac{\sqrt{\pi}}{2}= \sigma^2
+              	\end{split}
+            \end{equation*}
+            Entonces
+            \begin{equation}
+            	Var(X)=\sigma^2
+            \end{equation}
+            
+  		\subsection{Exponencial}
+        	\subsubsection{Varianza}
+        	Demuestre que la varianza de la distribución exponencial es
+        	\begin{equation}
+            	\sigma^2 = \beta^2
+            \end{equation}
+            \newpage Sabemos que la varianza para las distribuciones de probabilidad continuas está dada por la ecuación
+            \begin{equation}
+            \label{eq:var}
+            	Var(X)=\int_{-\infty }^{\infty }{\left( x-\mu  \right)^{2}f\left( x \right)dx}
+            \end{equation}
+            Reemplazando la función de densidad para la exponencial
+			\begin{equation}
+            	f\left( x \right)=\left\{\begin{array}{cc} 0 & x<0 \\ \frac{1}{\beta }e^{-\frac{x}{\beta }}\;  & x\geq 0 \end{array}\right.
+            \end{equation}
+            en la ecuación \ref{eq:var}, se tiene
+            \begin{equation*}
+            	Var(X)=\int_{0 }^{\infty }{\left( x-\mu  \right)^{2}\frac{e^{-\frac{x}{\beta}}}{\beta}dx} = \lim_{T \rightarrow \infty}\int_{0 }^{T }{\left( x-\mu  \right)^{2}\frac{e^{-\frac{x}{\beta}}}{\beta}dx}
+            \end{equation*}
+			Integrando por partes con $u=(x-\mu)^2$, $du=2(x-\mu)dx$, $dv=e^{-\frac{x}{\beta}}dx$ y $v=-\beta e^{-\frac{x}{\beta}}$,
+            \begin{equation*}
+            	Var(X)=\frac{1}{\beta}\lim_{T \rightarrow \infty}\left[ -\beta e^{-\frac{x}{\beta}}(x-\mu )^{ 2 } \bigg|_0^T + 2\beta\int_{0}^{T}{e^{-\frac{x}{\beta}}(x-\mu)dx}\right]
+            \end{equation*}
+            Evaluando e integrando por partes una vez más con $u=(x-\mu)$, $du=dx$, $dv=e^{-\frac{x}{\beta}}dx$ y $v=-\beta e^{-\frac{x}{\beta}}$, se tiene que
+            \begin{equation*}
+            	Var(X)=\frac{1}{\beta}\lim_{T \rightarrow \infty}\left[ -\beta e^{-\frac{x}{\beta}}(x-\mu )^{ 2 } \bigg|_0^T + 2\beta \left( -\beta e^{-\frac{x}{\beta}}(x-\mu )\bigg|_0^T +\beta\int_{0}^{T}{e^{-\frac{x}{\beta}}dx} \right)\right]
+            \end{equation*}
+            \begin{equation*}
+            	Var(X)=\frac{1}{\beta}\lim_{T \rightarrow \infty}\left[ -\beta e^{-\frac{x}{\beta}}(x-\mu )^{ 2 } \bigg|_0^T + 2\beta \left( -\beta e^{-\frac{x}{\beta}}(x-\mu )\bigg|_0^T -\beta^2e^{-\frac{x}{\beta}}\bigg|_0^T  \right)\right]
+            \end{equation*}
+            \begin{equation*}
+            	Var(X)=\frac{1}{\beta}\left[\beta\mu^2+2\beta\left( \beta\mu -\beta^2\right)\right]
+            \end{equation*}
+            Pero como $\mu = \beta$ para la distribución exponencial, entonces se tiene
+            \begin{equation*}
+            	Var(X)=\beta^2
+            \end{equation*}
+            
+  		\subsection{Gamma}	
+        	\subsubsection{Varianza}
+          Retomando la ecuación \ref{eq:var} (varianza para una distribución de probabilidad continua), reemplazando la función de densidad para la función gamma,
+          \begin{equation}
+            f\left( x \right)=\left\{\begin{array}{cc} 0 & x<0 \\ \frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}x^{\alpha -1}e^{-\frac{x}{\beta }}\;  & x\geq 0 \end{array}\right.
+          \end{equation}
+          Se tiene entonces que
+          \begin{equation*}
+            Var\left( X \right)=\int_{0}^{\infty }{\frac{\left( x-\mu  \right)^{2}}{\beta^{\alpha }\Gamma\left( \alpha  \right)}x^{\alpha -1}e^{-\frac{x}{\beta }}dx}
+          \end{equation*}
+          Que puede escribirse como
+          \begin{equation*}
+            Var\left( X \right)=\frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}\left[ \int_{0}^{\infty }{x^{\alpha +1}e^{-\frac{x}{b}}dx}-2\mu \int_{0.}^{\infty }{x^{\alpha }e^{-\frac{x}{\beta }}dx}+\mu ^{2}\int_{0}^{\infty }{x^{\alpha -1}e^{-\frac{x}{\beta }}dx} \right]
+          \end{equation*}
+         \newpage Si se reemplaza $z=\frac{x}{\beta}$ y $dz=\frac{dx}{\beta}$,
+          \begin{equation*}
+            Var\left( X \right)=\frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}\left[ \int_{0}^{\infty }{\left( \beta z \right)^{\alpha +1}e^{-z}\beta dz}-2\mu \int_{0.}^{\infty }{\left( \beta z \right)^{\alpha }e^{-z}\beta dz}+\mu ^{2}\int_{0}^{\infty }{\left( \beta z \right)^{\alpha -1}e^{-z}\beta dz} \right]
+          \end{equation*}
+          \begin{equation*}
+            Var\left( X \right)=\frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}\left[ \beta ^{a+2}\int_{0}^{\infty }{z^{\alpha +1}e^{-z}dz}-2\mu \beta ^{\alpha +1}\int_{0.}^{\infty }{z^{\alpha }e^{-z}dz}+\mu ^{2}\beta ^{\alpha }\int_{0}^{\infty }{z^{\alpha -1}e^{-z}dz} \right]
+          \end{equation*}
+          Utilizando la definición de la función gamma,
+          \begin{equation*}
+            Var\left( X \right)=\frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}\left[ \beta ^{a+2}\Gamma\left( \alpha +2 \right)-2\mu \beta ^{\alpha +1}\Gamma\left( \alpha +1 \right)+\mu ^{2}\beta ^{\alpha }\Gamma\left( \alpha  \right) \right]
+          \end{equation*}
+          Aplicando la propiedad de $\Gamma(\alpha+1)=\alpha\Gamma(\alpha)$, se tiene
+          \begin{equation*}
+            Var\left( X \right)=\frac{1}{\beta ^{\alpha }\Gamma\left( \alpha  \right)}\left[ \beta ^{a+2}\left( \alpha +1 \right)\alpha \Gamma\left( \alpha  \right)-2\mu \beta ^{\alpha +1}\alpha \Gamma\left( \alpha  \right)+\mu ^{2}\beta ^{\alpha }\Gamma\left( \alpha  \right) \right]
+          \end{equation*}
+          Simplificando,
+          \begin{equation*}
+            Var\left( X \right)=\beta ^{2}\left( \alpha +1 \right)\alpha -2\mu \alpha \beta +\mu ^{2}
+          \end{equation*}
+          Pero $\mu=\alpha\beta$ para la distribución gamma, luego
+          \begin{equation*}
+            Var\left( X \right)=\alpha ^{2}\beta ^{2}+\alpha \beta ^{2}-2\alpha ^{2}\beta ^{2}+\alpha ^{2}\beta ^{2}
+          \end{equation*}
+          Luego, la varianza está dada por la expresión
+          \begin{equation}
+            Var\left( X \right)=\alpha\beta^2
+          \end{equation}
+          
+          \subsubsection{Adicional}
+          Demuestre que 
+          \begin{equation}
+              \int _{ 0 }^{ x }{ \frac { { y }^{ \alpha -1 } }{ { \beta  }^{ \alpha  }\Gamma (\alpha ) } { e }^{ -y/\beta  }dy } =1-\sum _{ m=0 }^{ \alpha -1 }{ \frac { { e }^{ -\lambda x }{ (\lambda x) }^{ m } }{ m! }  }, \quad \alpha \in \mathbb{N}
+          \end{equation}
+          Sabemos que:
+          \begin{equation*}
+              \int _{ 0 }^{ x }{ \frac { { y }^{ \alpha -1 } }{ { \beta  }^{ \alpha  }\Gamma (\alpha ) } { e }^{ -y/\beta  }dy } =1-\int _{ x }^{ \infty  }{ \frac { { y }^{ \alpha -1 } }{ { \beta  }^{ \alpha  }\Gamma (\alpha ) } { e }^{ -y/\beta  }dy } 
+          \end{equation*}
+          Y, además, como $\alpha$ es un número natural sabemos por propiedad de la distribución gamma que:
+          \begin{equation*}
+              \Gamma (\alpha) = (\alpha - 1)!
+          \end{equation*}
+          Y, además, si sustituimos:
+          \begin{equation*}
+              \lambda = \frac{1}{\beta}
+          \end{equation*}
+          Llegamos entonces a, utilizando solo la integral de la derecha:
+          \begin{equation*}
+              \int _{ x }^{ \infty  }{ \frac { \lambda  }{ (\alpha -1)! } (\lambda { y) }^{ \alpha -1 }{ e }^{ -\lambda y }dy }  
+          \end{equation*}
+          Sustituyendo $t=\lambda$ y $dt = \lambda dy$ entonces llegamos a la ecuación:
+          \begin{align}
+              \begin{aligned}
+                  I & = \frac { 1 }{ (a-1)! } \int _{ \lambda x }^{ \infty  }{ t^{ \alpha -1 }{ e }^{ -t }dt } = \frac { 1 }{ (a-1)! }\lim_{T \rightarrow \infty} \int _{ \lambda x }^{ T  }{ t^{ \alpha -1 }{ e }^{ -t }dt }\\ 
+                  & = \frac { 1 }{ (a-1)! }\lim_{T \rightarrow \infty} \left[ {  t^{ \alpha  - 1 }{ e }^{ -t }  }\bigg|_{ \lambda x}^{ T  }+(\alpha-1) \int _{ \lambda x }^{ T  }{ { { t }^{ \alpha - 2 }e }^{ -t }dz }  \right]  \\
+                  & = \frac { 1 }{ (a-1)! } \lim_{T \rightarrow \infty}\left[ (\lambda x)^{ \alpha - 1 }{ e }^{ -\lambda x }+(\alpha-1) \int _{ \lambda x }^{ T  }{ { { t }^{ \alpha - 2 }e }^{ -t }dt }  \right] 
+              \end{aligned}
+          \end{align}
+          \newpage Observamos que la integral sobrante es totalmente análoga a la integral de la cual partimos. Por lo tanto, llegamos a una función recursiva para dicha integral. Con la misma lógica, sabemos que esta integral va a parar de ser recursiva cuando se aplique integración por parte $\alpha - 1$ veces, si $\alpha \ge 1$. Por lo tanto, si hacemos esta integral de forma recursiva llegamos a:
+          \begin{align}
+              \begin{aligned}
+                  I & =\frac { 1 }{ (a-1)! } \left[ (\lambda x)^{ \alpha -1 }{ e }^{ -\lambda x }+(\alpha -1){ (\lambda x) }^{ \alpha -2 }{ e }^{ -\lambda x }+\underset { recursion }{ \underbrace { ... }  } +(\alpha -1)!{ e }^{ -\lambda x } \right] \\ 
+                  & ={ e }^{ -\lambda x }\left[ \frac { { (\lambda x) }^{ \alpha -1 } }{ (\alpha -1)! } +\frac { { (\lambda x) }^{ \alpha -2 } }{ (\alpha -2)! } +\underset { recursion }{ \underbrace { ... }  } + 1 \right] \\
+                  & =\sum _{ m=0 }^{ \alpha -1 }{ \frac { { e }^{ -\lambda x }{ (\lambda x) }^{ m } }{ m! }  } 
+              \end{aligned}
+          \end{align}
+
+          Por lo tanto, concluimos que: 
+          \begin{equation}
+              \int _{ 0 }^{ x }{ \frac { { y }^{ \alpha -1 } }{ { \beta  }^{ \alpha  }\Gamma (\alpha ) } { e }^{ -y/\beta  }dy } =1-\sum _{ m=0 }^{ \alpha -1 }{ \frac { { e }^{ -\lambda x }{ (\lambda x) }^{ m } }{ m! }  } 
+          \end{equation}
+\end{document}
+

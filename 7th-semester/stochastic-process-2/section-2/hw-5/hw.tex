@@ -1,0 +1,127 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Anotación}
+
+\theoremstyle{remark}
+\newtheorem{question}{Pregunta}
+
+\newtheorem{theorem}{Teorema}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
+
+%%%% Lambda Calculus Symbols
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% START DOCUMENT
+
+\title{Tarea Estocásticos 5}
+\author{Juan Sebastián Cárdenas-Rodríguez}
+\date{}
+
+
+\begin{document}
+\maketitle
+\begin{question}
+  Let $B(t) = (B_1(t), \dots B_n(t))$ a standard n-dimensional Weiner
+  process. Consider $R(t) = \left|B(t)\right|$. Prove that:
+  \begin{equation*}
+    dR(t) = \sum_{i=1}^n\frac{B_i(t)}{R(t)}dB_i(t) + \frac{n - 1}{2R(t)}dt
+  \end{equation*}
+\end{question}
+\begin{proof}
+  In this manner, let's use the proper ITO formula:
+  \begin{equation*}
+    dg(B(t)) = \frac{1}{2} \sum_{i=1}^n \frac{\partial^2 g}{\partial B_i^2(t)}dt + \nabla g dB(t)
+  \end{equation*}
+  Hence, lets find the second derivative:
+  \begin{align*}
+    \frac{\partial R(t)}{\partial B_i(t)}
+    &= \frac{1}{2}\left(\sum_{i=1}^nB_i^2(t)\right)^{-\frac{1}{2}} 2B_i(t) \\
+    &= \frac{B_i(t)}{R(t)} \\
+    \frac{\partial^2 R(t)}{\partial B_i^2(t)}
+    &= \frac{R_i(t) - B_i(t)\frac{B_i(t)}{R(t)}}{R^2(t)} \\
+    &= \frac{R_i^2(t) - B_i^2(t)}{R^3(t)}
+  \end{align*}
+  Now, let's replace in the ITO formula:
+  \begin{align*}
+    dR(t)
+    &= \frac{1}{2} \sum_{i=1}^n \frac{R_i^2(t) - B_i^2(t)}{R^3(t)} dt +
+      \begin{bmatrix}
+        \dfrac{B_1(t)}{R(t)} & \dots & \dfrac{B_n(t)}{R(t)}
+      \end{bmatrix}
+      \begin{bmatrix}
+        dB_1(t) \\
+        \vdots \\
+        dB_n(t)
+      \end{bmatrix} \\
+    &= \frac{1}{2}\sum_{i=1}^n \frac{1}{R_i(t)} -
+      \frac{1}{2R_i^3(t)}\sum_{i=1}^nB_i^2(t) +
+      \sum_{i=1}^n\frac{B_i(t)}{R(t)}dB_i(t) \\
+    &= \frac{n}{2R(t)} - \frac{1}{2R_i^3(t)} R_i^2(t) +
+      \sum_{i=1}^n\frac{B_i(t)}{R(t)}dB_i(t) \\
+    &= \sum_{i=1}^n\frac{B_i(t)}{R(t)}dB_i(t) + \frac{n - 1}{2R(t)}\\
+  \end{align*}
+\end{proof}
+\end{document}

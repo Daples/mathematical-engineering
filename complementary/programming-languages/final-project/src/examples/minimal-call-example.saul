@@ -1,0 +1,34 @@
+codigo
+
+funcion principal (  )
+real x
+real y
+
+leer x
+leer y
+
+llamar testFuncion1 ( y x )
+
+finfuncion
+
+funcion testFuncion1 ( real x real y )
+
+mostrar x
+mostrar y
+
+llamar test2 ( x y x )
+
+finfuncion
+
+funcion test2 ( real x real y real z )
+
+real w
+leer w
+
+mostrar x
+mostrar y
+mostrar z
+mostrar w
+finfuncion
+
+fincodigo

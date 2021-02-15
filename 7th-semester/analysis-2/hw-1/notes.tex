@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=3cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
+
+%%%% Lambda Calculus Symbols
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% START DOCUMENT
+
+\title{Analysis II - Notes}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\begin{question}
+  If $I \subseteq \R$ is an interval, then $\lambda^*(I) = L(I)$.
+  \begin{equation*}
+    L(I) =
+    \begin{cases}
+      b - a, &\quad I=[a,b], [a, b), (a, b], (a, b) \\
+      \infty, &\quad \text{otherwise}
+    \end{cases}
+  \end{equation*}
+\end{question}
+\begin{proof}
+  \begin{itemize}
+  \item $[a,b]$
+  \item $(a, b], [a, b), (a, b)$.  It is possible proof that for each
+    interval $I$ constructed as above, it exists a closed interval
+    $J \subset I$ such that for an $\epsilon > 0$:
+    \begin{equation*}
+      L(I) - \epsilon< L(J) \quad
+      J =
+      \begin{cases}
+        \left[\frac{2a + b}{3}, \frac{2b + a}{3}\right], &\quad \epsilon \ge L^*(I) \\
+        \left[a + \frac{\epsilon}{4}, b - \frac{\epsilon}{4}\right], &\quad\text{otherwise}
+      \end{cases}
+    \end{equation*}
+    Hence, we would obtain that:
+    \begin{align*}
+      L(I) - \epsilon &\le L(J) \\
+                      &= \lambda^*(J) \\
+                      &\le \lambda^*(I) \\
+                      &\le \lambda^*([a, b]) \\
+                      &= b - a \\
+                      &= L(I)
+    \end{align*}
+    Then, we conclude that as:
+    \begin{equation*}
+      L(I) - \epsilon < \lambda^*(J) \le L(I) \rightarrow \lambda^*(I) = L(I)
+    \end{equation*}
+  \end{itemize}
+\end{proof}
+
+\begin{question}
+  Let $E \subseteq \R$ and $x \in \R$. Then, $E \in \mathcal{M}$ if
+  and only if $E + x \in \mathcal{M}$.
+\end{question}
+\begin{proof}
+  ($\rightarrow$). Let's suppose that $E \in \mathcal{M}$ and let
+  $A \subseteq \R$. It is easily seen that for each set it exists another
+  one $B \subseteq \R$ such that:
+  \begin{equation*}
+    A = B + x \quad B = \{y - x \mid y \in A\}
+  \end{equation*}
+  Furthermore, it is easily seen that:
+  \begin{equation*}
+    (B + x)\cap(E + x) = B\cap E + x \quad (B+x) \cap (E+x)^c = B\cap E^c + x
+  \end{equation*}
+  Hence:
+  \begin{align*}
+    \lambda^*(A \cap (E+x)) + \lambda^*(A \cap (E+x)^c)
+    &= \lambda^*((B + x)\cap(E + x)) + \lambda^*((B+x) \cap (E + x)^c) \\
+    &= \lambda^*(B\cap E + x) + \lambda^*(B\cap E^c + x) \\
+    &= \lambda^*(B\cap E) + \lambda^*(B \cap E^c) \\
+    &= \lambda^*(B) \\
+    &= \lambda^*(B + x) \\
+    &= \lambda^*(A)
+  \end{align*}
+\end{proof}
+
+\begin{question}
+  Let $E \subseteq \R$. If $\lambda^*(E) = 0$, then $E \in \mathcal{M}$.
+\end{question}
+\begin{proof}
+  Let $A \subseteq \R$. Hence, it is clear that:
+  \begin{equation*}
+    A \cap E \subseteq E
+  \end{equation*}
+  Then, as the Lebesgue measure is a outer measure one can affirm:
+  \begin{equation*}
+    \lambda^*(A \cap E) \le \lambda^*(E)
+  \end{equation*}
+  Hence, $ \lambda^*(A \cap E) = 0$. Lastly:
+  \begin{align*}
+    \lambda^*(A \cap E^c) &\le \lambda^*(A) \\
+    \lambda^*(A \cap E) + \lambda^*(A \cap E^c) &\le \lambda^*(A)
+  \end{align*}
+  Then, $E \in \mathcal{M}$
+\end{proof}
+
+\end{document}

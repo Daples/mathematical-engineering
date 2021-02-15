@@ -1,0 +1,112 @@
+\documentclass[ebook,9pt,oneside,openany]{memoir}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage[backref=page]{hyperref}
+\hypersetup{colorlinks, linktocpage, % hyperref customization
+            linkcolor={blue!70!black}, % \sections, figures
+            citecolor={blue!70!black}, % \cite
+            urlcolor={black!100!black}
+           }
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{url}
+\usepackage{bbm}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{mwe}
+
+
+%\usepackage{breqn}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
+\setlrmarginsandblock{1.5cm}{1.5cm}{*}
+\setulmarginsandblock{2.5cm}{*}{1}
+\checkandfixthelayout
+
+\nouppercaseheads
+\makepagestyle{mystyle}
+\makeevenhead{mystyle}{\thepage}{}{}
+\makeoddhead{mystyle}{}{}{\itshape\leftmark}
+\makeevenfoot{mystyle}{}{}{}
+\makeoddfoot{mystyle}{}{}{}
+\makepsmarks{mystyle}{
+  \createmark{chapter}{left}{nonumber}{}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%------Fonts (in order of beauty)
+%--Jens De Pelsmaeker; takes more space, tildes are ok
+%\usepackage[sc]{mathpazo}\usepackage[T1]{fontenc}\linespread{1.05} % Palladio needs more leading (space between lines)
+%--David Plazas recommended; takes less space, tildes are too high
+\usepackage{libertine} % Normal
+%--Carlos Cuartas; too clear and reader might get bored
+%\usepackage[T1]{fontenc}\usepackage{lmodern}
+%--Arial
+%\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault} % It's ok
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0in}
+\setlength\parskip{1\baselineskip}
+\setcounter{tocdepth}{2}
+\newtheorem{exmp}{Example}
+\setcounter{secnumdepth}{5}
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}.}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\allowdisplaybreaks
+
+\usepackage[pages=some, placement=bottom]{background}
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=0.175,
+angle=0,
+contents={%
+  \includegraphics[width=0.9\paperwidth,height=0.85\paperheight]{files/possible.pdf}
+  }%
+}
+
+% for placeholdezr text
+\title{INTRODUCTION TO NUMERICAL SOLUTION OF FRACTIONAL SYSTEMS}
+\author{David Plazas E.\\Mateo Restrepo S.\\Juan Sebastián Cárdenas-Rodríguez}
+
+\begin{document}
+\BgThispage
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+
+\input{1_fractionalCalculus/1_intro_preliminares}
+\input{1_fractionalCalculus/2_RL_Caputo}
+\input{1_fractionalCalculus/3_tautochrone}
+\input{1_fractionalCalculus/4_physicalApplication}
+
+\input{2_numerical/1_intro}
+
+\input{2_numerical/1_integer/1_Euler}
+\input{2_numerical/1_integer/2_RK4}
+\input{2_numerical/1_integer/3_Systems}
+
+\input{2_numerical/2_fractional/1_ABM}
+\input{2_numerical/2_fractional/2_Decomposition}
+
+
+\input{2_numerical/2_comparison}
+
+
+
+\input{3_experiments/1_Predicted}
+\input{3_experiments/2_qDeco}
+\input{3_experiments/3_pDeco}
+%\input{appendix}
+\nocite{*}
+\bibliography{ref}
+\bibliographystyle{IEEEtran}
+
+
+\end{document}

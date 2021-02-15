@@ -1,0 +1,71 @@
+Function: read_n/0
+Constants: "Insert a positive integer number: "
+Locals: n
+Globals: input, int
+BEGIN
+    LOAD_GLOBAL     0
+    LOAD_CONST      0
+    CALL_FUNCTION   1
+    STORE_FAST      0
+
+    LOAD_GLOBAL     1
+    LOAD_FAST       0
+    CALL_FUNCTION   1
+    RETURN_VALUE
+END
+
+Function: get_sqrt/1
+Constants: 1
+Locals: n, n_sqrt, n2
+BEGIN
+    LOAD_CONST              0
+    STORE_FAST              1
+
+    initCycle:
+        LOAD_FAST           1
+        LOAD_FAST           1
+        BINARY_MULTIPLY
+        STORE_FAST          2
+
+        LOAD_FAST           2
+        LOAD_FAST           0
+        COMPARE_OP          1
+        POP_JUMP_IF_TRUE    bodyCycle
+
+        LOAD_FAST           1
+        LOAD_CONST          0
+        BINARY_SUBTRACT
+        RETURN_VALUE
+
+    bodyCycle:
+        LOAD_CONST          0
+        LOAD_FAST           1
+        BINARY_ADD
+        STORE_FAST          1
+
+        JUMP_FORWARD        initCycle
+END
+
+Function: main/0
+Constants: None, "The square root is:"
+Locals: n, n_sqrt
+Globals: read_n, get_sqrt, print
+BEGIN
+    LOAD_GLOBAL     0
+    CALL_FUNCTION   0
+    STORE_FAST      0
+
+    LOAD_GLOBAL     1
+    LOAD_FAST       0
+    CALL_FUNCTION   1
+    STORE_FAST      1
+
+    LOAD_GLOBAL     2
+    LOAD_CONST      1
+    LOAD_FAST       1
+    CALL_FUNCTION   2
+
+    POP_TOP
+    LOAD_CONST      0
+    RETURN_VALUE
+END

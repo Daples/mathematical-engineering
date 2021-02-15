@@ -1,0 +1,15 @@
+codigo
+
+funcion principal (  )
+real z
+real x
+real y
+
+leer z
+leer x
+
+y = ( 3 + ( x * z + 15.43 ) / 34 ) * 41
+mostrar y
+finfuncion
+
+fincodigo

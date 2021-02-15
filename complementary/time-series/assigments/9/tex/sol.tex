@@ -1,0 +1,183 @@
+\documentclass[fleqn]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\usepackage[left=1in, right=1in, top=0.8in, bottom=0.8in]{geometry}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+\usepackage{pdfpages}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\RR}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathbb{V}\left[#1 \right]}
+\newcommand{\cov}[1]{\mathrm{Cov}\left[#1 \right]}
+
+%%% Misc Math
+% Spaces after/before left/right
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+% Norm and abs
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+%%%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% CODE RENDERING
+% Compile with flag -shell-escape
+\usepackage{minted}
+
+%%%%%%%% EXAM PACKAGE
+\usepackage{mathexam}
+
+%%%%%%%% CHANGE MARGINS ITEMIZE
+\usepackage{enumitem}
+
+%%%%%%%% START DOCUMENT
+
+\ExamClass{EC0301 - Time Series}
+\ExamName{Assignment \#9}
+\ExamHead{\today}
+
+\let\ds\displaystyle
+
+\begin{document}
+ \vspace{0.3cm}
+   % Information of the student
+   \begin{itemize}[leftmargin=6.25cm, labelsep=0.5cm]
+
+     \item[\textit{Name}] \scalebox{1.2}{David Plazas Escudero} % Name
+     \item[\textit{Student code}] 201710005101 % Code
+
+   \end{itemize}
+\vspace{0.3cm}
+
+% Each of the items to solve
+\begin{enumerate}
+    \item \textit{Calculate the first two moments of the model ARMA(4,0)$\times$SARMA(0,1), using quarterly data, i.e. $s=4$.}
+    
+    This model can be written using the lag operator as 
+    \[
+    \begin{split}
+         (1-\phi_1L-\phi_2L^2-\phi_3L^3-\phi_4L^4)x_t&=(1-\vartheta_1L^4)\epsilon_t\\
+         \left(1-\sum_{r=1}^4\phi_rL^r\right)x_t&=(1-\vartheta_1L^4)\epsilon_t.
+    \end{split}
+    \]
+    Thus,
+    \[
+    x_t=\sum_{r=1}^4\phi_rx_{t-r}+\epsilon_t-\vartheta_1\epsilon_{t-4},
+    \]
+    which can be addressed as an ARMA(4,4) model subject to $\theta_4=\vartheta_1$ and $\theta_1=\theta_2=\theta_3=0$. Now, the moments can be calculated as those of an ARMA($p,q$) model. The first moment, i.e. the mean for an ARMA($p,q$) model without drift, an assuming stationarity, is zero. Then, $\E{x_t}=0$.
+    
+    The second moment, as $\E{x_t}=0$, is exactly the variance of the process $x_t$. Recall that the variance of an ARMA($p,q$) model is given by
+    \[
+    \V{x_t}=\gamma_0=\dfrac{\sigma^2\left(1+\sum_{r=1}^q\theta_r^2-2\sum_{r=1}^M\theta_r\phi_r\right)}{1-\sum_{r=1}^p\phi_r^2},
+    \]
+    where $M=\min\{p,q\}$. In our case, $p=q=4=M$ and replacing the values we have
+    \[
+    \E{x_t^2}=\V{x_t}=\gamma_0=\dfrac{\sigma^2\left(1+\vartheta^2_1-2\vartheta_1\phi_4\right)}{1-\sum_{r=1}^4\phi_r^2}.
+    \]
+    
+    \item \textit{Almon's distributed lags model for seconds order degree polynomials is given by
+    \[
+    x_t=\delta + \sum_{j=0}^k\beta_jz_{t-j} + u_t
+    \]
+    where $\beta_j=a_0+a_1j+a_2j^2$. Prove that this model can be written as} 
+    \[
+    x_t=\delta+a_0Y_{0t}+a_1Y_{1t}+a_2Y_{2t}+u_t.
+    \]
+    
+    Replacing the $\beta_j$ coefficients, we have
+    \[
+    x_t=\delta + \sum_{j=0}^k(a_0+a_1j+a_2j^2)z_{t-j} + u_t
+    \]
+    and by distributive law,
+    \[
+    x_t=\delta + \sum_{j=0}^k(a_0z_{t-j}+a_1jz_{t-j}+a_2j^2z_{t-j}) + u_t.
+    \]
+    The properties of the summation operator yield
+    \[
+    \begin{split}
+        x_t&=\delta + \sum_{j=0}^ka_0z_{t-j}+\sum_{j=0}^ka_1jz_{t-j}+\sum_{j=0}^ka_2j^2z_{t-j} + u_t\\
+        &=\delta +a_0\left(\sum_{j=0}^kz_{t-j}\right)+a_1\left(\sum_{j=0}^kjz_{t-j}\right)+a_2\left(\sum_{j=0}^kj^2z_{t-j}\right) + u_t\\
+        &=\delta+a_0Y_{0t}+a_1Y_{1t}+a_2Y_{2t}+u_t,
+    \end{split}
+    \]
+    where
+    \[
+    Y_{0t}=\sum_{j=0}^kz_{t-j},\quad Y_{1t}=\sum_{j=0}^kjz_{t-j}\quad\text{and}\quad Y_{2t}=\sum_{j=0}^kj^2z_{t-j}.
+    \]
+    \item \textit{Using the inflation dataset, select a city and estimate a AR(1)$\times$SAR(1) and a AR(13) model. Which of these models is more appropriate to represent the series data?}
+    
+    The code for this item is:
+    \begin{minted}{R}
+    library(readxl)
+    library(timeSeries)
+    library(tseries)
+    library(tidyverse)
+    
+    # Read data
+    inflation <- read_excel("inflation.xlsx", skip=1044)
+    
+    inflation <- inflation %>%
+      select(Cali) %>%
+      mutate(Cali = as.numeric(Cali)) %>%
+      na.omit()
+    
+    Cali <- ts(inflation$Cali,
+               start = c(1979,12),
+               end = c(2020,9),
+               frequency = 12)
+    
+    Cali <- window(Cali, start = c(2000,1), end=c(2020,9))
+    
+    # First Model: AR(1)xSAR(1)
+    first_model <- arima(Cali, order =c(1,0,0), seasonal = c(1,0,0))
+    BIC(first_model)
+    
+    # Second Model: AR(13)
+    second_model <- arima(Cali, order = c(13,0,0))
+    BIC(second_model)
+    \end{minted}
+    For the AR(1)$\times$SAR(1) model, a value of 279.58 for the Bayesian Information Criterion (BIC) was obtained, whereas for the AR(13), a value of 311.19 was obtained. These results show that the AR(1)$\times$SAR(1) model is more appropriate; furthermore, the it can be argued that the first model is more parsimonious than the AR(13), since it includes least parameters to represent the series data.
+\end{enumerate}
+\end{document}

@@ -1,0 +1,868 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=3cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% PARAGRAPH SETTINGS
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+% https://tex.stackexchange.com/questions/49188/how-to-insert-vertical-space-between-paragraphs
+\setlength{\parskip}{5pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% PERSONAL COMMANDS
+\usepackage{amssymb}
+
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Usual operations
+\newcommand{\pow}[2]{#1^{#2}}
+\newcommand{\expp}[1]{e^{#1}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
+
+%%%% Lambda Calculus
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Ordinal Lambda Calculus
+\newcommand{\ordAlph}{\Sigma_{\text{Ord}}}
+\newcommand{\termOrd}{\text{Term}_\text{Ord}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\sk}{\mathrm{sk}}
+
+%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+
+%%%% Statistics
+\NewDocumentCommand{\E}{o m}{
+  \IfNoValueTF{#1}
+  {\mathbb{E}\left[#2\right]}
+  {\mathbb{E}^{#1}\left[ #2\right]}
+}
+\NewDocumentCommand{\V}{o m}{
+  \IfNoValueTF{#1}
+  {\mathrm{Var}\left[#2\right]}
+  {\mathrm{Var}^{#1}\left[ #2\right]}
+}
+\RenewDocumentCommand{\P}{o o m}{
+  \IfNoValueTF{#1}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}\left(#3\right)}
+    {\mathrm{P}^{#2}\left(#3\right)}}
+  {\IfNoValueTF{#2}
+    {\mathrm{P}_{#1}\left(#3\right)}
+    {\mathrm{P}_{#1}^{#2} \left(#3\right)}}
+}
+
+%%%% Lambda Calculus
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%% Create absolute value function
+% https://tex.stackexchange.com/questions/43008/absolute-value-symbols
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% FLOAT SPECIFIER
+% https://www.overleaf.com/learn/latex/Errors/LaTeX_Error:_Unknown_float_option_%60H%27
+\usepackage{float}
+
+%%%%%%%% TO USE SHORT COMMANDS FOR VECTOR LINES
+\usepackage{esvect}
+
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+%%%%%%%% START DOCUMENT
+
+\title{Workshop Analysis II}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\begin{question}
+  Two players, $A$ and $B$, throw a dice. Describe the probability
+  space associated to this experiment and each one of the following
+  random variables:
+  \begin{enumerate}[label=\alph*)]
+  \item $X$: Score obtained by player $A$.
+  \item $Y$: Biggest score.
+  \item $Z$: Earnings of the player $A$ if the player that obtains the
+    biggest score receives a coin from the other player.
+  \item $U$: Earnings of the player $A$ if the player with least score
+    pays to the adversary the difference of the scores.
+  \end{enumerate}
+\end{question}
+
+\begin{proof}
+  Let $x$ be the score obtained by player $A$ and $y$ the score
+  obtained by player $B$ in the tuple $(x, y)$. Let
+  $\Gamma = \{1,2,3,4,5,6\}$. Then:
+  \begin{equation*}
+    \Omega = \{(x, y) \mid x,y \in \Gamma\} \quad
+    \mathcal{A} = \mathcal{P}(\Omega)
+  \end{equation*}
+  with $\mathcal{P}(\cdot)$ the power set function. Let's define the
+  function $\mathrm{P}(\cdot)$ in the following way:
+  \begin{align*}
+    \mathrm{P}: \mathcal{A}& \rightarrow [0, 1] \\
+    A& \mapsto \P{\omega} = \frac{|A|}{36}
+  \end{align*}
+  with $|\cdot|$ the cardinality of a set. It is clear that
+  $\mathcal{A}$ is a $\sigma$-algebra of $\Omega$ as the power set
+  always is. Hence, let's prove that $(\Omega, \mathcal{A},\mathrm{P})$ is a
+  measurable space.
+  \begin{itemize}
+  \item It is easy to see that:
+    \begin{equation*}
+      \P{\emptyset} = \frac{\lvert \emptyset \rvert}{36} = 0
+    \end{equation*}
+  \item Let $\{E_i\}_{i \in \N}$ such that $E_i \cap E_j = \emptyset$
+    for $\forall i \ne j$. Hence, it is obtained that:
+    \begin{align*}
+      \P{\bigcup_{i \in \N} E_i} &= \frac{\abs{\bigcup\limits_{i \in \N} E_i}}{36} \\
+                                 &= \dfrac{\sum\limits_{i \in \N} \lvert E_i \rvert}{36} \\
+                                 &= \sum_{i \in \N}\frac{\abs{E_i}}{36} \\
+                                 &= \sum_{i \in \N} \P{E_i}
+    \end{align*}
+  \end{itemize}
+  Therefore, $(\Omega, \mathcal{A}, \mathrm{P})$ is a measurable
+  space.
+
+  On the other hand, it is clear that $\abs{\Omega} = 36$. Hence, we
+  obtain that $\P{\Omega} = 1$. Then, the selected space is also a
+  probability space.
+  \begin{enumerate}[label=\alph*)]
+  \item As the tuples contain the information about the score of the
+    first player in the first dimension, let's define the function
+    $\fst(\cdot)$ as the projection of the tuple in the first
+    dimension. Hence, the random variables is defined as:
+    \begin{align*}
+      X : \Omega & \rightarrow \R \\
+      \omega& \mapsto X(\omega) = \fst(\omega)
+    \end{align*}
+
+  \item Let $\max(\cdot)$ denote the function of the maximum value of
+    a tuple. Then, the random variable is defined as:
+    \begin{align*}
+      Y : \Omega & \rightarrow \R \\
+      \omega& \mapsto Y(\omega) = \max(\omega)
+    \end{align*}
+
+  \item Let $\snd(\cdot)$ denote the function of the projection of the
+    tuple in the second dimension. Hence, the random variable, with
+    the type $Z : \Omega \rightarrow \R$, is defined as:
+    \begin{equation*}
+      Z(\omega) =
+      \begin{cases}
+        1, &\fst(\omega) > \snd(\omega) \\
+        0, &\fst(\omega) = \snd(\omega) \\
+        -1, &\text{otherwise}
+      \end{cases}
+    \end{equation*}
+
+  \item The random variable is defined as:
+    \begin{align*}
+      U : \Omega & \rightarrow \R \\
+      \omega& \mapsto U(\omega) = \fst(\omega) - \snd(\omega)
+    \end{align*}
+
+    It is important to notice that each of the r.v. defined have to be
+    $\Omega-\mathcal{B}$-measurable as $\mathcal{A}$ has all the
+    possible subsets of $\Omega$.
+  \end{enumerate}
+\end{proof}
+
+\begin{question}
+  For the random variables $X$ and $Y$ of the previous question,
+  calculate the expectancy, the variance and the cumulative
+  distribution function.
+\end{question}
+\begin{proof}
+  Let's find the expectancy for the random variable $X$. It is clearly
+  seen that this random variable is discrete with $x_i = i$, for
+  $i \in \Gamma$ (recall that $\Gamma$ is defined in the first
+  proof). Furthermore, using the theorem proved in the teacher notes:
+  \begin{equation*}
+    \E{f \circ X} = \sum_i f(x_i)\P[X]{\{x_i\}}
+  \end{equation*}
+
+  With the following function:
+  \begin{align*}
+    \mathrm{I} : \R& \rightarrow \R \\
+                 x& \mapsto \mathrm{I}(x) = x
+  \end{align*}
+
+  One can prove that the expectancy of the random variable can be
+  written as:
+  \begin{align*}
+    \E{X} &= \E{\mathrm{I} \circ X} \\
+          &= \sum_i \mathrm{I}(x_i) \P[X]{\{x_i\}} \\
+          &= \sum_i x_i \P[X]{\{x_i\}}
+  \end{align*}
+
+  Furthermore it is easily seen that for a value $\alpha \in \Gamma$:
+  \begin{align*}
+    \P[X]{\{\alpha\}} &= \P{\omega \in \Omega \mid X(\omega) \in \{\alpha\}} \\
+                      &=\P{\{(\alpha, y) \mid y \in \Gamma\}} \\
+                      &=\frac{\abs{\{(\alpha, y) \mid y \in \Gamma\}}}{36} \\
+                      &= \frac{6}{36} \\
+                      &= \frac{1}{6}
+  \end{align*}
+
+  Hence the expectancy for this r.v. is:
+  \begin{align*}
+    \E{X} &= \sum_{i=1}^6 x_i \P[X]{\{x_i\}} \\
+          &= \sum_{i=1}^6 \frac{i}{6} \\
+          &= \frac{1}{6} \cdot\frac{6(6 + 1)}{2} \\
+          &= \frac{7}{2} = 3.5
+  \end{align*}
+
+  To calculate the variance, the following formula proved in the
+  teacher notes will be used:
+  \begin{equation*}
+    \V{X} = \E{X^2} - \E{X}^2
+  \end{equation*}
+
+  Hence, using a similar reasoning with the following function:
+  \begin{align*}
+    h : \R& \rightarrow \R \\
+    x& \mapsto h(x) = x^2
+  \end{align*}
+
+  Then:
+  \begin{align*}
+    \E{X^2} &= \E{h \circ X} \\
+            &= \sum_{i=1}^6 h(x_i) \P[X]{\{x_i\}} \\
+            &= \sum_{i=1}^6 i^2 \cdot \frac{1}{6} \\
+            &= \frac{1}{6} \cdot \frac{6 (6 + 1) (2\cdot 6 + 1)}{6} \\
+            &= \frac{7 \cdot 13}{6} = \frac{91}{6}
+  \end{align*}
+
+  Finally:
+  \begin{equation*}
+    \V{X} = \frac{91}{6} - \frac{49}{4} = \frac{35}{12}
+  \end{equation*}
+
+  Lastly, let's define the cumulative distribution function. It is
+  clearly seen as it is discrete the jump between each $x_i$ has a
+  length of $\frac{1}{6}$. Hence:
+  \begin{align*}
+    F_X(t) &= \P[X]{[-\infty, t]} \\
+           &= \P{\omega \in \Omega \mid X(\omega) \in [-\infty, t]} \\
+    &=
+      \begin{cases}
+        0, &t < 1 \\
+        \dfrac{\lfloor t \rfloor}{6}, &1 \le t < 7 \\
+        1, &t \ge 7
+      \end{cases}
+  \end{align*}
+
+  Now, let's repeat the process above for the random variable $Y$. In
+  first place, it is easily seen that this r.v. is also discrete and
+  has the same values as the previous one $y_i = i$. Hence, for
+  $\alpha \in \Gamma$:
+  \begin{align*}
+    \P[Y]{\{\alpha\}} &= \P{\{\omega \in \Omega \mid Y(\omega) \in \{\alpha\}\}} \\
+                      &= \P{\{(\alpha, y) \mid y \le \alpha\} \cup
+                        \{(x, \alpha) \mid x < \alpha\}} \\
+                      &= \P{\{(\alpha, y) \mid y \le \alpha\}} +
+                        \P{\{(x, \alpha) \mid x < \alpha\}} \\
+                      &= \frac{\abs{\{(\alpha, y) \mid y \le \alpha\}}}{36} +
+                        \frac{\abs{\{(x, \alpha) \mid x < \alpha\}}}{36} \\
+                      &= \frac{\alpha}{36} + \frac{\alpha - 1}{36} \\
+                      &= \frac{2\alpha - 1}{36}
+  \end{align*}
+
+  Then, the expectancy can be calculated as:
+  \begin{align*}
+    \E{Y} &= \sum_{i=1}^6 y_i \P[Y]{\{y_i\}} \\
+          &= \sum_{i=1}^6 i \cdot \frac{2i - 1}{36} \\
+          &= \frac{1}{18}\sum_{i=1}^6i^2 - \frac{1}{36} \sum_{i=1}^6 i \\
+          &= \frac{1}{18}\frac{6(6 + 1)(2\cdot 6 + 1)}{6} - \frac{1}{36}\frac{6(6 + 1)}{2} \\
+          &= \frac{91}{18} - \frac{7}{12} = \frac{161}{36}
+  \end{align*}
+
+  Then, the second moment can be calculated similarly as the last
+  proof. Hence:
+  \begin{align*}
+    \E{Y^ 2} &= \sum_{i=1}^6 y_i^2 \P[Y]{\{y_i\}} \\
+             &= \sum_{i=1}^6 i^2 \cdot\frac{2i-1}{36} \\
+             &= \frac{1}{18} \sum_{i=1}^6 i^3 - \frac{1}{36} \sum_{i=1}^6 i^2 \\
+             &= \frac{1}{18} \left[\frac{6(6 + 1)}{2} \right]^2 -
+               \frac{1}{36} \frac{6(6+1)(2\cdot 6 + 1)}{6} \\
+             &= \frac{49}{2} - \frac{91}{36} = \frac{791}{36}
+  \end{align*}
+
+  Then, the variance is:
+  \begin{equation*}
+    \V{Y} = \frac{791}{36} - \frac{161^2}{36^2} = \frac{2555}{1296}
+  \end{equation*}
+
+  Lastly, the cumulative distribution function can be found taking
+  into account the property that:
+  \begin{equation*}
+    \sum_{i=1}^n (2i - 1) = 2\sum_{i=1}^ni - \sum_{i=1}^n 1 = n(n+1) - n = n^2
+  \end{equation*}
+  Hence:
+  \begin{equation*}
+    F_Y(t) =
+    \begin{cases}
+      0, &t < 1 \\
+      \dfrac{\lfloor t \rfloor^2}{36}, &1 \le t < 7 \\
+      1, &t \ge 7
+    \end{cases}
+  \end{equation*}
+\end{proof}
+
+\begin{question}
+  For the random variable $Z$ of the first question, calculate
+  \begin{equation*}
+    \int_A Z d\mathrm{P}, \quad \text{where } A = \{(1,2), (4,3)\}
+  \end{equation*}
+\end{question}
+
+\begin{proof}
+  It is clear that the r.v. $Z$ is a simple function. The standard
+  representation for this random variable is:
+  \begin{equation*}
+    Z(\omega) = \I_{A_1}(\omega) - \I_{A_2}(\omega)
+  \end{equation*}
+  where
+  $A_1 = \{\omega \in \Omega \mid \fst(\omega) > \snd(\omega)\}$,
+  $A_2 = \{\omega \in \Omega \mid \fst(\omega) < \snd(\omega)\}$ and:
+  \begin{equation*}
+    \I_\chi(\omega) =
+    \begin{cases}
+      1, &\omega \in \chi \\
+      0, &\text{otherwise}
+    \end{cases}
+  \end{equation*}
+
+  As this is not a non-negative simple function, the integral will be
+  calculated by using:
+  \begin{equation*}
+    \int_A Z d\mathrm{P} = \int_A Z^+ d\mathrm{P} - \int_A Z^- d\mathrm{P}
+  \end{equation*}
+
+  where
+  \begin{align*}
+    Z^+(\omega) &= \I_{A_1}(\omega) \\
+    Z^-(\omega) &= -\I_{A_2}(\omega)
+  \end{align*}
+
+  Hence, using the definition of the integral of a simple function it
+  is obtained:
+  \begin{align*}
+    \int_A Z d\mathrm{P} &= \int_A Z^+ d\mathrm{P} - \int_A Z^- d\mathrm{P} \\
+                         &= \P{A\cap A_1} + \P{A\cap A_2} \\
+                         &= \P{\{(4,3)\}} + \P{\{(1,2)\}} \\
+                         &= \frac{\abs{\{(4,3)\}}}{36} + \frac{\abs{\{(1,2)\}}}{36} \\
+                         &= \frac{1}{36} + \frac{1}{36} = \frac{1}{18}
+  \end{align*}
+\end{proof}
+
+\begin{question}
+  A point rotates around a circumference of unitary radius and stops
+  at a point $P$ randomly with any type of preference. Define a random
+  variable $\Theta$ that the range values are the real numbers that
+  represent the angle, in radians, formed by the radius, (from the
+  center) of the circumference to $P$, and a fixed selected
+  diameter.
+  \begin{enumerate}[label=\alph*)]
+  \item Find the probability space
+    $(\Omega, \mathcal{A}, \mathrm{P})$, such that $\Theta$ is a
+    random variable.
+  \item Calculate the expectancy $\E{\Theta}$.
+  \item Find the cumulative distribution function $F_\Theta$.
+  \item Analyze the existence of the probability density function
+    $f_\Theta$.
+  \end{enumerate}
+\end{question}
+\begin{proof}
+  \begin{enumerate}[label=\alph*)]
+  \item Let's define the probability space as:
+    \begin{equation*}
+      \Omega = [0, 2\pi), \quad \mathcal{A} = \{\beta \in \mathcal{B} \mid
+        \beta \subseteq \Omega\}, \quad \P{A} = \frac{\lambda(A)}{2\pi}
+      \end{equation*}
+      with $\lambda(\cdot)$ the Lebesgue measure and $\mathcal{B}$ the
+      Borel algebra. Let's prove that $\mathcal{A}$ is a
+      $\sigma$-algebra of $\Omega$.
+      \begin{itemize}
+      \item It is clear that $\Omega \in \mathcal{A}$ as $\Omega$ is a
+        Borel set and a subset of itself.
+
+      \item Let $A \in \mathcal{A}$. Let's see that
+        $A^c \in \mathcal{A}$. It is clear that the complement can be
+        written as:
+        \begin{equation*}
+          A^c = [0, 2\pi) - A
+        \end{equation*}
+        Hence, it is easily seen that $A^c$ is a subset of
+        $\Omega$. Furthermore, as $A^c$ is a difference of two Borel
+        sets hence it is also a Borel set. Therefore,
+        $A^c \in \mathcal{A}$ as it is a Borel set subset of $\Omega$.
+
+      \item Let $\{A_i\}_{i \in \N}$ be disjointed sets of
+        $\mathcal{A}$. Let's show that the union of those sets is also
+        in the $\sigma$-algebra. It is clear that:
+        \begin{equation*}
+          \bigcup_{i \in \N} A_i \in \mathcal{B}
+        \end{equation*}
+        as $A_i$ are Borel sets. Furthermore, as $A_i \in \mathcal{A}$
+        then it is clear that $A_i \subseteq [0, 2\pi)$. Hence,
+        applying union to both sides it is obtained:
+        \begin{equation*}
+          \bigcup_{i \in \N} A_i \subseteq [0, 2\pi)
+        \end{equation*}
+        Then, as $\bigcup\limits_{i \in \N} A_i$ is a Borel set subset of
+        $\Omega$, then $\bigcup\limits_{i \in \N} A_i \in \mathcal{A}$.
+
+        In conclusion, $\mathcal{A}$ is a $\sigma$-algebra of
+        $\Omega$.
+      \end{itemize}
+
+      Now, let's show that the space
+      $(\Omega, \mathcal{A}, \mathrm{P})$ is a measurable space.
+      \begin{itemize}
+      \item It is easily seen that:
+        \begin{equation*}
+          \P{\emptyset} = \frac{\lambda(\emptyset)}{2 \pi} = 0
+        \end{equation*}
+
+      \item Let $\{A_i\}_{i \in \N}$ be disjointed sets of the
+        $\sigma$-algebra, then:
+        \begin{equation*}
+          \P{\bigcup_{i \in \N} A_i} = \frac{1}{2\pi} \lambda\left(\bigcup_{i \in \N} A_i\right)
+        \end{equation*}
+        As $A_i$ are Lebesgue-measurable (as they are Borel sets) one
+        can conclude that:
+        \begin{align*}
+          \P{\bigcup_{i \in \N} A_i} &= \frac{1}{2\pi}\sum_{i \in \N} \lambda(A_i) \\
+                                     &= \sum_{i \in \N} \frac{\lambda(A_i)}{2\pi} \\
+                                     &= \sum_{i \in \N} \P{A_i}
+        \end{align*}
+
+        In conclusion, the space $(\Omega, \mathcal{A}, \mathrm{P})$
+        is measurable.
+      \end{itemize}
+
+      Finally, it is seen that:
+      \begin{equation*}
+        \P{\Omega} = \frac{\lambda([0, 2\pi))}{2\pi} = 1
+      \end{equation*}
+
+      Hence, the space $(\Omega, \mathcal{A}, \mathrm{P})$ is a
+      probability space.
+
+      Finally, the random variable $\Theta$ can be defined by:
+      \begin{align*}
+        \Theta : \Omega& \rightarrow \R \\
+        \omega& \mapsto \Theta(\omega) = \omega
+      \end{align*}
+
+      It is clear that this function is
+      $\Omega - \mathcal{B}$-measurable as the inverse of a Borel set
+      will return another Borel set subset of $\Omega$.
+
+    \item In the item \ref{item:acc4}, the cumulative distribution function is
+      proved. Using it to calculate the expectancy it is found that:
+      \begin{align*}
+        \E{\Theta} &= \int_0^\infty [1 - F_\Theta(t)] dt -
+                     \int_{-\infty}^0 F_\Theta(t) dt \\
+                   &= \int_0^{2\pi} [1 - F_\Theta(t)] dt
+                     + \int_{2\pi}^\infty [1 - F_\Theta(t)]dt \\
+                   &= \int_0^{2\pi} \left[1 - \frac{t}{2\pi}\right]dt \\
+                   &= t - \frac{t^2}{4\pi} \Bigg\rvert_0^{2\pi} =
+                     2\pi - \frac{4\pi^2}{4\pi} = \pi
+      \end{align*}
+
+    \item \label{item:acc4} By definition, it is obtained that:
+      \begin{equation*}
+        F_\Theta(t) = \P{\{\omega \in \Omega \mid \Theta(\omega) \le t\}}
+        =
+        \begin{cases}
+          0, &t < 0 \\
+          \P{\{\omega \in \Omega \mid \omega \le t\}}, &0 \le t < 2\pi \\
+          1, &t \ge 2\pi
+        \end{cases}
+      \end{equation*}
+      Hence:
+      \begin{align*}
+        \P{\{\omega \in \Omega \mid \omega \le t\}} &= \frac{\lambda([0, t])}{2\pi} \\
+                                                    &= \frac{t}{2\pi}
+      \end{align*}
+
+      This is the cumulative distribution function. It clearly makes
+      sense, as it corresponds to a uniform distribution in the range
+      $[0, 2\pi)$.
+
+    \item To analyze the existence of the probability density
+      function, let's find $\mathrm{P}_\Theta$.
+      \begin{align*}
+        \P[\Theta]{A} &= \P{\{\omega \in \Omega \mid \Theta(\omega) \in A\}} \\
+                      &= \P{\{\omega \in \Omega \mid \omega \in A\}} \\
+                      &= \P{[0, 2\pi)\cap A} \\
+                      &= \frac{\lambda([0, 2\pi)\cap A)}{2\pi}
+      \end{align*}
+      Now, let's see that $\mathrm{P}_\Theta \ll \lambda$ (absolute
+      continuity respect a the Lebesgue measure). Let
+      $A \in \mathcal{A}$ such that $\lambda(A) = 0$. It can be seen
+      that:
+      \begin{align*}
+        A \cap [0, 2\pi) &\subseteq A \\
+        \lambda(A \cap [0, 2\pi)) &\le \lambda(A) \\
+        \lambda(A \cap [0, 2\pi)) &\le 0
+      \end{align*}
+
+      As $\lambda(\cdot)$ is a measure, then it is positive. Hence:
+      \begin{align*}
+        \lambda(A \cap [0, 2\pi)) &= 0 \\
+        \frac{\lambda(A \cap [0, 2\pi))}{2\pi} &= 0 \\
+        \P[\Theta]{A} &= 0
+      \end{align*}
+
+      In conclusion, it is obtained that
+      $\mathrm{P}_\Theta \ll \lambda$. Then by Radon-Nikodym's theorem
+      it exists a positive function $f_\Theta : \Omega \rightarrow \R$
+      such that for all $A \in \mathcal{A}$
+      \begin{equation*}
+        \P[\Theta]{A} = \int_A f_\Theta d\lambda
+      \end{equation*}
+
+      the function $f_\Theta$ is the density probability function.
+  \end{enumerate}
+\end{proof}
+
+\begin{question}
+  Given the real numbers $a < b$, consider the function
+  $Y : [a, b] \rightarrow \R$, whose graph is the segment that joins
+  the points $(a, Y(a))$ with $(b, Y(b))$. Suppose the function $Y$
+  defines a random variable that describes the election of a value $y$
+  between $Y(a)$ and $Y(b)$, randomly and with no preference.
+  \begin{enumerate}[label=\alph*)]
+  \item Determine the probability space
+    $(\Omega, \mathcal{A}, \mathrm{P})$, such that $Y$ is a random variable
+  \item Determine the expected value $\E{Y}$.
+  \item Determine the variance $\V{Y}$.
+  \item Define the cumulative distribution function $F_Y$.
+  \item Analyze the existence of the density probability function
+    $f_Y$.
+  \item If another function $Z$, such that $Y=Z$ almost everywhere
+    respect to the Lebesgue measure do the answers change of the last
+    items for this new function? Furthermore, if the probability space
+    and the density probability function is known for a random
+    variable, it is possible to determine explicitly the random
+    variable?
+  \end{enumerate}
+\end{question}
+
+\begin{proof}
+  Let's solve this exercise similarly as the Question 4. Furthermore,
+  to facilitate having to separate between cases it will be supposed
+  that $0 < Y(a)$; this will allow to solve the integrals easier
+  without having to separate into cases (the other case is easily done
+  using the same logic). Furthermore, it will be supposed that
+  $Y(a) < Y(b)$ as the other case is easily done with the same
+  procedure.
+  \begin{enumerate}[label=\alph*)]
+  \item Let's define the probability space as:
+    \begin{equation*}
+      \Omega = [a, b], \quad \mathcal{A} = \{\beta \in \mathcal{B} \mid
+      \beta \subseteq \Omega\}, \quad
+      \P{A} = \frac{\lambda(\{Y(x) \mid x \in A\})}{Y(b) - Y(a)}
+      \end{equation*}
+      with $\lambda(\cdot)$ the Lebesgue measure and $\mathcal{B}$ the
+      Borel algebra. Let's prove that $\mathcal{A}$ is a
+      $\sigma$-algebra of $\Omega$.
+      \begin{itemize}
+      \item It is clear that $\Omega \in \mathcal{A}$ as $\Omega$ is a
+        Borel set and a subset of itself.
+
+      \item Let $A \in \mathcal{A}$. Let's see that
+        $A^c \in \mathcal{A}$. It is clear that the complement can be
+        written as:
+        \begin{equation*}
+          A^c = [a, b] - A
+        \end{equation*}
+        Hence, it is easily seen that $A^c$ is a subset of
+        $\Omega$. Furthermore, as $A^c$ is a difference of two Borel
+        sets hence it is also a Borel set. Therefore,
+        $A^c \in \mathcal{A}$ as it is a Borel set subset of $\Omega$.
+
+      \item Let $\{A_i\}_{i \in \N}$ be sets of $\mathcal{A}$. Let's
+        show that the union of those sets is also in the
+        $\sigma$-algebra. It is clear that:
+        \begin{equation*}
+          \bigcup_{i \in \N} A_i \in \mathcal{B}
+        \end{equation*}
+        as $A_i$ are Borel sets. Furthermore, as $A_i \in \mathcal{A}$
+        then it is clear that $A_i \subseteq [a, b]$. Hence,
+        applying union to both sides it is obtained:
+        \begin{equation*}
+          \bigcup_{i \in \N} A_i \subseteq [a, b]
+        \end{equation*}
+        Then, as $\bigcup\limits_{i \in \N} A_i$ is a Borel set subset of
+        $\Omega$, then $\bigcup\limits_{i \in \N} A_i \in \mathcal{A}$.
+
+        In conclusion, $\mathcal{A}$ is a $\sigma$-algebra of
+        $\Omega$.
+      \end{itemize}
+
+      Now, let's show that the space
+      $(\Omega, \mathcal{A}, \mathrm{P})$ is a measurable space.
+      \begin{itemize}
+      \item It is easily seen that:
+        \begin{equation*}
+          \P{\emptyset} = \frac{\lambda(\{Y(x) \mid x \in \emptyset\})}{Y(b) - Y(a)}
+          = \frac{\lambda(\emptyset)}{(Y(b) - Y(a))} = 0
+        \end{equation*}
+
+      \item Let $\{A_i\}_{i \in \N}$ be disjointed sets of the
+        $\sigma$-algebra, then:
+        \begin{align*}
+          \P{\bigcup_{i \in \N} A_i}
+          &= \frac{1}{Y(b) - Y(a)}\lambda\left(
+            \left\{Y(x) \mid x \in \bigcup_{i \in \N} A_i\right\}\right) \\
+          &= \frac{1}{Y(b) - Y(a)} \lambda\left(\bigcup_{i \in \N}\{Y(x) \mid x \in A_i\}\right)
+        \end{align*}
+        As $A_i$ are Lebesgue-measurable (as they are Borel sets),
+        $Y(\cdot)$ is injective, one can conclude that:
+        \begin{align*}
+          \P{\bigcup_{i \in \N} A_i}
+          &= \frac{1}{Y(b) - Y(a)}\sum_{i \in \N} \lambda(\{Y(x) \mid x \in A_i\}) \\
+          &= \sum_{i \in \N} \frac{\lambda(\{Y(x) \mid x \in A_i\})}{Y(b) - Y(a)} \\
+          &= \sum_{i \in \N} \P{A_i}
+        \end{align*}
+
+        In conclusion, the space $(\Omega, \mathcal{A}, \mathrm{P})$
+        is measurable.
+      \end{itemize}
+
+      Finally, it is seen that:
+      \begin{align*}
+        \P{\Omega} &= \frac{\lambda(\{Y(x) \mid x \in [a, b]\})}{Y(b) - Y(a)} \\
+                   &= \frac{\lambda([Y(a), Y(b)])}{Y(b) - Y(a)} \\
+                   &= 1
+      \end{align*}
+
+      Hence, the space $(\Omega, \mathcal{A}, \mathrm{P})$ is a
+      probability space.
+
+    \item In item \ref{item:acc5}, the cumulative distribution function is
+      proved. Using it to calculate the expectancy it is found that:
+      \begin{align*}
+        \E{Y} &= \int_0^\infty [1 - F_Y(t)] dt -
+                \int_{-\infty}^0 F_Y(t) dt \\
+              &= \int_0^{Y(a)}[1 - F_Y (t)] dt + \int_{Y(a)}^{Y(b)} [1 - F_Y(t)] dt
+                + \int_{Y(b)}^\infty [1 - F_Y(t)]dt \\
+              &= \int_0^{Y(a)}dt +
+                \int_{Y(a)}^{Y(b)} \left[1 - \frac{t - Y(a)}{Y(b) - Y(a)}\right]dt \\
+              &= t \Bigg\rvert_0^{Y(a)} + \frac{1}{Y(b) - Y(a)} \int_{Y(a)}^{Y(b)}  [Y(b) - t] dt \\
+              &= Y(a) + \frac{1}{Y(b)-Y(a)} \left(Y(b)t - \frac{1}{2}t^2\right)
+                \Bigg\rvert_{Y(a)}^{Y(b)} \\
+              &= Y(a) + \frac{1}{Y(b)-Y(a)} \left(Y(b)^2 - \frac{1}{2}Y(b)^2 -
+                Y(a)Y(b) + \frac{Y(a)^2}{2}\right) \\
+              &= Y(a) + \frac{Y(b) - Y(a)}{2} = \frac{Y(b) + Y(a)}{2}
+      \end{align*}
+
+    \item To calculate the second moment, let's first define a new
+      random variable $Y^* = Y^2$. Let's find the cumulative
+      distribution function for this variable:
+      \begin{align*}
+        F_{Y^*}(t) &= \P{\{\omega \in \Omega \mid Y^*(\omega) \le t\}} \\
+                   &= \P{\{\omega \in \Omega \mid Y(\omega)^2 \le t\}} \\
+                   &\text{If } t \ge 0 \text{ then} \\
+                   &=\P{\{\omega \in \Omega \mid Y(\omega) \le \sqrt{t}\}} \\
+                   &= F_Y(\sqrt{t})
+      \end{align*}
+      Hence, using the result in item \ref{item:acc5}, it is obtained
+      that:
+      \begin{equation*}
+        F_{Y^2}(t) =
+        \begin{cases}
+          0, &t \le Y(a)^2 \\
+          \dfrac{\sqrt{t} - Y(a)}{Y(b) - Y(a)}, &Y(a)^2 \le t \le Y(b)^2 \\
+          1, &t \ge Y(b)^2
+        \end{cases}
+      \end{equation*}
+
+      Hence, calculating the expectancy:
+      \begin{align*}
+        \E{Y^2} &= \int_0^\infty [1 - F_{Y^*}(t)]dt
+                  - \int_{-\infty}^0 F_{Y^*}(t) \\
+                &= \int_0^{Y(a)^2}dt + \int_{Y(a)^2}^{Y(b)^2}
+                  \left[1 - \frac{\sqrt{t} - Y(a)}{Y(b) - Y(a)}\right] dt \\
+                &= t \Bigg\rvert_0^{Y(a)^2} +
+                  \frac{1}{Y(b) - Y(a)}\int_{Y(a)^2}^{Y(b)^2}\left[Y(b) - \sqrt{t}\right] dt \\
+                &= Y(a)^2 + \frac{1}{Y(b) - Y(a)} \left(Y(b)t - \frac{2}{3} t^{3/2} \right)
+                  \Bigg\rvert_{Y(a)^2}^{Y(b)^2} \\
+                &= Y(a)^2 + \frac{1}{Y(b)-Y(a)} \left(Y(b)^3 - \frac{2}{3} Y(b)^3
+                  - Y(a)^2Y(b) + \frac{2}{3}Y(a)^3\right) \\
+                &= Y(a)^2 + \frac{1}{3(Y(b) - Y(a))} \left(Y(b)^3 - 3Y(a)^2Y(b) + 2Y(a)^3\right) \\
+                &= Y(a)^2 + \frac{1}{3(Y(b) - Y(a))}(Y(b) - Y(a))^2(2Y(a) + Y(b)) \\
+                &= Y(a)^2 + \frac{Y(b)^2 + Y(a)Y(b) - 2Y(a)^2}{3} \\
+                &= \frac{Y(b)^2 + Y(a)Y(b) + Y(a)^2}{3}
+      \end{align*}
+
+      Then, the variance is calculated as:
+      \begin{align*}
+        \V{Y}
+        &= \frac{Y(b)^2 + Y(a)Y(b) + Y(a)^2}{3} - \left(\frac{Y(b) + Y(a)}{2}\right)^2 \\
+        &= \frac{Y(b)^2 + Y(a)Y(b) + Y(a)^2}{3} - \frac{Y(b)^2 + 2Y(a)Y(b) + Y(a)^2}{4} \\
+        &= \frac{Y(b)^2 -2Y(a)Y(b) + Y(a)^2}{12} \\
+        &= \frac{(Y(b) - Y(a))^2}{12}
+      \end{align*}
+
+    \item \label{item:acc5} By definition, it is obtained that:
+      \begin{equation*}
+        F_Y(t) = \P{\{\omega \in \Omega \mid Y(\omega) \le t\}} =
+        \begin{cases}
+          0, &t < Y(a) \\
+          \P{\{\omega \in \Omega \mid Y(\omega) \le t\}}, &Y(a) \le t < Y(b) \\
+          1, &t \ge Y(b)
+        \end{cases}
+      \end{equation*}
+      Hence:
+      \begin{align*}
+        \P{\{\omega \in \Omega \mid Y(\omega) \le t\}}
+        &= \frac{\lambda(\{ Y(x) \mid x \in [a, Y^{-1}(\{t\})]\})}{Y(b) - Y(a)} \\
+        &= \frac{\lambda([Y(a), t])}{Y(b) - Y(a)} \\
+        &= \frac{t - Y(a)}{Y(b) - Y(a)}
+      \end{align*}
+
+      This is the cumulative distribution function.
+
+    \item To analyze the existence of the probability density
+      function, let's find $\mathrm{P}_Y$.
+      \begin{align*}
+        \P[Y]{A} &= \P{\{\omega \in \Omega \mid Y(\omega) \in A\}} \\
+                 &= \P{\{[a, b]\cap Y^{-1}(A)\}} \\
+                 &= \frac{\lambda(\{Y(x) \mid x \in [a,b]\cap Y^{-1}(A)\})}{Y(b) - Y(a)} \\
+                 &= \frac{\lambda([Y(a), Y(b)] \cap A)}{Y(b) - Y(a)}
+      \end{align*}
+      Now, let's see that $\mathrm{P}_Y \ll \lambda$ (absolute
+      continuity respect a the Lebesgue measure). Let
+      $A \in \mathcal{A}$ such that $\lambda(A) = 0$. It can be seen
+      that:
+      \begin{align*}
+        A \cap [Y(a), Y(b)) &\subseteq A \\
+        \lambda(A \cap  [Y(a), Y(b)]) &\le \lambda(A) \\
+        \lambda(A \cap [Y(a), Y(b)]) &\le 0
+      \end{align*}
+
+      As $\lambda(\cdot)$ is a measure, then it is positive. Hence:
+      \begin{align*}
+        \lambda(A \cap [Y(a), Y(b)]) &= 0 \\
+        \frac{\lambda(A \cap [Y(a), Y(b)])}{Y(b) - Y(a)} &= 0 \\
+        \P[Y]{A} &= 0
+      \end{align*}
+
+      In conclusion, it is obtained that
+      $\mathrm{P}_Y \ll \lambda$. Then by Radon-Nikodym's theorem
+      it exists a positive function $f_Y : \Omega \rightarrow \R$
+      such that for all $A \in \mathcal{A}$
+      \begin{equation*}
+        \P[Y]{A} = \int_A f_Y d\lambda
+      \end{equation*}
+
+      the function $f_Y$ is the density probability function.
+
+    \item It is important to notice that:
+      \begin{equation*}
+        E[X] = \int_\Omega X dP \quad E[X^2] = \int_\Omega X^2 dP
+      \end{equation*}
+      Hence, as $Z = Y$ almost everywhere respect to the
+      Lebesgue-measure and $P \ll \lambda$ then $Z=Y$ almost
+      everywhere respect to the $P$-measure.
+
+      In these manners, as an integral respect a measure does not
+      differentiate between functions that are equal almost everywhere
+      the integrals of both moments are equal for $Y$ and $Z$. Hence,
+      the expectancy and variance of both r.v. are equal.
+
+      Furthermore, as the distribution is build up using the Lebesgue
+      measure the probability measure will not distinguish between $Z$
+      or $Y$ because, Lebesgue-measure will not change the value for
+      sets that include sets of measure 0. Hence, all results hold up.
+
+      In this manner, it is impossible to determine exactly a random
+      variable by it's density and probability space as it cannot know
+      exactly where are some ``spots'' that have a measure of 0.
+  \end{enumerate}
+\end{proof}
+\end{document}

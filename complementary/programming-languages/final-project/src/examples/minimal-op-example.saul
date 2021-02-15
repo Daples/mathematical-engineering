@@ -1,0 +1,15 @@
+codigo
+
+funcion principal (  )
+real z
+real x
+real y
+
+leer z
+leer x
+
+y = x * 3 + z
+mostrar y
+finfuncion
+
+fincodigo

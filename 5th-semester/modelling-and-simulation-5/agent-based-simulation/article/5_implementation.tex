@@ -1,0 +1,32 @@
+\section{IMPLEMENTATION}
+The implementation was developed in NetLogo \cite{}. We use sliders to initialize each type of population. Each turtle represents an individual which interacts with other turtles, modifying its marital status and its BMI. Consequently, the diagnosis changes. 
+
+Also, the agents interact with the environment, modeled as patches that change depending on the agent's diagnosis. Turtles randomly move in the 2-dimensional space.
+
+The color on each patch represents how the next agent that touches this patch will eat. When this agent leaves the patch, it is updated according to its diagnosis corresponding with the following relations:
+\begin{itemize}
+\item Healthy and pink patch $\rightarrow$ reduce glucose and patch turns black.
+\item Healthy and black patch $\rightarrow$ increase glucose and patch remains black.
+\item Risky (or diabetic) and pink patch $\rightarrow$ reduce glucose and patch remains pink.
+\item Risky (or diabetic) and black patch $\rightarrow$ increase glucose and patch turns pink.
+\end{itemize}
+
+The original model considered was proposed by \cite{netlogomodel}. It only changed the glucose level according to the patch, and then updated the state of each turtle in relation to the current glucose level. He considers that when an individual is diabetic, it can only change directly into healthy, without being risky.
+
+We modified the original model adding the following attributes:
+\begin{itemize}
+\item Gender.
+\item BMI.
+\item Age.
+\item Marital status (marriage duration).
+\end{itemize}
+Moreover, the following decision rules were added:
+\begin{itemize}
+\item  The marriage is arranged depending on the agents in the radius calculated with \cref{eq:rad} and encouraged by social pressure (\cref{eq:sp}). 
+\item Diabetic individuals change into risky rather than directly to healthy.
+\item The BMI is updated according to the rules defined in \cref{tab:bmi}.
+\item  The first column of \cref{tab:probs} is used to initialize the BMI of diabetic individuals. The second column of \cref{tab:probs} is used to update the population: it represents the probability of, given a BMI, the agent is diabetic.
+\item The rules for patch colors and glucose are already described above.
+\item Agents only marry other agents with an age range calculated with \cref{eq:age}.
+\item The model updates the BMI of married agents every 4 ticks, and of single agents every tick.
+\end{itemize}

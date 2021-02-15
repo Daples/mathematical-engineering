@@ -1,0 +1,167 @@
+%**************************************************************************
+%*
+%*  Paper: ``INSTRUCTIONS FOR AUTHORS OF LATEX DOCUMENTS''
+%*
+%*  Publication: 2014 Winter Simulation Conference Author Kit
+%*
+%*  Filename: wsc14paper.tex
+%*
+%*  Date: January 31, 2001   Time:  9:45 PM
+%*      BASE of current version: Feb 01, 2010 (primary WSC'10 LaTeX file)
+%*
+%*  Word Processing System: TeXnicCenter and MiKTeX
+%*
+%*
+%*  All files need the following
+\input{wsc14style.tex}     % download from author kit.  Style files for wsc formatting. Don't remove this line - required for generating the final paper!
+
+\documentclass{wscpaperproc}
+\usepackage{latexsym}
+%\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{mathptmx}
+\usepackage{float}
+
+%
+%****************************************************************************
+% AUTHOR: You may want to use some of these packages. (Optional)
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage{subcaption}
+
+%****************************************************************************
+
+
+
+%
+%****************************************************************************
+% AUTHOR: If you do not wish to use hyperlinks, then just comment
+% out the hyperref usepackage commands below.
+
+%% This version of the command is used if you use pdflatex. In this case you
+%% cannot use ps or eps files for graphics, but pdf, jpeg, png etc are fine.
+
+\usepackage[pdftex,colorlinks=true,urlcolor=blue,citecolor=black,anchorcolor=black,linkcolor=black]{hyperref}
+\usepackage{cleveref}
+
+%% The next versions of the hyperref command are used if you adopt the
+%% outdated latex-dvips-ps2pdf route in generating your pdf file. In
+%% this case you can use ps or eps files for graphics, but not pdf, jpeg, png etc.
+%% However, the final pdf file should embed all fonts required which means that you have to use file
+%% formats which can embed fonts. Please note that the final PDF file will not be generated on your computer!
+%% If you are using WinEdt or PCTeX, then use the following. If you are using
+%% Y&Y TeX then replace "dvips" with "dvipsone"
+
+%%\usepackage[dvips,colorlinks=true,urlcolor=blue,citecolor=black,%
+%% anchorcolor=black,linkcolor=black]{hyperref}
+%****************************************************************************
+
+
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+
+%
+%****************************************************************************
+%*
+%* AUTHOR: YOUR CALL!  Document-specific macros can come here.
+%*
+%****************************************************************************
+
+% If you use theoremes
+\newtheoremstyle{wsc}% hnamei
+{3pt}% hSpace abovei
+{3pt}% hSpace belowi
+{}% hBody fonti
+{}% hIndent amounti1
+{\bf}% hTheorem head fontbf
+{}% hPunctuation after theorem headi
+{.5em}% hSpace after theorem headi2
+{}% hTheorem head spec (can be left empty, meaning `normal')i
+
+\theoremstyle{wsc}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\thetheorem}{ \arabic{theorem}}
+\newtheorem{corollary}[theorem]{Corollary}
+\renewcommand{\thecorollary}{\arabic{corollary}}
+\newtheorem{definition}{Definition}
+\renewcommand{\thedefinition}{\arabic{definition}}
+
+\renewcommand{\arraystretch}{1.2}
+
+%#########################################################
+%*
+%*  The Document.
+%*
+\begin{document}
+
+%***************************************************************************
+% AUTHOR: AUTHOR NAMES GO HERE
+% FORMAT AUTHORS NAMES Like: Author1, Author2 and Author3 (last names)
+%
+%		You need to change the author listing below!
+%               Please list ALL authors using last name only, separate by a comma except
+%               for the last author, separate with "and"
+%
+\WSCpagesetup{Restrepo, C\'ardenas, and Plazas}
+
+% AUTHOR: Enter the title, all letters in upper case
+\title{Agent-Based Model for Studying Diabetes under the Influence of Relationships}
+
+% AUTHOR: Enter the authors of the article, see end of the example document for further examples
+\author{Mateo Restrepo Sierra\\ [12pt]
+Mathematical Engineering\\
+Universidad EAFIT\\
+Medell\'in, Colombia\\
+% Multiple authors are entered as follows.
+% You may also need to adjust the titlevbox size in the preamble - search for titlevboxsize
+\and
+Juan Sebasti\'an C\'ardenas-Rodr\'iguez \\[12pt]
+Mathematical Engineering\\
+Universidad EAFIT\\
+Medell\'in, Colombia\\
+\and
+David Plazas Escudero\\ [12pt]
+Mathematical Engineering\\
+Universidad EAFIT\\
+Medell\'in, Colombia
+}
+
+
+
+
+
+
+\maketitle
+
+\section*{ABSTRACT}
+Diabetes is a disease which affects levels of blood insulin and recently has turned into a public health threat. This disease presents a huge risk for the individual, as it can reduce life expectancy. Furthermore, many models of diabetes just focus on biological or eating habits, without taking into account social or cultural factors. In this work, an agent-based model is proposed for the diabetic population taking into account interpersonal relationships and body mass index. The model is implemented in NetLogo and validated by results under extreme conditions. Then, it is simulated to test the influence that marriage has on the diabetic population.  Finally, a sensitivity analysis is made. 
+
+
+\input{1_intro}
+\input{2_conceptual_model}
+\input{3_backgrround}
+\input{4_modeldata}
+\input{5_implementation}
+\input{6_validation}
+\input{7_results}
+\input{8_sensitivity}
+\input{9_conc}
+
+
+% Please don't exchange the bibliographystyle style
+\bibliographystyle{wsc}
+% AUTHOR: Include your bib file here
+\bibliography{ref}
+\input{annex}
+\end{document}
+

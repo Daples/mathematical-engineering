@@ -1,0 +1,19 @@
+\section{Introduction}
+In the study of financial systems, randomness and memory must be taken into account; thus, chaos and fractional derivatives can serve our purpose, i.e. is well known that fractional derivatives depend on the system's past and financial variables often have memory (e.g. exchange rate, interest rate, stock market prices and so on), therefore current fluctuations of variables are strongly correlated with all future fluctuations \cite{main}. On the other hand, it is well known \cite{jun2001study} that long-term behaviors in the financial model are highly sensitive to the initial values of the state variables and changes to the parameters (i.e. chaos). Furthermore, chaos is characterized for it's inherent randomness as it can model behaviors not available to deterministic models; in this manner, in financial systems it can help to simulate and model financial events which are indefinite. Experiments have shown that a financial system can be described by the following equations \cite{jun2001study}: 
+\begin{equation}
+	\begin{array}{ll}
+            \dot{X}&=f_1(Y-\lambda)X+f_2Z\\
+            \dot{Y}&=f_3(\gamma - \alpha Y - \beta X^2)\\
+            \dot{Z}&=-f_4Z-f_5X
+    \end{array}
+\end{equation}
+Where X, Y and Z are the state variables that will be described in the next section and everything else are constants. The equations that are going to be worked are a particularization in China financial model of the system described above.
+
+In this paper, we will simulate the system for different orders and compare the results with Chen's paper; a comparison between the algorithms applied for integer-order systems will be done (Runge-Kutta vs. Adams-Bashforth-Moulton), and, finally, a stability analysis and control is discussed.
+
+
+
+
+
+
+

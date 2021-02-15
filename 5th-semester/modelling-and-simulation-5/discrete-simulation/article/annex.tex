@@ -1,0 +1,173 @@
+\appendix
+\section{Appendix}\label{sec:appen}
+\subsection{Distribution Fitting}
+As mentioned in Section \ref{sec:data}, the fitting of distributions was performed in Python using SciPy. The fitting was performed with the Kolmogorov-Smirnov test against all the available theoretical distributions. In Table \ref{tab:att_serv} the best fit distributions for each day and each hour are presented. We use the conventions in SciPy. The distribution name matches the online documentation and the parameters have the following convention: [\textit{distribution parameters}, location, scale]. All the parameters are used according to the probability density functions presented in SciPy documentation.
+
+
+\begin{longtable}[c]{lp{3cm}llp{5cm}}
+\hline
+       & \textbf{Service}                                  & \textbf{Distribution} & \textbf{p-value} & \textbf{Parameters}                                                                               \\ \hline
+\textbf{Att 16} & Farmacia General                         & fatiguelife  & 0.99057 & {[}1.62781, 0.13875, 0.17738{]}                                                          \\
+       & Preferencial Farmacia                    & norm         & -       & {[}0.49259, 0.52202{]}                                                                   \\ \hline
+\textbf{Att 13} & Farmacia General                         & nct          & 0.89895 & {[}1.06936, 2.09336, 0.10515, 0.12759{]}                                                 \\
+       & Preferencial Farmacia                    & norm         & -       & {[}0.62333, 0.4897{]}                                                                    \\ \hline
+\textbf{Att 11} & Pref Confirmacion de Citas               & ncf          & 0.99829 & {[}0.33131, 15.96713, 6.41388, -0.00012, 0.20353{]}                                      \\
+       & Confirmacion de citas                    & johnsonsu    & 0.97981 & {[}-6.28171, 1.2888, -0.77047, 0.06161{]}                                                \\
+       & Tramites despues de Citas                & genexpon     & 0.96818 & {[}67084310183.16647, 98784169004.66412, 115812276725.65875, -0.0, 470313120150.21686{]} \\
+       & Confirmacion Citas PAC, MP y Poliza Sura & norm         & -       & {[}2.37121, 4.89016{]}                                                                   \\ \hline
+\textbf{Att 24} & Farmacia General                         & chi          & 0.70929 & {[}0.61509, -0.0, 5.73994{]}                                                             \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}6.93333, 0.6364{]}                                                                    \\
+       & Preferencial Farmacia                    & johnsonsb    & 0.98175 & {[}0.56148, 0.71294, 0.31001, 11.24679{]}                                                \\ \hline
+\textbf{Att 8}  & Farmacia General                         & invgauss     & 0.58183 & {[}0.77192, -0.27563, 3.82245{]}                                                         \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}5.08333, 2.07418{]}                                                                   \\
+       & Preferencial Farmacia                    & loglaplace   & 0.99818 & {[}1.41177, 0.20017, 2.03994{]}                                                          \\ \hline
+\textbf{Att 4}  & Farmacia General                         & johnsonsu    & 0.69515 & {[}-2.1781, 0.66373, 0.12293, 0.04356{]}                                                 \\
+       & Farmacia PAC, MP y Poliza Sura           & foldcauchy   & 0.99746 & {[}1.12262, 0.03333, 0.13716{]}                                                          \\
+       & Preferencial Farmacia                    & johnsonsu    & 0.39988 & {[}-1.48111, 0.55217, 0.16105, 0.03756{]}                                                \\
+       & Entrega Programada                       & norm         & -       & {[}0.80417, 1.14465{]}                                                                   \\ \hline
+\textbf{Att 12} & Farmacia General                         & norm         & -       & {[}0.36515, 0.12615{]}                                                                   \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}0.47222, 0.05358{]}                                                                   \\
+       & Preferencial Farmacia                    & johnsonsu    & 0.51968 & {[}-1.36186, 0.81497, 0.24959, 0.05623{]}                                                \\ \hline
+\textbf{Att 17} & Farmacia PAC, MP y Poliza Sura           & johnsonsu    & 0.8192  & {[}-1.13296, 0.73728, 0.25054, 0.0506{]}                                                 \\
+       & Preferencial Farmacia                    & johnsonsu    & 0.48031 & {[}-1.23664, 0.64863, 0.23181, 0.04298{]}                                                \\
+       & Entrega Programada                       & norm         & -       & {[}0.80417, 0.35833{]}                                                                   \\ \hline
+\textbf{Att 14} & Farmacia General                         & johnsonsu    & 0.12823 & {[}-1.29847, 0.64395, 0.20378, 0.0373{]}                                                 \\
+       & Preferencial Farmacia                    & johnsonsu    & 0.8928  & {[}-0.70984, 0.42431, 0.30924, 0.02746{]}                                                \\ \hline
+\textbf{Att 23} & Farmacia General                         & johnsonsu    & 0.38527 & {[}-1.27092, 0.5069, 0.22385, 0.04632{]}                                                 \\
+       & Farmacia PAC, MP y Poliza Sura           & johnsonsu    & 0.90203 & {[}-0.87856, 0.88658, 0.21585, 0.11953{]}                                                \\
+       & Preferencial Farmacia                    & nct          & 0.44984 & {[}1.28693, 2.29516, 0.16159, 0.05815{]}                                                 \\ \hline
+\textbf{Att 15} & Farmacia General                         & exponpow     & 0.99261 & {[}0.65811, 0.16667, 0.6911{]}                                                           \\
+       & Entrega Programada                       & norm         & -       & {[}0.51667, 0.02357{]}                                                                   \\ \hline
+\textbf{Att 3}  & Farmacia General                         & fisk         & 0.99853 & {[}1.47967, 0.09026, 0.35672{]}                                                          \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}0.64762, 0.32595{]}                                                                   \\
+       & Preferencial Farmacia                    & nct          & 0.65052 & {[}1.71681, 3.05122, 0.09044, 0.07231{]}                                                 \\ \hline
+\textbf{Att 22} & Farmacia General                         & mielke       & 0.99987 & {[}12.38816, 0.84125, 0.10811, 0.01271{]}                                                \\
+       & Farmacia PAC, MP y Poliza Sura           & johnsonsu    & 0.927   & {[}-0.553, 0.60398, 0.34656, 0.08497{]}                                                  \\
+       & Preferencial Farmacia                    & nct          & 0.71151 & {[}0.95348, 1.92681, 0.19793, 0.08532{]}                                                 \\
+       & Entrega Programada                       & halfcauchy   & 0.96395 & {[}0.33333, 0.45007{]}                                                                   \\ \hline
+\textbf{Att 18} & Farmacia General                         & johnsonsu    & 0.85574 & {[}-1.5017, 0.79096, 0.20804, 0.07408{]}                                                 \\
+       & Farmacia PAC, MP y Poliza Sura           & nct          & 0.94507 & {[}1.06208, 1.73919, 0.27715, 0.15981{]}                                                 \\
+       & Preferencial Farmacia                    & norm         & -       & {[}0.24722, 0.09511{]}                                                                   \\ \hline
+\textbf{Att 6}  & Farmacia General                         & johnsonsu    & 0.58099 & {[}-1.42415, 0.61752, 0.21081, 0.04098{]}                                                \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}0.33667, 0.08283{]}                                                                   \\
+       & Preferencial Farmacia                    & nct          & 0.41817 & {[}1.06735, 1.89027, 0.19151, 0.06387{]}                                                 \\ \hline
+\textbf{Att 7}  & Farmacia General                         & nakagami     & 0.86245 & {[}0.29563, -0.0, 10.97817{]}                                                            \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}5.46167, 7.22277{]}                                                                   \\
+       & Preferencial Farmacia                    & norm         & -       & {[}4.32917, 3.7765{]}                                                                    \\
+       & Entrega Programada                       & norm         & -       & {[}4.58, 9.56146{]}                                                                      \\ \hline
+\textbf{Att 21} & Farmacia General                         & johnsonsu    & 0.97683 & {[}-0.90044, 0.89261, 0.19759, 0.06815{]}                                                \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}0.41833, 0.45498{]}                                                                   \\
+       & Preferencial Farmacia                    & alpha        & 0.96406 & {[}2.72941, -0.09125, 1.18675{]}                                                         \\
+       & Entrega Programada                       & norm         & -       & {[}0.34167, 0.3182{]}                                                                    \\ \hline
+\textbf{Att 20} & Pref Confirmacion de Citas               & nakagami     & 0.98859 & {[}0.31051, 0.36667, 2.96453{]}                                                          \\
+       & Confirmacion de citas                    & mielke       & 0.8015  & {[}1.12627, 2.92181, 0.11352, 3.57187{]}                                                 \\
+       & Confirmacion Citas PAC, MP y Poliza Sura & norm         & -       & {[}1.83182, 1.38647{]}                                                                   \\
+       & Tramites despues de Citas                & johnsonsb    & 0.96377 & {[}0.98592, 0.70016, 0.08997, 11.45658{]}                                                \\ \hline
+\textbf{Att 5}  & Farmacia PAC, MP y Poliza Sura           & invgamma     & 0.9992  & {[}2.05702, -0.8456, 7.75335{]}                                                          \\
+       & Preferencial Farmacia                    & norm         & -       & {[}2.70167, 2.46779{]}                                                                   \\
+       & Entrega Programada                       & norm         & -       & {[}5.02, 8.27435{]}                                                                      \\ \hline
+\textbf{Att 10} & Farmacia General                         & nct          & 0.93934 & {[}0.65037, 1.83056, 0.16605, 0.04542{]}                                                 \\
+       & Farmacia PAC, MP y Poliza Sura           & johnsonsu    & 0.99824 & {[}-1.21136, 0.51816, 0.21761, 0.03192{]}                                                \\
+       & Preferencial Farmacia                    & johnsonsu    & 0.74634 & {[}-1.09901, 0.59292, 0.24489, 0.0431{]}                                                 \\
+       & Entrega Programada                       & norm         & -       & {[}3.29111, 5.83623{]}                                                                   \\ \hline
+\textbf{Att 2}  & Farmacia General                         & weibull\_min & 0.99138 & {[}0.75254, 0.06667, 3.25703{]}                                                          \\
+       & Farmacia PAC, MP y Poliza Sura           & laplace      & 0.94197 & {[}4.05, 2.19116{]}                                                                      \\
+       & Preferencial Farmacia                    & exponpow     & 0.99944 & {[}0.60618, 0.23333, 4.92841{]}                                                          \\
+       & Entrega Programada                       & norm         & -       & {[}1.93889, 3.60495{]}                                                                   \\ \hline
+\textbf{Att 9}  & Farmacia General                         & johnsonsu    & 0.88688 & {[}-5.09161, 1.07842, -0.24934, 0.04755{]}                                               \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}4.29545, 4.93202{]}                                                                   \\
+       & Preferencial Farmacia                    & norm         & -       & {[}2.11389, 2.31354{]}                                                                   \\
+       & Entrega Programada                       & norm         & -       & {[}4.25, 5.26326{]}                                                                      \\ \hline
+\textbf{Att 19} & Farmacia General                         & johnsonsb    & 0.50391 & {[}8.74138, 1.38249, -0.49468, 1834.28761{]}                                             \\
+       & Preferencial Farmacia                    & nakagami     & 0.91117 & {[}0.37578, 0.23333, 4.78737{]}                                                          \\ \hline
+\textbf{Att 1}  & Farmacia General                         & gengamma     & 0.45301 & {[}10.30977, 0.35725, -0.08809, 0.00339{]}                                               \\
+       & Farmacia PAC, MP y Poliza Sura           & norm         & -       & {[}2.55, 1.18782{]}                                                                      \\
+       & Preferencial Farmacia                    & norm         & -       & {[}2.55833, 1.37886{]}                                                                   \\
+       & Entrega Programada                       & norm         & -       & {[}0.59375, 0.63076{]}                                                                   \\ \hline
+\caption{Attendants distribution fitting by hours and service.}
+\label{tab:att_serv}
+\end{longtable}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{longtable}
+% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
+\begin{longtable}[c]{llllp{5cm}}
+\textbf{Date}         & \textbf{Hour} & \textbf{Distribution} & \textbf{p-value} & \textbf{Parameters}                                    \\ \hline
+\endfirsthead
+%
+\endhead
+%
+\textbf{Monday 26}    & 6:00-7:00             & lognorm               & 0.92735          & {[}0.91273, 0.11933, 0.18633{]}                        \\
+\textbf{}             & 7:00-8:00             & johnsonsu             & 0.78289          & {[}-1.79996, 1.03526, 0.19108, 0.06859{]}              \\
+\textbf{}             & 8:00-9:00             & alpha                 & 0.87654          & {[}2.87705, -0.0595, 1.17314{]}                        \\
+\textbf{}             & 9:00-10:00             & foldcauchy            & 0.86375          & {[}1.18657, 0.16667, 0.09681{]}                        \\
+\textbf{}             & 10:00-11:00            & johnsonsu             & 0.82017          & {[}-1.16378, 0.85848, 0.20883, 0.06324{]}              \\
+\textbf{}             & 11:00-12:00            & invgamma              & 0.61487          & {[}2.46322, 0.00954, 0.64648{]}                        \\
+\textbf{}             & 12:00-13:00            & beta                  & 0.99136          & {[}1.04874, 97492228.74675, 0.13313, 37741066.13559{]} \\
+\textbf{}             & 13:00-14:00            & burr                  & 0.8261           & {[}2.37289, 41.07014, 0.05157, 0.06283{]}              \\
+\textbf{}             & 14:00-15:00            & johnsonsu             & 0.85535          & {[}-1.03125, 0.96418, 0.31182, 0.11123{]}              \\
+\textbf{}             & 15:00-16:00            & foldcauchy            & 0.84493          & {[}1.49348, 0.11667, 0.14705{]}                        \\
+\textbf{}             & 16:00-17:00            & loglaplace            & 0.78622          & {[}1.39784, 0.12699, 0.23968{]}                        \\
+\textbf{}             & 17:00-18:00            & johnsonsb             & 0.99517          & {[}1.50618, 0.81644, 0.14092, 4.33617{]}               \\
+\textbf{}             & 18:00-19:00            & lomax                 & 0.81476          & {[}28.64119, 0.21667, 15.74325{]}                      \\ \hline
+\textbf{Tuesday 27}   & 6:00-7:00             & alpha                 & 0.86891          & {[}2.20287, 0.00396, 0.74495{]}                        \\
+\textbf{}             & 7:00-8:00             & johnsonsu             & 0.64997          & {[}-1.36029, 1.01153, 0.24694, 0.07437{]}              \\
+\textbf{}             & 8:00-9:00             & johnsonsb             & 0.6316           & {[}8.07477, 1.37157, 0.13379, 94.46084{]}              \\
+\textbf{}             & 9:00-10:00             & johnsonsu             & 0.80292          & {[}-1.23989, 1.0254, 0.23958, 0.08885{]}               \\
+\textbf{}             & 10:00-11:00            & johnsonsu             & 0.55124          & {[}-1.26769, 0.92585, 0.25384, 0.05091{]}              \\
+\textbf{}             & 11:00-12:00            & johnsonsu             & 0.91897          & {[}-1.03936, 0.85618, 0.26707, 0.06578{]}              \\
+\textbf{}             & 12:00-13:00            & exponweib             & 0.99446          & {[}56.65721, 0.29109, 0.15841, 0.0016{]}               \\
+\textbf{}             & 13:00-14:00            & burr                  & 0.742            & {[}2.33412, 2.56205, 0.09438, 0.17955{]}               \\
+\textbf{}             & 14:00-15:00            & loglaplace            & 0.77161          & {[}1.53339, 0.17669, 0.25664{]}                        \\
+\textbf{}             & 15:00-16:00            & johnsonsu             & 0.91211          & {[}-1.80142, 1.01405, 0.21918, 0.06851{]}              \\
+\textbf{}             & 16:00-17:00            & fisk                  & 0.99743          & {[}1.59009, 0.21202, 0.23038{]}                        \\
+\textbf{}             & 17:00-18:00            & gengamma              & 0.99938          & {[}1.02027, 0.90964, 0.21667, 0.77741{]}               \\
+\textbf{}             & 18:00-19:00            & gamma                 & 0.987            & {[}0.73154, 0.21667, 1.7865{]}                         \\ \hline
+\textbf{Wednesday 28} & 6:00-7:00             & johnsonsu             & 0.79231          & {[}-2.13376, 0.94118, 0.18939, 0.03901{]}              \\
+\textbf{}             & 7:00-8:00             & johnsonsu             & 0.53049          & {[}-1.33043, 0.7488, 0.24046, 0.04609{]}               \\
+\textbf{}             & 8:00-9:00             & johnsonsu             & 0.91021          & {[}-1.46346, 0.8543, 0.27322, 0.03896{]}               \\
+\textbf{}             & 9:00-10:00             & betaprime             & 0.97344          & {[}346.46788, 3.54218, 0.06161, 0.00335{]}             \\
+\textbf{}             & 10:00-11:00            & fisk                  & 0.98687          & {[}2.31011, 0.13201, 0.22175{]}                        \\
+\textbf{}             & 11:00-12:00            & betaprime             & 0.87292          & {[}40.95951, 1.908, 0.09518, 0.01308{]}                \\
+\textbf{}             & 12:00-13:00            & foldcauchy            & 0.97268          & {[}2.26431, 0.13333, 0.11112{]}                        \\
+\textbf{}             & 13:00-14:00            & johnsonsu             & 0.95613          & {[}-1.5493, 0.99582, 0.27035, 0.08264{]}               \\
+\textbf{}             & 14:00-15:00            & johnsonsu             & 0.94757          & {[}-1.88627, 1.16978, 0.20176, 0.0945{]}               \\
+\textbf{}             & 15:00-16:00            & johnsonsu             & 0.79988          & {[}-1.55693, 0.82651, 0.2533, 0.05144{]}               \\
+\textbf{}             & 16:00-17:00            & foldcauchy            & 0.98139          & {[}0.87319, 0.2333, 0.18948{]}                         \\
+\textbf{}             & 17:00-18:00            & johnsonsu             & 0.99974          & {[}-1.90268, 1.00767, 0.27625, 0.17265{]}              \\
+\textbf{}             & 18:00-19:00            & fatiguelife           & 0.81624          & {[}1.67466, 0.24489, 0.69849{]}                        \\ \hline
+\textbf{Thursday 29}  & 6:00-7:00             & foldcauchy            & 0.82509          & {[}1.99899, 0.13333, 0.09163{]}                        \\
+\textbf{}             & 7:00-8:00             & johnsonsu             & 0.80807          & {[}-1.54583, 0.95217, 0.22393, 0.08193{]}              \\
+\textbf{}             & 8:00-9:00             & exponweib             & 0.57104          & {[}98.6175, 0.46902, 0.08717, 0.01065{]}               \\
+\textbf{}             & 9:00-10:00             & johnsonsu             & 0.92695          & {[}-1.6203, 0.97081, 0.23532, 0.0816{]}                \\
+\textbf{}             & 10:00-11:00            & nct                   & 0.90124          & {[}2.10262, 2.07561, 0.19427, 0.07789{]}               \\
+\textbf{}             & 11:00-12:00            & johnsonsu             & 0.90969          & {[}-1.48168, 0.98104, 0.2434, 0.07366{]}               \\
+\textbf{}             & 12:00-13:00            & alpha                 & 0.76294          & {[}1.57887, 0.0345, 0.6142{]}                          \\
+\textbf{}             & 13:00-14:00            & johnsonsu             & 0.94077          & {[}-1.52673, 0.89291, 0.24903, 0.08479{]}              \\
+\textbf{}             & 14:00-15:00            & alpha                 & 0.89964          & {[}2.2197, 0.01165, 0.90375{]}                         \\
+\textbf{}             & 15:00-16:00            & mielke                & 0.83486          & {[}128.74968, 2.46165, -0.01524, 0.08747{]}            \\
+\textbf{}             & 16:00-17:00            & burr                  & 0.98             & {[}1.50408, 2.21761, 0.14066, 0.17991{]}               \\
+\textbf{}             & 17:00-18:00            & johnsonsb             & 0.99367          & {[}3.36774, 0.81745, 0.20265, 22.44792{]}              \\
+\textbf{}             & 18:00-19:00            & f                     & 0.92346          & {[}5.20197, 1.67781, 0.18672, 0.33884{]}               \\ \hline
+\textbf{Friday 30}    & 6:00-7:00             & invgauss              & 0.80879          & {[}2.2255, 0.16826, 0.24136{]}                         \\
+\textbf{}             & 7:00-8:00             & ncf                   & 0.29092          & {[}2.99982, 3.72833, 270.22994, 0.12008, 0.00278{]}    \\
+\textbf{}             & 8:00-9:00             & foldcauchy            & 0.87901          & {[}1.78653, 0.15, 0.11516{]}                           \\
+\textbf{}             & 9:00-10:00             & johnsonsu             & 0.49965          & {[}-1.03596, 0.85416, 0.27657, 0.0822{]}               \\
+\textbf{}             & 10:00-11:00            & powerlognorm          & 0.6541           & {[}0.9033, 0.82938, 0.16589, 0.25331{]}                \\
+\textbf{}             & 11:00-12:00            & johnsonsu             & 0.82742          & {[}-1.11264, 0.7743, 0.28324, 0.0516{]}                \\
+\textbf{}             & 12:00-13:00            & alpha                 & 0.97102          & {[}2.34122, -0.07718, 1.17781{]}                       \\
+\textbf{}             & 13:00-14:00            & alpha                 & 0.63484          & {[}1.34062, 0.03509, 0.56573{]}                        \\
+\textbf{}             & 14:00-15:00            & johnsonsu             & 0.78728          & {[}-1.55962, 0.76181, 0.27247, 0.04114{]}              \\
+\textbf{}             & 15:00-16:00            & johnsonsu             & 0.77648          & {[}-1.46487, 0.81995, 0.257, 0.04651{]}                \\
+\textbf{}             & 16:00-17:00            & johnsonsu             & 0.83958          & {[}-1.32962, 0.77857, 0.28046, 0.06247{]}              \\
+\textbf{}             & 17:00-18:00            & johnsonsu             & 0.84887          & {[}-1.1286, 0.69075, 0.35424, 0.0634{]}                \\
+\textbf{}             & 18:00-19:00            & chi2                  & 0.88327          & {[}1.32993, 0.18333, 0.78942{]}                        \\ \hline
+\textbf{Saturday 31}  & 7:00-8:00             & lomax                 & 0.25193          & {[}3.22539, 0.11667, 0.76482{]}                        \\
+\textbf{}             & 8:00-9:00             & invgamma              & 0.92703          & {[}1.92871, 0.13517, 0.55124{]}                        \\
+\textbf{}             & 9:00-10:00             & loglaplace            & 0.78948          & {[}1.19366, 0.21467, 0.28533{]}                        \\
+\textbf{}             & 10:00-11:00            & fisk                  & 0.88252          & {[}1.7456, 0.1734, 0.27987{]}                          \\
+\textbf{}             & 11:00-12:00            & johnsonsu             & 0.97212          & {[}-2.05118, 0.95597, 0.18942, 0.08072{]}              \\
+\textbf{}             & 12:00-13:00            & johnsonsu             & 0.38118          & {[}-1.45688, 0.65743, 0.2781, 0.0595{]}              \\\hline
+\caption{Inter-arrival times distribution by hours.}
+\label{tab:int_dist}\\
+\end{longtable}

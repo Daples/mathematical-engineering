@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Anotación}
+
+\theoremstyle{remark}
+\newtheorem{question}{Pregunta}
+
+\newtheorem{theorem}{Teorema}[section]
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathrm{Var}\left[#1 \right]}
+
+%%%% Lambda Calculus Symbols
+\newcommand{\dneq}{\,\, \# \,\,}
+\renewcommand{\S}{\pmb{\mathrm{S}}}
+\newcommand{\I}{\pmb{\mathrm{I}}}
+\newcommand{\K}{\pmb{\mathrm{K}}}
+\newcommand{\ch}[1]{\ulcorner #1 \urcorner}
+
+%%%% Make optional parameter
+% https://tex.stackexchange.com/questions/217757/special-behavior-if-optional-argument-is-not-passed
+\usepackage{xparse}
+\NewDocumentCommand{\cx}{o}{
+  \IfNoValueTF{#1}
+  {\left[\quad\right]}
+  {\left[\, #1 \,\right]}
+}
+
+%%%%%%%% LOGIC TREES
+\usepackage{prftree}
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% START DOCUMENT
+
+\title{Tarea Estocásticos}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{Ingeniería Matemática, Universidad EAFIT} \\
+  \scalebox{0.7}{201710008101}}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\begin{question}
+  Usando las aproximaciones de la integral de ITO, probar que:
+  \begin{equation*}
+    \int_0^tsdB_s = tB_t - \int_0^tB_sds
+  \end{equation*}
+\end{question}
+\begin{proof}
+  Procedamos de esta esta forma:
+  \begin{align*}
+    \Delta (s_iB_i) &= s_iB_i - s_{i-1}B_{i-1} \\
+                    &= s_iB_i - s_{i-1}B_{i-1} + s_iB_{i-1} - s_iB_{i-1} \\
+                    &= s_i\Delta B_i + B_{i-1}\Delta s_i \\
+                    &= (\Delta s_i + s_{i-1})\Delta B_i + B_{i-1} \Delta s_i \\
+                    &= \Delta s_i \Delta B_i + s_{i-1}\Delta B_i + B_{i-1} \Delta s_i \\
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Delta (s_i B_i) &=
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Delta s_i \Delta B_i +
+   \lim_{n \rightarrow \infty}\sum_{i =1}^{n} s_{i-1} \Delta B_i +
+   \lim_{n \rightarrow \infty}\sum_{i =1}^{n} B_{i-1} \Delta s_i \\
+    \int_0^td(sB_s) &= \int_0^t ds dB_s + \int_0^t s dB_s + \int_0^tB_s ds \\
+    \int_0^t s dB_s &= tB_t - \int_0^t B_s ds
+  \end{align*}
+\end{proof}
+
+\begin{question}
+    Usando las aproximaciones de la integral de ITO, probar que:
+  \begin{equation*}
+    \int_0^tB_s^2dB_s = \frac{1}{3}B_t^3 - \int_0^tB_sds
+  \end{equation*}
+\end{question}
+\begin{proof}
+  Obsérvese que:
+  \begin{align*}
+    (\Delta B_i)^3 &= B_i^3 - 3B_i^2B_{i-1} + 3B_iB_{i - 1}^2 - B_{i-1}^3 \\
+    (\Delta B_i)^3 &= \Delta B_i^3 - 3B_iB_{i - 1}\Delta B_i \\
+    (\Delta B_i)^3 &= \Delta B_i^3 - 3(\Delta B_i + B_{i - 1})B_{i - 1} \Delta B_i \\
+    3B_{i - 1}^2\Delta B_i &= \Delta B_i^3 - 3B_{i - 1}(\Delta B_i)^2 - (\Delta B_i)^3 \\
+    3\lim_{n \rightarrow \infty}\sum_{i =1}^{n} B_{i - 1}^2\Delta B_i &=
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n}\Delta B_i^3 -
+   3\lim_{n \rightarrow \infty}\sum_{i =1}^{n}B_{i - 1}(\Delta B_i)^2
+    - \lim_{n \rightarrow \infty}\sum_{i =1}^{n} (\Delta B_i)^3 \\
+    3 \int_0^tB_s^2dB_s &= B_t^3 - 3\int_0^tB_s (dB_s)^2 - \int_0^t(dB_s)^3 \\
+    \int_0^tB_s^2dB_s &= \frac{1}{3}B_t^3 - \int_0^tB_s ds - \int_0^t(dB_s)^2 dB_s \\
+    &\text{Dado que } dB_s ds = 0 \text{ obtenemos entonces que } \\
+        \int_0^tB_s^2dB_s &= \frac{1}{3}B_t^3 - \int_0^tB_s ds
+  \end{align*}
+\end{proof}
+
+\begin{question}
+    Usando las aproximaciones de la integral de ITO, probar que:
+  \begin{equation*}
+    \int_0^tB_s^3dB_s = \frac{1}{4}B_t^4 - \int_0^t\frac{3}{2}B_s^2ds
+  \end{equation*}
+\end{question}
+\begin{proof}
+  Obsérvese que:
+  \begin{align*}
+    (\Delta B_i)^4 &= B_i^4 - 4B_i^3B_{i - 1} + 6B_i^2B_{i -1}^2 - 4B_iB_{i-1}^3 +
+                      B_{i-1}^4 \\
+    (\Delta B_i)^4 &= B_i^4 - B_{i -1}^4 - 4B_i^3B_{i - 1} + 6B_i^2B_{i -1}^2 - 4B_iB_{i-1}^3 +
+                      2B_{i-1}^4 \\
+    (\Delta B_i)^4 &= \Delta B_i^4 \pmb{+ 2B_iB_{i - 1}^2(3B_i - 2B_{i-1}) -
+                      2B_{i-1}(2B_i^3 - B_{i-1}^3)} \\
+    (\Delta B_i)^4 &= \Delta B_i^4 + \Gamma_i
+  \end{align*}
+  Si nos enfocamos en el término en negrilla ($\Gamma_i$) obtenemos:
+  \begin{align*}
+    \Gamma_i
+    &= 2B_iB_{i - 1}^2(3B_i - 2B_{i-1}) -2B_{i-1}(2B_i^3 - B_{i-1}^3) \\
+    &= 2B_iB_{i-1}^2(3\Delta B_i + B_{i-1}) -2B_{i-1}(2B_i^3 - B_{i-1}^3) \\
+    &= 2(\Delta B_i + B_{i-1})B_{i-1}^2(3\Delta B_i + B_{i-1}) -2B_{i-1}(2B_i^3 - B_{i-1}^3) \\
+    &= 6B_{i-1}^2(\Delta B_i)^2 + 2B_{i-1}^3\Delta B_i + 6B_{i-1}^3\Delta B_i
+      + 2B_{i-1}^4 -2B_{i-1}(2B_i^3 - B_{i-1}^3) \\
+    &= 6B_{i-1}^2(\Delta B_i)^2 + 8B_{i-1}^3\Delta B_i
+      \pmb{-4B_{i-1}(B_i^3 - B_{i-1}^3)} \\
+    &= 6B_{i-1}^2(\Delta B_i)^2 + 8B_{i-1}^3\Delta B_i + \Sigma_i
+  \end{align*}
+  Ahora, usando $\Sigma_i$:
+  \begin{align*}
+    \Sigma_i
+    &= -4B_{i-1}(B_i^3 - B_{i-1}^3) \\
+    &= -4B_{i-1}\Delta B_i(B_i^2 + B_iB_{i-1} + B_{i-1}^2) \\
+    &= -4B_{i-1}\Delta B_i((\Delta B_i)^2 + 3B_iB_{i-1}) \\
+    &= -4B_{i-1}(\Delta B_i)^3 - 12B_iB_{i-1}^2\Delta B_i \\
+    &= -4B_{i-1}(\Delta B_i)^3 - 12(\Delta B_i + B_{i-1})B_{i-1}^2\Delta B_i \\
+    &= -4B_{i-1}(\Delta B_i)^3 - 12B_{i-1}^2(\Delta B_i)^2 - 12B_{i-1}^3\Delta B_i
+  \end{align*}
+  Luego, aplicando sumatoria y límite a ambos lados de $\Sigma_i$:
+  \begin{align*}
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n}\Sigma_i
+    &= \lim_{n \rightarrow \infty}\sum_{i =1}^{n} -4B_{i-1}(\Delta B_i)^3 -
+      \lim_{n \rightarrow \infty}\sum_{i =1}^{n} 12B_{i-1}^2(\Delta B_i)^3 -
+      \lim_{n \rightarrow \infty}\sum_{i =1}^{n} 12B_{i-1}^3\Delta B_i \\
+    &= -\int_0^t 4B_s (dB_s)^3 - 12 \int_0^t B_s^2 (dB_s)^2 - 12 \int_0^t B_s^3 dB_s \\
+    &= -12\int_0^t B_s^2 ds -12 \int_0^t B_s^3 dB_s
+  \end{align*}
+    Luego, aplicando sumatoria y límite a ambos lados de $\Gamma_i$:
+  \begin{align*}
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Gamma_i
+    &= \lim_{n \rightarrow \infty}\sum_{i =1}^{n} 6B_{i-1}^2(\Delta B_i)^2 +
+      \lim_{n \rightarrow \infty}\sum_{i =1}^{n} 8B_{i-1}^3\Delta B_i +
+      \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Sigma_i \\
+    &= 6\int_0^t B_s^2 (dB_s)^2 + \int_0^t 8B_s^3 dB_s - 12\int_0^t B_s^2 ds
+      - 12\int_0^t B_s^3 dB_s \\
+    &= -6\int_0^t B_s^2 ds - 4 \int_0^t B_s^3 dB_s
+  \end{align*}
+  Por último, en la ecuación original:
+  \begin{align*}
+    \lim_{n \rightarrow \infty}\sum_{i =1}^{n} (\Delta B_i)^4
+    &= \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Delta B_i^4 +
+      \lim_{n \rightarrow \infty}\sum_{i =1}^{n} \Gamma_i \\
+    \int_0^t (dB_s)^4
+    &= \int_0^td(B_s^4) - 6\int_0^t B_s^2 ds - 4 \int_0^t B_s^3 dB_s \\
+    0 &= B_t^4 - 6\int_0^t B_s^2 ds - 4\int_0^t B_s^3 dB_s \\
+    \int_0^t B_s^3 dB_s &= \frac{1}{4} B_t^4 - \int_0^t \frac{3}{2}B_s^2 ds
+  \end{align*}
+\end{proof}
+
+\end{document}

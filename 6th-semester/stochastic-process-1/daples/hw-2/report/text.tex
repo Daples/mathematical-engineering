@@ -1,0 +1,19 @@
+\maketitle
+\section{¿Existe evidencia suficiente para afirmar que los pacientes llegan según un proceso de Poisson? ¿Cuál es la intensidad del proceso?}
+\begin{theorem}
+Sea $\tau_1,\tau_2,\ldots$ una secuencia de variables aleatorias independientes e idénticamente distribuidas con distribución exponencial (con parámetro $\lambda$), y sea\[
+T_n=\sum_{i=1}^n\tau_i, \ \ T_0=0.
+\]
+Se define \[N(s)=\mathrm{max}\{n:\,T_n\leq s\}.\] Luego, $N(s)$ es un proceso de Poisson.
+\end{theorem}
+Por lo tanto, si se concluye que el tiempo entre llegadas para el conjunto de datos tiene distribución exponencial con parámetro fijo (y además que son independientes), se tendría que las llegadas siguen un proceso de Poisson con intensidad dada. Para esto, se hará un test de Kolmogorov-Smirnov \cite[pp. 305-306]{banks2010discrete}. El test de Kolmogorov-Smirnov compara las siguientes hipótesis:
+\begin{center}
+\begin{tabular}{rl}
+     $H_0$: & Los datos siguen la distribución especificada. \\
+     $H_a$: & Los datos no siguen la distribución especificada. 
+\end{tabular}
+\end{center}
+El test compara la distribución acumulada teórica especificada con la distribución acumulada de los datos; a partir de la máxima desviación absoluta entre los datos y la distribución teórica, calcula el estadístico de prueba y posteriormente el valor p. Si el valor p es menor al nivel de la prueba, se puede afirmar que hay evidencia suficiente para rechazar $H_0$ y por lo tanto, los datos no siguen la distribución especificada.
+
+El test se llevó a cabo en \texttt{Python}, utilizando el comando \texttt{kstest} de la librería \texttt{SciPy}. El valor p obtenido fue de 0.8822; como el valor p es mayor al nivel de la prueba ($\alpha=$0.05), se puede afirmar que no existe evidencia suficiente para rechazar la hipótesis nula $H_0$, luego los datos provienen de la misma distribución, i.e. los tiempos entre llegadas se distribuyen exponencial con parámetro $\lambda=0.07425$ personas por minuto. Si se asume que esta secuencia de variables aleatorias son independientes, se concluye que los pacientes llegan según un proceso de Poisson con parámetro $\lambda=0.0725$.
+

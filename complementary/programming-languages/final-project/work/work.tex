@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\input{commands.tex}
+
+%%%%%%%% MARGIN
+\geometry{verbose, letterpaper, tmargin=3cm,
+  bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+%%%%%%%% PARAGRAPH SETTINGS
+% https://bit.ly/36WrtN4
+\setlength\parindent{0pt}
+
+% https://bit.ly/371dvto
+\setlength{\parskip}{5pt}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+
+%%%%%%%% DEFINITION AND THEOREM DEFINITIONS
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem{question}{Question}
+
+\newtheorem{theorem}{Theorem}[section]
+
+%%%%%%%% ENUMERATE LABEL
+% https://www.latex-tutorial.com/tutorials/lists/
+\usepackage{enumitem}
+
+%%%%%%%% CODE RENDERING !!! UNCOMMENT IF NEEDED !!!
+% Compile with flag -shell-escape
+%\usepackage{minted}
+
+%%%%%%%% START DOCUMENT
+
+\title{SAUL Grammar}
+\author{Juan Sebasti\'an C\'ardenas-Rodríguez \\
+  \scalebox{0.7}{jscardenar@eafit.edu.co} \and
+  Manuela Gallego Gómez \\
+  \scalebox{0.7}{mgalle41@eafit.edu.co} \and
+  \scalebox{0.7}{Mathematical Engineering, Universidad EAFIT}}
+
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section{Grammar}
+
+The grammar accepted by SAUL is:
+%
+\begin{align*}
+  \texttt{<program>}
+  \equiv& \texttt{ codigo <funDefinitionList> fincodigo} \\
+  \texttt{<funDefinitionList>}
+  \equiv& \texttt{ <funDefinition> <funDefinitionList>} \mid \epsilon \\
+  \texttt{<funDefinition>}
+  \equiv& \texttt{ funcion <variable> ( <varDefList> )} \\
+        & \texttt{ <varDefList> <statementList> fincodigo} \\
+  \texttt{<varDefList>}
+  \equiv& \texttt{ <variable> <varDefList>} \mid \epsilon \\
+  \texttt{<variable>}
+  \equiv& \texttt{ entero <variableName> } \mid \texttt{ real <variableName>} \\
+  \texttt{<variableName>}
+  \equiv& \texttt{ <letter> <characters>} \\
+  \texttt{<letter>}
+  \equiv&\,\,\, A \mid \ldots \mid Z \mid a \mid \ldots \mid z \\
+  \texttt{<characters>}
+  \equiv& \texttt{ <letter> <characters> } \mid
+          \texttt{ <number> <characters> } \mid \epsilon \\
+  \texttt{<number>}
+  \equiv& \,\,\, 0 \mid \ldots \mid 9 \\
+  \texttt{<statementList>}
+  \equiv& \texttt{ <statement> <statementList>} \mid \epsilon \\
+  \texttt{<statement>}
+  \equiv& \texttt{ leer <variableName> } \\
+  \mid& \texttt{ mostrar <variableName> } \\
+  \mid& \texttt{ llamar <variableName> ( <variableList> ) } \\
+  \mid& \texttt{ <variableName> = <mathExpression> } \\
+  \texttt{<variableList>}
+  \equiv& \texttt{ <variableName> <variableList> } \\
+  \mid& \texttt{ <constant> <variableList>} \mid \epsilon \\
+  \texttt{ <mathExpression> }
+  \equiv& \texttt{ <variable>} \mid \texttt{ <constant> } \\
+  \mid& \texttt{ ( \texttt{<mathExpression>} ) } \\
+  \mid& \texttt{ <variable> <op> <mathExpression> } \\
+  \mid& \texttt{ <constant> <op> <mathExpression> } \\
+  \mid& \texttt{ ( <mathExpression> ) <op> <mathExpression> } \\
+  \texttt{<constant>}
+  \equiv& \texttt{ <numbers> } \mid \texttt{ <numbers>.<numbers> } \\
+  \texttt{<numbers>}
+  \equiv& \texttt{ <number><numbers> } \mid \texttt{ <number> } \\
+  \texttt{ <op> }
+  \equiv& \,\,\, + \mid - \mid * \mid /
+\end{align*}
+
+\section{Limitations}
+
+The program must have a main function called ``principal'' that receives no
+arguments.
+
+The math operations must be written with a space between each term.
+
+The grammar accepts only the four basic mathematical operations: addition,
+subtraction, multiplication and division. Operations with parentheses are
+performed first. Then, the standard order of operations is followed:
+multiplication, division, addition and subtraction.
+
+The math expressions only accept positive constants. In order to work with
+negative values, the "read" statement or a math operation must be executed.
+
+If a double value is assigned to an integer variable, an error is displayed.
+
+There are no global variables. Local variables have a limited scope and cannot
+be accessed outside the block in which they were declared.
+
+\end{document}

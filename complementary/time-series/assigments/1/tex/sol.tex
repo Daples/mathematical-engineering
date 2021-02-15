@@ -1,0 +1,161 @@
+\documentclass[fleqn]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%% MARGIN
+\usepackage[left=1in, right=1in, top=0.8in, bottom=0.8in]{geometry}
+
+%%%%%%%% NO PARAGRAPH INDENT
+% https://tex.stackexchange.com/questions/27802/set-noindent-for-entire-file
+\setlength\parindent{0pt}
+
+%%%%%%%% SUB-FIGURE PACKAGE
+\usepackage{subcaption}
+
+\usepackage{pdfpages}
+
+%%%%%%%% HYPERREF PACKAGE
+\usepackage{hyperref}
+\hypersetup{linkcolor=blue}
+\hypersetup{citecolor=blue}
+\hypersetup{urlcolor=blue}
+\hypersetup{colorlinks=true}
+
+%%%%%%%% MULTI-COLUMNS PACKAGE
+\usepackage{multicol}
+
+%%%%%%%% SETS DEFINITIONS
+\usepackage{amssymb}
+%%%% Important sets
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+
+%%%% Statistics
+\newcommand{\E}[1]{\mathbb{E}\left[#1 \right]}
+\newcommand{\V}[1]{\mathbb{V}\left[#1 \right]}
+\newcommand{\cov}[1]{\mathrm{Cov}\left[#1 \right]}
+
+
+%%%% Superscript to the left
+% https://latex.org/forum/viewtopic.php?t=455
+\usepackage{tensor}
+\newcommand{\app}[3]{\tensor*[^{#1}]{\left(#2, #3\right)}{}}
+
+
+%%%%%%%% SPLIT EQUATIONS
+% https://tex.stackexchange.com/questions/51682/is-it-possible-to-pagebreak-aligned-equations
+\allowdisplaybreaks
+
+%%%%%%%% CODE RENDERING
+% Compile with flag -shell-escape
+\usepackage{minted}
+
+%%%%%%%% EXAM PACKAGE
+\usepackage{mathexam}
+
+%%%%%%%% CHANGE MARGINS ITEMIZE
+\usepackage{enumitem}
+
+%%%%%%%% START DOCUMENT
+
+\ExamClass{EC0301 - Time Series}
+\ExamName{Assignment \#1}
+\ExamHead{\today}
+
+\let\ds\displaystyle
+
+\begin{document}
+ \vspace{0.3cm}
+   % Information of the student
+   \begin{itemize}[leftmargin=6.25cm, labelsep=0.5cm]
+
+     \item[\textit{Name}] \scalebox{1.2}{David Plazas Escudero} % Name
+     \item[\textit{Student code}] 201710005101 % Code
+
+   \end{itemize}
+\vspace{0.3cm}
+
+% Each of the items to solve
+\begin{enumerate}
+\item \textit{Estimate the expected value of an AR(1) model with constant term, i.e. $x_t=\mu + \psi x_{t-1}+\varepsilon_t$.}
+
+Let $\{x_t\}_{t\geq0}$ be an stochastic process driven by an AR(1) model $x_t=\mu + \psi x_{t-1}+\varepsilon_t$, with $\mu\in\mathbb{R}$, with $\psi$ such that $|\psi|<1$ (for stationarity) and $\{\varepsilon_t\}_{t\geq0}$ is a white-noise process. Let us calculate the expected value.
+
+Taking the expected value to both sides we have
+\[
+\E{x_t}=\E{\mu+\psi x_{t-1}+\varepsilon_t}.
+\]
+Recall that the mathematical expectation $\E{\cdot}$ is a linear operator, hence
+\[
+\E{x_t}=\E{\mu}+\psi \E{x_{t-1}}+\E{\varepsilon_t}.
+\]
+It is clear that the expectation of a non-stochastic term is the term itself and, given that $\{\varepsilon_t\}_{t\geq0}$ is a white-noise process, it has a expected value of exactly 0. Therefore,
+\[
+\E{x_t}=\mu+\psi \E{x_{t-1}}
+\]
+and, as we are working under the assumption of stationarity, the expected value should remain the same over time, formally $\E{x_t}=\E{x_{t-s}}$, $\forall s\geq0$. Thus,
+\[
+\E{x_t}=\mu+\psi \E{x_t}
+\]
+and solving for $\E{x_t}$ we have the desired expression
+\[
+\E{x_t}=\dfrac{\mu}{1 - \psi}.
+\]
+
+\item \textit{Under the assumptions studied in class, show that $\E{\varepsilon_t\varepsilon_{t-1}}=0$.}
+
+Let $\{\varepsilon_t\}_{t\geq0}$ be a white-noise process. Recall the alternative formula for the covariance of two random variables $X$ and $Y$:
+\[
+\cov{X,Y}=\E{XY} - \E{X}\E{Y}.
+\]
+In our specific case $X\equiv\varepsilon_t$ and $Y\equiv\varepsilon_{t-1}$, hence
+\[
+\cov{\varepsilon_t,\varepsilon_{t-1}}=\E{\varepsilon_t\varepsilon_{t-1}} - \E{\varepsilon_t}\E{\varepsilon_{t-1}}
+\]
+and we can solve for the desired term as follows:
+\[
+\E{\varepsilon_t\varepsilon_{t-1}}=\cov{\varepsilon_t,\varepsilon_{t-1}} + \E{\varepsilon_t}\E{\varepsilon_{t-1}}.
+\]
+Recall the assumption of $\{\varepsilon_t\}_{t\geq0}$ being a white-noise process, then $\E{\varepsilon_t}=0$, $\forall t\geq0$; and the process is not autocorrelated, i.e. $\cov{\varepsilon_t,\varepsilon_{t-s}}=0$, $\forall s\geq0$. Replacing we obtain
+\[
+\E{\varepsilon_t\varepsilon_{t-1}}=0.
+\]
+\newpage
+\item \textit{Consider the model $x_t=1+0.6x_{t-1}+\varepsilon_t$, where $\varepsilon_t\sim\mathcal{N}(0,2)$. Generate two series, one with $100$ observations and the other one with $5000$. Which mean and variance are closer to the theoretical value? Why is there a difference between these series?}
+
+Let us present first the code in Python to simulate the model at hand:
+\begin{minted}{python}
+import numpy as np
+import scipy.stats as st
+
+# Parameters
+mu = 1
+psi = 0.6
+sigma2 = 2
+
+def ar1(T):
+    e = st.norm.rvs(size=(T), loc=0, scale=sigma2**0.5)
+    xs = np.zeros(T)
+    xs[0] = mu
+    for i in range(1, len(xs)):
+        xs[i] = mu + psi * xs[i-1] + e[i]
+    return xs
+
+xs1 = ar1(100)
+xs2 = ar1(5000)
+mean1, var1 = xs1.mean(), xs1.var(ddof=1)
+mean2, var2 = xs2.mean(), xs2.var(ddof=1)
+\end{minted}
+
+This AR(1) model has parameters $\mu=1$, $\psi=0.6$ and $\sigma^2=2$. First, the theoretical expected value is $\E{x_t}=2.5$ and the results for 1 experiment in both series are 2.289 and 2.551 respectively. For the variance, the theoretical value is $\V{x_t}=3.125$, and the estimated values were 2.925 and 3.146 respectively.
+
+As expected, the second experiment, the one with 5000 observations, is closer to the theoretical values of the expected value and variance. There is a significant difference between these values between the two series, since the sample sizes differ and it is clear, by the law of large numbers, that as the number of experiments is increased, the estimated results should converge on the true values.
+
+\end{enumerate}
+\end{document}

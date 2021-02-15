@@ -1,0 +1,249 @@
+\documentclass[10pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+
+% Idioma
+\usepackage[english]{babel}
+
+\usepackage[none]{hyphenat}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\ignore}[1]{}
+
+
+\title{Random Search Algorithms for the Heterogeneous Cumulatitive Capacitated Vehicle Routing Problem}
+\author{\emph{Juan Sebastián Cárdenas-Rodríguez}\\
+\vspace{0.3cm}
+\small{\tt{jscardenar@eafit.edu.co}}\\
+Mathematical Science Department\\
+School of Science\\
+Universidad EAFIT\\
+Medellín -- Colombia}
+\date{\today}
+
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{2cm}{3cm}
+
+% Configurar encabezado y pie de página
+\pagestyle{fancy}
+\lfoot[\date{\today}]{\date{\today}}
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\rhead[Cárdenas (2019)]{Random Search for HCCVRP}
+\lhead[]{}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{Last update: August of 2019}
+}
+
+\sloppy
+
+
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{firststyle}
+
+
+\section{Solution Algorithms}\label{sec_alg}
+For this work, different random search algorithms where used to solve
+the Heterogeneous Cumulative Capacitated Vehicle Routing Problem
+(HCCVRP). In first place, an initial solution is constructed using a
+variation of the savings algorithm \citep{clarke1964} proposed in a
+previous work. Secondly, a variable neighborhood search (VNS)
+algorithm using three operators: 2-opt inter-route \citep{croes1958},
+2h-opt intra-route \citep{bentley1992} and swap intra-route. The VNS
+is explained and proposed in a previous work but, in this work a
+variation is proposed using white noise in the selection of the
+solution; furthermore, the initial solution is also altered with this
+noise. Finally, a GRASP algorithm \citep{binato2001} is proposed.
+
+The proposed noise algorithm adds white noise to two parts of the
+algorithm; the construction of the initial solution and the selection
+of the best solution in a given neighborhood. In first place, the
+initial solution is constructed by first calculating all the savings
+and then adding all of this savings to different random variables
+which have a normal distribution with $\mu = 0$ and the standard
+deviation being a multiple $\beta$ of the difference between the
+biggest and the smallest saving. Finally, a VNS is used but, the
+2-opt operator when it compares two objective functions it does it
+by:
+
+\begin{equation}
+  f(s^*) - f(s) + \rho < 0
+\end{equation}
+
+with $\rho$ being a random variate with normal distribution with
+$\mu=0$ and the standard deviation being a multiple $\gamma$ of the
+difference between the objective functions of the initial solution
+and a lower bound. This lower bound was calculated by modifying the
+original problem, just supposing that there are infinite amount of
+buses available of the biggest capacity leaving the rest of the
+conditions the same.
+
+In this manner, this would allow the noise algorithm to select some
+choices that do not necessarily improve the objective function but,
+that may allow to find a better solution around the neighborhood of
+that new solution.
+
+Lastly, a GRASP algorithm variation is proposed. This algorithm
+generated a neighborhood of solutions $N(s)$ by the 2h-opt and swap
+operators. Then, it is constructed a restricted candidate list (RCL)
+with the following rule:
+
+\begin{equation}
+  \text{RCL } = \{s^* \in N(s)| f(s^*) \le c_{\min} + \alpha (c_{\max} - c_{\min})\}
+\end{equation}
+
+After constructing this list, a random candidate from the RCL is
+selected with a uniform probability. Finally, a VNS algorithm is done
+with the selected solution. This GRASP algorithm has a limited amount
+of iterations selected previously.
+
+
+\section{Computational Results}\label{sec_results}
+In Table \ref{tab:1} the results for a data set of HCCVRP given by
+the professor are shown, comparing the results of the objective
+functions and the execution times for the noise and GRASP algorithm
+proposed. As random search algorithms for every run would generate a
+different solution, the seed was fixed in 34040 so this result is
+always consistent; furthermore, this seed was picked randomly by the
+author of this work.
+
+The parameters explained in the algorithms where used as
+$\alpha=0.1$, $\beta=0.1$ and $\gamma=0.01$. This parameters where
+chosen empirically, trying to find the right balance between time of
+execution and good improvement in the objective function.
+Furthermore, for further work it would be important to try a
+different set of parameters and try to find a optimal value for them.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llllll}
+\hline
+Instance & Nodes & Z Noise    & Z GRASP    & T Noise (s) & T GRASP (s) \\ \hline
+1        & 50    & 50607.778  & 46216.645  & 1.39        & 3.77        \\
+2        & 50    & 8540.825   & 8473.148   & 1.34        & 4.78        \\
+3        & 50    & 8819.909   & 7862.718   & 2.22        & 5.77        \\
+4        & 75    & 61275.769  & 62322.676  & 1.01        & 2.07        \\
+5        & 75    & 11313.31   & 10798.289  & 0.86        & 1.99        \\
+6        & 75    & 10605.664  & 9661.411   & 1.02        & 2.69        \\
+7        & 100   & 88446.294  & 81108.168  & 5.92        & 16.83       \\
+8        & 100   & 17055.584  & 15290.384  & 7.03        & 16.56       \\
+9        & 100   & 15914.574  & 15740.862  & 9.15        & 19.8        \\
+10       & 150   & 134332.138 & 109663.744 & 10.19       & 29.04       \\
+11       & 150   & 23630.959  & 22835.773  & 9.65        & 26.6        \\
+12       & 150   & 25959.468  & 24380.318  & 11.22       & 30.49       \\
+13       & 199   & 260255.779 & 231630.934 & 4.31        & 12.36       \\
+14       & 199   & 166806.713 & 142679.999 & 5.1         & 14.9        \\
+15       & 199   & 28193.037  & 23962.944  & 3.25        & 7.46        \\
+16       & 120   & 141956.562 & 141177.565 & 31.43       & 99.63       \\
+17       & 120   & 31154.698  & 26291.612  & 13.88       & 30.62       \\
+18       & 120   & 27049.233  & 25626.685  & 6.54        & 19.96       \\
+19       & 100   & 99485.393  & 88462.795  & 4.3         & 10.03       \\
+20       & 100   & 11443.403  & 13231.628  & 3.51        & 8.43        \\
+21       & 100   & 13802.664  & 13621.789  & 2.67        & 7.91        \\ \hline
+\end{tabular}
+\caption{Comparison of objective function and time of execution for noise algorithm and GRASP.}
+\label{tab:1}
+\end{table}
+Both algorithms show their main strength and weakness. GRASP
+outperforms the noise algorithm just in the result of the objective
+function. Hence, one could argue that as the objective function is
+the main goal for this problem this algorithm is the best algorithm
+of the two. On the other side, noise algorithm is way faster than
+GRASP without being two much higher than the grasp algorithm.
+
+In this manner, it is argued that although GRASP outperforms the
+noise algorithm by the task of minimizing the objective function,
+the latter one accomplishes a similar objective function in much less
+time. Hence, noise algorithm is the best algorithm just in terms of
+the balancing of the performance of the objective function and
+time. But, if time is not an issue and it is prioritized finding
+the best solution possible GRASP algorithm is the best one.
+
+Furthermore, this conclusions need to be taken with a grain of salt
+because, the parameters have a huge effect in the outcome of the
+algorithm. In second hand, as this results have a random effect it is
+important to analyze the results using different seeds to actually
+compare the performance of both algorithms. Hence, although this
+minimum testing supports the conclusion given, for further work more
+testing is needed to support these claims.
+
+\subsection{Local Search Comparison}\label{sec_param}
+In Table \ref{tab:2} a comparison of algorithms proposed in the
+previous work and the algorithms developed in this work are
+shown. They are compared by means of their maximum and minimum
+objective function and time of execution. This where executed with
+the same data set explained above.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lllll}
+\hline
+      & Z Max      & Z Min    & T Max & T Min \\ \hline
+TS    & 243441.659 & 8079.274 & 19.41 & 0.65  \\
+VNS   & 231977.566 & 7994.871 & 20.76 & 0.39  \\
+Noise & 260255.799 & 8540.825 & 31.43 & 0.86  \\
+GRASP & 231630.934 & 7862.718 & 99.63 & 1.99  \\ \hline
+\end{tabular}
+\caption{Comparison between local search algorithms and random search algorithms.}
+\label{tab:2}
+\end{table}
+
+It is important to see, that no algorithm is capable of beating the
+other ones in all the categories. Hence, one could argue that with
+enough testing it can be found their strengths and weaknesses for
+each procedure so the best one could be implemented depending in the
+characteristics of the problem. In this manner, statements about the
+best algorithm are not fully reliable as more testing is needed.
+
+But, with the available testing, it is seen that although GRASP generates a better objective function that VNS alone the difference is quite negligible; meanwhile, the VNS procedure outperforms by far in speed in comparison to GRASP. Hence, VNS is still the best algorithm known yet by the works the author has made.
+
+Furthermore, this table also shows how the noise algorithm, although
+quicker than GRASP, is not really comparable to the other ones as the
+worst case scenario is really bad in comparison to the other
+algorithms. This result is probably due to a bad selection of it's
+parameters, as the noise algorithm is highly volatile to this
+values. Hence, as stated before, it is important to find the correct
+value for this parameters to really observe the full potential of the
+noise algorithm.
+
+\section{Conclusions}\label{sec_conclusions}
+In conclusion, a GRASP and noise algorithm where successfully created
+improving the solutions constructed previously for the Heterogeneous
+Cumulative Capacitated Vehicle Routing Problem. A small testing was
+made, that showed that GRASP algorithm, although slow, do makes the
+best solution known yet. Furthermore, this solution is not much lower
+than the one done by a variable neighborhood search done in previous
+work.
+
+For further work, it is suggested to find a better set of parameters
+for the algorithms proposed in this work. It is easily known that
+this procedures are highly dependent of this parameters, are the
+random part of this algorithms depends on them. Lastly, more testing
+with different seeds is needed to see in average which algorithm
+outperforms the other one.
+
+{\small
+\bibliographystyle{authordate1}
+
+\bibliography{ref.bib}}
+
+
+\end{document}

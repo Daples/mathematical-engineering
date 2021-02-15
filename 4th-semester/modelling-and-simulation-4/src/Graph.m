@@ -1,0 +1,20 @@
+% plot(y(1,2:end),y(2,2:end))
+% xlim([0.768 0.775 ])
+% ylim([3.96 4])
+% xlabel('X')
+% ylabel('Y')
+
+plot(y(1,2:end),y(2,2:end))
+xlim([0.768 0.775 ])
+ylim([3.96 4])
+xlabel('X')
+ylabel('Y')
+
+% plot3(X,Y,Z)
+% grid on
+% xlim([-3 3])
+% ylim([-2 2])
+% zlim([-4 4])
+% xlabel('X')
+% ylabel('Y')
+% zlabel('Z')

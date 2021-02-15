@@ -1,0 +1,129 @@
+
+\section{INTRODUCCIÓN}
+\begin{frame}{INTRODUCCIÓN}
+    \begin{itemize}
+        \item Ingeniería y computación $\rightarrow$ \textit{Reconocimiento de patrones.}
+        \item \textit{Análisis de Clusters.}
+        \item Clasificar nuevas observaciones en grupos ya establecidos.
+    \end{itemize}
+    Se tienen $k$ grupos, de donde se extraen muestras para obtener $\mathbf{\overbar{y}_1,\,\overbar{y}_2,\,\dots,\overbar{y}_k}$. Se pretender acomodar una observación $\mathbf{y}$ en alguno de los $k$ grupos; una aproximación intuitiva es compararla con las medias $\mathbf{\overbar{y}_i}$, mirando cuál es la más cercana.
+    \\\vspace{5mm}
+    \textbf{Ejemplos:}
+    \begin{itemize}
+        \item Clasificación de aplicantes a una Universidad, entre los que desertarán y los que no.
+        \item Orientación vocacional basada en tests de aptitudes.
+        \item Clasificación de ciudades violentas (estudio previo de indicadores).
+    \end{itemize}
+\end{frame}
+
+\section{CLASIFICACIÓN EN DOS GRUPOS}
+\subsection{Método de Fisher}
+\begin{frame}{CLASIFICACIÓN EN DOS GRUPOS}
+    \framesubtitle{Método de Fisher}
+    \begin{itemize}
+        \item Se tienen dos grupos $G_1$ y $G_2$.
+        \item Se requiere que $\Sigma_1=\Sigma_2$.
+        \item No requiere que $\mathbf{y}_i\sim N_p(\pmb{\mu},\Sigma)$.
+        \item Se calcula $\mathbf{\overbar{y}}_1$, $\mathbf{\overbar{y}}_2$.
+        \item Se basa en la función discriminante:\begin{equation}
+            z=\mathbf{a}'\mathbf{y}=\left(\mathbf{\overbar{y}_1}-\mathbf{\overbar{y}_2}\right)'\mathbf{S}_{\text{pl}}^{-1}\mathbf{y}
+        \end{equation}
+        \item Se calculan $\mathbf{\overbar{z}}_1$ y $\mathbf{\overbar{z}}_2$ para determinar si $\mathbf{y}\in G_1$ o $\mathbf{y}\in G_2$.
+    \end{itemize}
+    \begin{align*}
+        \left[z>\dfrac{1}{2}\left(\mathbf{\overbar{z}}_1+\mathbf{\overbar{z}}_2\right)\right]\implies \mathbf{y}\in G_1\\
+        \left[z<\dfrac{1}{2}\left(\mathbf{\overbar{z}}_1+\mathbf{\overbar{z}}_2\right)\right]\implies \mathbf{y}\in G_2
+    \end{align*}
+\end{frame}
+
+\subsection{Regla Óptima}
+\begin{frame}{CLASIFICACIÓN EN DOS GRUPOS}
+\framesubtitle{Regla Óptima}
+Sean dos grupos $G_1$ y $G_2$ tal que $\Sigma_1=\Sigma_2=\Sigma$. Si se conocen las probabilidades $p_1$ y $p_2$ asociadas a las poblaciones y las respectivas funciones de densidad $f_{G_1}(\mathbf{y})$ y $f_{G_2}(\mathbf{y})$, se puede aprovechar esta información para una mejor clasificación.
+
+\begin{itemize}
+    \item Minimizar el error de clasificación. \item El criterio de asignación óptima de $\mathbf{y}$ en $G_1$ es:
+    \begin{equation}
+        p_1f_{G_1}(\mathbf{y})>p_2f_{G_2}(\mathbf{y})
+    \end{equation}
+    \item Si se cumple que $f_{G_1}(\mathbf{y})=N_p(\pmb{\mu}_1,\Sigma)$ y $f_{G_2}(\mathbf{y})=N_p(\pmb{\mu}_2,\Sigma)$, entonces la regla se transforma en:
+    \begin{align*}
+        \left[z>\dfrac{1}{2}\left(\mathbf{\overbar{z}}_1+\mathbf{\overbar{z}}_2\right)+\ln\left(\dfrac{p_2}{p_1}\right)\right]\implies \mathbf{y}\in G_1\\
+        \left[z<\dfrac{1}{2}\left(\mathbf{\overbar{z}}_1+\mathbf{\overbar{z}}_2\right)+\ln\left(\dfrac{p_2}{p_1}\right)\right]\implies \mathbf{y}\in G_2
+    \end{align*}
+    \item Criterio asintóticamente óptimo. \item Si $p_1=p_2\rightarrow$ Fisher.
+    
+\end{itemize}
+
+\end{frame}
+
+\section{CLASIFICACIÓN EN VARIOS GRUPOS}
+\subsection{Grupos con Igual Covarianza Poblacional}
+\begin{frame}{CLASIFICACIÓN EN VARIOS GRUPOS}
+\framesubtitle{Grupos con Igual Covarianza Poblacional}
+    \begin{itemize}
+        \item Se tienen $k$ grupos tales que $\Sigma_1=\Sigma_2=\dots=\Sigma_k=\Sigma$, con vectores de medias $\mathbf{\overbar{y}}_1,\,\dots,\mathbf{\overbar{y}}_k$.
+        \item Se utiliza una función de distancia para encontrar el vector de medias más cercano y asignarlo a su población.
+        \item Se estima la matriz $\Sigma$ con:
+        \begin{equation}
+         \mathbf{S}_{\text{pl}}=\dfrac{1}{N-k}\sum_{i=1}^k(n_i-1)\mathbf{S}_i
+        \end{equation}
+        \item Utiliza la función lineal de clasificación:
+        \begin{equation}
+            L_i(\mathbf{y})=\mathbf{\overbar{y}}_i'\mathbf{S}_{\text{pl}}^{-1}\left(\mathbf{y}-\dfrac{1}{2}\mathbf{\overbar{y}}_i\right)
+        \end{equation}
+        \item Se asigna $\mathbf{y}$ al grupo $G_{j}$ tal que $j$ cumple
+        \begin{equation}
+            L_j=\max_{i}\{L_i(\mathbf{y})\}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{CLASIFICACIÓN EN VARIOS GRUPOS}
+    \framesubtitle{Grupos con Igual Covarianza Poblacional}
+    De igual forma que en clasificación de dos grupos, si se conocen las probabilidades $p_i$ y las funciones de densidad $f_{G_i}(\mathbf{y})$ para cada uno de los $k$ grupos, se tiene la siguiente regla óptima:
+    \begin{center}
+        Asigne $\mathbf{y}$ al grupo en el cual $p_i\,f_{G_i}(\mathbf{y})$ es máximo.
+    \end{center}
+    Este criterio minimiza el error de asignación. Asumiendo normalidad, $f_{G_i}(\mathbf{y})=N_p(\pmb{\mu}_i,\Sigma)$, la función lineal de clasificación se transforma en:
+    \begin{equation}
+        L^*_i(\mathbf{y})=\ln p_i + L_i(\mathbf{y})
+    \end{equation}
+    Si $p_1=p_2=\dots=p_k$
+    \begin{equation}
+        \max_{i}\{L_i(\mathbf{y})\} \equiv \max_{i}\{L_i^*(\mathbf{y})\}
+    \end{equation}
+\end{frame}
+
+\subsection{Grupos con Diferente Covarianza Poblacional}
+\begin{frame}{CLASIFICACIÓN EN VARIOS GRUPOS}
+\framesubtitle{Grupos con Diferente Covarianza Poblacional}
+    \begin{itemize}
+        \item En general es difícil que $\Sigma_1=\Sigma_2=\dots=\Sigma_k=\Sigma$.
+        \item En este caso, no es posible reducir a una función lineal de clasificación $\rightarrow$ función de clasificación cuadrática.
+        \item Este método sí requiere normalidad.
+        \item Función de clasificación cuadrática:
+        \begin{equation}
+            Q_{i}(\mathbf{y})=\ln p_i -\dfrac{1}{2}\ln|\mathbf{S}_i|-\dfrac{1}{2}\left(\mathbf{y}-\mathbf{\overbar{y}}_i\right)'\mathbf{S}_i^{-1}\left(\mathbf{y}-\mathbf{\overbar{y}}_i\right)
+        \end{equation}
+        \item Criterio de clasificación: 
+        \begin{center}
+            Asigne $\mathbf{y}$ al grupo que proporcione el máximo $Q_i(\mathbf{y})$
+        \end{center}
+        \item Este método requiere que $(\forall i=1,\dots,k)(n_i>p)\rightarrow$ existencia $\mathbf{S}_i^{-1}$.
+    \end{itemize}
+\end{frame}
+
+\section{ERROR DE ESTIMACIÓN}
+\subsection{Matriz de Confusión}
+\begin{frame}{ERROR DE ESTIMACIÓN}
+    \framesubtitle{Matriz de Confusión}
+    \begin{itemize}
+        \item El error de estimación $\epsilon$ se define como la probabilidad que una función de clasificación se equivoque asignando $\mathbf{y}$. Este se puede estimar con la matriz de confusión.
+        \item La matriz de confusión $M$, es una matriz de orden $(k \times k)$. Esta se calcula usando la observación de cada uno de los grupos utilizados y la función de clasificación, contando a qué grupo asigna las observaciones. 
+        \item Si $n_{ij}$ es el numero de veces que la función de clasificación asignó una observación del grupo $i$ al grupo $j$ y $N_i$ es la cantidad de observaciones hechas en el grupo $i$, entonces el error de estimación se calcula como:
+        \begin{equation}
+            \epsilon = 1 - \dfrac{\sum_{i = 1}^{k} n_{ii}}{\sum_{i = 1}^k N_i} = 1 - \dfrac{\text{tr}(M)}{\sum_{i = 1}^k N_i} 
+        \end{equation}
+    \end{itemize}
+\end{frame}
