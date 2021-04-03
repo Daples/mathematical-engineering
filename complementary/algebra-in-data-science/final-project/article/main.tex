@@ -140,34 +140,34 @@ challenge. This topic is a branch of a what is known as ``computer vision''
 \parencite{amit20022d}. This interdisciplinary field addresses the challenge of
 how computers can understand and gain insight from digital images and videos,
 similar to how human visual system works
-\cite{ballard1982computer,huang1996computer,amit20022d,szeliski2010computer}.
+\parencite{ballard1982computer,huang1996computer,amit20022d,szeliski2010computer}.
 Computer vision is widely used nowadays, in application fields such as medical
-imaging, automotive safety, surveillance, biometrics, face detection, autonomous
-navigation, industrial inspection and beyond
-\cite{huang1996computer,szeliski2010computer}.
+imaging, automotive safety, surveillance, bio-metrics, face detection,
+autonomous navigation, industrial inspection and beyond
+\parencite{huang1996computer,szeliski2010computer}.
 
 More specifically, object detection refers to ``anything from identifying a
 location to identifying and registering components of a particular object class
 at various levels of detail'' \parencite{amit20022d}. Object detection is a
 necessary requirement for the further ``recognition'' of the object or for more
 general tasks, such as ``tracking'' in dynamic scenarios (see
-\cite{li2013survey} for an excellent review in tracking methodologies). Some
-general object detection methodologies can be found, for example, in
-\cite{amit20022d,szeliski2010computer} and the references therein; for more
+\parencite{li2013survey} for an excellent review in tracking methodologies).
+Some general object detection methodologies can be found, for example, in
+\parencite{amit20022d,szeliski2010computer} and the references therein; for more
 recent developments involving deep learning, refer to
-\cite{jiang2018deep,zhao2019object} and the references within; finally, for an
-statistical approach, check \cite{li2015feature}.
+\parencite{jiang2018deep,zhao2019object} and the references within; finally, for
+an statistical approach, check \cite{li2015feature}.
 
 This paper aims to evaluate the effectiveness of robust covariance estimations
 for object detection using the well-known ``region covariance'' scheme proposed
 in \parencite{tuzel2006}. This methodology has been widely used by different
 authors in different research fields \cite{wu2012real}, such as object
 classification/recognition
-\cite{hong2009sigma,sivalingam2010tensor,tosato2010multi}, human detection
-\cite{paisitkriangkrai2008fast,tuzel2007human,yao2007fast,hirzer2011person},
+\parencite{hong2009sigma,sivalingam2010tensor,tosato2010multi}, human detection
+\parencite{paisitkriangkrai2008fast,tuzel2007human,yao2007fast,hirzer2011person},
 face recognition \cite{pang2008gabor,hariri20163d}, image smoothing
-\cite{karacan2013structure}, and object tracking
-\cite{porikli2006covariance,wu2008probabilistic,wu2009real,wu2009robust}.
+\parencite{karacan2013structure}, and object tracking
+\parencite{porikli2006covariance,wu2008probabilistic,wu2009real,wu2009robust}.
 
 This work is organized as follows: Section \ref{sec:just} presents a brief, but
 rather specific, description of three main applications of the Region Covariance
@@ -339,8 +339,8 @@ Descriptors are set of numbers produced to describe a given shape in a
 quantifiable measure \parencite{tyagi2018content}. The shape may not be entirely
 reconstructed from the descriptors, but these measures for different shapes
 should be different enough that the shapes can be discriminated
-\cite{cui2013fusing}. A region descriptor describes the object within based on
-the pixel distribution in this 2‐D array.
+\parencite{cui2013fusing}. A region descriptor describes the object within based
+on the pixel distribution in this 2‐D array.
 
 The covariance as a region descriptor, proposed in \parencite{tuzel2006}, will
 now be presented. For an image of width $W$ and height $H$, let
@@ -503,7 +503,7 @@ concordance.
 
 \begin{definition}
   Let $(x_{j},y_{j})$ and $(x_{k},y_{k})$ be two elements of a sample
-  $\{(x_{i},y_{i})\}_{i=1}^{n}$ from a bivariate population. One says that
+  $\{(x_{i},y_{i})\}_{i=1}^{n}$ from a bi-variate population. One says that
   $(x_{j},y_{j})$ and $(x_{k},y_{k})$ are \textit{concordant} if
   \[
     x_{j} < x_{k} \quad \text{and} \quad y_{j} < y_{k}
@@ -616,7 +616,7 @@ image, the size of the search window is varied with a 15\% scaling factor
 between two consecutive scales.
 
 After the search, the best matching 1000 locations are kept and each region is
-divided into five different subregions to evaluate different covariances of the
+divided into five different sub-regions to evaluate different covariances of the
 region; this division is better depicted in Fig. \ref{fig:regions}.
 
 \begin{figure}[H]
@@ -662,7 +662,7 @@ distance $j$ a matrix $M_{ij} \in \R^{n\times2}$ was constructed containing the
 value of the objective function and the distance to the expected result. Then a
 scatter plot was constructed for each of distance $j$ to see which covariance
 matrix, generally, minimized both of the performance metrics. As both of the
-performance measures are desired to be minimized, a pareto curve is obtained in
+performance measures are desired to be minimized, a Pareto curve is obtained in
 order to solve the multi-objective optimization problem.
 
 \section{Results}\label{sec:res}
@@ -869,7 +869,7 @@ confirms that this estimation performs better than the other ones.
 In conclusion, in first place, faster implementations for the Kendall, Spearman
 and Comedian matrix estimator were successfully created. These implementations
 were much faster than the naïve implementations with a big downgrade in memory
-management. This is deemed by the authors as a worthy tradeoff as memory can be
+management. This is deemed by the authors as a worthy trade-off as memory can be
 improved with hardware; on the other hand, implementation speeds cannot be
 massively improved by the same logic. Furthermore, it is important to remark
 that this implementations are significantly faster because \texttt{for}-loops
@@ -884,7 +884,7 @@ a $\beta_1 > 1$. Furthermore, this could be justified as covariance matrices do
 not belong to a euclidean space; hence, the Frobenius dissimilarity could not
 effectively separate each region.
 
-In third place, the covariance matrices were sucessfully evaluated. The overall
+In third place, the covariance matrices were successfully evaluated. The overall
 best covariance matrix was using the one based on Kendall's tau coefficient. On
 the other hand, using this covariance estimator yielded a significantly slower
 execution time (even with the improvement on the implementation). Therefore, the
