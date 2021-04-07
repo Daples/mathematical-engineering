@@ -131,8 +131,22 @@
 \begin{document}
 \maketitle
 
-The code implemented in this paper can be found in
-\href{https://bit.ly/3rQbVRQ}{this link}.
+\begin{abstract}
+  \noindent This work presents an initial approach to the evaluation of robust
+  covariance estimation for object detection (localization) using the
+  ``region covariance'' technique from the literature. The covariance
+  estimation is performed using the Comedian, Kendall, Spearman and Ledoit and
+  Wolf robust approaches for covariance, and the procedure wasalso compared
+  using two different matrix norms for estimating dissimilarity. The
+  performance was measured quantitatively using linear regression and Pareto
+  boundaries, yielding the Ledoit and Wolf estimation with best overall
+  performance in object detection in normal and noisy images.\\[3mm]
+  \noindent \textbf{Keywords:} Region covariance, robust estimation, object
+  detection, Pareto boundaries, image features.
+\end{abstract}
+
+The code implemented for this paper can be found in
+\href{https://bit.ly/3rQbVRQ}{this link.}
 
 \section{Introduction}\label{sec_int}
 The object detection and classification in digital images is yet a difficult
@@ -152,7 +166,7 @@ at various levels of detail'' \parencite{amit20022d}. Object detection is a
 necessary requirement for the further ``recognition'' of the object or for more
 general tasks, such as ``tracking'' in dynamic scenarios (see
 \parencite{li2013survey} for an excellent review in tracking methodologies).
-Some general object detection methodologies can be found, for example, in
+Some general object detection methodologies can be found, for example,
 \parencite{amit20022d,szeliski2010computer} and the references therein; for more
 recent developments involving deep learning, refer to
 \parencite{jiang2018deep,zhao2019object} and the references within; finally, for
@@ -420,22 +434,22 @@ points.
 \end{example}
 
 \subsubsection{Frobenius}
-An $M \times N$ matrix $\mathbf{A}$ can be consider as a particular kind of
-vector $x = \mathbf{A} \in \R^{m,n}$, and its norm is any function that maps
+An $m \times n$ matrix $\mathbf{A}$ can be consider as a particular kind of
+vector $x = \mathbf{A} \in \R^{m\cdot n}$, and its norm is any function that maps
 $\mathbf{A}$ to a real number $\norm{\mathbf{A}}$. In this order of ideas, if we
-treat the $M \times N$ elements of $\mathbf{A}$ as the elements of an
-$MN-$dimensional vector, then the $p-$norm of this vector can be used as the
+treat the $m \times n$ elements of $\mathbf{A}$ as the elements of an
+$(m\cdot n)-$dimensional vector, then the $p-$norm of this vector can be used as the
 $p-$norm of $\mathbf{A}$:
 %
 \[
-  \norm{\mathbf{A}}_{p} = \left\{ \sum_{i = 1}^{M} \sum_{j=1}^{N} \lvert a_{ij} \rvert^{p} \right\}^{1/p}
+  \norm{\mathbf{A}}_{p} = \left\{ \sum_{i = 1}^{m} \sum_{j=1}^{n} \lvert a_{ij} \rvert^{p} \right\}^{1/p}
 \]
 %
 If we consider the case when $p = 2$ we got the Frobenius norm
 $\norm{\mathbf{A}}_{F}$
 %
 \[
-  \norm{\mathbf{A}}_{2} = \norm{\mathbf{A}}_{F} = \sqrt{\sum_{i=1}^{M} \sum_{j=1}^{N} \lvert a_{ij} \rvert^{2}} = \sqrt{\mathrm{tr}(\mathbf{A}^{T}\mathbf{A})}
+  \norm{\mathbf{A}}_{2} = \norm{\mathbf{A}}_{F} = \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} \lvert a_{ij} \rvert^{2}} = \sqrt{\mathrm{tr}(\mathbf{A}^{T}\mathbf{A})}
 \]
 
 \subsubsection{Dissimilarity of Two Covariance Matrices} \label{subsub:dis}
@@ -542,7 +556,7 @@ With this coefficient, each entry of the covariance matrix is estimated using
 where $\rho_{k}$ is Kendall's $\tau$ coefficient, and $S_{x}$ and $S_{y}$ are
 the respective standard deviations.
 
-\subsection{Spearman Estimation}
+\subsubsection{Spearman Estimation}
 
 This estimation was performed similarly to Kendall's. The covariance matrix is
 estimated using
@@ -576,7 +590,7 @@ Then, the coefficient is given by
 \rho_{s} = 1 - \dfrac{6S_{s}}{n^{3} - n}
 \]
 
-\textbf{Ledoit and Wolf Estimation}
+\subsubsection{Ledoit and Wolf Estimation}
 
 This method, proposed in \parencite{ledoit2004honey}, uses the shrinkage
 constant $\delta$, to ‘shrunk’ the sample covariance matrix towards the
@@ -826,7 +840,7 @@ As can be appreciated in the Fig. \ref{fig:linear}, the metrics were compared by
 setting a scatter plot of the distances to the real covariance matrix, using the
 Frobenius and the authors' dissimilarity measures:
 
-\begin{figure}[H]
+\begin{figure}
   \centering \includegraphics[width=0.6\textwidth]{figs/linear.pdf}
   \caption{Linear regression comparing metrics.}
   \label{fig:linear}
@@ -840,13 +854,13 @@ presented. Note that both cases present a boundary determined only by points
 obtained using Kendall's covariance matrix, suggesting that this estimation is
 overall better.
 
-\begin{figure}[H]
+\begin{figure}
   \centering \includegraphics[width=0.8\textwidth]{figs/author-scatter.pdf}
   \caption{Pareto boundaries for covariance matrices (authors' metric).}
   \label{fig:paretocova}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
   \centering \includegraphics[width=0.8\textwidth]{figs/fro-scatter.pdf}
   \caption{Pareto boundaries for covariance matrices (Frobenius metric).}
   \label{fig:paretocovf}
@@ -858,7 +872,7 @@ and, same as the results in previous section, the points obtained by Kendall's
 matrix are non-dominated solutions on the estimated Pareto boundary, which also
 confirms that this estimation performs better than the other ones.
 
-\begin{figure}[H]
+\begin{figure}
   \centering \includegraphics[width=0.8\textwidth]{figs/noise-scatter.pdf}
   \caption{Pareto boundaries for inputs with noise.}
   \label{fig:paretonoise}
