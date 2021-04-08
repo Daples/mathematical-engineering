@@ -435,7 +435,7 @@ points.
 
 \subsubsection{Frobenius}
 An $m \times n$ matrix $\mathbf{A}$ can be consider as a particular kind of
-vector $x = \mathbf{A} \in \R^{m\cdot n}$, and its norm is any function that maps
+vector $x = \mathbf{A} \in \R^{(m\cdot n)}$, and its norm is any function that maps
 $\mathbf{A}$ to a real number $\norm{\mathbf{A}}$. In this order of ideas, if we
 treat the $m \times n$ elements of $\mathbf{A}$ as the elements of an
 $(m\cdot n)-$dimensional vector, then the $p-$norm of this vector can be used as the
@@ -483,11 +483,11 @@ now presented:
 
 \subsubsection{Maximum Likelihood Estimation}
 
-The maximum likelihood estimation (with the unbiased correction factor) of this
+The maximum likelihood estimation (with the bias correction factor) of the
 covariance matrix is given by
 %
 \begin{equation}
-  \mathbf{C}_{R}=\frac{1}{n-1} \sum_{k=1}^{n}\left(\mathbf{z}_{k}-\boldsymbol{\mu}\right)\left(\mathbf{z}_{k}-\boldsymbol{\mu}\right)^{T}
+  \mathbf{C}_{R}=\frac{1}{n-1} \sum_{k=1}^{n}\left(\mathbf{z}_{k}-\boldsymbol{\mu}\right)\left(\mathbf{z}_{k}-\boldsymbol{\mu}\right)^{T},
 \end{equation}
 %
 where $\boldsymbol{\mu}$ is the mean vector of the features inside the region.
