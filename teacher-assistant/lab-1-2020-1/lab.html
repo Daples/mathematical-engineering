@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Programming Lab 1</title>
+  </head>
+  <body>
+    <h1 style="text-align:center;">Programming Lab 1:
+      Simulating Pushdown Automata</h1>
+
+    <h3>TA: Juan Sebastián Cárdenas-Rodríguez</h3>
+
+    <h3>Introduction</h3>
+    <p>Finite automata only represent regular languages, hence it is
+    important to know a model that allow to represent non-regular
+    languages. One such model are the Pushdown Automaton (PDA)
+    [Hopcroft, Motwani and Ullman 2007]. The goal of this programming
+    lab is to simulate a PDA.</p>
+
+    <p>PDA can be deterministic or non-deterministic. Furthermore, PDA
+    can accept by final state or accept by empty stack. In this
+    programming lab, the non-deterministic PDA that accept by final
+    state are going to be considered [Sections 6.1.1 - 6.2.1,
+    Hopcroft, Motwani and Ullman 2007].</p>
+
+    <h3>Assignment (70%)</h3>
+    <ul>
+      <li>
+        <p>Download the <a href="https://github.com/">GitHub</a>
+        repository <a
+        href="https://github.com/afl-eafit/2020-1-lab1">2020-1-lab1</a>.</p>
+      </li>
+
+      <li>
+        <p>(60%) Using the data type in the above repository define the
+        function:</p>
+        <pre> simPDA :: PushDownAutomata state symbol ssymbol -> [symbol] -> Bool </pre>
+        <p>that takes a pushdown automaton and a list of symbols and
+        returns if the string of symbols belong or does not belong to
+        the language of the automaton.</p>
+        <p></p>
+
+        <p>Suggestion: Use the <a href="https://bit.ly/39TK0rE">
+        Stack</a> data type.</p>
+      </li>
+
+      <li>
+        <p>(10%) To document (in English) your source
+        code. Documentation should explain your solution for the
+        assignment.</p>
+      </li>
+    </ul>
+
+    <h3>Examples</h3>
+    <p>Using the <code>PushDownAutomata.hs</code> module in the above
+    GitHub repository, this is what a sample input-output looks
+    like:</p>
+    <pre>
+      GHCi&gt; simPDA pda1 []
+      True
+
+      GHCi&gt; simPDA pda1 [1]
+      False
+
+      GHCi&gt; simPDA pda1 [0,1,1,0]
+      True
+
+      GHCi&gt; simPDA pda1 [0,1,1,1,0,0,1,1,1,0]
+      True
+
+      GHCi&gt; simPDA pda2 "aaaab"
+      False
+
+      GHCi&gt; simPDA pda2 "aabb"
+      True
+
+      GHCi&gt; simPDA pda3 "aabb"
+      False
+
+      GHCi&gt; simPDA pda3 "aaaaaabbbbbbbbb"
+      True
+    </pre>
+
+    <h3>Requirements (10%)</h3>
+
+    <ul>
+      <li>The programming lab may either be solved on your own, or
+      jointly with one other student taking the course.</li>
+
+      <li> You are to use GHCi ≥ 8.6.5. See <a
+      href="https://www.haskell.org/downloads/">installing a proper
+      Haskell distribution</a>.</li>
+
+      <li> (5%) Your lab will be tested using the <code>-Wall</code>,
+      <code>-Wmissing-local-signatures</code> and
+      <code>-Wmissing-signatures</code> options.</li>
+
+      <li>(5%) Improve your implementation with <a
+          href="https://hackage.haskell.org/package/hlint">HLint</a> ≥
+          3.1.</li>
+    </ul>
+
+    <h3>Clean code (5%)</h3>
+    <p>Before submitting your code, which includes your
+    <tt>README</tt> file (see below), clean it up:</p>
+
+    <ul>
+      <li>Does not have long lines (at most 80 columns).</li>
+
+      <li>Has an uniformly indentation (we recommended two
+      characters).</li>
+
+      <li>Has a consistent layout.</li>
+
+      <li>Has type signatures for everything (included
+      <code>where</code>-clauses and
+      <code>let</code>-definitions).</li>
+
+      <li>Has no junk (unused code, commented code, unnecessary
+      code).</li>
+
+      <li>Has no overly complicated function definitions.</li>
+
+      <li>Does not contain any repetitive code.</li>
+
+      <li>Has no tabs.</li>
+
+      <li>Has no unnecessary spaces at the end of a line, or empty
+      lines at the end of a file. (See: <a
+      href="http://www1.eafit.edu.co/asr/tips-and-tricks.html#
+      fixing-trailing-whitespace-issues"> Fixing trailing whitespace
+      issues with Emacs</a>).</li>
+
+      <li>Has spell-checked comments.</li>
+    </ul>
+
+    <h3>Programming labs warm-up (10%)</h3>
+
+    <h3>Submission (5%)</h3>
+    <p>Submission is via <a href="https://github.com">GitHub</a>:</p>
+
+    <ul>
+      <li>To create a <em>private</em> repository in GitHub. The name
+      of the repository must be <code>cm0881-lab1</code>.</li>
+
+      <li>Share the repository with your lecturer (user
+      <code>@asr</code>) and your TA (user
+      <code>@juanscr</code>).</li>
+
+      <li>To add to the repository in a directory/folder called
+      <code>src</code>, a Haskell module file with your solution for
+      the assignment in a file called <code>SimPDA.hs</code>.</li>
+
+      <li>To add to the root of the repository a
+      <code>README.md</code> file in English containing at least the
+      following information:
+
+      <ul>
+        <li>Your name(s).</li>
+
+        <li>A general description of your program.</li>
+
+        <li>Information on how to use your program.</li>
+
+        <li>GHC and/or Haskell platform versions used.</li>
+        </ul>
+      </li>
+
+      <li>Do not include any other files in the repository.</li>
+    </ul>
+
+    <h3>Bonus points (10%)</h3>
+    <p>To use GHC 8.8.3 released 24 February 2020.</p>
+
+    <h3>Bibliography</h3>
+    <ul>
+      <li>K. J. E. Hopcroft, R. Motwani, and J. D. Ullman
+      (2007). Introduction to Automata Theory, Languages, and
+      Computation. 3rd edition. Pearson Education.
+      </li>
+    </ul>
+
+    <hr />
+
+    <table style="width:100%">
+      <tr>
+        <td><a href=
+        "http://www1.eafit.edu.co/asr/courses/cm0081-automata/">
+        CM0081 Automata and Formal Languages</a></td> <td
+        style="text-align:right;"><a
+        href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML
+        1.1" height="31" width="88" /></a></td>
+      </tr>
+    </table>
+  </body>
+</html>

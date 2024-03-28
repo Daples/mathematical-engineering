@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Strings of DFA</title>
+  </head>
+
+  <body>
+    <div style="text-align: center;">
+      <h1>Programming Lab 1: Number Strings of an Arbitrary Size</h1>
+    </div>
+
+    <h3>TA: Juan Sebastián Cárdenas-Rodríguez</h3>
+
+    <h3>Introduction</h3>
+
+    <p>A Deterministic Finite Automata (DFA) are finite automata that can only
+    be at one state at a time. Furthermore, regular languages are exactly the
+    ones described by finite automata [Hopcroft, Motwani and Ullman 2007].</p>
+
+    <p>The goal of this programming lab is to construct a function that finds
+    how many strings of an arbitrary size belong to the language of a DFA.</p>
+
+    <h3>Assignment (70%)</h3>
+
+    <ul>
+      <li><p>Download the <a href="https://bit.ly/2FamiO5">GitHub</a>
+      repository <a href="https://bit.ly/3jUg7fR">2020-2-lab1</a></p></li>
+
+      <li><p>(30%) Using the data type in the above repository define the
+      function:</p>
+
+        <code>stringsOfDFA :: DFA s c -> Int -> Int</code>
+
+      <p>that takes a DFA and an integer number <tt>n</tt> and returns how many
+        words of size <tt>n</tt> belong to the language of the given DFA.</p>
+
+      <p>Suggestion: Use a similar strategy as Theorem 3.4 of the guide book of
+      the course [Hopcroft, Motwani and Ullman 2007].</p></li>
+
+      <li><p>(30%) Oral explanation of your solution.</p></li>
+
+      <li> (10%)
+        <ul>
+          <li>Your lab will be tested using the <code>-Wall</code>,
+          <code>-Wmissing-signatures</code> and
+          <code>-Wmissing-local-signatures</code>.</li>
+
+          <li>Document (in English) your source code. The
+          documentation should explain your solution for the
+          assignment.</li>
+
+          <li>Improve your implementation with <a
+          href="https://hackage.haskell.org/package/hlint">HLint</a> ≥
+          3.1.</li>
+        </ul>
+      </li>
+
+      <li><p>The programming lab may either be solved on your own, or
+      jointly with one other student taking the course.</p></li>
+
+      <li><p>You are to use GHC ≥ 8.10.1.
+      See <a href="https://www.haskell.org/downloads/">installing a proper
+      Haskell distribution</a>.</p></li>
+    </ul>
+
+    <h3>Examples</h3>
+    <p>Using the <tt>DFA.hs</tt> module in the above repository, this is what a
+      sample input-output looks like:</p>
+
+    <pre>
+      GHCi&gt; stringsOfDFA dfa0 0
+      0
+
+      GHCi&gt; stringsOfDFA dfa1 0
+      1
+
+      GHCi&gt; stringsOfDFA dfa1 10
+      0
+
+      GHCi&gt; stringsOfDFA dfa2 0
+      1
+
+      GHCi&gt; stringsOfDFA dfa2 3
+      27
+
+      GHCi&gt; stringsOfDFA dfa2 9
+      19683
+
+      GHCi&gt; stringsOfDFA dfa3 3
+      1
+
+      GHCi&gt; stringsOfDFA dfa3 4
+      0
+
+      GHCi&gt; stringsOfDFA dfa3 12
+      1
+    </pre>
+
+    <h3>Clean Code (10%)</h3>
+
+    <p>Before submitting your code, which includes your
+    <tt>README</tt> file (see below), clean it up:</p>
+    <ul>
+      <li>Does not have long lines (at most 80 columns).</li>
+
+      <li>Has an uniformly indentation (we recommend two
+        characters).</li>
+
+      <li>Has a consistent layout.</li>
+
+      <li>Has type signatures for everything (included
+        <code>where</code>-clauses and <code>let</code>-definitions).</li>
+
+      <li>Has good comments.</li>
+
+      <li>Has no junk (unused code, commented code, unnecessary code).</li>
+
+      <li>Has no overly complicated function definitions.</li>
+
+      <li>Does not contain any repetitive code.</li>
+
+      <li>Has no tabs.</li>
+
+      <li>Has no unnecessary spaces at the end of a line, or empty lines
+        at the end of a file. (See:
+        <a href="https://bit.ly/2lV61Tu">
+          Fixing trailing whitespace issues with Emacs </a>).
+      </li>
+
+      <li>Has spell-checked comments.</li>
+    </ul>
+
+    <h3>Programming Labs Warm-Up (10%)</h3>
+
+    <h3>Submission (10%)</h3>
+    <p>Submission is via <a href="https://github.com">GitHub</a>:</p>
+
+    <ul>
+      <li>To create a <em>private</em> repository in GitHub. The name
+      of the repository must be <code>cm0081-lab1</code>.</li>
+
+      <li>Share the repository with your lecturer (user
+      <code>@asr</code>) and your TA (user
+      <code>@juanscr</code>).</li>
+
+      <li>To add to the repository in a directory/folder called
+      <code>src</code>, a Haskell module file with your solution for
+      the assignment in a file called <code>StringsOfDFA.hs</code>.</li>
+
+      <li>To add to the root of the repository a
+      <code>README.md</code> file in English containing at least the
+      following information:
+
+      <ul>
+        <li>Your name(s).</li>
+
+        <li>A general description of your program.</li>
+
+        <li>Information on how to use your program.</li>
+
+        <li>GHC and/or Haskell platform versions used.</li>
+        </ul>
+      </li>
+
+      <li>Do not include any other files in the repository.</li>
+    </ul>
+
+    <h3>Bibliography</h3>
+    <ul>
+    <li><p>J. E. Hopcroft, R. Motwani, and J. D. Ullman
+    (2007). Introduction to Automata Theory, Languages, and
+    Computation. 3rd edition. Pearson Education.</p></li>
+    </ul>
+
+    <hr/>
+
+    <table style="width:100%">
+      <tr>
+        <td><a href=
+        "http://www1.eafit.edu.co/asr/courses/cm0081-automata/">
+        CM0081 Automata and Formal Languages</a></td>
+
+        <td style="text-align:right;"><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml11"
+        alt="Valid XHTML 1.1" height="31" width="88" /></a></td>
+      </tr>
+    </table>
+  </body>
+</html>

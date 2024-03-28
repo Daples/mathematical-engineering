@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Git Commits</title>
+  </head>
+
+  <body>
+    <div style="text-align: center;">
+      <h1>Programming Lab 2: Git Commits in a Repository</h1>
+    </div>
+
+    <h3>TA: Juan Sebastián Cárdenas-Rodríguez</h3>
+
+    <h3>Introduction</h3>
+
+    <p><a href="https://en.wikipedia.org/wiki/Git">Git</a> is a
+    distributed version-control system for tracking changes in source
+    code during software development. This tool was created by Linus
+    Torvalds and it can be used jointly with other hosting services
+    such as <a href="https://github.com">GitHub</a>. Furthermore,
+    command-line operations as commit, push, pull and so fourth are
+    one of the main features of Git that allows for an easier and
+    flexible source code management and control.</p>
+
+    <p>In this programming lab you are expected to extract some
+    attributes for each commit done in the <a
+    href="https://github.com/Atom/atom">Atom</a> project, and save it
+    in a <a
+    href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+    file to better process this information.</p>
+
+    <p>To extract the commits in the desired format, clone the Github
+    repository of the <a href="https://github.com/Atom/atom">Atom</a>
+    project and run the following command in a terminal inside the
+    cloned repository:</p>
+
+    <code>git rev-list --all --pretty=raw --dense --no-abbrev >
+      atomCommits.txt</code>
+
+    <h3>Assignment (80%)</h3>
+
+    <p>Using all commits available in the Atom GitHub repository write
+    a program that does the following:</p>
+    <ul>
+      <li><p>(35%) Read the file <tt>atomCommits.txt</tt>, parse it,
+      and create a CSV file <tt>atomCommits.csv</tt> with the
+      format:</p>
+
+        <code>&lt;Author&gt;,&lt;Committer&gt;,&lt;Author
+        Email&gt;,&lt;Commit ID&gt;,&lt;Parent&gt;,&lt;GPG
+        Signed?&gt;,&lt;Commit Message&gt;</code>
+
+      <p>If there is no information available for a given attribute
+      the corresponding field should be left blank. Furthermore, if
+      the email is a local address instead of an email account it
+      should be also left in blank.</p>
+
+       <p>You might find the libraries
+        <a href="https://hackage.haskell.org/package/cassava">
+          cassava</a> and
+        <a href="http://hackage.haskell.org/package/regex-tdfa">
+          regex-tdfa</a> useful.</p>
+      </li>
+
+      <li><p>(35%) Oral explanation of your solution.</p></li>
+
+      <li>(10%)
+        <ul>
+          <li>Your lab will be tested using the <code>-Wall</code>,
+          <code>-Wmissing-signatures</code> and
+          <code>-Wmissing-local-signatures</code>.</li>
+
+          <li>Document (in English) your source code. The
+          documentation should explain your solution for the
+          assignment.</li>
+
+          <li>Improve your implementation
+          with <a href="https://hackage.haskell.org/package/hlint">HLint</a> ≥
+          3.2.1</li>
+        </ul>
+      </li>
+
+      <li><p>The programming lab may either be solved on your own, or
+      jointly with one other student taking the course.</p></li>
+
+      <li><p>You are to use GHC ≥ 8.10.1.
+      See <a href="https://www.haskell.org/downloads/">installing a proper
+      Haskell distribution</a>.</p></li>
+    </ul>
+
+    <h3>Example</h3>
+    <pre>
+    $ ghc -Wall -Wmissing-signatures -Wmissing-local-signatures -o getInfo GetCommitsInfo.hs
+    $ ./getInfo atomCommits.txt atomCommits.csv
+    $ head atomCommits.csv
+      Author,Committer,Author Email,Commit ID,Parent,GPG Signed?,Commit Message
+      runner,runner,,8f9d097189992d083f2c68226f0e875eb2dd0a1e,dd2e6ca2ab6833f049200bbda519faa2a975f5ff,No,:arrow_up: focus-trap@6.1.4
+      Sadick,Github,sadickjunior@gmail.com,dd2e6ca2ab6833f049200bbda519faa2a975f5ff,13e53d25c755dab870605953f8c42cefd9d9de8b,Yes,Merge pull request #21589 from atom/temp-0.9.2
+      runner,runner,,9c346f3cf3672c0ebb2c21111209f29d51f0fba2,13e53d25c755dab870605953f8c42cefd9d9de8b,No,:arrow_up: temp@0.9.2
+      Atom Build Bot,Github,atom@github.com,13e53d25c755dab870605953f8c42ceb7105709b,64a92c2d818d1059bab682af98790aab9066f31d,Yes,:arrow_up: spell-check@0.76.2 (#21573)
+    </pre>
+
+    <h3>Clean code (10%)</h3>
+
+    <p>Before submitting your code, which includes your
+    <tt>README</tt> file (see below), clean it up:</p>
+    <ul>
+      <li>Does not have long lines (at most 80 columns).</li>
+
+      <li>Has an uniformly indentation (we recommend two
+        characters).</li>
+
+      <li>Has a consistent layout.</li>
+
+      <li>Has type signatures for everything (included
+        <code>where</code>-clauses and <code>let</code>-definitions).</li>
+
+      <li>Has good comments.</li>
+
+      <li>Has no junk (unused code, commented code, unnecessary code).</li>
+
+      <li>Has no overly complicated function definitions.</li>
+
+      <li>Does not contain any repetitive code.</li>
+
+      <li>Has no tabs.</li>
+
+      <li>Has no unnecessary spaces at the end of a line, or empty lines
+        at the end of a file. (See:
+        <a href="https://bit.ly/2lV61Tu">
+          Fixing trailing whitespace issues with Emacs </a>).
+      </li>
+
+      <li>Has spell-checked comments.</li>
+    </ul>
+
+    <h3>Submission (10%)</h3>
+    <p>Submission is via <a href="https://github.com">GitHub</a>:</p>
+
+    <ul>
+      <li>To create a <em>private</em> repository in GitHub. The name of the
+      repository must be <code>cm0081-lab2</code>.</li>
+
+      <li>Share the repository with your lecturer (user
+      <code>@asr</code>) and your TA (user
+      <code>@juanscr</code>).</li>
+
+      <li>To add to the repository in a directory/folder called
+      <code>src</code>, a Haskell module file with your solution for
+      the assignment in a file called <code>GetCommitsInfo.hs</code>.</li>
+
+      <li>To add to the root of the repository a
+      <code>README.md</code> file in English containing at least the
+      following information:
+
+      <ul>
+        <li>Your name(s).</li>
+
+        <li>A general description of your program.</li>
+
+        <li>Information on how to use your program.</li>
+
+        <li>GHC and/or Haskell platform versions used.</li>
+
+        <li>HLint version and operating system information.</li>
+        </ul>
+      </li>
+
+      <li>Do not include any other files in the repository.</li>
+    </ul>
+
+
+    <hr/>
+
+    <table style="width:100%">
+      <tr>
+        <td><a href=
+        "http://www1.eafit.edu.co/asr/courses/cm0081-automata/">
+        CM0081 Automata and Formal Languages</a></td>
+
+        <td style="text-align:right;"><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a></td>
+      </tr>
+    </table>
+  </body>
+</html>
